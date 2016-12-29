@@ -1,0 +1,60 @@
+/*!
+ *
+ * Centric - Bootstrap Admin Template
+ *
+ * Version: 1.4.2
+ * Author: @themicon_co
+ * Website: http://themicon.co
+ * License: https://wrapbootstrap.com/help/licenses
+ *
+ */
+
+//
+// This file is included before any other
+//
+
+@charset "UTF-8";
+// Roboto font from Google
+@import url("//fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,700");
+
+@import "bootstrap/reset";
+@import "cards/cards";
+@import "charts/easypiechart";
+@import "charts/sparkline";
+@import "charts/flot";
+@import "colors/colors";
+@import "common/animate";
+@import "common/buttons-extra";
+@import "common/dropdown-extra";
+@import "common/grid-extra";
+@import "common/modal";
+@import "common/spinner";
+@import "common/themes";
+@import "common/typography";
+@import "common/ui.checkbox-radio";
+@import "common/ui.note-area";
+@import "core/layout";
+@import "core/layout-variants";
+@import "elements/grid-masonry";
+@import "elements/list";
+@import "elements/nestable";
+@import "floatbutton/floatbutton";
+@import "forms/dropzone";
+@import "forms/editor";
+@import "forms/forms.advanced";
+@import "forms/material";
+@import "forms/validation";
+@import "forms/wizard";
+@import "forms/xeditable";
+@import "header/header.menu-links";
+@import "header/header";
+@import "maps/google-map";
+@import "maps/vector-map";
+@import "pages/pages";
+@import "pages/timeline";
+@import "ripple/ripple";
+@import "settings/settings";
+@import "sidebar/sidebar";
+@import "tables/bootgrid";
+@import "tables/datatable";
+@import "utils/utils";
