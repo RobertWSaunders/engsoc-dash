@@ -1,6 +1,10 @@
-
+// makes bootstrap compatible with pipeline
 @import "bootstrap-sprockets";
+// bootstrap gem
 @import "bootstrap";
+// from the ionicons gem
 @import 'ionicons';
+// from the font awesome gem
 @import "font-awesome";
+// from the centric folder in vendor
 @import "centric/app";
