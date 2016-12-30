@@ -38,6 +38,8 @@ gem "jquery-validation-rails"
 gem 'rails-jquery-steps'
 # Fixes binding events caused by turbolinks
 gem 'jquery-turbolinks'
+# Used in centric
+gem "select2-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
