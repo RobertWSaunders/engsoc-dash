@@ -1,1 +1,33 @@
-<h1>Jobs</h1>
+
+
+<div class="container-fluid">
+<% @jobs.each do |job| %>
+        <div class="card">
+          <div class="card-heading">
+            <div class="pull-right dropdown">
+              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                <li>
+                  <%= link_to "Edit Job", edit_job_path(job) %>
+                </li>
+                <li>
+                  <%= link_to "Edit Job", edit_job_path(job) %>
+                </li>
+                <li>
+                  <%= link_to "Delete Job", edit_job_path(job) %>
+                </li>
+              </ul>
+            </div>
+            <div class="card-title"><%= job.title %></div>
+          </div>
+
+          <div class="card-body pt0">
+            <p><%= job.description %></p>
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-flat btn-primary">LEARN MORE</button>
+          </div>
+        </div>
+<% end %>
+  <%= will_paginate @jobs %>
+</div>

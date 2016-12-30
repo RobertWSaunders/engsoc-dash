@@ -40,6 +40,8 @@ gem 'rails-jquery-steps'
 gem 'jquery-turbolinks'
 # Used in centric
 gem "select2-rails"
+# use pagination for various different views
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
