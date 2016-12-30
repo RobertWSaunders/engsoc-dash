@@ -11,7 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require bootstrap-sprockets
+//= require centric/app
+//= require jquery.validate
+//= require jquery.validate.additional-methods
+//= require jquery.steps
+//= require_tree .

@@ -28,7 +28,16 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
-
+# Use ion icons throughout the application
+gem 'ionicons-rails'
+# Use font awesome throughtout the application
+gem "font-awesome-rails"
+# Used in centric javascript library
+gem "jquery-validation-rails"
+# Used in centric javascript library
+gem 'rails-jquery-steps'
+# Fixes binding events caused by turbolinks
+gem 'jquery-turbolinks'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
