@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
 
-  $title = "Jobs"
-  
+
+
   before_action :set_user, only: [:show, :destroy, :edit, :update]
 
   def index
