@@ -10,16 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161231201711) do
+ActiveRecord::Schema.define(version: 20170101223405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "job_applications", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "user_id"
+    t.integer  "job_posting_id"
+  end
+
+  create_table "job_postings", force: :cascade do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "status",      default: 0
+    t.string   "description"
+    t.integer  "job_id"
+  end
 
   create_table "jobs", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "title"
     t.string   "description"
+  end
+
+  create_table "jobs_users", force: :cascade do |t|
+    t.integer "job_id"
+    t.integer "user_id"
+    t.index ["job_id"], name: "index_jobs_users_on_job_id", using: :btree
+    t.index ["user_id"], name: "index_jobs_users_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
