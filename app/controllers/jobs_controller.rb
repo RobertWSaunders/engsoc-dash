@@ -1,13 +1,9 @@
 class JobsController < ApplicationController
-<<<<<<< HEAD
+
   load_and_authorize_resource
-=======
-
-
 
   before_action :set_user, only: [:show, :destroy, :edit, :update]
 
->>>>>>> implement-jobs
   def index
     @jobs = Job.paginate(:page => params[:page], :per_page => 5)
   end
