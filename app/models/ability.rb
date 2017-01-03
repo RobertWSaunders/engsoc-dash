@@ -17,12 +17,12 @@ class Ability
     # retreive the user
     user ||= User.new
     # super admins can perform any action on any object
-    if user.superadmin_role?
+    if user.superadmin?
       can :manage, :all
     # admins can perform any action on specified objects
-  elsif user.admin_role?
+  elsif user.admin?
       can :manage, [Job,JobPosting,JobApplication]
-  elsif user.management_role?
+  elsif user.management?
       can :create, [JobPosting]
   else
       can :read, :all
