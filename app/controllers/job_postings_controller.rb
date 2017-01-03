@@ -6,6 +6,9 @@ class JobPostingsController < ApplicationController
     @jobpostings = JobPosting.order(:deadline).paginate(:page => params[:page], :per_page => 5)
   end
 
+  def show
+  end
+  
   private
 
   # define the jpbs parameters

@@ -1,0 +1,55 @@
+<% content_for :title, "Job Postings" %>
+
+<div class="container container-fluid">
+  <!-- Breadcrumb next to view title-->
+    <ul class="breadcrumb breadcrumb-lead">
+      <li>
+        <%= link_to "Job Postings", job_postings_path %>
+      </li>
+      <li class="active">
+        <%= link_to job_postings_path do %>
+          <%= @jobposting.job.title %>
+        <% end %>
+      </li>
+    </ul>
+
+<div class="container container-md">
+  <div class="card">
+    <div class="card-heading">
+      <!-- START dropdown-->
+      <div class="pull-right dropdown">
+        <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+        <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+          <li>
+            <%= link_to "View Applicants", job_postings_path %>
+          </li>
+          <li>
+            <%= link_to "Edit Posting", job_postings_path %>
+          </li>
+          <li>
+            <%= link_to "Delete Posting", job_postings_path %>
+          </li>
+        </ul>
+      </div>
+      <!-- END dropdown-->
+    </div>
+    <div class="card-body pt0">
+      <h4 class="mt0"><%= @jobposting.job.title %></h4>
+      <p>
+        Application Deadline: <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %>
+      </p>
+      <p>
+        Department: Information Technology
+      </p>
+      <br />
+      <p>
+        <%= @jobposting.job.description %>
+      </p>
+    </div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-flat btn-primary">Apply Now</button>
+    </div>
+  </div>
+</div>
+
+</div>

@@ -22,6 +22,7 @@
 .bg-blue-500 { @include make-bg($mdc-blue-500); }
 .bg-blue-grey-900 { @include make-bg($mdc-blue-grey-900); }
 .bg-red-500 { @include make-bg($mdc-red-500); }
+.bg-purple-50 { @include make-bg($mdc-purple-50); }
 
 // White color for some backgrounds
 .bg-primary,
