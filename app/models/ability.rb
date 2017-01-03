@@ -21,8 +21,10 @@ class Ability
       can :manage, :all
     # admins can perform any action on specified objects
   elsif user.admin_role?
-      can :manage, [Job,JobPosting]
-    elses
+      can :manage, [Job,JobPosting,JobApplication]
+  elsif user.management_role?
+      can :create, [JobPosting]
+  else
       can :read, :all
     end
   end

@@ -1,0 +1,61 @@
+<!-- can assume user has already been authorized as an admin -->
+<!-- container for the page -->
+<div class="container container-fluid">
+    <div class="mb-lg text-right">
+        <button type="button" class="btn btn-default">
+          <em class="ion-plus mr-sm"></em>Add Job Posting
+        </button>
+    </div>
+
+<!-- main container for job postings -->
+<div class="container-fluid container-md">
+  <div class="card">
+    <div class="card-body">
+      <p class="lead">Waiting Approval</p>
+      <ul class="list-group">
+        <!-- iterate through all of the open job postings -->
+        <% @approval_job_postings.each do |posting| %>
+          <li class="list-group-item">
+            <!-- show dropdown if the user is allowed to manage it, probably redundant with admin console -->
+            <% if can? :manage, posting %>
+              <div class="pull-right dropdown">
+                <div class="label label-warning">pending approval</div>
+                <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+                <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                  <li>
+                    <%= link_to "Approve", job_postings_path %>
+                  </li>
+                  <li>
+                    <%= link_to "Edit Posting", job_postings_path %>
+                  </li>
+                  <li>
+                    <%= link_to "Delete Posting", job_postings_path %>
+                  </li>
+                </ul>
+              </div>
+            <% end %>
+            <!-- show the job title and link to the job posting detail -->
+            <h5 class="mb-sm">
+              <%= link_to job_posting_path(posting), class: "ripple" do %>
+                <%= posting.job.title %>
+              <% end %>
+            </h5>
+            <!-- display the application deadline -->
+            <p class="text-soft">
+                Application Deadline: <%= distance_of_time_in_words(Time.now, posting.deadline) %>
+            </p>
+            <!-- show the truncated job posting description -->
+            <p>
+              <%= h truncate(posting.description, :length => 270) %>
+            </p>
+          </li>
+        <% end %>
+      </ul>
+      <center>
+        <!-- show the paginator for the will_paginate gem -->
+        <%= will_paginate @approval_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br />
+      </center>
+    </div>
+  </div>
+</div>
+</div>

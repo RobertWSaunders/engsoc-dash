@@ -1,11 +1,18 @@
 <% content_for :title, "Dashboard" %>
 
-<!-- page header -->
-<div class="content-heading bg-white">
-  <div class="row">
-    <div class="col-sm-9">
-      <h4 class="m0 text-thin">Welcome to your dashboard</h4><small>The central place for Engineering Society stuff</small>
-    </div>
+<ul id="myTabs" role="tablist" class="nav nav-tabs nav-justified">
+  <li role="presentation" class="active"><a id="home-tab" href="#home" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a></li>
+  <li role="presentation"><a id="profile-tab" href="#profile" role="tab" data-toggle="tab" aria-controls="profile">Profile</a></li>
+  <li role="presentation" class="dropdown"><a id="profile-tab" href="#messages" role="tab" data-toggle="tab" aria-controls="messages">Messages</a></li>
+</ul>
+<div id="myTabContent" class="tab-content text-center">
+  <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade in active">
+    <h4>Home view</h4>
+  </div>
+  <div id="profile" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade">
+    <h4>Profile view</h4>
+  </div>
+  <div id="messages" role="tabpanel" aria-labelledby="messages-tab" class="tab-pane fade">
+    <h4>Messages view</h4>
   </div>
 </div>
-<h1>test</h1>

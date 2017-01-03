@@ -1,55 +1,26 @@
 <!-- define title for the page -->
 <% content_for :title, "Job Postings" %>
 
-<!-- container for the page -->
-<div class="container container-fluid">
-  <div class="mb-lg">
-    <form role="form">
-      <div class="mda-form-control">
-        <input type="text" placeholder="Search Job Title, Department, etc..." class="form-control input-lg">
-      </div>
-    </form>
+<!-- show tabs for admins -->
+<% if can? :manage, JobPosting %>
+  <div style="background-color:white;">
+    <ul id="myTabs" role="tablist" class="nav nav-tabs nav-justified">
+      <li role="presentation" class="active">
+        <a id="home-tab" href="#home" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">General</a>
+      </li>
+      <li role="presentation">
+        <a id="profile-tab" href="#profile" role="tab" data-toggle="tab" aria-controls="profile">Admin</a>
+      </li>
+    </ul>
   </div>
-  <div class="container-fluid container-md">
-    <div class="card">
-      <div class="card-body">
-        <ul class="list-group">
-          <% @jobpostings.each do |posting| %>
-            <li class="list-group-item">
-              <% if can? :manage, posting %>
-                <div class="pull-right dropdown">
-                  <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-                  <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                    <li>
-                      <%= link_to "View Applicants", job_postings_path %>
-                    </li>
-                    <li>
-                      <%= link_to "Edit Posting", job_postings_path %>
-                    </li>
-                    <li>
-                      <%= link_to "Delete Posting", job_postings_path %>
-                    </li>
-                  </ul>
-                </div>
-              <% end %>
-              <h5 class="mb-sm">
-                <%= link_to job_posting_path(posting), class: "ripple" do %>
-                  <%= posting.job.title %>
-                <% end %>
-              </h5>
-                <p class="text-soft">
-                    Application Deadline: <%= distance_of_time_in_words(Time.now, posting.deadline) %>
-                </p>
-                <p>
-                  <%= h truncate(posting.description, :length => 270) %>
-                </p>
-            </li>
-          <% end %>
-        </ul>
-        <center>
-          <%= will_paginate @jobpostings, renderer: BootstrapPagination::Rails, page_links: false %><br />
-        </center>
-      </div>
+  <div id="myTabContent" class="tab-content">
+    <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade in active">
+      <%= render "general_index" %>
+    </div>
+    <div id="profile" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade">
+      <%= render "admin_index" %>
     </div>
   </div>
-</div>
+<% else %>
+  <%= render "general_index" %>
+<% end %>

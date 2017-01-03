@@ -39,6 +39,9 @@
         Application Deadline: <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %>
       </p>
       <p>
+        Job Type: <%= @jobposting.job.job_type.titleize %>
+      </p>
+      <p>
         Department: Information Technology
       </p>
       <br />
