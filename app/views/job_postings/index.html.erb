@@ -38,7 +38,7 @@
                 <% end %>
               </h5>
                 <p class="text-soft">
-                    Application Deadline: <%= distance_of_time_in_words(Time.now, Time.now) %>
+                    Application Deadline: <%= distance_of_time_in_words(Time.now, posting.deadline) %>
                 </p>
                 <p>
                   <%= h truncate(posting.description, :length => 270) %>
@@ -49,10 +49,8 @@
         <center>
           <%= will_paginate @jobpostings, renderer: BootstrapPagination::Rails, page_links: false %><br />
           <%= page_entries_info @jobpostings %>
-
         </center>
-
-        </div>
       </div>
     </div>
+  </div>
 </div>

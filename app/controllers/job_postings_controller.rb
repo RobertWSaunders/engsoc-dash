@@ -3,7 +3,7 @@ class JobPostingsController < ApplicationController
   before_action :set_job_posting, only: [:show, :destroy, :edit, :update]
 
   def index
-    @jobpostings = JobPosting.paginate(:page => params[:page], :per_page => 5)
+    @jobpostings = JobPosting.order(:deadline).paginate(:page => params[:page], :per_page => 5)
   end
 
   private
