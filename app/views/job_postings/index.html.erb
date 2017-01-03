@@ -2,24 +2,36 @@
 <% content_for :title, "Job Postings" %>
 
 <!-- show tabs for admins -->
-<% if can? :manage, JobPosting %>
+<% if can? :create, JobPosting %>
   <div style="background-color:white;">
     <ul id="myTabs" role="tablist" class="nav nav-tabs nav-justified">
       <li role="presentation" class="active">
-        <a id="home-tab" href="#home" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">General</a>
+        <a id="general-tab" href="#general" role="tab" data-toggle="tab" aria-controls="general" aria-expanded="true">General</a>
       </li>
-      <li role="presentation">
-        <a id="profile-tab" href="#profile" role="tab" data-toggle="tab" aria-controls="profile">Admin</a>
-      </li>
+      <% if can? :manage, JobPosting %>
+        <li role="presentation">
+          <a id="admin-tab" href="#admin" role="tab" data-toggle="tab" aria-controls="admin">Admin</a>
+        </li>
+      <% else %>
+        <li role="presentation">
+          <a id="management-tab" href="#management" role="tab" data-toggle="tab" aria-controls="management">Management</a>
+        </li>
+      <% end %>
     </ul>
   </div>
   <div id="myTabContent" class="tab-content">
-    <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade in active">
+    <div id="general" role="tabpanel" aria-labelledby="general-tab" class="tab-pane fade in active">
       <%= render "general_index" %>
     </div>
-    <div id="profile" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade">
-      <%= render "admin_index" %>
-    </div>
+    <% if can? :manage, JobPosting %>
+      <div id="admin" role="tabpanel" aria-labelledby="admin-tab" class="tab-pane fade">
+        <%= render "admin_index" %>
+      </div>
+    <% else %>
+      <div id="management" role="tabpanel" aria-labelledby="management-tab" class="tab-pane fade">
+        <%= render "management_index" %>
+      </div>
+    <% end %>
   </div>
 <% else %>
   <%= render "general_index" %>

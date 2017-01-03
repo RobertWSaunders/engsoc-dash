@@ -5,7 +5,7 @@ class JobPostingsController < ApplicationController
   def index
     # retrieve only the
     @open_job_postings = JobPosting.where(status: 1).order(:deadline).paginate(:page => params[:page], :per_page => 5)
-    @approval_job_postings = JobPosting.where(status: 0).order(:deadline).paginate(:page => params[:page], :per_page => 5)
+    @approval_job_postings = JobPosting.where(status: 0)
     @interviewing_job_postings = JobPosting.where(status: 2).order(:deadline)
     @closed_job_postings = JobPosting.where(status: 3).order(:deadline)
   end

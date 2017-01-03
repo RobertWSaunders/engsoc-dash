@@ -1,14 +1,5 @@
 <!-- container for the page -->
 <div class="container container-fluid">
-  <!-- check if can submit job postings for approval -->
-  <% if can? :create, JobPosting %>
-    <div class="mb-lg text-right">
-        <!-- no point to show the submit job posting button for admins -->
-        <% if cannot? :manage, JobPosting %>
-          <button type="button" class="btn btn-default"><em class="ion-plus mr-sm"></em>Submit Job Posting</button>
-        <% end %>
-    </div>
-  <% end %>
 
   <!-- add search bar -->
   <div class="mb-lg">
