@@ -2,7 +2,7 @@ class JobsController < ApplicationController
 
   load_and_authorize_resource
 
-  before_action :set_user, only: [:show, :destroy, :edit, :update]
+  before_action :set_job, only: [:show, :destroy, :edit, :update]
 
   def index
     @jobs = Job.paginate(:page => params[:page], :per_page => 5)
@@ -24,7 +24,7 @@ class JobsController < ApplicationController
   private
 
   # define the jpbs parameters
-    def secure_params
+    def jobs_params
       params.require(:job).permit(:title, :description)
     end
 

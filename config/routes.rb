@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root to: "pages#dashboard"
   resources :profile, :controller => 'users'
   resources :jobs
+  resources :job_postings
 end
