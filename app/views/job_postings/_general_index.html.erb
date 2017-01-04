@@ -22,20 +22,26 @@
             <% @open_job_postings.each do |posting| %>
                 <li class="list-group-item">
                   <!-- show dropdown if the user is allowed to manage it, probably redundant with admin console -->
-                  <% if can? :manage, posting %>
+                  <% if can? :submit_job_postings, posting %>
                     <div class="pull-right dropdown">
-                      <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-                      <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                        <li>
-                          <%= link_to "View Applicants", job_postings_path %>
-                        </li>
-                        <li>
-                          <%= link_to "Edit Posting", job_postings_path %>
-                        </li>
-                        <li>
-                          <%= link_to "Delete Posting", job_postings_path %>
-                        </li>
-                      </ul>
+                      <div class="label label-success">open</div>
+                      <% if can? :approve_job_postings, posting %>
+                        <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+                        <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                          <li>
+                            <%= link_to "View Applicants", job_postings_path %>
+                          </li>
+                          <li>
+                            <%= link_to "Withdraw Approval", withdraw_job_posting_path(posting) %>
+                          </li>
+                          <li>
+                            <%= link_to "Edit Posting", job_postings_path %>
+                          </li>
+                          <li>
+                            <%= link_to "Delete Posting", job_postings_path %>
+                          </li>
+                        </ul>
+                      <% end %>
                     </div>
                   <% end %>
                 <!-- show the job title and link to the job posting detail -->

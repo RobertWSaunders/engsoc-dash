@@ -1,10 +1,10 @@
 class JobPostingsController < ApplicationController
 
-  before_action :set_job_posting, only: [:show, :destroy, :edit, :update]
+  before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw]
 
   def index
     # retrieve only the
-    @open_job_postings = JobPosting.where(status: 1).order(:deadline).paginate(:page => params[:page], :per_page => 5)
+    @open_job_postings = JobPosting.where(status: "open").order(:deadline).paginate(:page => params[:page], :per_page => 5)
     @approval_job_postings = JobPosting.where(status: 0)
     @interviewing_job_postings = JobPosting.where(status: 2).order(:deadline)
     @closed_job_postings = JobPosting.where(status: 3).order(:deadline)
@@ -13,6 +13,16 @@ class JobPostingsController < ApplicationController
   def show
   end
 
+  def approve
+    @jobposting.status = "open"
+    @jobposting.save
+    redirect_to job_postings_path
+  end
+  def withdraw
+    @jobposting.status = "waiting_approval"
+    @jobposting.save
+    redirect_to job_postings_path
+  end
   private
 
   # define the jpbs parameters
