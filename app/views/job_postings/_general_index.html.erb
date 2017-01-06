@@ -24,7 +24,7 @@
                   <!-- show dropdown if the user is allowed to manage it, probably redundant with admin console -->
                   <% if can? :submit_job_postings, posting %>
                     <div class="pull-right dropdown">
-                      <div class="label label-success">open</div>
+                      <%= status_label(posting) %>
                       <% if can? :approve_job_postings, posting %>
                         <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
                         <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">

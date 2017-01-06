@@ -1,6 +1,10 @@
 class JobPostingsController < ApplicationController
 
+  # before any action gets fired set the job posting
   before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw]
+
+  # define the helper for the controller
+  helper :application
 
   def index
     # retrieve only the
@@ -18,11 +22,13 @@ class JobPostingsController < ApplicationController
     @jobposting.save
     redirect_to job_postings_path
   end
+
   def withdraw
     @jobposting.status = "waiting_approval"
     @jobposting.save
     redirect_to job_postings_path
   end
+
   private
 
   # define the jpbs parameters

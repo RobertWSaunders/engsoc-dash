@@ -1,33 +1,74 @@
 <% content_for :title, "Jobs" %>
 
-<div class="container-fluid">
-<% @jobs.each do |job| %>
-        <div class="card">
-          <div class="card-heading">
-            <div class="pull-right dropdown">
-              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                <li>
-                  <%= link_to "Edit Job", edit_job_path(job) %>
-                </li>
-                <li>
-                  <%= link_to "Edit Job", edit_job_path(job) %>
-                </li>
-                <li>
-                  <%= link_to "Delete Job", edit_job_path(job) %>
-                </li>
-              </ul>
-            </div>
-            <div class="card-title"><%= job.title %></div>
-          </div>
+<!-- container for the page -->
+<div class="container container-fluid">
 
-          <div class="card-body pt0">
-            <p><%= job.description %></p>
-          </div>
-          <div class="card-footer">
-            <button type="button" class="btn btn-flat btn-primary">LEARN MORE</button>
-          </div>
-        </div>
-<% end %>
-  <%= will_paginate @jobs %>
+  <!-- add search bar -->
+  <div class="mb-lg">
+    <form role="form">
+      <div class="mda-form-control">
+        <input type="text" placeholder="Search Job Title, Department, etc..." class="form-control input-lg">
+      </div>
+    </form>
+  </div>
+
+  <!-- main container for job postings -->
+  <div class="container-fluid container-md">
+    <div class="card">
+      <div class="card-body">
+        <ul class="list-group">
+          <% if @jobs.count == 0 %><br /><br />
+            <p class="lead text-center">You are currently not hired for any jobs.</p>
+          <% else %>
+            <!-- iterate through all of the open job postings -->
+            <% @jobs.each do |job| %>
+                <li class="list-group-item">
+                  <!-- show dropdown if the user is allowed to manage it, probably redundant with admin console -->
+                  <% if can? :submit_job_postings, job %>
+                    <div class="pull-right dropdown">
+
+                      <% if can? :approve_job_postings, job %>
+                        <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+                        <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                          <li>
+                            <%= link_to "View Applicants", job_postings_path %>
+                          </li>
+                          <li>
+                            <%= link_to "Withdraw Approval", withdraw_job_posting_path(job) %>
+                          </li>
+                          <li>
+                            <%= link_to "Edit Posting", job_postings_path %>
+                          </li>
+                          <li>
+                            <%= link_to "Delete Posting", job_postings_path %>
+                          </li>
+                        </ul>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <!-- show the job title and link to the job job detail -->
+                <h5 class="mb-sm">
+                  <%= link_to job_posting_path(job), class: "ripple" do %>
+                    <%= job.title %>
+                  <% end %>
+                </h5>
+                <!-- display the application deadline -->
+                <p class="text-soft">
+                    Application Deadline:
+                </p>
+                <!-- show the truncated job posting description -->
+                <p>
+                  <%= h truncate(job.description, :length => 270) %>
+                </p>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <center>
+          <!-- show the paginator for the will_paginate gem -->
+          <%= will_paginate @jobs, renderer: BootstrapPagination::Rails, page_links: false %><br />
+        </center>
+      </div>
+    </div>
+  </div>
 </div>
