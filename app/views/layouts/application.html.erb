@@ -39,12 +39,6 @@
                       <em class="ion-home icon-fw"></em>Profile
                     <% end %>
                   </li>
-                  <li>
-                    <!-- settings link -->
-                    <%= link_to destroy_user_session_path do %>
-                      <em class="ion-gear-a icon-fw"></em>Settings
-                    <% end %>
-                  </li>
                   <li role="presentation" class="divider"></li>
                   <li>
                     <!-- logout link -->
@@ -114,11 +108,8 @@
           </div>
         </div>
       </div>
-
-
-
-
     </body>
+  <!-- load the login page otherwise -->
   <% else %>
     <body>
       <%= yield %>
