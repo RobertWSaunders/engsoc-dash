@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   resources :jobs do
     # within the jobs routes, route to job applications
     resources :job_applications
-    end
   end
 
   # route to job postings
@@ -22,4 +21,5 @@ Rails.application.routes.draw do
       get 'approve'
       get 'withdraw'
     end
+end
 end
