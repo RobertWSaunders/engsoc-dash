@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   # define the jobs resources
   resources :jobs do
     # within the jobs routes, route to job applications
-    resources :job_applications
+    resources :job_applications, :controller => 'jobs/job_applications'
   end
+
+  resources :job_applications
 
   # route to job postings
   resources :job_postings do
