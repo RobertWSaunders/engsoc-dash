@@ -69,6 +69,16 @@
                     <span class="nav-icon"><em class="ion-home icon-fw"></em></span><span>Dashboard</span>
                   <% end %>
                 </li>
+                <!-- orgs link -->
+                <li><a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Organizations</span></a>
+                  <ul class="sidebar-subnav">
+                    <li>
+                      <%= link_to organizations_path, class: "ripple" do %>
+                        <span class="pull-right nav-label"></span><span>All Organizations</span>
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
                 <!-- jobs link -->
                 <li><a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-briefcase icon-fw"></em></span><span>Jobs</span></a>
                   <ul class="sidebar-subnav">

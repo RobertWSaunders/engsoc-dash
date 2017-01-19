@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'organizations/new'
+
   # devise routes for authentication
   devise_for :users
 
@@ -15,11 +17,13 @@ Rails.application.routes.draw do
     resources :job_applications
   end
 
+  resources :organizations
+
   # route to job postings
   resources :job_postings do
     member do
       get 'approve'
       get 'withdraw'
     end
-end
+  end
 end

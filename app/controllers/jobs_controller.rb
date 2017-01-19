@@ -23,7 +23,7 @@ class JobsController < ApplicationController
 
   private
 
-  # define the jpbs parameters
+  # define the jobs parameters
     def jobs_params
       params.require(:job).permit(:title, :description)
     end

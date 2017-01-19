@@ -27,3 +27,16 @@ User.create!(first_name:  "Paisley",
              email:       "student2@example",
              password:    "password",
              role:        0)
+
+Organization.create!(name:         "EngSoc IT-Team",
+                     email:        "it-team@engsoc.queensu.ca",
+                     description:  "The secret service for all your needs")
+
+11.times do |n|
+  name = "lorem ipsum org"
+  email = "lorem-#{n+1}@ipsum.com"
+  description = "lorem ipsum dolreot"
+  Organization.create!(name: name,
+                      email: email,
+                      description: description)
+end
