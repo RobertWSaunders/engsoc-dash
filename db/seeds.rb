@@ -30,7 +30,8 @@ User.create!(first_name:  "Paisley",
 
 Organization.create!(name:         "EngSoc IT-Team",
                      email:        "it-team@engsoc.queensu.ca",
-                     description:  "The secret service for all your needs")
+                     description:  "The secret service for all your needs",
+                     :users => User.where(:email => ['management@example']))
 
 11.times do |n|
   name = "lorem ipsum org"

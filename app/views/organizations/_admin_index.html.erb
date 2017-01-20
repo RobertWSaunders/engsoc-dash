@@ -6,37 +6,25 @@
     <h5>Create an Organization</h5>
     <div class="card">
       <div class="card-body">
-        <form class="form-horizontal">
-          <fieldset>
-            <div class="form-group">
-              <label for="name" class="col-sm-2 control-label">Organization Name: </label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="name">
-              </div>
-            </div>
-          </fieldset>
-          <fieldset>
-            <div class="form-group">
-              <label for="name" class="col-sm-2 control-label">Contact Email: </label>
-              <div class="col-sm-10">
-                <input type="email" class="form-control" name="email">
-              </div>
-            </div>
-          </fieldset>
-          <fieldset>
-            <div class="form-group">
-              <label for="name" class="col-sm-2 control-label">Organization Description: </label>
-              <div class="col-sm-10">
-                <textarea class="form-control" name="description" rows="4" style="resize:none"></textarea>
-              </div>
-            </div>
-          </fieldset>
-          <div class="form-group">
-            <div class="col-sm-12">
-              <button class="mb-sm btn btn-primary btn-block ripple">Create Organization</button>
-            </div>
-          </div>
-        </form>
+        <%= form_for(@organization) do |f| %>
+          <%= render 'shared/organization_error_messages' %>
+
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+
+          <%= f.label :email %>
+          <%= f.text_field :email, class: 'form-control' %>
+
+          <%= f.label :description %>
+          <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
+
+          <%= f.label :users %>
+          <%= select_tag "organization_users", options_from_collection_for_select(User.all, 'id', 'first_name',@organization.users.map { |j| j.id }), :multiple => true %>
+
+          <hr>
+
+          <%= f.submit "Create Organization", class: "btn btn-primary btn-block" %>
+        <% end %>
       </div>
     </div>
   </div>

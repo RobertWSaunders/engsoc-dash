@@ -1,0 +1,29 @@
+<% content_for :title, "Organization" %>
+
+<div class="container-overlap bg-indigo-500">
+  <div class="container container-md">
+    <h2><%= @organization.name %></h2>
+    <h4><%= @organization.email %></h4>
+  </div>
+</div>
+
+<div class="container container-md">
+  <div class="card">
+    <div class="card-body reader-block">
+      <div class="row">
+        <h3>Description</h3>
+        <p>
+          <%= @organization.description %>
+        </p>
+      </div>
+      <div class="row">
+        <% if @organization.users.any? %>
+          <h3>This has users</h3>
+        <% else %>
+          Add Users
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
