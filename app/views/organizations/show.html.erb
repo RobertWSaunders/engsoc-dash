@@ -17,10 +17,17 @@
         </p>
       </div>
       <div class="row">
+        <h3>Members</h3>
         <% if @organization.users.any? %>
-          <h3>This has users</h3>
+          <% @organization.users.each do |user| %>
+          <li>
+            <%= user.first_name %> <%= user.last_name %>
+          </li>
+          <% end %>
         <% else %>
-          Add Users
+          <div class="alert alert-warning">
+            There are currently no members in this organization.
+          </div>
         <% end %>
       </div>
     </div>
