@@ -1,2 +1,35 @@
-<h1>Organizations#new</h1>
-<p>Find me in app/views/organizations/new.html.erb</p>
+<% content_for :title, "New Organization" %>
+
+<div class="container container-fluid">
+
+  <div class="container-fluid container-md">
+    <h5>Create an Organization</h5>
+    <div class="card">
+      <div class="card-body">
+        <%= form_for(@organization) do |f| %>
+          <%= render 'shared/organization_error_messages' %>
+
+          <%= hidden_field_tag :title, "Manager" %>
+
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+
+          <%= f.label :email %>
+          <%= f.text_field :email, class: 'form-control' %>
+
+          <%= f.label :description %>
+          <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
+
+          <%= f.label :managers %>
+          <%= f.select :user_ids, User.all.collect { |user| [ user.email, user.id ] } %>      
+
+<!--           <%= select_tag "organization_users", options_from_collection_for_select(User.all, 'id', 'email',@organization.users.map { |j| j.id }), :multiple => true %> -->
+
+          <hr>
+
+          <%= f.submit "Create Organization", class: "btn btn-primary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

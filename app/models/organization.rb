@@ -5,4 +5,5 @@ class Organization < ApplicationRecord
   default_scope -> { order(name: :asc)}
   enum type: [:unspecified, :engsoc, :conferences, :design_team]
   validates :name, presence: true, length: { maximum: 50 }
+  accepts_nested_attributes_for :jobs
 end

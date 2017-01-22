@@ -18,10 +18,10 @@
       </div>
       <div class="row">
         <h3>Members</h3>
-        <% if @organization.users.any? %>
-          <% @organization.users.each do |user| %>
-          <li>
-            <%= user.first_name %> <%= user.last_name %>
+        <% if @organization.jobs.any? %>
+          <% @organization.jobs.each do |jobs| %>
+           <li>
+            <%= jobs.user.first_name %> <%= jobs.user.last_name %> | <%= jobs.title %>
           </li>
           <% end %>
         <% else %>
@@ -30,6 +30,10 @@
           </div>
         <% end %>
       </div>
+      <% if can? :manage, Organization %>
+        <hr>
+        <%= link_to "Edit Organization", edit_organization_path %>
+      <% end %>
     </div>
   </div>
 </div>
