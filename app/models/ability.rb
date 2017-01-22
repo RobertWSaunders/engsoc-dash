@@ -23,7 +23,7 @@ class Ability
       can :manage, :all
     # admins can perform any action on specified objects
   elsif user.admin?
-      can :manage, [Organization,JobPosting,JobApplication]
+      can :manage, [Organization,JobPosting,JobApplication,Job]
   elsif user.management?
       can :create, [JobPosting]
   else

@@ -34,6 +34,10 @@
         <hr>
         <%= link_to "Edit Organization", edit_organization_path %>
       <% end %>
+      <br>
+      <% if can? :manage, Job %>
+        <%= link_to "New Job", new_job_path(id: @organization) %>
+      <% end %>
     </div>
   </div>
 </div>

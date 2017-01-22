@@ -2,8 +2,6 @@ class JobsController < ApplicationController
 
   load_and_authorize_resource
 
-  before_action :set_job, only: [:show, :destroy, :edit, :update]
-
   def index
     @jobs = Job.paginate(:page => params[:page], :per_page => 5)
   end
@@ -12,6 +10,16 @@ class JobsController < ApplicationController
   end
 
   def create
+    @job = Job.new(job_params)
+    if @job.save
+      redirect_to controller: 'organizations', action: 'show', id: @job.organization_id
+    else
+      render 'new'
+    end
+  end
+
+  def new
+    @job = Job.new
   end
 
   def update
@@ -24,11 +32,8 @@ class JobsController < ApplicationController
   private
 
   # define the jobs parameters
-    def jobs_params
+    def job_params
       params.require(:job).permit(:title, :user_id, :organization_id)
     end
 
-    def set_job
-      @job = Jobs.find(params[:id])
-    end
 end

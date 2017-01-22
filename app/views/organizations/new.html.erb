@@ -21,7 +21,7 @@
           <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
 
           <%= f.label :managers %>
-          <%= f.select :user_ids, User.all.collect { |user| [ user.email, user.id ] } %>      
+          <%= f.select :user_ids, User.all.collect { |user| [ user.email, user.id ] } %>
 
 <!--           <%= select_tag "organization_users", options_from_collection_for_select(User.all, 'id', 'email',@organization.users.map { |j| j.id }), :multiple => true %> -->
 
