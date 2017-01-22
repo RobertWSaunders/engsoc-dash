@@ -39,6 +39,10 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
   end
 
+  def user_organizations
+    @user = current_user
+  end
+
   private
 
   # define the jobs parameters

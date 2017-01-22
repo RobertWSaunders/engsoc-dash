@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get 'organizations/new'
+  get 'user_organizations'      =>    'organizations#user_organizations'
 
   # devise routes for authentication
   devise_for :users
