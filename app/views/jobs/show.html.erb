@@ -1,8 +1,8 @@
-<% content_for :title, "Job" %>
+<% content_for :title, @job.title + ", " + @job.organization.name %>
 
 <div class="container-overlap bg-indigo-500">
   <div class="container container-md">
-    <h2><%= @job.title %> for <%= @job.organization.name %></h2>
+    <h2><%= @job.title %> for <%= link_to @job.organization.name, @job.organization %></h2>
     <h4><%= @job.user.first_name %> <%= @job.user.last_name %></h4>
     <h4><%= @job.user.email %></h4>
   </div>

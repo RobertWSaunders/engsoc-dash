@@ -1,4 +1,4 @@
-<% content_for :title, "Organization" %>
+<% content_for :title, @organization.name %>
 
 <div class="container-overlap bg-indigo-500">
   <div class="container container-md">
@@ -17,7 +17,7 @@
         </p>
       </div>
       <div class="row">
-        <h3>Members</h3>
+        <h3>Jobs</h3>
         <% if @organization.jobs.any? %>
           <% @organization.jobs.each do |jobs| %>
            <li>
@@ -40,7 +40,7 @@
       <% end %>
       <br>
       <% if can? :manage, Job %>
-        <%= link_to "New Job", new_job_path(id: @organization) %>
+        <%= link_to "New Job", new_organization_job_path(@organization.id) %>
       <% end %>
     </div>
   </div>
