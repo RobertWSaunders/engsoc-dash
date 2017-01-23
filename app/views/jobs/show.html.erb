@@ -1,0 +1,18 @@
+<% content_for :title, "Job" %>
+
+<div class="container-overlap bg-indigo-500">
+  <div class="container container-md">
+    <h2><%= @job.title %> for <%= @job.organization.name %></h2>
+    <h4><%= @job.user.first_name %> <%= @job.user.last_name %></h4>
+    <h4><%= @job.user.email %></h4>
+  </div>
+</div>
+
+<div class="container container-md">
+  <div class="card">
+    <div class="card-body reader-block">
+
+    </div>
+  </div>
+</div>
+

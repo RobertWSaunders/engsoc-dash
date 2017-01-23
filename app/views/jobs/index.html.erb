@@ -1,27 +1,19 @@
-<% content_for :title, "Jobs" %>
+<% content_for :title, "Organization Jobs" %>
 
 <!-- container for the page -->
 <div class="container container-fluid">
 
-  <!-- add search bar -->
-  <div class="mb-lg">
-    <form role="form">
-      <div class="mda-form-control">
-        <input type="text" placeholder="Search Job Title, Department, etc..." class="form-control input-lg">
-      </div>
-    </form>
-  </div>
-
   <!-- main container for job postings -->
   <div class="container-fluid container-md">
+    <h3>Jobs for <%= @organization.name %></h3>
     <div class="card">
       <div class="card-body">
         <ul class="list-group">
-          <% if @jobs.count == 0 %><br /><br />
+          <% if @organization.jobs.count == 0 %><br /><br />
             <p class="lead text-center">You are currently not hired for any jobs.</p>
           <% else %>
             <!-- iterate through all of the open job postings -->
-            <% @jobs.each do |job| %>
+            <% @organization.jobs.each do |job| %>
                 <li class="list-group-item">
                   <!-- show dropdown if the user is allowed to manage it, probably redundant with admin console -->
                   <% if can? :submit_job_postings, job %>
@@ -48,17 +40,13 @@
                   <% end %>
                 <!-- show the job title and link to the job job detail -->
                 <h5 class="mb-sm">
-                  <%= link_to job_posting_path(job), class: "ripple" do %>
+                  <%= link_to job_path(job), class: "ripple" do %>
                     <%= job.title %>
                   <% end %>
                 </h5>
-                <!-- display the application deadline -->
-                <p class="text-soft">
-                    Application Deadline:
-                </p>
                 <!-- show the truncated job posting description -->
                 <p>
-                  <%= h truncate(job.description, :length => 270) %>
+                  <%= job.user.first_name %> <%= job.user.last_name %>
                 </p>
               </li>
             <% end %>

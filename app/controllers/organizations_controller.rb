@@ -16,7 +16,7 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
-      redirect_to organizations_path
+      redirect_to controller: 'organizations', action: 'show', id: @organization.id
     else
       render 'new'
     end
@@ -47,7 +47,7 @@ class OrganizationsController < ApplicationController
 
   # define the jobs parameters
     def organization_params
-      params.require(:organization).permit(:name, :description, :email, :user_ids)
+      params.require(:organization).permit(:name, :description, :email)
     end
 
 end

@@ -4,9 +4,11 @@ class JobsController < ApplicationController
 
   def index
     @jobs = Job.paginate(:page => params[:page], :per_page => 5)
+    @organization = Organization.find(params[:organization_id])
   end
 
   def show
+    @job = Job.find(params[:id])
   end
 
   def create
@@ -20,6 +22,7 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
+    @organization = Organization.find(params[:id])
   end
 
   def update

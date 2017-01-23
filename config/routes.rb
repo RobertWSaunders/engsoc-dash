@@ -18,7 +18,10 @@ Rails.application.routes.draw do
     resources :job_applications
   end
 
-  resources :organizations
+
+  resources :organizations do
+    resources :jobs
+  end
 
   # route to job postings
   resources :job_postings do

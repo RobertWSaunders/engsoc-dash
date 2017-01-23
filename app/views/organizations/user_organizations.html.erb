@@ -20,20 +20,17 @@
           <% if @user.organizations.count == 0 %><br /><br />
             <p class="lead text-center">There are currently no organizations.</p>
           <% else %>
-            <!-- iterate through all of the open job postings -->
+            <!-- iterate through all of user's orgs -->
             <% @user.organizations.each do |organization| %>
                 <li class="list-group-item">
-                <!-- show the org name and link to the job job detail -->
                 <h5 class="mb-sm">
                   <%= link_to organization_path(organization), class: "ripple" do %>
                     <%= organization.name %>
                   <% end %>
                 </h5>
-                <!-- display the application deadline -->
                 <p class="text-soft">
                     <a href="<%= organization.email %>"><%= organization.email %></a>
                 </p>
-                <!-- show the truncated job posting description -->
                 <p>
                   <%= h truncate(organization.description, :length => 270) %>
                 </p>

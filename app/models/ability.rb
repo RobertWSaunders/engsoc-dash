@@ -22,11 +22,11 @@ class Ability
     if user.superadmin?
       can :manage, :all
     # admins can perform any action on specified objects
-  elsif user.admin?
+    elsif user.admin?
       can :manage, [Organization,JobPosting,JobApplication,Job]
-  elsif user.management?
+    elsif user.management?
       can :create, [JobPosting]
-  else
+    else
       can :read, :all
     end
   end

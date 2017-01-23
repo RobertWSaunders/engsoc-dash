@@ -3,7 +3,7 @@
 <div class="container container-fluid">
 
   <div class="container-fluid container-md">
-    <h5>Create a Job</h5>
+    <h5>Create a Job for <%= @organization.name %></h5>
     <div class="card">
       <div class="card-body">
         <%= form_for(@job) do |f| %>
@@ -12,10 +12,10 @@
           <%= f.text_field :title, class: 'form-control' %>
 
           <%= f.label :User %>
-          <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>
+          <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>     
 
-          <%= f.label :Organization %>
-          <%= f.select :organization_id, Organization.all.collect { |org| [ org.name, org.id ] } %>      
+          <%= hidden_field_tag :organization_id, @organization.id %>
+
 
           <hr>
 
