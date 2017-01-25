@@ -14,7 +14,7 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     if @job.save
-      redirect_to controller: 'jobs', action: 'show', id: @job.id
+      redirect_to controller: 'organizations', action: 'show', id: @job.organization.id
     else
       render 'new'
     end
@@ -40,7 +40,7 @@ class JobsController < ApplicationController
 
   def destroy
     job = Job.find(params[:id]).destroy
-    redirect_to organization_jobs_path(job.organization_id)
+    redirect_to organization_path(job.organization_id)
   end
 
   private

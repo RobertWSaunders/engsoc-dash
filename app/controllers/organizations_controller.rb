@@ -8,9 +8,7 @@ class OrganizationsController < ApplicationController
 
   def show
     @organization = Organization.find(params[:id])
-    if @organization.job_postings.present?
-      @job_postings = Job_postings.where(:organization_id => Organization.find(params[:organization_id]))
-    end
+    @jobs = @organization.jobs
   end
 
   def create
