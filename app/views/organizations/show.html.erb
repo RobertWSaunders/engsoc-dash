@@ -51,10 +51,6 @@
       <% end %>
       <br>
       <% if can? :manage, Job %>
-        <%= link_to "View Jobs", organization_jobs_path(@organization.id) %>
-      <% end %>
-      <br>
-      <% if can? :manage, Job %>
         <%= link_to "New Job", new_organization_job_path(@organization.id) %>
       <% end %>
     </div>
