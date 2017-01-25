@@ -1,5 +1,5 @@
 class Job < ApplicationRecord
-  has_and_belongs_to_many :users
-  has_many :job_postings, dependent: :destroy
-  enum job_type: [ :volunteer, :full_time, :part_time ]
+  belongs_to :organization
+  belongs_to :user
+  accepts_nested_attributes_for :user, :organization
 end

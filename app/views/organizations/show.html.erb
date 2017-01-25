@@ -1,0 +1,59 @@
+<% content_for :title, @organization.name %>
+
+<div class="container-overlap bg-indigo-500">
+  <div class="container container-md">
+    <h2><%= @organization.name %></h2>
+    <h4><%= @organization.email %></h4>
+  </div>
+</div>
+
+<div class="container container-md">
+  <div class="card">
+    <div class="card-body reader-block">
+      <div class="row">
+        <h3>Description</h3>
+        <p>
+          <%= @organization.description %>
+        </p>
+      </div>
+      <div class="row">
+        <h3>Jobs</h3>
+        <% if @organization.jobs.any? %>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Email
+                  </th>
+                  <th>
+                    Title
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= render @jobs %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          <div class="alert alert-warning">
+            There are currently no members in this organization.
+          </div>
+        <% end %>
+      </div>
+      <% if can? :manage, Organization %>
+        <hr>
+        <%= link_to "Edit Organization", edit_organization_path %>
+      <% end %>
+      <br>
+      <% if can? :manage, Job %>
+        <%= link_to "New Job", new_organization_job_path(@organization.id) %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

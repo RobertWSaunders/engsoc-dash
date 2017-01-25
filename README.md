@@ -1,9 +1,8 @@
-# README
+# EngSoc-Dash
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A RoR 5.0 application to replace the current EngSoc Apply site, as well as serve as the goto administration page for EngSoc students.
 
-Things you may want to cover:
+<!-- Things you may want to cover:
 
 * Ruby version
 
@@ -22,3 +21,4 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+ -->

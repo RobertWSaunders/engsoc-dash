@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_and_belongs_to_many :jobs
+  has_many :jobs, dependent: :destroy
+  has_many :organizations, :through => :jobs
   has_many :job_applications, dependent: :destroy
   has_many :job_postings, :foreign_key => :creator_id
   enum role: [:student, :management, :admin, :superadmin]
@@ -7,4 +8,5 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  accepts_nested_attributes_for :jobs
 end

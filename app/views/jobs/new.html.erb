@@ -1,0 +1,26 @@
+<% content_for :title, "New Job" %>
+
+<div class="container container-fluid">
+
+  <div class="container-fluid container-md">
+    <h5>Create a Job for <%= @organization.name %></h5>
+    <div class="card">
+      <div class="card-body">
+        <%= form_for(@job) do |f| %>
+
+          <%= f.label :Title %>
+          <%= f.text_field :title, class: 'form-control' %>
+
+          <%= f.label :User %>
+          <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>     
+
+          <%= f.hidden_field :organization_id, :value => @organization.id %>
+
+          <hr>
+
+          <%= f.submit "Create Job", class: "btn btn-primary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

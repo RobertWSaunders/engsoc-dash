@@ -1,0 +1,28 @@
+<% content_for :title, "Edit " + @organization.name %>
+
+<div class="container container-fluid">
+
+  <div class="container-fluid container-md">
+    <h5>Edit <%= @organization.name %></h5>
+    <div class="card">
+      <div class="card-body">
+        <%= form_for(@organization) do |f| %>
+          <%= render 'shared/organization_error_messages' %>
+
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+
+          <%= f.label :email %>
+          <%= f.text_field :email, class: 'form-control' %>
+
+          <%= f.label :description %>
+          <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
+          
+          <hr>
+
+          <%= f.submit "Create Organization", class: "btn btn-primary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

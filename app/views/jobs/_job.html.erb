@@ -1,0 +1,22 @@
+<tr>
+  <td><%= job.user.first_name %> <%= job.user.last_name %></td>
+  <td><%= job.user.email %></td>
+  <td><%= job.title.titleize %></td>
+  <% if can? :manage, job %>
+    <td>
+      <div class="pull-right dropdown">
+        <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+        <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+          <li>
+            <%= link_to "Edit", edit_job_path(job.id) %>
+          </li>
+          <li>
+            <%= link_to "Delete", job, method: :delete,
+                        data: { confirm: "Are you sure?" } %>
+          </li>
+        </ul>
+      </div>
+    </td>
+
+  <% end %>
+</tr>
