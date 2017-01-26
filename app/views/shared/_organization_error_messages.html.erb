@@ -1,7 +1,7 @@
 <% if @organization.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
-      This organization creation attempt contains <%= pluralize(@organization.errors.count, "error") %>.
+      This creation attempt contains <%= pluralize(@organization.errors.count, "error") %>.
     </div>
     <ul>
     <% @organization.errors.full_messages.each do |msg| %>

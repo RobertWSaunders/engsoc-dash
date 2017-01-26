@@ -6,20 +6,7 @@
     <h5>Edit "<%= @job.title %>" for <%= @job.organization.name %></h5>
     <div class="card">
       <div class="card-body">
-        <%= form_for(@job) do |f| %>
-
-          <%= f.label :Title %>
-          <%= f.text_field :title, class: 'form-control' %>
-
-          <%= f.label :User %>
-          <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>     
-
-          <%= f.hidden_field :organization_id, :value => @job.organization.id %>
-
-          <hr>
-
-          <%= f.submit "Edit Job", class: "btn btn-success btn-block" %>
-        <% end %>
+        <%= render 'job_form' %>
       </div>
     </div>
   </div>

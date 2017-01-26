@@ -13,6 +13,7 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params)
+    @organization = Organization.find(params[:organization_id])
     if @job.save
       redirect_to controller: 'organizations', action: 'show', id: @job.organization.id
     else
