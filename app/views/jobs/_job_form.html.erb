@@ -1,6 +1,6 @@
         <%= form_for([@organization, @job]) do |f| %>
 
-          <%= render 'shared/job_posting_error_messages' %>
+          <%= render 'shared/job_error_messages' %>
 
           <%= f.label :Title %>
           <%= f.text_field :title, class: 'form-control' %>

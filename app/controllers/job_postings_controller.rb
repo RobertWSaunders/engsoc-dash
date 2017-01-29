@@ -20,7 +20,7 @@ class JobPostingsController < ApplicationController
 
   def create
     @jobposting = JobPosting.new(job_postings_params)
-    if @job_posting.save
+    if @jobposting.save
       redirect_to job_postings_path
       # redirect_to controller: 'job_postings', action: 'show', id: @job.organization.id
     else
