@@ -15,6 +15,21 @@ class JobPostingsController < ApplicationController
   end
 
   def show
+    @organization = Organization.find_by! id: @jobposting.organization_id
+  end
+
+  def create
+    @jobposting = JobPosting.new(job_postings_params)
+    if @job_posting.save
+      redirect_to job_postings_path
+      # redirect_to controller: 'job_postings', action: 'show', id: @job.organization.id
+    else
+      render 'new'
+    end
+  end
+
+  def new
+    @jobposting = JobPosting.new
   end
 
   def approve
@@ -33,7 +48,7 @@ class JobPostingsController < ApplicationController
 
   # define the jpbs parameters
     def job_postings_params
-      params.require(:job_posting).permit(:status, :description)
+      params.require(:job_posting).permit(:creator_id, :title, :description, :organization_id, :deadline, :status)
     end
 
     def set_job_posting
