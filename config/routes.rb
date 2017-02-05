@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # define the jobs resources
   resources :jobs, only: [:show, :edit, :update, :destroy] do
     # within the jobs routes, route to job applications
-    resources :job_applications
+    # resources :job_applications
   end
 
 

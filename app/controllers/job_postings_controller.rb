@@ -33,8 +33,8 @@ class JobPostingsController < ApplicationController
   end
 
   def update
-    @jobPosting = JobPosting.find(params[:id])
-    if @jobPosting.update_attributes(job_posting_params)
+    @jobposting = JobPosting.find(params[:id])
+    if @jobposting.update_attributes(job_posting_params)
       redirect_to job_postings_path
     else
       render 'edit'
@@ -42,7 +42,12 @@ class JobPostingsController < ApplicationController
   end
 
   def edit
-    @jobPosting = JobPosting.find(params[:id])
+    @jobposting = JobPosting.find(params[:id])
+  end
+
+  def destroy
+    jobposting = JobPosting.find(params[:id]).destroy
+    redirect_to job_postings_url
   end
 
   def approve
