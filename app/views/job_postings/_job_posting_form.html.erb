@@ -11,7 +11,7 @@
 
           <div class="form-group">
           <%= f.label :Description %>
-          <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
+          <%= f.text_area :description, class: 'form-control', style: 'resize:none', rows: "20" %>
           </div>
 
           <!-- Should add an organization check for current user (so that user can only add job postings for orgs they are able to manage), if they are only managers -->

@@ -37,6 +37,11 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
   end
 
+  def destroy
+    organization = Organization.find(params[:id]).destroy
+    redirect_to organizations_url
+  end
+
   def user_organizations
   end
 
