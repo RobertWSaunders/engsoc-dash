@@ -38,7 +38,6 @@ class OrganizationsController < ApplicationController
   end
 
   def user_organizations
-    @user = current_user
   end
 
   private
