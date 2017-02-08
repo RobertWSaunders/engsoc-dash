@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   # route to job postings
   resources :job_postings do
+    resources :job_applications
     member do
       get 'approve'
       get 'withdraw'
