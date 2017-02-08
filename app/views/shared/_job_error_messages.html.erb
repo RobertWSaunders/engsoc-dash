@@ -1,0 +1,12 @@
+<% if @job.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      This creation attempt contains <%= pluralize(@job.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% @job.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

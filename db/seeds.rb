@@ -34,11 +34,11 @@ itteam = Organization.create!(name:         "EngSoc IT-Team",
 
 itteam.jobs.create!(user_id: 3, title: "Team Manager")
 
-11.times do |n|
-  name = "lorem ipsum org"
-  email = "lorem-#{n+1}@ipsum.com"
-  description = "lorem ipsum dolreot"
-  Organization.create!(name: name,
-                      email: email,
-                      description: description)
-end
+# 11.times do |n|
+#   name = "lorem ipsum org"
+#   email = "lorem-#{n+1}@ipsum.com"
+#   description = "lorem ipsum dolreot"
+#   Organization.create!(name: name,
+#                       email: email,
+#                       description: description)
+# end

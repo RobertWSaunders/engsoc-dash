@@ -20,10 +20,22 @@
           <% if @organizations.count == 0 %><br /><br />
             <p class="lead text-center">There are currently no organizations.</p>
           <% else %>
-            <!-- iterate through all of the open job postings -->
             <% @organizations.each do |organization| %>
                 <li class="list-group-item">
-                <!-- show the org name and link to the job job detail -->
+                <% if can? :manage_organizations, organization %>
+                  <div class="pull-right dropdown">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+                    <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                      <li>
+                        <%= link_to "Edit Organization", edit_organization_path(organization.id) %>
+                      </li>
+                      <li>
+                        <%= link_to "Delete Organization", organization, method: :delete,
+                          data: { confirm: "Are you sure?" } %>
+                      </li>
+                    </ul>
+                  </div>
+                <% end %>
                 <h5 class="mb-sm">
                   <%= link_to organization_path(organization), class: "ripple" do %>
                     <%= organization.name %>

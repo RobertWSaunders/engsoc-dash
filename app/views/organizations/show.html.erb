@@ -1,6 +1,17 @@
 <% content_for :title, @organization.name %>
 
 <div class="container-overlap bg-indigo-500">
+    <!-- Breadcrumb next to view title-->
+    <ul class="breadcrumb breadcrumb-lead">
+      <li>
+        <%= link_to "Organizations", organizations_path %>
+      </li>
+      <li class="active">
+        <%= link_to organization_path do %>
+          <%= @organization.name %>
+        <% end %>
+      </li>
+    </ul>
   <div class="container container-md">
     <h2><%= @organization.name %></h2>
     <h4><%= @organization.email %></h4>
@@ -13,37 +24,11 @@
       <div class="row">
         <h3>Description</h3>
         <p>
-          <%= @organization.description %>
+          <%= simple_format(@organization.description) %>
         </p>
       </div>
-      <div class="row">
-        <h3>Jobs</h3>
-        <% if @organization.jobs.any? %>
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>
-                    Name
-                  </th>
-                  <th>
-                    Email
-                  </th>
-                  <th>
-                    Title
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <%= render @jobs %>
-              </tbody>
-            </table>
-          </div>
-        <% else %>
-          <div class="alert alert-warning">
-            There are currently no members in this organization.
-          </div>
-        <% end %>
+      <div class="row" id="jobs">
+        <%= render "jobs_table" %>
       </div>
       <% if can? :manage, Organization %>
         <hr>

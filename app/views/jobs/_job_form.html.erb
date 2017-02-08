@@ -1,0 +1,20 @@
+        <%= form_for([@organization, @job]) do |f| %>
+
+          <%= render 'shared/job_error_messages' %>
+
+          <%= f.label :Title %>
+          <%= f.text_field :title, class: 'form-control' %>
+
+          <%= f.label :User %>
+          <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>     
+
+          <% if defined? @job.organization.id %>
+            <%= f.hidden_field :organization_id, :value => @job.organization.id %>
+          <% else %>
+            <%= f.hidden_field :organization_id, :value => @organization.id %>
+          <% end %>
+
+          <hr>
+
+          <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
+        <% end %>
