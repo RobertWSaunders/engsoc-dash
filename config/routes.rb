@@ -15,16 +15,12 @@ Rails.application.routes.draw do
   # define the jobs resources
   resources :jobs, only: [:show, :edit, :update, :destroy] do
     # within the jobs routes, route to job applications
-<<<<<<< HEAD
     resources :job_applications, :controller => 'jobs/job_applications'
-=======
     # resources :job_applications
   end
 
-
   resources :organizations do
     resources :jobs, only: [:new, :create]
->>>>>>> master
   end
 
   resources :job_applications

@@ -1,0 +1,15 @@
+# Set up notification options
+notifications:
+  email:
+    recipients:
+      - one@example.com
+      - other@example.com
+
+    # change is when the repo status goes from pass to fail or vice versa
+    on_success: change
+    on_failure: always
+
+language: ruby # specify your language
+
+rvm: # specify options for your language
+  - 2.3.3
