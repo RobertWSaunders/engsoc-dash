@@ -1,0 +1,63 @@
+<% content_for :title, "All Organizations" %>
+
+<!-- container for the page -->
+<div class="container container-fluid">
+
+  <!-- add search bar -->
+  <div class="mb-lg">
+    <form role="form">
+      <div class="mda-form-control">
+        <input type="text" placeholder="Search Organization Title, Department, etc..." class="form-control input-lg">
+      </div>
+    </form>
+  </div>
+
+  <!-- main container for job postings -->
+  <div class="container-fluid container-md">
+    <div class="card">
+      <div class="card-body">
+        <ul class="list-group">
+          <% if @organizations.count == 0 %><br /><br />
+            <p class="lead text-center">There are currently no organizations.</p>
+          <% else %>
+            <% @organizations.each do |organization| %>
+                <li class="list-group-item">
+                <% if can? :manage_organizations, organization %>
+                  <div class="pull-right dropdown">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+                    <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                      <li>
+                        <%= link_to "Edit Organization", edit_organization_path(organization.id) %>
+                      </li>
+                      <li>
+                        <%= link_to "Delete Organization", organization, method: :delete,
+                          data: { confirm: "Are you sure?" } %>
+                      </li>
+                    </ul>
+                  </div>
+                <% end %>
+                <h5 class="mb-sm">
+                  <%= link_to organization_path(organization), class: "ripple" do %>
+                    <%= organization.name %>
+                  <% end %>
+                </h5>
+                <!-- display the application deadline -->
+                <p class="text-soft">
+                    <a href="<%= organization.email %>"><%= organization.email %></a>
+                </p>
+                <!-- show the truncated job posting description -->
+                <p>
+                  <%= h truncate(organization.description, :length => 270) %>
+                </p>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <center>
+          <!-- show the paginator for the will_paginate gem -->
+          <%= will_paginate @organizations, renderer: BootstrapPagination::Rails, page_links: false %><br />
+        </center>
+      </div>
+    </div>
+  </div>
+</div>

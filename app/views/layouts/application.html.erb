@@ -69,6 +69,31 @@
                     <span class="nav-icon"><em class="ion-home icon-fw"></em></span><span>Dashboard</span>
                   <% end %>
                 </li>
+                <!-- orgs link -->
+                <li><a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Organizations</span></a>
+                  <ul class="sidebar-subnav">
+                    <li>
+                      <%= link_to organizations_path, class: "ripple" do %>
+                        <span class="pull-right nav-label"></span><span>View All</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to user_organizations_path, class: "ripple" do %>
+                        <span class="pull-right nav-label"></span><span>My Organizations</span>
+                      <% end %>
+                    </li>
+                    <% if can? :manage, Organization %>
+                    <li class="dropdown-header">
+                      Admin
+                    </li>
+                    <li>
+                      <%= link_to new_organization_path, class:"ripple" do %>
+                        <span class="pull-right nav-label"></span><span>New Organization</span>
+                      <% end %>
+                    </li>
+                    <% end %>
+                  </ul>
+                </li>
                 <!-- jobs link -->
                 <li><a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-briefcase icon-fw"></em></span><span>Jobs</span></a>
                   <ul class="sidebar-subnav">
@@ -82,11 +107,23 @@
                         <span class="pull-right nav-label"></span><span>My Applications</span>
                       <% end %>
                     </li>
+                    <% if can? :create, JobPosting %>
+                    <li class="dropdown-header">
+                      Admin
+                    </li>
                     <li>
-                      <%= link_to jobs_path, class: "ripple" do %>
-                        <span class="pull-right nav-label"></span><span>My Jobs</span>
+                      <%= link_to new_job_posting_path, class:"ripple" do %>
+                        <span class="pull-right nav-label"></span><span>New Posting</span>
                       <% end %>
                     </li>
+                    <% end %>
+                    <% if can? :manage, JobPosting %>
+                    <li>
+                      <%= link_to job_postings_path, class:"ripple" do %>
+                        <span class="pull-right nav-label"></span><span>Manage Postings</span>
+                      <% end %>
+                    </li>
+                    <% end %>
                   </ul>
                 </li>
               </ul>

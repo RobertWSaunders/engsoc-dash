@@ -1,0 +1,48 @@
+<% content_for :title, "My Organizations" %>
+
+<!-- container for the page -->
+<div class="container container-fluid">
+
+  <!-- add search bar -->
+  <div class="mb-lg">
+    <form role="form">
+      <div class="mda-form-control">
+        <input type="text" placeholder="Search Organization Title, Department, etc..." class="form-control input-lg">
+      </div>
+    </form>
+  </div>
+
+  <!-- main container for job postings -->
+  <div class="container-fluid container-md">
+    <div class="card">
+      <div class="card-body">
+        <ul class="list-group">
+          <% if current_user.organizations.count == 0 %><br /><br />
+            <p class="lead text-center">There are currently no organizations.</p>
+          <% else %>
+            <!-- iterate through all of user's orgs -->
+            <% current_user.organizations.each do |organization| %>
+                <li class="list-group-item">
+                <h5 class="mb-sm">
+                  <%= link_to organization_path(organization), class: "ripple" do %>
+                    <%= organization.name %>
+                  <% end %>
+                </h5>
+                <p class="text-soft">
+                    <a href="<%= organization.email %>"><%= organization.email %></a>
+                </p>
+                <p>
+                  <%= h truncate(organization.description, :length => 270) %>
+                </p>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <center>
+          <!-- show the paginator for the will_paginate gem -->
+          <!-- removed pagination for now... refer back to organizations index for reference -->
+        </center>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,19 +14,19 @@ class Ability
 
   #define the actions users can perform based on role
   def initialize(user)
+    user ||= User.new
     can :submit_job_postings, JobPosting if user.management?
     can :approve_job_postings, JobPosting if user.admin?
-    # retreive the user
-    user ||= User.new
+
     # super admins can perform any action on any object
     if user.superadmin?
       can :manage, :all
     # admins can perform any action on specified objects
-  elsif user.admin?
-      can :manage, [Job,JobPosting,JobApplication]
-  elsif user.management?
+    elsif user.admin?
+      can :manage, [Organization,JobPosting,JobApplication,Job]
+    elsif user.management?
       can :create, [JobPosting]
-  else
+    else
       can :read, :all
     end
   end

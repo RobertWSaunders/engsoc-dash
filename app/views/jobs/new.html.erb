@@ -1,0 +1,18 @@
+<% content_for :title, "New Job" %>
+
+<div class="container container-fluid">
+
+  <div class="container-fluid container-md">
+    <h5>Create a Job for <%= @organization.name %></h5>
+    <div class="card">
+      <div class="card-body">
+        <%= render 'job_form' %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        Or, create a <%= link_to "new job post", new_job_posting_path %> instead.
+      </div>
+    </div>
+  </div>
+</div>

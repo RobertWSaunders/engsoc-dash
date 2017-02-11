@@ -8,7 +8,7 @@
       </li>
       <li class="active">
         <%= link_to job_postings_path do %>
-          <%= @jobposting.job.title %>
+          <%= @jobposting.title %>
         <% end %>
       </li>
     </ul>
@@ -35,19 +35,16 @@
       <!-- END dropdown-->
     </div>
     <div class="card-body pt0">
-      <h4 class="mt0"><%= @jobposting.job.title %></h4>
+      <h4 class="mt0"><%= @jobposting.title %> for <%= link_to @organization.name, @organization %></h4>
       <p>
         Application Deadline: <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %>
       </p>
       <p>
-        Job Type: <%= @jobposting.job.job_type.titleize %>
-      </p>
-      <p>
-        Department: Information Technology
+        Organization: <%= @organization.name %>
       </p>
       <br />
       <p>
-        <%= @jobposting.job.description %>
+        <%= simple_format(@jobposting.description) %>
       </p>
     </div>
     <div class="card-footer">
