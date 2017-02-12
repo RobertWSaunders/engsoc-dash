@@ -14,10 +14,8 @@
   <div class="container-fluid container-md">
     <div class="card">
       <div class="card-body">
-        <ul class="list-group">
-          <% if @open_job_postings.count == 0 %><br /><br />
-            <p class="lead text-center">Uh oh! There are no open jobs right now.</p>
-          <% else %>
+          <% if @open_job_postings.any? %>
+            <ul class="list-group">
             <!-- iterate through all of the open job postings -->
             <% @open_job_postings.each do |posting| %>
                 <li class="list-group-item">
@@ -29,7 +27,7 @@
                         <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
                         <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
                           <li>
-                            <%= link_to "View Applicants", job_postings_path %>
+                            <%= link_to "View Applicants", job_posting_job_applications_path(posting.id) %>
                           </li>
                           <li>
                             <%= link_to "Withdraw Approval", withdraw_job_posting_path(posting) %>
@@ -60,8 +58,11 @@
                 </p>
               </li>
             <% end %>
+            </ul>
+          <% else %>
+          <br /><br />
+          <p class="lead text-center">Uh oh! There are no open jobs right now.</p>
           <% end %>
-        </ul>
         <center>
           <!-- show the paginator for the will_paginate gem -->
           <%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br />

@@ -9,6 +9,7 @@ class JobsController < ApplicationController
 
   def show
     @job = Job.find(params[:id])
+    @organization = Organization.find(params[:organization_id])
   end
 
   def create
