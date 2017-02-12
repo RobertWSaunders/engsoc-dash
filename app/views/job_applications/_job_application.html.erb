@@ -10,10 +10,7 @@
         <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
         <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
           <li>
-            <%= link_to 'Edit', edit_job_application_path(job_application) %>
-          </li>
-          <li>
-            <%= link_to 'Destroy', job_application, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'Delete Application', job_application, method: :delete, data: { confirm: 'Are you sure?' } %>
           </li>
         </ul>
       </div>

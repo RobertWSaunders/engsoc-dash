@@ -21,6 +21,7 @@ class JobApplicationsController < ApplicationController
   end
 
   # GET /job_applications/1/edit
+  # Don't think we'll be using edit...
   def edit
   end
 
@@ -56,7 +57,7 @@ class JobApplicationsController < ApplicationController
   def destroy
     @job_application.destroy
     respond_to do |format|
-      format.html { redirect_to job_applications_url, notice: 'Job application was successfully destroyed.' }
+      format.html { redirect_to(job_posting_job_applications_path(@job_application.job_posting.id)) }
       format.json { head :no_content }
     end
   end
