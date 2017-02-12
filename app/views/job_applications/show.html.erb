@@ -1,4 +1,27 @@
-<p id="notice"><%= notice %></p>
+<% content_for :title, "Job Application"  %>
 
-<%= link_to 'Edit', edit_job_application_path(@job_application) %> |
-<%= link_to 'Back', job_applications_path %>
+<div class="container-overlap bg-indigo-500">
+  <div class="container container-md">
+    <h4>
+      Application for <%= link_to @job_application.job_posting.organization.name, @job_application.job_posting.organization %>, <%= link_to @job_application.job_posting.title, @job_application.job_posting %>
+    </h4>
+    <h2>
+      <%= @job_application.user.first_name %> <%= @job_application.user.last_name %>
+      <br>
+      <small><%= @job_application.user.email %></small>
+    </h2>
+  </div>
+</div>
+
+<div class="container container-md">
+  <div class="card">
+    <div class="card-body reader-block">
+      <div class="row">
+        <h1>Lorem</h1>
+        <br>
+        <%= link_to "Back to Job Posting", @job_application.job_posting %>
+      </div>
+    </div>
+  </div>
+</div>
+

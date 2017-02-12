@@ -5,12 +5,13 @@ class JobApplicationsController < ApplicationController
   # GET /job_applications.json
   def index
     @job_posting = JobPosting.find(params[:job_posting_id])
-    @job_applications = JobApplication.all
+    @job_applications = @job_posting.job_applications
   end
 
   # GET /job_applications/1
   # GET /job_applications/1.json
   def show
+    @job_application = JobApplication.find(params[:id])
   end
 
   # GET /job_applications/new
@@ -27,15 +28,12 @@ class JobApplicationsController < ApplicationController
   # POST /job_applications.json
   def create
     @job_application = JobApplication.new(job_application_params)
+    @job_posting = JobPosting.find(params[:job_posting_id])
 
-    respond_to do |format|
-      if @job_application.save
-        format.html { redirect_to @job_application, notice: 'Job application was successfully created.' }
-        format.json { render :show, status: :created, location: @job_application }
-      else
-        format.html { render :new }
-        format.json { render json: @job_application.errors, status: :unprocessable_entity }
-      end
+    if @job_application.save
+      redirect_to(job_posting_job_applications_path(@job_posting.id))
+    else
+      render 'new'
     end
   end
 
@@ -71,6 +69,6 @@ class JobApplicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_application_params
-      params.fetch(:job_application, {})
+      params.require(:job_application).permit(:user_id, :job_posting_id, :status)
     end
 end

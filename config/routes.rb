@@ -13,14 +13,17 @@ Rails.application.routes.draw do
   resources :profile, :controller => 'users'
 
   # define the jobs resources
-  resources :jobs, only: [:show, :edit, :update, :destroy] do
+  resources :jobs, only: [:edit, :update, :destroy] do
     # within the jobs routes, route to job applications
     # resources :job_applications
   end
 
+  resources :job_applications, only: [:show, :edit, :update, :destroy] do
+  end
+
 
   resources :organizations do
-    resources :jobs, only: [:new, :create]
+    resources :jobs, only: [:new, :create, :show]
   end
 
   # route to job postings

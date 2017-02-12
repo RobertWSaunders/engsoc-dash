@@ -1,5 +1,13 @@
-<h1>New Job Application</h1>
+<% content_for :title, "Job Application" %>
 
-<%= render 'form', job_application: @job_application %>
+<div class="container container-fluid">
 
-<%= link_to 'Back', job_posting_job_applications_path %>
+  <div class="container-fluid container-md">
+    <h5>Job Application for <%= link_to @job_posting.title, @job_posting %>, <%= link_to @job_posting.organization.name, @job_posting.organization %></h5>
+    <div class="card">
+      <div class="card-body">
+        <%= render 'job_application_form' %>
+      </div>
+    </div>
+  </div>
+</div>
