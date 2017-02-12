@@ -1,0 +1,17 @@
+<% content_for :title, @job_posting.title + " Applications" %>
+
+<div class="container-fluid container-md">
+
+  <div class="container-fluid container-md">
+    <h3>Job Applications for <%= @job_posting.title %> </h3>
+    <div class="card">
+      <div class="card-body">
+        <%= render "job_applications_table"%>
+
+        <br>
+
+        <%= link_to 'New Job Application', new_job_posting_job_application_path %>
+      </div>
+    </div>
+  </div>
+</div>

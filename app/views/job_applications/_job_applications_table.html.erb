@@ -1,0 +1,29 @@
+<% if @job_applications.any? %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>
+            Application ID
+          </th>
+          <th>
+            CREATED AT
+          </th>
+          <th>
+            SUBMITTED BY
+          </th>
+          <th>
+            STATUS
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @job_applications %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="alert alert-warning">
+    There are currently no applications for this job posting.
+  </div>
+<% end %>

@@ -34,6 +34,28 @@ itteam = Organization.create!(name:         "EngSoc IT-Team",
 
 itteam.jobs.create!(user_id: 3, title: "Team Manager")
 
+30.times do |n|
+  first_name  = Faker::Name.name
+  last_name = Faker::Name.name
+  email = "example-#{n+1}@user.org"
+  password = "password"
+  User.create!(first_name:    first_name,
+               last_name:     last_name,
+               email:         email,
+               password:      password,
+               role:          0)
+end
+
+99.times do |n|
+  name = Faker::Team.name
+  email = "example-#{n+1}@organization.org"
+  desc = Faker::Lorem.paragraph(3, true)
+  Organization.create!(
+      name: name,
+      email: email,
+      description: desc)
+end
+
 # 11.times do |n|
 #   name = "lorem ipsum org"
 #   email = "lorem-#{n+1}@ipsum.com"

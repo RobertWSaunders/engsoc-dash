@@ -1,0 +1,16 @@
+<%= form_for([@job_posting, @job_application]) do |f| %>
+
+    <%= render 'shared/job_application_error_messages' %>
+
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    
+    <%= f.hidden_field :job_posting_id, :value => @job_posting.id %>
+
+    <%= f.text_field :status %>
+
+  <hr>
+
+  <div class="actions">
+    <%= f.submit "Submit Application", class: "btn btn-primary btn-block" %>
+  </div>
+<% end %>
