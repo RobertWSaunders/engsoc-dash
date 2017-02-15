@@ -13,3 +13,7 @@ language: ruby # specify your language
 
 rvm: # specify options for your language
   - 2.3.3
+
+services:
+  - postgresql
+  
