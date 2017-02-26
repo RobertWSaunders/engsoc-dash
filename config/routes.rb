@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   # route to job postings
   resources :job_postings do
+    resources :job_posting_questions
     resources :job_applications
     member do
       get 'approve'

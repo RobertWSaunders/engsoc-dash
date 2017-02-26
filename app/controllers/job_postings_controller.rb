@@ -21,7 +21,7 @@ class JobPostingsController < ApplicationController
   def create
     @jobposting = JobPosting.new(job_posting_params)
     if @jobposting.save
-      redirect_to job_postings_path
+      redirect_to job_posting_job_posting_questions_path(@jobposting.id)
       # redirect_to controller: 'job_postings', action: 'show', id: @job.organization.id
     else
       render 'new'
@@ -35,7 +35,7 @@ class JobPostingsController < ApplicationController
   def update
     @jobposting = JobPosting.find(params[:id])
     if @jobposting.update_attributes(job_posting_params)
-      redirect_to job_postings_path
+      redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
       render 'edit'
     end
