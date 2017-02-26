@@ -35,12 +35,12 @@
       <!-- END dropdown-->
     </div>
     <div class="card-body pt0">
-      <h4 class="mt0"><%= @jobposting.title %> for <%= link_to @organization.name, @organization %></h4>
+      <h4 class="mt0"><%= @jobposting.title %></h4>
       <p>
-        Application Deadline: <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %>
+        Application Deadline: <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %> (<%= @jobposting.deadline.to_date %>)
       </p>
       <p>
-        Organization: <%= @organization.name %>
+        Organization: <%= link_to @organization.name, @organization %>
       </p>
       <br />
       <p>
