@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170226011652) do
+ActiveRecord::Schema.define(version: 20170303213245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170226011652) do
 
   create_table "job_posting_questions", force: :cascade do |t|
     t.integer  "job_posting_id"
-    t.text     "question"
+    t.text     "content"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["job_posting_id"], name: "index_job_posting_questions_on_job_posting_id", using: :btree

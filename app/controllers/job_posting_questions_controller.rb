@@ -19,7 +19,7 @@ class JobPostingQuestionsController < ApplicationController
   private
 
     def job_posting_question_params
-      params.require(:job_posting_question).permit(:question, :job_posting_id)
+      params.require(:job_posting_question).permit(:content, :job_posting_id)
     end
 
     def set_job_posting_questions

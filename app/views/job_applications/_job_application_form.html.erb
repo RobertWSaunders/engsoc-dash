@@ -6,7 +6,14 @@
     
     <%= f.hidden_field :job_posting_id, :value => @job_posting.id %>
 
-    <%= f.text_field :status %>
+    <%= f.label :Status %>    
+    <%= f.text_field :status, class: 'form-control' %>
+
+    <% @job_posting.job_posting_questions.each do |question| %>
+
+      <%= f.label question.content %>
+
+    <% end %>
 
   <hr>
 
