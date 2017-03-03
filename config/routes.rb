@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # define the index route
   root                     "static_pages#home"
   get   'about'        =>  "static_pages#about"
+  get   'contact'      =>  "static_pages#contact"
   get   'credits'      =>  "static_pages#credits"
  
   # devise routes for authentication
