@@ -66,7 +66,7 @@
                 <!-- dashboard link -->
                 <li>
                   <%= link_to root_path, class: "ripple" do %>
-                    <span class="nav-icon"><em class="ion-home icon-fw"></em></span><span>Dashboard</span>
+                    <span class="nav-icon"><em class="ion-home icon-fw"></em></span><span>Home</span>
                   <% end %>
                 </li>
                 <!-- orgs link -->
@@ -139,7 +139,13 @@
             <%= yield %>
           </section>
           <!-- page footer-->
-          <footer><span>2017 - Engineering Society Dashboard</span></footer>
+          <footer>
+            <span>2017 - Engineering Society Dashboard</span>
+            <ul>
+              <li><%= link_to "About", about_path %></li>
+              <li><%= link_to "Credits", credits_path %></li>
+            </ul>
+          </footer>
         </main>
       </div>
           </div>

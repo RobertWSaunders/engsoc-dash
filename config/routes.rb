@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
 
-  get 'organizations/new'
-  get 'user_organizations'      =>    'organizations#user_organizations'
-  get 'job_postings/manage'     =>    'job_postings#manage', :as => 'manage_job_postings'
+  # define the index route
+  root                     "static_pages#home"
+  get   'about'        =>  "static_pages#about"
+  get   'credits'      =>  "static_pages#credits"
  
   # devise routes for authentication
   devise_for :users
 
-  # define the index route
-  root to: "pages#dashboard"
+  get 'organizations/new'
+  get 'user_organizations'      =>    'organizations#user_organizations'
+  get 'job_postings/manage'     =>    'job_postings#manage', :as => 'manage_job_postings'
 
   # define the profile routes, linked to the users controller
   resources :profile, :controller => 'users'
