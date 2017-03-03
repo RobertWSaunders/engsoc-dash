@@ -1,0 +1,34 @@
+<header class="header-container">
+  <nav>
+    <!-- toggles sidebar on smaller devices -->
+    <ul class="visible-xs visible-sm">
+      <li><a id="sidebar-toggler" href="#" class="menu-link menu-link-slide"><span><em></em></span></a></li>
+    </ul>
+    <ul class="hidden-xs">
+      <li><a id="offcanvas-toggler" href="#" class="menu-link menu-link-slide"><span><em></em></span></a></li>
+    </ul>
+    <!-- top navigation bar title -->
+    <h2 class="header-title"><%= yield(:title) %></h2>
+    <!-- top navigation bar right buttons -->
+    <ul class="pull-right">
+      <!-- dropdown menu for profile -->
+      <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle has-badge ripple"><em class="ion-person"></em></a>
+        <ul class="dropdown-menu dropdown-menu-right md-dropdown-menu">
+          <li>
+            <!-- profile link -->
+            <%= link_to destroy_user_session_path do %>
+              <em class="ion-home icon-fw"></em>Profile
+            <% end %>
+          </li>
+          <li role="presentation" class="divider"></li>
+          <li>
+            <!-- logout link -->
+            <%= link_to destroy_user_session_path, :method => :delete do %>
+              <em class="ion-log-out icon-fw"></em>Logout
+            <% end %>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>

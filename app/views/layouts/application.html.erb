@@ -1,155 +1,27 @@
 <!DOCTYPE html>
-  <!-- start of header -->
+<html lang="en">
   <head>
-    <!-- application title -->
-    <title>Engineering Society Dashboard</title>
-    <!-- define meta tags -->
+    <title><%= yield(:title) %> - Engineering Society Dashboard</title>
     <%= csrf_meta_tags %>
-    <!-- include stylesheets -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <!-- include javascripts -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <% if user_signed_in? %>
-    <!-- start of the body -->
       <body class="theme-6">
-      <!-- layout container -->
       <div class="layout-container">
-        <!-- top navigation bar -->
-        <header class="header-container">
-          <nav>
-            <!-- toggles sidebar on smaller devices -->
-            <ul class="visible-xs visible-sm">
-              <li><a id="sidebar-toggler" href="#" class="menu-link menu-link-slide"><span><em></em></span></a></li>
-            </ul>
-            <ul class="hidden-xs">
-              <li><a id="offcanvas-toggler" href="#" class="menu-link menu-link-slide"><span><em></em></span></a></li>
-            </ul>
-            <!-- top navigation bar title -->
-            <h2 class="header-title"><%= yield(:title) %></h2>
-            <!-- top navigation bar right buttons -->
-            <ul class="pull-right">
-              <!-- dropdown menu for profile -->
-              <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle has-badge ripple"><em class="ion-person"></em></a>
-                <ul class="dropdown-menu dropdown-menu-right md-dropdown-menu">
-                  <li>
-                    <!-- profile link -->
-                    <%= link_to destroy_user_session_path do %>
-                      <em class="ion-home icon-fw"></em>Profile
-                    <% end %>
-                  </li>
-                  <li role="presentation" class="divider"></li>
-                  <li>
-                    <!-- logout link -->
-                    <%= link_to destroy_user_session_path, :method => :delete do %>
-                      <em class="ion-log-out icon-fw"></em>Logout
-                    <% end %>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
-        </header>
 
-        <!-- side navigation bar container -->
-        <aside class="sidebar-container">
-          <!-- side navigation bar content -->
-          <div class="sidebar-content">
-            <!-- side navigation header -->
-            <div class="sidebar-toolbar text-center"><a href=""><%= image_tag "centric/user/01.jpg", class: "img-circle thumb64" %></a>
-              <div class="mt"><%= current_user.first_name %> <%= current_user.last_name %></div>
-            </div>
-            <!-- side navigation -->
-            <nav class="sidebar-nav">
-              <ul>
-                <!-- dashboard link -->
-                <li>
-                  <%= link_to root_path, class: "ripple" do %>
-                    <span class="nav-icon"><em class="ion-home icon-fw"></em></span><span>Home</span>
-                  <% end %>
-                </li>
-                <!-- orgs link -->
-                <li><a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Organizations</span></a>
-                  <ul class="sidebar-subnav">
-                    <li>
-                      <%= link_to organizations_path, class: "ripple" do %>
-                        <span class="pull-right nav-label"></span><span>View All</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to user_organizations_path, class: "ripple" do %>
-                        <span class="pull-right nav-label"></span><span>My Organizations</span>
-                      <% end %>
-                    </li>
-                    <% if can? :manage, Organization %>
-                    <li class="dropdown-header">
-                      Admin
-                    </li>
-                    <li>
-                      <%= link_to new_organization_path, class:"ripple" do %>
-                        <span class="pull-right nav-label"></span><span>New Organization</span>
-                      <% end %>
-                    </li>
-                    <% end %>
-                  </ul>
-                </li>
-                <!-- jobs link -->
-                <li><a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-briefcase icon-fw"></em></span><span>Jobs</span></a>
-                  <ul class="sidebar-subnav">
-                    <li>
-                      <%= link_to job_postings_path, class: "ripple" do %>
-                        <span class="pull-right nav-label"></span><span>View Open Jobs</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to job_postings_path, class: "ripple" do %>
-                        <span class="pull-right nav-label"></span><span>My Applications</span>
-                      <% end %>
-                    </li>
-                    <% if can? :create, JobPosting %>
-                    <li class="dropdown-header">
-                      Admin
-                    </li>
-                    <li>
-                      <%= link_to new_job_posting_path, class:"ripple" do %>
-                        <span class="pull-right nav-label"></span><span>New Job Posting</span>
-                      <% end %>
-                    </li>
-                    <% end %>
-                    <% if can? :manage, JobPosting %>
-                    <li>
-                      <%= link_to manage_job_postings_path, class:"ripple" do %>
-                        <span class="pull-right nav-label"></span><span>Manage Postings</span>
-                      <% end %>
-                    </li>
-                    <% end %>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </aside>
-        <div class="sidebar-layout-obfuscator"></div>
+        <%= render 'layouts/header' %>
+        <%= render 'layouts/sidenav' %>
+
         <!-- main section -->
         <main class="main-container">
           <!-- page content -->
           <section>
-            <!-- yield the page content -->
             <%= yield %>
           </section>
-          <!-- page footer-->
-          <footer>
-            <span>2017 - Engineering Society Dashboard</span>
-            <ul>
-              <li><%= link_to "About", about_path %></li>
-              <li><%= link_to "Credits", credits_path %></li>
-            </ul>
-          </footer>
+          <%= render 'layouts/footer' %>
         </main>
-      </div>
-          </div>
-        </div>
       </div>
     </body>
   <!-- load the login page otherwise -->
