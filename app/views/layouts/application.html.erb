@@ -99,7 +99,7 @@
                   <ul class="sidebar-subnav">
                     <li>
                       <%= link_to job_postings_path, class: "ripple" do %>
-                        <span class="pull-right nav-label"></span><span>Find Jobs</span>
+                        <span class="pull-right nav-label"></span><span>View Open Jobs</span>
                       <% end %>
                     </li>
                     <li>
@@ -113,13 +113,13 @@
                     </li>
                     <li>
                       <%= link_to new_job_posting_path, class:"ripple" do %>
-                        <span class="pull-right nav-label"></span><span>New Posting</span>
+                        <span class="pull-right nav-label"></span><span>New Job Posting</span>
                       <% end %>
                     </li>
                     <% end %>
                     <% if can? :manage, JobPosting %>
                     <li>
-                      <%= link_to job_postings_path, class:"ripple" do %>
+                      <%= link_to manage_job_postings_path, class:"ripple" do %>
                         <span class="pull-right nav-label"></span><span>Manage Postings</span>
                       <% end %>
                     </li>

@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 
   get 'organizations/new'
   get 'user_organizations'      =>    'organizations#user_organizations'
-
+  get 'job_postings/manage'     =>    'job_postings#manage', :as => 'manage_job_postings'
+ 
   # devise routes for authentication
   devise_for :users
 
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
 
   # route to job postings
   resources :job_postings do
+    get 'manage'  
     resources :job_posting_questions
     resources :job_applications
     member do
