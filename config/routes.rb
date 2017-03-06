@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :job_posting_answers
   # define the index route
   root                     "static_pages#home"
   get   'about'        =>  "static_pages#about"
@@ -34,7 +35,9 @@ Rails.application.routes.draw do
   resources :job_postings do
     get 'manage'  
     resources :job_posting_questions
-    resources :job_applications
+    resources :job_applications do
+      resources :job_posting_answers, only: [:new, :create, :show]
+    end
     member do
       get 'approve'
       get 'withdraw'

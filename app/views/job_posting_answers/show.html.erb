@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @job_posting_answer.content %>
+</p>
+
+<p>
+  <strong>Job application:</strong>
+  <%= @job_posting_answer.job_application %>
+</p>
+
+<%= link_to 'Edit', edit_job_posting_answer_path(@job_posting_answer) %> |
+<%= link_to 'Back', job_posting_answers_path %>

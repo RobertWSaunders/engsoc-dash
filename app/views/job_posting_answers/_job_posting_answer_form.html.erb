@@ -1,0 +1,29 @@
+<%= form_for([@job_posting, @job_application, @job_posting_answer]) do |f| %>
+  <% if @job_posting_answer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@job_posting_answer.errors.count, "error") %> prohibited this job_posting_answer from being saved:</h2>
+
+      <ul>
+      <% @job_posting_answer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :job_application_id, :value => @job_application.id %>
+
+
+  <% @job_posting.job_posting_questions.each do |q| %>
+
+    <div class="field">
+      <%= f.label :content, q.content %>
+      <%= f.text_area :content, class: 'form-control', style: 'resize:none' %>
+    </div>
+
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
