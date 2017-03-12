@@ -15,8 +15,12 @@ class JobPostingAnswersController < ApplicationController
   # GET /job_posting_answers/new
   def new
     @job_posting = JobPosting.find(params[:job_posting_id])
-    @job_application = @job_posting.job_applications.find(params[:job_application_id])
-    @job_posting_answer = JobPostingAnswer.new
+    @job_application = JobApplication.find(params[:job_application_id])
+    @all_questions = @job_posting.job_posting_questions.all
+    @answers = []
+    @job_posting.job_posting_questions.count.times do
+      @answers << JobPostingAnswer.new
+    end
   end
 
   # GET /job_posting_answers/1/edit
@@ -26,18 +30,23 @@ class JobPostingAnswersController < ApplicationController
   # POST /job_posting_answers
   # POST /job_posting_answers.json
   def create
-    @job_posting_answer = JobPostingAnswer.new(job_posting_answer_params)
-
-    respond_to do |format|
-      if @job_posting_answer.save
-        format.html { redirect_to @job_posting_answer, notice: 'Job posting answer was successfully created.' }
-        format.json { render :show, status: :created, location: @job_posting_answer }
-      else
-        format.html { render :new }
-        format.json { render json: @job_posting_answer.errors, status: :unprocessable_entity }
-      end
+    params["answers"].each do |answer|
+      JobPostingAnswer.create(answer_params(answer))
     end
   end
+
+  #   @job_posting_answer = JobPostingAnswer.new(job_posting_answer_params)
+
+  #   respond_to do |format|
+  #     if @job_posting_answer.save
+  #       format.html { redirect_to @job_posting_answer, notice: 'Job posting answer was successfully created.' }
+  #       format.json { render :show, status: :created, location: @job_posting_answer }
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @job_posting_answer.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /job_posting_answers/1
   # PATCH/PUT /job_posting_answers/1.json
@@ -75,4 +84,9 @@ class JobPostingAnswersController < ApplicationController
     def job_posting_answer_params
       params.require(:job_posting_answer).permit(:content, :job_application_id)
     end
+
+    def answer_params(my_params)
+      my_params.permit(:content, :job_application_id)
+    end
+
 end

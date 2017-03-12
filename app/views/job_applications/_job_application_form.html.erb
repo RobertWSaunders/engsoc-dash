@@ -9,12 +9,6 @@
     <%= f.label :Status %>    
     <%= f.text_field :status, class: 'form-control' %>
 
-    <% @job_posting.job_posting_questions.each do |question| %>
-
-      <%= f.label question.content %>
-
-    <% end %>
-
   <hr>
 
   <div class="actions">
