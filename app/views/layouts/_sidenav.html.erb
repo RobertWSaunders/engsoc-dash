@@ -10,13 +10,14 @@
     <nav class="sidebar-nav">
       <ul>
         <!-- dashboard link -->
-        <li>
+        <li class="<%= 'active' if current_page?(root_path) %>">
           <%= link_to root_path, class: "ripple" do %>
             <span class="nav-icon"><em class="ion-home icon-fw"></em></span><span>Home</span>
           <% end %>
         </li>
         <!-- orgs link -->
-        <li><a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Organizations</span></a>
+        <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) %>">
+          <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Organizations</span></a>
           <ul class="sidebar-subnav">
             <li>
               <%= link_to organizations_path, class: "ripple" do %>
@@ -33,7 +34,7 @@
               Admin
             </li>
             <li>
-              <%= link_to new_organization_path, class:"ripple" do %>
+              <%= link_to new_organization_path, class: "ripple" do %>
                 <span class="pull-right nav-label"></span><span>New Organization</span>
               <% end %>
             </li>
@@ -41,7 +42,8 @@
           </ul>
         </li>
         <!-- jobs link -->
-        <li><a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-briefcase icon-fw"></em></span><span>Jobs</span></a>
+        <li class="<%= 'active' if ( (controller.controller_name.eql?('job_postings')) || (controller.controller_name.eql?('job_applications')) ) %>">
+          <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-briefcase icon-fw"></em></span><span>Jobs</span></a>
           <ul class="sidebar-subnav">
             <li>
               <%= link_to job_postings_path, class: "ripple" do %>

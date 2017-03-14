@@ -16,4 +16,5 @@ module ApplicationHelper
         content_tag(:div, 'closed', class: 'label label-danger')
     end
   end
+
 end
