@@ -1,7 +1,9 @@
 class JobPosting < ApplicationRecord
 
   #Relationships
+  #a job posting belongs to an organization
   belongs_to :organization, :foreign_key => :organization_id, dependent: :destroy
+  #a job posting belongs to a user
   belongs_to :user, :foreign_key => :creator_id
 
   #delete job applications if the related job posting is deleted
