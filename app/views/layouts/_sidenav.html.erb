@@ -19,12 +19,12 @@
         <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) %>">
           <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Organizations</span></a>
           <ul class="sidebar-subnav">
-            <li>
+            <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (controller.action_name.eql?('index')) %>">
               <%= link_to organizations_path, class: "ripple" do %>
                 <span class="pull-right nav-label"></span><span>View All</span>
               <% end %>
             </li>
-            <li>
+            <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (controller.action_name.eql?('user_organizations')) %>">
               <%= link_to user_organizations_path, class: "ripple" do %>
                 <span class="pull-right nav-label"></span><span>My Organizations</span>
               <% end %>
@@ -33,7 +33,7 @@
             <li class="dropdown-header">
               Admin
             </li>
-            <li>
+            <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (controller.action_name.eql?('new')) %>">
               <%= link_to new_organization_path, class: "ripple" do %>
                 <span class="pull-right nav-label"></span><span>New Organization</span>
               <% end %>
@@ -45,7 +45,7 @@
         <li class="<%= 'active' if ( (controller.controller_name.eql?('job_postings')) || (controller.controller_name.eql?('job_applications')) ) %>">
           <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-briefcase icon-fw"></em></span><span>Jobs</span></a>
           <ul class="sidebar-subnav">
-            <li>
+            <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) && (controller.action_name.eql?('index')) %>">
               <%= link_to job_postings_path, class: "ripple" do %>
                 <span class="pull-right nav-label"></span><span>View Open Jobs</span>
               <% end %>
@@ -59,14 +59,14 @@
             <li class="dropdown-header">
               Admin
             </li>
-            <li>
+            <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) && (controller.action_name.eql?('new')) %>">
               <%= link_to new_job_posting_path, class:"ripple" do %>
                 <span class="pull-right nav-label"></span><span>New Job Posting</span>
               <% end %>
             </li>
             <% end %>
             <% if can? :manage, JobPosting %>
-            <li>
+            <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) && (controller.action_name.eql?('manage')) %>">
               <%= link_to manage_job_postings_path, class:"ripple" do %>
                 <span class="pull-right nav-label"></span><span>Manage Postings</span>
               <% end %>
