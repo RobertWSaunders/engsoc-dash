@@ -12,7 +12,7 @@ class Organization < ApplicationRecord
   default_scope -> { order(name: :asc)}
 
   #type of organizations with the engineering society
-  enum type: [:unspecified, :conference, :design_team, :service, :club, :event]
+  enum department: [:unspecified, :conference, :design_team, :service, :club, :event]
 
   #Validations
   #make sure the name is present and is unique
