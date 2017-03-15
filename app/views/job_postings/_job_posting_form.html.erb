@@ -38,5 +38,14 @@
 
           <hr>
 
-          <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
+          <h4>Job Posting Questions</h4>
+          <% if @jobposting.job_posting_questions.any? %>
+            Currently <%= @jobposting.job_posting_questions.count %> <%= 'question'.pluralize(@jobposting.job_posting_questions.count) %>.
+          <% else %>
+            Currently no questions. You can add questions once you first create the job posting.
+          <% end %>
+
+          <hr>
+
+          <%= f.submit "Next", class: "btn btn-primary btn-block" %>
         <% end %>

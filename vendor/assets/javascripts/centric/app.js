@@ -2622,7 +2622,12 @@
             sidebar.find('a').each(function() {
                 var href = $(this).attr('href').replace('#', '');
                 if (href !== '' && window.location.href.indexOf(href) >= 0) {
-                    var item = $(this).parents('li').addClass('active');
+                    // by: Peter
+                    // 14 Mar, 2017
+                    // "Disable 'active'-ness functionality, use Rails Controller logic to integrate instead
+                    // Feel free to uncomment and utilize Centric's capabilities in future..."
+                    // var item = $(this).parents('li').addClass('active');
+
                     // Animate scrolling to focus active item
                     // $sidebarContent.animate({
                     //     scrollTop: $sidebarContent.scrollTop() + item.position().top

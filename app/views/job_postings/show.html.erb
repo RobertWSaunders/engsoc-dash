@@ -19,18 +19,20 @@
       <!-- START dropdown-->
       <div class="pull-right dropdown">
         <%= status_label(@jobposting) %>
-        <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-        <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-          <li>
-            <%= link_to "View Applicants", job_postings_path %>
-          </li>
-          <li>
-            <%= link_to "Edit Posting", job_postings_path %>
-          </li>
-          <li>
-            <%= link_to "Delete Posting", job_postings_path %>
-          </li>
-        </ul>
+        <% if can? :manage_job_postings, @jobposting %>      
+          <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+          <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+            <li>
+              <%= link_to "View Applicants", job_postings_path %>
+            </li>
+            <li>
+              <%= link_to "Edit Posting", job_postings_path %>
+            </li>
+            <li>
+              <%= link_to "Delete Posting", job_postings_path %>
+            </li>
+          </ul>
+        <% end %>
       </div>
       <!-- END dropdown-->
     </div>

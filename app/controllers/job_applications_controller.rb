@@ -18,6 +18,7 @@ class JobApplicationsController < ApplicationController
   def new
     @job_application = JobApplication.new
     @job_posting = JobPosting.find(params[:job_posting_id])
+    @job_application.job_application_answers.build
   end
 
   # GET /job_applications/1/edit
@@ -70,6 +71,6 @@ class JobApplicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_application_params
-      params.require(:job_application).permit(:user_id, :job_posting_id, :status)
+      params.require(:job_application).permit(:user_id, :job_posting_id, :status, job_posting_answers: [:id, :content])
     end
 end

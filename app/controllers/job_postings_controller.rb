@@ -7,11 +7,14 @@ class JobPostingsController < ApplicationController
   helper :application
 
   def index
-    # retrieve only the
     @open_job_postings = JobPosting.where(status: "open").order(:deadline).paginate(:page => params[:page], :per_page => 5)
-    @approval_job_postings = JobPosting.where(status: 0)
-    @interviewing_job_postings = JobPosting.where(status: 2).order(:deadline)
-    @closed_job_postings = JobPosting.where(status: 3).order(:deadline)
+  end
+
+  def manage
+    @approval_job_postings = JobPosting.where(status: "waiting_approval")
+    @interviews_pending_job_postings = JobPosting.where(status: "interviews_pending").order(:deadline)
+    @interviews_scheduled_job_postings = JobPosting.where(status: "interviews_scheduled").order(:deadline)
+    @closed_job_postings = JobPosting.where(status: "closed").order(:deadline)
   end
 
   def show
@@ -21,7 +24,7 @@ class JobPostingsController < ApplicationController
   def create
     @jobposting = JobPosting.new(job_posting_params)
     if @jobposting.save
-      redirect_to job_postings_path
+      redirect_to job_posting_job_posting_questions_path(@jobposting.id)
       # redirect_to controller: 'job_postings', action: 'show', id: @job.organization.id
     else
       render 'new'
@@ -35,7 +38,7 @@ class JobPostingsController < ApplicationController
   def update
     @jobposting = JobPosting.find(params[:id])
     if @jobposting.update_attributes(job_posting_params)
-      redirect_to job_postings_path
+      redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
       render 'edit'
     end

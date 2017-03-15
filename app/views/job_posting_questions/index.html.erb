@@ -1,0 +1,47 @@
+<% content_for :title, "Job Posting Questions" %>
+
+<div class="container container-fluid">
+
+  <div class="container-fluid container-md">
+
+    <ul class="breadcrumb breadcrumb-lead">
+      <li>
+        <%= link_to "Job Posts", job_postings_path %>
+      </li>
+      <li>
+        <%= link_to @jobposting.title, edit_job_posting_path(@jobposting.id) %>
+      </li>
+      <li class="active">
+        <%= link_to "Job Questions", job_posting_job_posting_questions_path %>
+      </li>
+    </ul>
+
+    <h5>Questions for <%= @jobposting.title %>, <%= @jobposting.organization.name %></h5>
+    <p>
+      These are the questions that will be asked to applicants for this position.
+    </p>
+    <div class="card">
+      <div class="card-body">
+        <% if @questions.any? %>
+          There currently exists <%= @questions.count %> <%= 'question'.pluralize(@questions.count) %>.
+          <ul class="questions">
+            <%= render @questions %>
+          </ul>
+        <% else %>
+          There are currently no questions.
+        <% end %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4>Add Question</h4>
+        <%= render 'job_posting_question_form' %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <%= link_to "Complete", @jobposting, { :class=>"btn btn-success btn-block"} %>
+      </div>
+    </div>
+  </div>
+</div>

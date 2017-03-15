@@ -1,0 +1,19 @@
+<%= form_tag job_posting_answers_path do %>
+  <!-- Need to add error messagin -->
+
+  <% @all_questions.each do |question| %>
+    <%= fields_for 'answers[]', question do |q| %>
+      <% qu = JobPostingQuestion.where(id: @all_questions.index(question) + 1).first %>
+      <%= qu.content %>
+      <div class="field">
+        <%= q.label :content, question.content %>
+        <%= q.text_area :content, class: 'form-control', style: 'resize:none' %>
+      </div>
+
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+<% end %>
