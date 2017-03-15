@@ -1,0 +1,14 @@
+        <%= form_for([@jobposting, @jobpostingquestion]) do |f| %>
+
+          <%= render 'shared/job_posting_question_error_messages' %>
+
+          <%= f.hidden_field :job_posting_id, :value => @jobposting.id %>
+
+          <div class="form-group">
+          <%= f.label :Question %>
+          <%= f.text_field :content, class: 'form-control' %>
+          </div>
+
+          <%= f.submit "Add Question", class: "btn btn-primary btn-block" %>
+          
+        <% end %>

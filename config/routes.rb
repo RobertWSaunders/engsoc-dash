@@ -1,16 +1,21 @@
 Rails.application.routes.draw do
 
-  get 'organizations/new'
-  get 'user_organizations'      =>    'organizations#user_organizations'
-
+  resources :job_posting_answers
+  # define the index route
+  root                     "static_pages#home"
+  get   'about'        =>  "static_pages#about"
+  get   'contact'      =>  "static_pages#contact"
+  get   'credits'      =>  "static_pages#credits"
+ 
   # devise routes for authentication
   devise_for :users
 
-  # define the index route
-  root to: "pages#dashboard"
+  get 'organizations/new'
+  get 'user_organizations'      =>    'organizations#user_organizations'
+  get 'job_postings/manage'     =>    'job_postings#manage', :as => 'manage_job_postings'
 
   # define the profile routes, linked to the users controller
-  resources :profile, :controller => 'users'
+  resources :profiles, :controller => 'users'
 
   # define the jobs resources
   resources :jobs, only: [:edit, :update, :destroy] do
@@ -28,7 +33,11 @@ Rails.application.routes.draw do
 
   # route to job postings
   resources :job_postings do
-    resources :job_applications
+    get 'manage'  
+    resources :job_posting_questions
+    resources :job_applications do
+      resources :job_posting_answers, only: [:new, :create, :show]
+    end
     member do
       get 'approve'
       get 'withdraw'

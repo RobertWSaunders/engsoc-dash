@@ -1,0 +1,18 @@
+footer {
+  a {
+    text-decoration: none !important; 
+    color: #ba68c8;
+    &:hover {
+      color: #7b1fa2;
+    }
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 30px;
+    }
+  }
+}
+
