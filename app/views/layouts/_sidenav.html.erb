@@ -17,7 +17,7 @@
         </li>
         <!-- orgs link -->
         <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) %>">
-          <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Organizations</span></a>
+          <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span></a>
           <ul class="sidebar-subnav">
             <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (controller.action_name.eql?('index')) %>">
               <%= link_to organizations_path, class: "ripple" do %>
@@ -74,6 +74,25 @@
             <% end %>
           </ul>
         </li>
+        <!-- Just superadmin logic so far -->
+        <% if can? :manage, :all %>
+          <li role="separator" class="divider">
+            <hr>
+          </li>
+          <li class="dropdown-header">
+            Super User
+          </li>
+          <li>
+            <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-key icon-fw"></em></span><span>Admin</span></a>
+            <ul class="sidebar-subnav">
+              <li>
+                <%= link_to profiles_path, class:"ripple" do %>
+                  <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Users</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        <% end %>
       </ul>
     </nav>
   </div>

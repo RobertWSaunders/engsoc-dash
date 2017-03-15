@@ -16,8 +16,8 @@
         <ul class="dropdown-menu dropdown-menu-right md-dropdown-menu">
           <li>
             <!-- profile link -->
-            <%= link_to destroy_user_session_path do %>
-              <em class="ion-home icon-fw"></em>Profile
+            <%= link_to profile_path(current_user) do %>
+              <em class="ion-person icon-fw"></em>Profile
             <% end %>
           </li>
           <li role="presentation" class="divider"></li>

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'job_postings/manage'     =>    'job_postings#manage', :as => 'manage_job_postings'
 
   # define the profile routes, linked to the users controller
-  resources :profile, :controller => 'users'
+  resources :profiles, :controller => 'users'
 
   # define the jobs resources
   resources :jobs, only: [:edit, :update, :destroy] do
