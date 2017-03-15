@@ -2,6 +2,7 @@ class JobPosting < ApplicationRecord
 
   #Relationships
   #a job posting belongs to an organization
+  #JOB Posting should belong to job
   belongs_to :organization, :foreign_key => :organization_id, dependent: :destroy
   #a job posting belongs to a user
   belongs_to :user, :foreign_key => :creator_id
