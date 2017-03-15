@@ -10,6 +10,6 @@ class JobApplication < ApplicationRecord
 
   enum status: [:draft, :submitted, :interview_scheduled, :hired, :not_chosen ]
 
-  accepts_nested_attributes_for :job_posting_answers
+  accepts_nested_attributes_for :job_application_answers
 
 end
