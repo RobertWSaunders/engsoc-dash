@@ -8,12 +8,21 @@
     <div class="media-body media-middle">
       <h4 class="media-heading">
         <%= @user.first_name %> <%= @user.last_name %>
+        <% if @user.preferred_name? %>
+          (<%= @user.preferred_name %>)
+        <% end %>
       </h4>
       <span class="text-muted">
-        Dash role : <%= @user.role %>
-        <br>
-        Student? : <%= @user.student %> 
+        <%= @user.tagline %>
       </span>
+    </div>
+    <!-- Edit -->
+    <div class="card-offset">
+      <div class="card-offset-item text-right">
+        <%= link_to edit_profile_path(@user.id) do %>
+          <button id="edit-enable" type="button" class="btn-raised btn btn-warning btn-circle btn-lg"><em class="ion-edit"></em></button>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -21,60 +30,60 @@
   <div class="row">
     <!-- Left column-->
     <div class="col-md-7 col-lg-8">
-      <form editable-form="" name="user.profileForm" class="card">
-        <h5 class="card-heading pb0">
-          <!-- START dropdown-->
-          <div class="pull-right dropdown">
-            <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-            <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-              <li><a href="#">Action 1</a></li>
-              <li><a href="#">Action 2</a></li>
-            </ul>
+      <div class="card">
+        <% if @user.bio? %>
+          <h5 class="card-heading pb0">
+            Biography
+          </h5>
+          <div class="card-body">
+            <p>
+              <%= simple_format(@user.bio) %>
+            </p>
           </div>
-          <!-- END dropdown-->About
+          <div class="card-divider"></div>
+        <% end %>
+        <h5 class="card-heading pb0">
+          About
         </h5>
         <div class="card-body">
-          <p data-type="textarea" class="is-editable text-inherit">Pellentesque porta tincidunt justo, non fringilla erat iaculis in. Sed nisi erat, ornare eu pellentesque quis, pellentesque non nulla. Proin rutrum, est pellentesque commodo mattis, sem justo porttitor odio, id aliquet lacus augue nec nisl.</p>
+          <p>
+            Dash role : <%= @user.role %>
+            <br>
+            Student? : <%= @user.student %> 
+          </p>
         </div>
-        <div class="card-divider"></div>
-        <div class="card-offset">
-          <div class="card-offset-item text-right">
-            <button id="edit-enable" type="button" class="btn-raised btn btn-warning btn-circle btn-lg"><em class="ion-edit"></em></button>
-            <button id="edit-disable" type="submit" class="btn-raised btn btn-success btn-circle btn-lg hidden"><em class="ion-checkmark-round"></em></button>
-          </div>
-        </div>
-        <h5 class="card-heading pb0">Contact Information</h5>
         <div class="card-body">
           <table class="table table-striped">
             <tbody>
               <tr>
-                <td><em class="ion-document-text icon-fw mr"></em>Area</td>
-                <td>Research &amp; development</td>
+                <td><em class="ion-email icon-fw mr"></em>Email</td>
+                <td><span class="is-editable text-inherit"><a href="#"><%= @user.email %></a></span></td>
               </tr>
               <tr>
-                <td><em class="ion-egg icon-fw mr"></em>Birthday</td>
-                <td><span data-type="date" data-mode="popup" class="is-editable text-inherit">10/11/2000</span></td>
+                <td><em class="ion-document-text icon-fw mr"></em>Faculty</td>
+                <td><%= @user.faculty %></td>
+              </tr>
+              <tr>
+                <td><em class="ion-document-text icon-fw mr"></em>Specialization</td>
+                <td><%= @user.specialization %></td>
               </tr>
               <tr>
                 <td><em class="ion-ios-body icon-fw mr"></em>Member since</td>
                 <td><span data-type="date" data-mode="popup" class="is-editable text-inherit">05/11/2015</span></td>
               </tr>
+              <% if @user.gender != 'unspecified' %>
               <tr>
-                <td><em class="ion-man icon-fw mr"></em>Gender</td>
-                <td><a id="gender" href="#" data-type="select" data-pk="1" data-value="2" data-title="Select sex" class="text-inherit"></a></td>
+                <td>
+                  <% if @user.gender == 'male' %>
+                    <em class="ion-male icon-fw mr"></em>
+                  <% else %>
+                    <em class="ion-female icon-fw mr"></em>
+                  <% end %>
+                  Gender
+                </td>
+                <td><%= @user.gender.humanize %></td>
               </tr>
-              <tr>
-                <td><em class="ion-android-home icon-fw mr"></em>Address</td>
-                <td><span class="is-editable text-inherit">Some street, 123</span></td>
-              </tr>
-              <tr>
-                <td><em class="ion-email icon-fw mr"></em>Email</td>
-                <td><span class="is-editable text-inherit"><a href="#">user@mail.com</a></span></td>
-              </tr>
-              <tr>
-                <td><em class="ion-ios-telephone icon-fw mr"></em>Contact phone</td>
-                <td><span class="is-editable text-inherit">13-123-46578</span></td>
-              </tr>
+              <% end %>
             </tbody>
           </table>
         </div>
@@ -111,7 +120,7 @@
             </li>
           </ul>
         </div>
-      </form>
+      </div>
     </div>
     <!-- Right column-->
     <div class="col-md-5 col-lg-4">
