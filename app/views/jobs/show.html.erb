@@ -1,18 +1,61 @@
 <% content_for :title, @job.title + ", " + @organization.name %>
 
-<div class="container-overlap bg-indigo-500">
-  <div class="container container-md">
-    <h2><%= @job.title %> for <%= link_to @organization.name, @organization %></h2>
-    <h4><%= @job.user.first_name %> <%= @job.user.last_name %></h4>
-    <h4><%= @job.user.email %></h4>
-  </div>
-</div>
-
-<div class="container container-md">
+<div class="container container-fluid">
+  <!-- Breadcrumb next to view title-->
+  <ul class="breadcrumb breadcrumb-lead">
+    <li>
+      <%= link_to "Organizations", organizations_path %>
+    </li>
+    <li class="active">
+      <%= link_to organization_path(@organization) do %>
+        <%= @organization.name %>
+      <% end %>
+    </li>
+    <li class="active">
+      <%= link_to organization_job_path do %>
+        <%= @job.title %>
+      <% end %>
+    </li>
+  </ul>
   <div class="card">
     <div class="card-body reader-block">
       <div class="row">
-        <h1>Lorem</h1>
+        <div class="col-md-6">
+          <h3><%= @job.title %><br>
+            <small><%= link_to @organization.name, @organization %></small>
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p>
+            Position currently held by: <strong><%= link_to @job.user.first_name + " " + @job.user.last_name, profile_path(@job.user.id) %></strong>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="table-responsive mv-lg">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Hired Date</th>
+                <th>Finished Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2006</td>
+                <td>Joey Bing</td>
+                <td>joey@bing</td>
+                <td>January, 2004</td>
+                <td>April, 2006</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
