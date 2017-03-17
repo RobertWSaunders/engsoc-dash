@@ -5,15 +5,15 @@
           <%= f.hidden_field :creator_id, :value => current_user.id %>
 
           <div class="form-group">
-          <% if @job %>
-            <%= f.label :Title %>
-            <br>
-            <%= f.hidden_field :job_id, :value => params[:job_id] %>
-            <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name %>
-            <%= @job.title %>, for <%= @job.organization.name %>
-          <% else %>
-            <%= f.label :Title %>
-          <% end %>
+          <%= f.label :Title %>
+          <br>
+            <% if @jobposting.title %>
+              <%= @jobposting.title %>
+            <% else %>
+              <%= f.hidden_field :job_id, :value => params[:job_id] %>
+              <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name %>
+              <%= @job.title %>, for <%= @job.organization.name %>
+            <% end %>
           </div>
 
 
