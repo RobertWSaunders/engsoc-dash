@@ -28,9 +28,18 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <p>
-            Position currently held by: <strong><%= link_to @job.user.first_name + " " + @job.user.last_name, profile_path(@job.user.id) %>.</strong>
-          </p>
+          <% if @job.user %>
+            <p>
+              Position currently held by: <strong><%= link_to @job.user.first_name + " " + @job.user.last_name, profile_path(@job.user.id) %>.</strong>
+            </p>
+          <% else %>
+            <p>
+              Position currently vacant.
+            </p>
+            <p>
+              Create <%= link_to "new job post", new_job_posting_path %>?
+            </p>
+          <% end %>
         </div>
       </div>
       <div class="row">

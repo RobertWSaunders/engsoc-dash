@@ -13,7 +13,7 @@ class Job < ApplicationRecord
   #make sure the organization id is present
   validates :organization_id, presence: true
   #make sure the user id is present and unique
-  validates :user_id, presence: true, :uniqueness => { :scope => :organization_id }
+  # validates :user_id, presence: true, :uniqueness => { :scope => :organization_id }
   #make sure the title is present
   validates :title, presence: true
   validates :description, presence: true, length: { minimum: 15, maximum: 2000 }

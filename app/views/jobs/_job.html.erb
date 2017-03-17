@@ -1,7 +1,12 @@
 <tr>
   <td><%= link_to job.title.titleize, organization_job_path(:organization_id => job.organization_id, :id => job.id) %></td>
-  <td><%= job.user.first_name %> <%= job.user.last_name %></td>
-  <td><%= job.user.email %></td>
+  <% if job.user %>
+    <td><%= job.user.first_name %> <%= job.user.last_name %></td>
+    <td><%= job.user.email %></td>
+    <% else %>
+    <td>Vacant Position</td>
+    <td></td>
+  <% end %>
   <% if can? :manage, job %>
     <td>
       <div class="pull-right dropdown">

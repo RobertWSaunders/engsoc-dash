@@ -34,6 +34,15 @@ class JobPostingsController < ApplicationController
 
   def new
     @jobposting = JobPosting.new
+    if params[:job_id]
+      @job = Job.find(params[:job_id])
+    else
+      redirect_to select_job_path
+    end
+  end
+
+  def select
+    @vacant_jobs = Job.where(:user_id => nil)
   end
 
   def update

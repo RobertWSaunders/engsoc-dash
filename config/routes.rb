@@ -13,15 +13,18 @@ Rails.application.routes.draw do
   get 'organizations/new'
   get 'user_organizations'      =>    'organizations#user_organizations'
   get 'job_postings/manage'     =>    'job_postings#manage', :as => 'manage_job_postings'
+  get 'job_postings/select'     =>    'job_postings#select', :as => 'select_job'
+  get 'jobs/:id/assign'         =>    'jobs#assign', :as => 'assign_job'
 
   # define the profile routes, linked to the users controller
   resources :profiles, :controller => 'users'
 
   # define the jobs resources
-  resources :jobs, only: [:edit, :update, :destroy] do
+  resources :jobs, only: [:edit, :update, :destroy, :assign] do
     # within the jobs routes, route to job applications
     resources :job_applications, :controller => 'jobs/job_applications'
     # resources :job_applications
+    resources :job_postings, only: [:new]
   end
   
   resources :organizations do
