@@ -13,6 +13,7 @@ class Organization < ApplicationRecord
 
   #type of organizations with the engineering society
   enum department: [:unspecified, :conference, :design_team, :service, :club, :event]
+  enum status: [:waiting_approval, :active, :archived]
 
   #Validations
   #make sure the name is present and is unique

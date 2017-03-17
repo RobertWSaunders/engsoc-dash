@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317031054) do
+ActiveRecord::Schema.define(version: 20170317032431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,14 +40,15 @@ ActiveRecord::Schema.define(version: 20170317031054) do
   end
 
   create_table "job_postings", force: :cascade do |t|
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "status",          default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "status",      default: 0
     t.string   "description"
-    t.integer  "organization_id"
     t.datetime "deadline"
     t.integer  "creator_id"
     t.string   "title"
+    t.integer  "job_id"
+    t.index ["job_id"], name: "index_job_postings_on_job_id", using: :btree
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -104,4 +105,5 @@ ActiveRecord::Schema.define(version: 20170317031054) do
 
   add_foreign_key "job_application_answers", "job_applications"
   add_foreign_key "job_posting_questions", "job_postings"
+  add_foreign_key "job_postings", "jobs"
 end
