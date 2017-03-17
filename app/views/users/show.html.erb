@@ -69,7 +69,9 @@
               </tr>
               <tr>
                 <td><em class="ion-ios-body icon-fw mr"></em>Member since</td>
-                <td><span data-type="date" data-mode="popup" class="is-editable text-inherit">05/11/2015</span></td>
+                <td>
+                  <%= @user.created_at.to_time.strftime('%B, %Y') %>
+                </td>
               </tr>
               <% if @user.gender != 'unspecified' %>
               <tr>

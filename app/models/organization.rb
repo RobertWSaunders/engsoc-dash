@@ -5,8 +5,6 @@ class Organization < ApplicationRecord
   has_many :jobs, dependent: :destroy
   #an organization has many users through their jobs, many to many
   has_many :users, :through => :jobs
-  #an organization has many job postings
-  has_many :job_postings, :foreign_key => :organization_id, dependent: :destroy
 
   #set the scope when performing actions
   default_scope -> { order(name: :asc)}

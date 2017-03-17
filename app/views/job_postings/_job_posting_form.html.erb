@@ -16,8 +16,8 @@
 
           <!-- Should add an organization check for current user (so that user can only add job postings for orgs they are able to manage), if they are only managers -->
           <div class="form-group">
-          <%= f.label :Organization %>
-          <%= f.select :organization_id, Organization.all.collect {|x| [x.name, x.id]}, { class: 'form-control' } %>
+          <%= f.label :Job %>
+          <%= f.select :job_id, Organization.all.collect {|x| [x.name, x.id]}, { class: 'form-control' } %>
           </div>
 
           <hr>

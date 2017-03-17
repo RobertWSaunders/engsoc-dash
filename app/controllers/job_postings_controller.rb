@@ -18,7 +18,8 @@ class JobPostingsController < ApplicationController
   end
 
   def show
-    @organization = Organization.find_by! id: @jobposting.organization_id
+    @job = Job.find_by! id: @jobposting.job_id
+    @organization = Organization.find_by! id: @job.organization_id
   end
 
   def create
@@ -69,7 +70,7 @@ class JobPostingsController < ApplicationController
 
   # define the jpbs parameters
     def job_posting_params
-      params.require(:job_posting).permit(:creator_id, :title, :description, :organization_id, :deadline, :status)
+      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status)
     end
 
     def set_job_posting

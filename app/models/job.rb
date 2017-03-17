@@ -6,6 +6,9 @@ class Job < ApplicationRecord
   #a job job belongs to a user
   belongs_to :user
 
+  has_many :job_postings, :foreign_key => :job_id, dependent: :destroy
+
+
   #Validations
   #make sure the organization id is present
   validates :organization_id, presence: true

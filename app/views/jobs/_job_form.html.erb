@@ -5,6 +5,9 @@
           <%= f.label :Title %>
           <%= f.text_field :title, class: 'form-control' %>
 
+          <%= f.label :Description %>
+          <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>  
+
           <%= f.label :User %>
           <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>     
 
