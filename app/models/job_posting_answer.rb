@@ -1,4 +1,4 @@
-class JobApplicationAnswer < ApplicationRecord
+class JobPostingAnswer < ApplicationRecord
 
   #Relationships
   #a job application answer belongs to a job application

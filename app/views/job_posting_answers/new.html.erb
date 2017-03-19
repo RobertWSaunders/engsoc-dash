@@ -2,7 +2,7 @@
 <div class="container container-fluid">
 
   <div class="container-fluid container-md">
-    <h5>Job Application for <%= link_to @job_posting.title, @job_posting %>, <%= link_to @job_posting.organization.name, @job_posting.organization %></h5>
+    <h5>Job Application for <%= link_to @job_posting.title, @job_posting %>, <%= link_to @job_posting.job.organization.name, @job_posting.job.organization %></h5>
 
     <p>
       Please answer the questions below.
@@ -12,7 +12,7 @@
 
         <%= render 'job_posting_answer_form', job_posting_answer: @job_posting_answer %>
 
-        <%= link_to 'Back', job_posting_answers_path %>
+        <%#= link_to 'Back', job_posting_answers_path %>
       </div>
     </div>
 
