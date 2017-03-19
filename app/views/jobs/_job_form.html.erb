@@ -14,6 +14,9 @@
             <%= f.hidden_field :organization_id, :value => @organization.id %>
           <% end %>
 
+          <%= f.label :Role %>
+          <%= f.select :role, Job.roles.keys.map { |w| [w.humanize, w] }  %>
+
           <hr>
 
           <%= f.submit "Submit", class: "btn btn-primary btn-block" %>

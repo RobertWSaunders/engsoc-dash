@@ -11,8 +11,16 @@
               <%= @jobposting.title %>
             <% else %>
               <%= f.hidden_field :job_id, :value => params[:job_id] %>
-              <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name %>
-              <%= @job.title %>, for <%= @job.organization.name %>
+              <% if @job.role == "management" %>
+                <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (Manager)" %>
+                <%= @job.title %>, for <%= @job.organization.name %> (Manager)
+              <% elsif @job.role == "admin" %>
+                <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (EngSoc Admin)" %>
+                  <%= @job.title %>, for <%= @job.organization.name %> (EngSoc Admin)
+              <% else %>
+                <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name %>
+                <%= @job.title %>, for <%= @job.organization.name %>
+              <% end %>
             <% end %>
           </div>
 

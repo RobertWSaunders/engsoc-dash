@@ -21,7 +21,6 @@
             <ul class="list-group">
             <!-- iterate through all of the open job postings -->
             <% @open_job_postings.each do |posting| %>
-              <%= posting.job %>
               <li class="list-group-item">
                 <!-- show dropdown if the user is allowed to manage it, probably redundant with admin console -->
                 <% if can? :submit_job_postings, posting %>

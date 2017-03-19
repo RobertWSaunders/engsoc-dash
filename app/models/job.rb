@@ -21,6 +21,8 @@ class Job < ApplicationRecord
   # organizations model has the same status enum
   enum status: [:waiting_approval, :active, :archived]
 
+  enum role: [:regular, :management, :admin]
+
   accepts_nested_attributes_for :user, :organization
   
 end

@@ -22,7 +22,7 @@
             <p class="lead">
               Or create a job posting for the position:
             </p>
-            <%= link_to "Create Job Posting", new_job_posting_path(:job => @job.id), class: "btn btn-success btn-block" %>
+            <%= link_to "Create Job Posting", new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn-success btn-block" %>
           </div>
         </div>
       </div>
