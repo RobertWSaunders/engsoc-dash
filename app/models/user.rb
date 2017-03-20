@@ -13,6 +13,11 @@ class User < ApplicationRecord
   #the roles a user can be associated with
   enum role: [:student, :management, :admin, :superadmin]
 
+  enum gender: [:unspecified, :male, :female]
+
+  validates :tagline, length: { maximum: 95 }
+  validates :bio, length: { maximum: 2000 }
+
   #devise authentication system
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

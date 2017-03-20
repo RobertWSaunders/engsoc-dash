@@ -1,9 +1,8 @@
 class JobPosting < ApplicationRecord
 
   #Relationships
-  #a job posting belongs to an organization
-  #JOB Posting should belong to job
-  belongs_to :organization, :foreign_key => :organization_id, dependent: :destroy
+  #a job posting belongs to a job
+  belongs_to :job, :foreign_key => :job_id, dependent: :destroy
   #a job posting belongs to a user
   belongs_to :user, :foreign_key => :creator_id
 
@@ -16,8 +15,8 @@ class JobPosting < ApplicationRecord
   enum status: [:waiting_approval, :draft, :open, :interviews_pending, :interviews_scheduled, :closed, :extension_pending]
 
   #Validations
-  #make sure a organization_id is present
-  validates :organization_id, presence: true
+  #make sure a job_id is present
+  validates :job_id, presence: true
   #title must be minimum length of five characters
   validates :title, presence: true, length: { minimum: 5, maximum: 100 }
   #description must be at least fifteen characters

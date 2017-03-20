@@ -4,16 +4,7 @@
 
   <div class="container-fluid container-md">
 
-    <ul class="breadcrumb breadcrumb-lead">
-      <li>
-        <%= link_to "Job Posts", job_postings_path %>
-      </li>
-      <li class="active">
-        <%= link_to @jobposting.title, edit_job_posting_path(@jobposting.id) %>
-      </li>
-    </ul>
-
-    <h5>Edit Posting for <%= @jobposting.title %>, <%= @jobposting.organization.name %> </h5>
+    <h5>Edit Posting for <%= @jobposting.title %></h5>
     <div class="card">
       <div class="card-body">
         <%= render 'job_posting_form' %>

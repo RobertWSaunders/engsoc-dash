@@ -10,18 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314040327) do
+ActiveRecord::Schema.define(version: 20170319211129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "job_application_answers", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "job_application_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["job_application_id"], name: "index_job_application_answers_on_job_application_id", using: :btree
-  end
 
   create_table "job_applications", force: :cascade do |t|
     t.datetime "created_at",                 null: false
@@ -29,6 +21,14 @@ ActiveRecord::Schema.define(version: 20170314040327) do
     t.integer  "user_id"
     t.integer  "job_posting_id"
     t.integer  "status",         default: 0
+  end
+
+  create_table "job_posting_answers", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "job_application_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["job_application_id"], name: "index_job_posting_answers_on_job_application_id", using: :btree
   end
 
   create_table "job_posting_questions", force: :cascade do |t|
@@ -40,22 +40,26 @@ ActiveRecord::Schema.define(version: 20170314040327) do
   end
 
   create_table "job_postings", force: :cascade do |t|
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "status",          default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "status",      default: 0
     t.string   "description"
-    t.integer  "organization_id"
     t.datetime "deadline"
     t.integer  "creator_id"
     t.string   "title"
+    t.integer  "job_id"
+    t.index ["job_id"], name: "index_job_postings_on_job_id", using: :btree
   end
 
   create_table "jobs", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "organization_id"
     t.string   "title"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.text     "description"
+    t.integer  "status"
+    t.integer  "role",            default: 0
     t.index ["organization_id"], name: "index_jobs_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_jobs_on_user_id", using: :btree
   end
@@ -88,10 +92,18 @@ ActiveRecord::Schema.define(version: 20170314040327) do
     t.datetime "updated_at",                            null: false
     t.integer  "role",                   default: 0
     t.boolean  "student",                default: true
+    t.integer  "gender",                 default: 0
+    t.datetime "birthday"
+    t.text     "faculty"
+    t.text     "specialization"
+    t.text     "tagline"
+    t.text     "bio"
+    t.string   "preferred_name"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "job_application_answers", "job_applications"
+  add_foreign_key "job_posting_answers", "job_applications"
   add_foreign_key "job_posting_questions", "job_postings"
+  add_foreign_key "job_postings", "jobs"
 end

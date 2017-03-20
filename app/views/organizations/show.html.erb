@@ -22,10 +22,18 @@
   <div class="card">
     <div class="card-body reader-block">
       <div class="row">
-        <h3>Description</h3>
-        <p>
-          <%= simple_format(@organization.description) %>
-        </p>
+        <div class="col-md-8">
+          <h3>Description</h3>
+          <p>
+            <%= simple_format(@organization.description) %>
+          </p>
+        </div>
+        <div class="col-md-4">
+          <h4>Quick Facts</h4>
+          <ul>
+            <li>Established in: <%= @organization.created_at.to_time.strftime('%B, %Y') %></li>
+          </ul>
+        </div>
       </div>
       <div class="row" id="jobs">
         <%= render "jobs_table" %>

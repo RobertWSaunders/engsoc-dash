@@ -3,7 +3,7 @@
 <div class="container-overlap bg-indigo-500">
   <div class="container container-md">
     <h4>
-      Application for <%= link_to @job_application.job_posting.organization.name, @job_application.job_posting.organization %>, <%= link_to @job_application.job_posting.title, @job_application.job_posting %>
+      Application for <%= link_to @job_application.job_posting.job.organization.name, @job_application.job_posting.job.organization %>, <%= link_to @job_application.job_posting.title, @job_application.job_posting %>
     </h4>
     <h2>
       <%= @job_application.user.first_name %> <%= @job_application.user.last_name %>

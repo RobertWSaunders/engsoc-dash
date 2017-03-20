@@ -8,7 +8,7 @@ class OrganizationsController < ApplicationController
 
   def show
     @organization = Organization.find(params[:id])
-    @jobs = @organization.jobs
+    @jobs = @organization.jobs.order(role: :desc, created_at: :asc)
   end
 
   def create

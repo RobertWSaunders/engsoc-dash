@@ -6,18 +6,32 @@
 
           <div class="form-group">
           <%= f.label :Title %>
-          <%= f.text_field :title, class: 'form-control' %>
+          <br>
+            <% if @jobposting.title %>
+              <%= @jobposting.title %>
+            <% else %>
+              <%= f.hidden_field :job_id, :value => params[:job_id] %>
+              <% if @job.role == "management" %>
+                <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (Manager)" %>
+                <%= @job.title %>, for <%= @job.organization.name %> (Manager)
+              <% elsif @job.role == "admin" %>
+                <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (EngSoc Admin)" %>
+                  <%= @job.title %>, for <%= @job.organization.name %> (EngSoc Admin)
+              <% else %>
+                <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name %>
+                <%= @job.title %>, for <%= @job.organization.name %>
+              <% end %>
+            <% end %>
           </div>
+
 
           <div class="form-group">
           <%= f.label :Description %>
-          <%= f.text_area :description, class: 'form-control', style: 'resize:none', rows: "20" %>
-          </div>
-
-          <!-- Should add an organization check for current user (so that user can only add job postings for orgs they are able to manage), if they are only managers -->
-          <div class="form-group">
-          <%= f.label :Organization %>
-          <%= f.select :organization_id, Organization.all.collect {|x| [x.name, x.id]}, { class: 'form-control' } %>
+          <% if @job %>
+            <%= f.text_area :description, :value => @job.description, class: 'form-control', style: 'resize:none', rows: "20" %>
+          <% else %>
+            <%= f.text_area :description, class: 'form-control', style: 'resize:none', rows: "20" %>
+          <% end %>
           </div>
 
           <hr>

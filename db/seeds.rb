@@ -32,7 +32,7 @@ itteam = Organization.create!(name:         "EngSoc IT-Team",
                      email:        "it-team@engsoc.queensu.ca",
                      description:  "The secret service for all your needs")
 
-itteam.jobs.create!(user_id: 3, title: "Team Manager")
+itteam.jobs.create!(user_id: 3, title: "Team Manager", description: "The TM is responsible for managing")
 
 30.times do |n|
   first_name  = Faker::Name.name

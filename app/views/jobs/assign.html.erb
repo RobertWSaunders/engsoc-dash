@@ -1,0 +1,31 @@
+<% content_for :title, "Create Job" %>
+
+<div class="container container-fluid">
+
+  <div class="container-fluid container-md">
+    <h5><%= @job.title %>, <%= @job.organization.name %></h5>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="lead">
+              Assign someone to the job posting:
+            </p>
+            <%= form_for([@organization, @job]) do |f| %>
+
+              <%= f.label :User %>
+              <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>  
+
+              <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
+            <% end %>
+            <hr>
+            <p class="lead">
+              Or create a job posting for the position:
+            </p>
+            <%= link_to "Create Job Posting", new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn-success btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

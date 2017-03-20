@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      redirect_to controller: 'user', action: 'show', id: @user.id
+      redirect_to controller: 'users', action: 'show', id: @user.id
     else
       render 'edit'
     end
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :description, :email)
+      params.require(:user).permit(:preferred_name, :tagline, :bio, :faculty, :specialization, :gender)
     end
 
 end

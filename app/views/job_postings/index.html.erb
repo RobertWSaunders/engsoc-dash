@@ -21,16 +21,16 @@
             <ul class="list-group">
             <!-- iterate through all of the open job postings -->
             <% @open_job_postings.each do |posting| %>
-                <li class="list-group-item">
-                  <!-- show dropdown if the user is allowed to manage it, probably redundant with admin console -->
-                  <% if can? :submit_job_postings, posting %>
-                    <div class="pull-right dropdown">
-                      <%= status_label(posting) %>
-                      <% if can? :approve_job_postings, posting %>
-                        <%= render 'index_dropdown', :posting => posting %>
-                      <% end %>
-                    </div>
-                  <% end %>
+              <li class="list-group-item">
+                <!-- show dropdown if the user is allowed to manage it, probably redundant with admin console -->
+                <% if can? :submit_job_postings, posting %>
+                  <div class="pull-right dropdown">
+                    <%= status_label(posting) %>
+                    <% if can? :approve_job_postings, posting %>
+                      <%= render 'index_dropdown', :posting => posting %>
+                    <% end %>
+                  </div>
+                <% end %>
                 <!-- show the job title and link to the job posting detail -->
                 <h5 class="mb-sm">
                   <%= link_to job_posting_path(posting), class: "ripple" do %>

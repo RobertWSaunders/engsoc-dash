@@ -3,13 +3,22 @@
 <div class="container container-fluid">
 
   <div class="container-fluid container-md">
-    <h5>Job Application for <%= link_to @job_posting.title, @job_posting %>, <%= link_to @job_posting.organization.name, @job_posting.organization %>
+    <h5>Job Application for <%= link_to @job_posting.title, @job_posting %>, <%= link_to @job_posting.job.organization.name, @job_posting.job.organization %>
     </h5>
     <p>
       Please answer the questions below.
     </p>
     <div class="card">
       <div class="card-body">
+        <p>
+          WELCOME PAGE
+        </p>
+        <p>
+          THESE ARE SOME JOB DESCRIPTIONS
+        </p>
+        <p>
+          <i>This is a disclamer ...</i>
+        </p>
         <%= render 'job_application_form' %>
       </div>
     </div>

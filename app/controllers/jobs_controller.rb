@@ -16,7 +16,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
     @organization = Organization.find(params[:organization_id])
     if @job.save
-      redirect_to controller: 'organizations', action: 'show', id: @job.organization.id
+      redirect_to controller: 'jobs', action: 'assign', id: @job.id
     else
       render 'new'
     end
@@ -27,10 +27,14 @@ class JobsController < ApplicationController
     @organization = Organization.find(params[:organization_id])
   end
 
+  def assign
+    @job = Job.find(params[:id])
+  end
+
   def update
     @job = Job.find(params[:id])
     if @job.update_attributes(job_params)
-      redirect_to controller: 'organizations', action: 'show', id: @job.organization.id
+      redirect_to organization_job_path(:organization_id => @job.organization_id)
     else
       render 'edit'
     end
@@ -49,7 +53,7 @@ class JobsController < ApplicationController
 
   # define the jobs parameters
     def job_params
-      params.require(:job).permit(:title, :user_id, :organization_id)
+      params.require(:job).permit(:title, :user_id, :organization_id, :description, :role)
     end
 
 end
