@@ -6,8 +6,8 @@
       <% qu = JobPostingQuestion.where(id: @all_questions.index(question) + 1).first %>
       <%= qu.content %>
       <div class="field">
-        <%= q.label :content, question.content %>
-        <%= q.text_area :content, class: 'form-control', style: 'resize:none' %>
+        <%= qu.label :content, question.content %>
+        <%= qu.text_area :content, class: 'form-control', style: 'resize:none' %>
       </div>
 
     <% end %>
