@@ -29,16 +29,7 @@
                 <span class="pull-right nav-label"></span><span>My Organizations</span>
               <% end %>
             </li>
-            <% if can? :manage, Organization %>
-            <li class="dropdown-header">
-              Admin
-            </li>
-            <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (controller.action_name.eql?('new')) %>">
-              <%= link_to new_organization_path, class: "ripple" do %>
-                <span class="pull-right nav-label"></span><span>New Organization</span>
-              <% end %>
-            </li>
-            <% end %>
+      
           </ul>
         </li>
         <!-- jobs link -->
