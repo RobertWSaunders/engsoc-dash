@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     get 'manage'  
     resources :job_posting_questions
     resources :job_applications do
-      resources :job_posting_answers, only: [:new, :create, :show]
+      resources :job_posting_answers, only: [:new, :create, :show, :edit, :index]
     end
     member do
       get 'approve'

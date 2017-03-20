@@ -3,10 +3,11 @@
 <div class="container container-fluid">
 
   <div class="container-fluid container-md">
-    <h5>Job Application for <%= link_to @job_posting.title, @job_posting %>, <%= link_to @job_posting.job.organization.name, @job_posting.job.organization %>
-    </h5>
+    <h3>
+      <%= link_to @job_posting.title, @job_posting %>
+    </h3>
     <p>
-      Please answer the questions below.
+      Please read the disclamers below.
     </p>
     <div class="card">
       <div class="card-body">

@@ -24,8 +24,8 @@ class JobPostingAnswersController < ApplicationController
   end
 
   # GET /job_posting_answers/1/edit
-  # def edit
-  # end
+  def edit
+  end
 
   # POST /job_posting_answers
   # POST /job_posting_answers.json
