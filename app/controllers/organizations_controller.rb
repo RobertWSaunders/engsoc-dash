@@ -42,6 +42,12 @@ class OrganizationsController < ApplicationController
     redirect_to organizations_url
   end
 
+  def manage
+    @approval_organizations = Organization.where(status: "waiting_approval")
+    @active_organizations = Organization.where(status: "active")
+    @archived_organizations = Organization.where(status: "archived")
+  end
+
   def user_organizations
   end
 

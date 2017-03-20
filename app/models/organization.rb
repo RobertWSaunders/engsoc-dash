@@ -11,6 +11,7 @@ class Organization < ApplicationRecord
 
   #type of organizations with the engineering society
   enum department: [:unspecified, :conference, :design_team, :service, :club, :event]
+
   enum status: [:waiting_approval, :active, :archived]
 
   #Validations
@@ -20,7 +21,7 @@ class Organization < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   #set bounds and make sure unique description
   validates :description, presence: true, length: { minimum: 10, maximum: 4000 }
-  
+
   accepts_nested_attributes_for :jobs
 
 end
