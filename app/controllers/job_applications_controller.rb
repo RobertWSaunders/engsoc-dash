@@ -1,5 +1,5 @@
 class JobApplicationsController < ApplicationController
-  before_action :set_job_application, only: [:show, :edit, :update, :destroy]
+  before_action :set_job_application, only: [:show, :edit, :update, :destroy, :finalize]
 
   # GET /job_applications
   # GET /job_applications.json
@@ -16,12 +16,15 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/new
   def new
-    @job_application = JobApplication.new
     @job_posting = JobPosting.find(params[:job_posting_id])
+    @existing = JobApplication.where(user_id: current_user.id, job_posting_id: params[:job_posting_id]).first
+    if @existing
+      redirect_to edit_job_posting_job_application_job_posting_answer_path(:job_application_id => @existing.id, :id => 1)
+    end
+    @job_application = JobApplication.new
   end
 
   # GET /job_applications/1/edit
-  # Don't think we'll be using edit...
   def edit
   end
 
@@ -40,16 +43,11 @@ class JobApplicationsController < ApplicationController
   end
 
   # PATCH/PUT /job_applications/1
-  # PATCH/PUT /job_applications/1.json
   def update
-    respond_to do |format|
-      if @job_application.update(job_application_params)
-        format.html { redirect_to @job_application, notice: 'Job application was successfully updated.' }
-        format.json { render :show, status: :ok, location: @job_application }
-      else
-        format.html { render :edit }
-        format.json { render json: @job_application.errors, status: :unprocessable_entity }
-      end
+    if @job_application.update_attributes(job_application_params)
+      redirect_to root_path
+    else
+      render 'finalize'
     end
   end
 
@@ -64,6 +62,7 @@ class JobApplicationsController < ApplicationController
   end
 
   def finalize
+    @job_posting_answers = JobPostingAnswer.where(:job_application_id => @job_application.id)
   end
 
   private

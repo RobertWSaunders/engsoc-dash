@@ -1,6 +1,21 @@
-<h1>Editing Job Posting Answer</h1>
+<% content_for :title, "Job Application" %>
+<div class="container container-fluid">
 
-<%= render 'form', job_posting_answer: @job_posting_answer %>
+  <div class="container-fluid container-md">
+    <h3>
+      <%= link_to @job_posting.title, @job_posting %>
+    </h3>
+    <p>
+      Please answer the questions below.
+    </p>
+    <div class="card">
+      <div class="card-body">
 
-<%= link_to 'Show', @job_posting_answer %> |
-<%= link_to 'Back', job_posting_answers_path %>
+        <%= render 'job_posting_answer_form', job_posting_answer: @job_posting_answer %>
+
+        <%#= link_to 'Back', job_posting_answers_path %>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -2,16 +2,24 @@
 
     <%= render 'shared/job_application_error_messages' %>
 
-    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <% if controller.action_name.eql?('new') %>
+
+      <%= f.hidden_field :user_id, :value => current_user.id %>
     
-    <%= f.hidden_field :job_posting_id, :value => @job_posting.id %>
+      <%= f.hidden_field :job_posting_id, :value => @job_posting.id %>
 
-    <%= f.label :Status %>    
-    <%= f.text_field :status, class: 'form-control' %>
+      <%= f.hidden_field :status, :value => 'draft' %>
 
-  <hr>
+      <hr>
+      <div class="actions">
+        <%= f.submit "Begin Application", class: "btn btn-raised btn-primary btn-lg btn-block ripple" %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Answer Questions", class: "btn btn-primary btn-block" %>
-  </div>
+    <% else %>
+      <%= f.hidden_field :status, :value => 'submitted' %>
+      <hr>
+      <div class="actions">
+        <%= f.submit "Complete Application", class: "btn btn-raised btn-success btn-lg btn-block ripple" %>
+      </div>
+    <% end %>
 <% end %>
