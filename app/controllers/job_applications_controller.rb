@@ -18,7 +18,6 @@ class JobApplicationsController < ApplicationController
   def new
     @job_application = JobApplication.new
     @job_posting = JobPosting.find(params[:job_posting_id])
-    @job_application.job_application_answers.build
   end
 
   # GET /job_applications/1/edit
@@ -62,6 +61,9 @@ class JobApplicationsController < ApplicationController
       format.html { redirect_to(job_posting_job_applications_path(@job_application.job_posting.id)) }
       format.json { head :no_content }
     end
+  end
+
+  def finalize
   end
 
   private

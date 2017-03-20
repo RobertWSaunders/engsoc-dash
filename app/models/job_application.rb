@@ -6,10 +6,10 @@ class JobApplication < ApplicationRecord
   #a job application belongs to a user
   belongs_to :user
   #a job application has many job applications answers
-  has_many :job_application_answers
+  has_many :job_posting_answers
 
   enum status: [:draft, :submitted, :interview_scheduled, :hired, :not_chosen ]
 
-  accepts_nested_attributes_for :job_application_answers
+  accepts_nested_attributes_for :job_posting_answers
 
 end

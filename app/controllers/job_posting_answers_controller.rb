@@ -17,9 +17,9 @@ class JobPostingAnswersController < ApplicationController
     @job_posting = JobPosting.find(params[:job_posting_id])
     @job_application = JobApplication.find(params[:job_application_id])
     @all_questions = @job_posting.job_posting_questions.all
-    @answers = []
+    @page_answers = []
     @job_posting.job_posting_questions.count.times do
-      @answers << JobPostingAnswer.new
+      @page_answers << JobPostingAnswer.new
     end
   end
 
@@ -30,10 +30,33 @@ class JobPostingAnswersController < ApplicationController
   # POST /job_posting_answers
   # POST /job_posting_answers.json
   def create
-    params["answers"].each do |answer|
-      JobPostingAnswer.create(answer_params(answer))
+    p params["answers"]
+    params["answers"].each do |key, answer|
+      # p answer
+      @answer = JobPostingAnswer.create(answer_params(answer))
     end
+    @job_application_id = @answer.job_application_id
+    redirect_to finalize_job_application_path(:id => @job_application_id)
   end
+
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_job_posting_answer
+      @job_posting = JobPosting.find(params[:job_posting_id])
+      @job_application = @job_posting.job_applications.find(params[:job_application_id])
+      @job_posting_answer = @job_application.job_posting_answers.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    # def job_posting_answer_params
+    #   params.require(:job_posting_answer).permit(:content, :job_application_id)
+    # end
+
+    def answer_params(my_params)
+      my_params.permit(:content, :job_posting_questions_id, :job_application_id)
+    end
+
 
   #   @job_posting_answer = JobPostingAnswer.new(job_posting_answer_params)
 
@@ -71,22 +94,5 @@ class JobPostingAnswersController < ApplicationController
   #     format.json { head :no_content }
   #   end
   # end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_job_posting_answer
-      @job_posting = JobPosting.find(params[:job_posting_id])
-      @job_application = @job_posting.job_applications.find(params[:job_application_id])
-      @answers = @job_application.job_posting_answers.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def job_posting_answer_params
-      params.require(:job_posting_answer).permit(:content, :job_application_id)
-    end
-
-    def answer_params(my_params)
-      my_params.permit(:content, :job_application_id)
-    end
 
 end

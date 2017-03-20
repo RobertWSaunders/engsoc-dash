@@ -1,15 +1,15 @@
 <%= form_tag job_posting_answers_path do %>
   <!-- Need to add error messagin -->
 
-  <% @all_questions.each do |question| %>
-    <%= fields_for 'answers[]', question do |q| %>
-      <% qu = JobPostingQuestion.where(id: @all_questions.index(question) + 1).first %>
-      <%= qu.content %>
+  <% @page_answers.each do |answer| %>
+    <%= fields_for 'answers[]', answer, include_id: false do |a| %>
+      <% qu = JobPostingQuestion.where(id: @page_answers.index(answer) + 1).first %>
       <div class="field">
-        <%= q.label :content, question.content %>
-        <%= q.text_area :content, class: 'form-control', style: 'resize:none' %>
+        <%= a.label :content, qu.content %>
+        <%= a.text_area :content, class: 'form-control', style: 'resize:none', name: 'answers[' + (qu.id - 1).to_s + '][content]' %>
+        <%= a.hidden_field :job_posting_questions_id, :value => qu.id, name: 'answers[' + (qu.id - 1).to_s + '][job_posting_questions_id]' %>
+        <%= a.hidden_field :job_application_id, :value => params[:job_application_id], name: 'answers[' + (qu.id - 1).to_s + '][job_application_id]' %>
       </div>
-
     <% end %>
   <% end %>
 
