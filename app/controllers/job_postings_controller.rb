@@ -12,6 +12,7 @@ class JobPostingsController < ApplicationController
 
   def manage
     @approval_job_postings = JobPosting.where(status: "waiting_approval")
+    @open_job_postings = JobPosting.where(status: "open").order(:deadline)
     @interviews_pending_job_postings = JobPosting.where(status: "interviews_pending").order(:deadline)
     @interviews_scheduled_job_postings = JobPosting.where(status: "interviews_scheduled").order(:deadline)
     @closed_job_postings = JobPosting.where(status: "closed").order(:deadline)

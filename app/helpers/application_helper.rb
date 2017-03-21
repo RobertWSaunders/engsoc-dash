@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   # content for the organization status labels
-  def status_label(organization)
+  def status_label_organization(organization)
     case organization.status
       when "waiting_approval"
         content_tag(:div, 'pending approval', class: 'label label-warning')

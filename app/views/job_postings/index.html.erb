@@ -21,31 +21,7 @@
             <ul class="list-group">
             <!-- iterate through all of the open job postings -->
             <% @open_job_postings.each do |posting| %>
-              <li class="list-group-item">
-                <!-- show dropdown if the user is allowed to manage it, probably redundant with admin console -->
-                <% if can? :submit_job_postings, posting %>
-                  <div class="pull-right dropdown">
-                    <%= status_label(posting) %>
-                    <% if can? :approve_job_postings, posting %>
-                      <%= render 'index_dropdown', :posting => posting %>
-                    <% end %>
-                  </div>
-                <% end %>
-                <!-- show the job title and link to the job posting detail -->
-                <h5 class="mb-sm">
-                  <%= link_to job_posting_path(posting), class: "ripple" do %>
-                    <%= posting.title %>
-                  <% end %>
-                </h5>
-                <!-- display the application deadline -->
-                <p class="text-soft">
-                    Application Deadline: <%= distance_of_time_in_words(Time.now, posting.deadline) %>
-                </p>
-                <!-- show the truncated job posting description -->
-                <p>
-                  <%= h truncate(posting.description, :length => 270) %>
-                </p>
-              </li>
+            <%= render 'job_posting_list_item', posting: posting %>
             <% end %>
             </ul>
           <% else %>
@@ -60,4 +36,3 @@
     </div>
   </div>
 </div>
-
