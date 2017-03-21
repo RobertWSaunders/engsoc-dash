@@ -14,7 +14,7 @@
             <%= form_for([@organization, @job]) do |f| %>
 
               <%= f.label :User %>
-              <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>  
+              <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>
 
               <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
             <% end %>
@@ -23,6 +23,11 @@
               Or create a job posting for the position:
             </p>
             <%= link_to "Create Job Posting", new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn-success btn-block" %>
+            <hr>
+            <p class="lead">
+              Leave position Vacant for now
+            </p>
+            <%= link_to "Leave Vacant", organization_path(@job.organization), class: "btn btn-success btn-block" %>
           </div>
         </div>
       </div>

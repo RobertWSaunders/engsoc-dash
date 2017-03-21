@@ -1,0 +1,20 @@
+<li class="list-group-item">
+
+  <!-- display the dropdown if configured -->
+  <% if dropdown %>
+    <%= render 'user_list_item_dropdown', user: user %>
+  <% end %>
+
+  <!-- display the user name -->
+  <h5 class="mb-sm">
+    <%= link_to profile_path(user), class: "ripple" do %>
+      <%= user.first_name %> <%= user.last_name %>
+    <% end %>
+  </h5>
+
+  <!-- display the users email -->
+  <p class="text-soft">
+      <a href="<%= user.email %>"><%= user.email %></a>
+  </p>
+
+</li>

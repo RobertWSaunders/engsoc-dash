@@ -1,0 +1,25 @@
+<!-- beginning of list item -->
+<li class="list-group-item">
+
+  <!-- render the dropdown for the item if configured -->
+  <% if dropdown %>
+    <%= render 'organization_list_item_dropdown', organization: organization %>
+  <% end %>
+
+  <!-- display the organization name -->
+  <h5 class="mb-sm">
+    <%= link_to organization_path(organization), class: "ripple" do %>
+      <%= organization.name %>
+    <% end %>
+  </h5>
+
+  <!-- display the organization contact email -->
+  <p class="text-soft">
+      <a href="<%= organization.email %>"><%= organization.email %></a>
+  </p>
+
+  <!-- display the organization truncated description -->
+  <p>
+    <%= h truncate(organization.description, :length => 270) %>
+  </p>
+</li>

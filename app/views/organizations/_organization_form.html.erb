@@ -11,6 +11,13 @@
   <%= f.label :description %>
   <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
 
+  <%= f.label :status %>
+  <% if cannot? :manage, Organization %>
+  <%= f.select :status, Organization.statuses => "Waiting approval" %>
+  <% else %>
+  <%= f.select :status, Organization.statuses.keys.map { |w| [w.humanize, w] }  %>
+  <% end %>
+
   <hr>
 
   <%= f.submit "Submit", class: "btn btn-primary btn-block" %>

@@ -4,7 +4,9 @@
   <div class="sidebar-content">
     <!-- side navigation header -->
     <div class="sidebar-toolbar text-center"><a href=""><%= image_tag "centric/user/01.jpg", class: "img-circle thumb64" %></a>
-      <div class="mt"><%= current_user.first_name %> <%= current_user.last_name %></div>
+      <div class="mt">
+          <%= current_user.first_name %> <%= current_user.last_name %>
+      </div>
     </div>
     <!-- side navigation -->
     <nav class="sidebar-nav">
@@ -29,16 +31,7 @@
                 <span class="pull-right nav-label"></span><span>My Organizations</span>
               <% end %>
             </li>
-            <% if can? :manage, Organization %>
-            <li class="dropdown-header">
-              Admin
-            </li>
-            <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (controller.action_name.eql?('new')) %>">
-              <%= link_to new_organization_path, class: "ripple" do %>
-                <span class="pull-right nav-label"></span><span>New Organization</span>
-              <% end %>
-            </li>
-            <% end %>
+
           </ul>
         </li>
         <!-- jobs link -->
@@ -74,7 +67,7 @@
                 <% end %>
               </li>
               <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && ( (controller.action_name.eql?('manage')) || (controller.action_name.eql?('new')) ) %>">
-                <%= link_to organizations_path, class:"ripple" do %>
+                <%= link_to organizations_manage_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span>
                 <% end %>
               </li>

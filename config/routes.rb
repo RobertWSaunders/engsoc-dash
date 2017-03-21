@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   get   'about'        =>  "static_pages#about"
   get   'contact'      =>  "static_pages#contact"
   get   'credits'      =>  "static_pages#credits"
- 
+  get   'settings'      =>  "static_pages#settings"
+
   # devise routes for authentication
   devise_for :users
 
   get 'organizations/new'
   get 'user_organizations'            =>    'organizations#user_organizations'
+  get 'organizations/manage'          =>    'organizations#manage'
   get 'job_postings/manage'           =>    'job_postings#manage', :as => 'manage_job_postings'
   get 'job_postings/select'           =>    'job_postings#select', :as => 'select_job'
   get 'jobs/:id/assign'               =>    'jobs#assign', :as => 'assign_job'
@@ -27,9 +29,15 @@ Rails.application.routes.draw do
     # resources :job_applications
     resources :job_postings, only: [:new]
   end
-  
+
   resources :organizations do
+
     resources :jobs, only: [:new, :create, :show]
+    member do
+      get 'approve'
+      get 'withdraw'
+      get 'archive'
+    end
   end
 
   resources :job_applications, only: [:show, :edit, :update, :destroy] do
@@ -37,7 +45,7 @@ Rails.application.routes.draw do
 
   # route to job postings
   resources :job_postings do
-    get 'manage'  
+    get 'manage'
     resources :job_posting_questions
     resources :job_applications do
       resources :job_posting_answers, only: [:new, :create, :show, :edit, :index]

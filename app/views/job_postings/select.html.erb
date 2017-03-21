@@ -1,7 +1,10 @@
-<% content_for :title, "Select Job to create Job Posting" %>
-<!-- This page should only display jobs that the user has management permissions for! -->
+<% content_for :title, "Select/Create Vacant Job" %>
 
-<div class="container container-fluid">
+  <!-- create job button -->
+  <div class="container container-fluid">
+    <div class="mb-lg text-right">
+        <%= link_to "Create New Job", new_job_posting_path, class: "btn btn-primary" %>
+    </div>
 
   <div class="container-fluid container-md">
     <h5>Select a vacant Job</h5>
@@ -19,7 +22,7 @@
           <% end %>
           </ul>
         <% else %>
-          <p class="text-center">No vacant jobs</p>
+          <p class="text-center">No Vacant Jobs</p>
         <% end %>
       </div>
     </div>
