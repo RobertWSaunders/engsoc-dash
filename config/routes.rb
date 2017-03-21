@@ -12,12 +12,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   get 'organizations/new'
-  get 'user_organizations'            =>    'organizations#user_organizations'
-  get 'organizations/manage'          =>    'organizations#manage'
-  get 'job_postings/manage'           =>    'job_postings#manage', :as => 'manage_job_postings'
-  get 'job_postings/select'           =>    'job_postings#select', :as => 'select_job'
-  get 'jobs/:id/assign'               =>    'jobs#assign', :as => 'assign_job'
-  get 'job_applications/:id/finalize' =>    'job_applications#finalize', :as => 'finalize_job_application'
+  get 'user_organizations'                      =>    'organizations#user_organizations'
+  get 'organizations/manage'                    =>    'organizations#manage'
+  get 'job_applications/user_job_applications'  =>  'job_applications#user_job_applications', :as => 'user_job_applications'
+  get 'job_applications/:id/finalize'           =>    'job_applications#finalize', :as => 'finalize_job_application'
+  get 'job_postings/manage'                     =>    'job_postings#manage', :as => 'manage_job_postings'
+  get 'job_postings/select'                     =>    'job_postings#select', :as => 'select_job'
+  get 'jobs/:id/assign'                         =>    'jobs#assign', :as => 'assign_job'
 
   # define the profile routes, linked to the users controller
   resources :profiles, :controller => 'users'

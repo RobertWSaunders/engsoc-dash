@@ -63,6 +63,10 @@ class JobApplicationsController < ApplicationController
     @job_posting_answers = JobPostingAnswer.where(:job_application_id => @job_application.id)
   end
 
+  def user_job_applications
+    @user_job_applications = JobApplication.where(user_id: current_user.id)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job_application

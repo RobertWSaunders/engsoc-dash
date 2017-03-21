@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-md-12">
             <h3>
-              <small><%= @job_application.status.humanize %></small>
+              <small><%= @job_application.status.humanize %> by</small>
               <br>
               <%= link_to @job_application.user.first_name + " " + @job_application.user.last_name, profile_path(@job_application.user.id) %>
               <br>

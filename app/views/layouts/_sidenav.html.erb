@@ -43,8 +43,8 @@
                 <span class="pull-right nav-label"></span><span>View Open Jobs</span>
               <% end %>
             </li>
-            <li>
-              <%= link_to job_postings_path, class: "ripple" do %>
+            <li class="<%= 'active' if (controller.controller_name.eql?('job_applications')) && (controller.action_name.eql?('user_job_applications')) %>">
+              <%= link_to user_job_applications_path, class: "ripple" do %>
                 <span class="pull-right nav-label"></span><span>My Applications</span>
               <% end %>
             </li>
