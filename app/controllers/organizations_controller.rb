@@ -5,7 +5,7 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, only: [:show, :destroy, :edit, :update, :approve, :withdraw]
 
   def index
-    @organizations = Organization.paginate(:page => params[:page], :per_page => 10)
+    @organizations = Organization.where(status: "active").paginate(:page => params[:page], :per_page => 10)
   end
 
   def show
