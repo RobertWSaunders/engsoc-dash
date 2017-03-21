@@ -1,18 +1,15 @@
 class JobApplicationsController < ApplicationController
 
-  before_action :set_job_application, only: [:show, :edit, :update, :destroy, :finalize]
+  before_action :set_job_application, only: [:index, :show, :edit, :update, :destroy, :finalize]
 
   # GET /job_applications
   # GET /job_applications.json
   def index
-    @job_posting = JobPosting.find(params[:job_posting_id])
-    @job_applications = @job_posting.job_applications
   end
 
   # GET /job_applications/1
   # GET /job_applications/1.json
   def show
-    @job_application
   end
 
   # GET /job_applications/new
@@ -69,7 +66,13 @@ class JobApplicationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job_application
-      @job_application = JobApplication.find(params[:id])
+      if params[:id].present?
+        @job_application = JobApplication.find(params[:id])
+      end
+      if params[:job_posting_id].present?
+        @job_posting = JobPosting.find(params[:job_posting_id])
+        @job_applications = @job_posting.job_applications
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,25 +1,58 @@
 <% content_for :title, "Job Application"  %>
 
-<div class="container-overlap bg-indigo-500">
+<div class="container container-fluid">
   <div class="container container-md">
     <h4>
-      Application for <%= link_to @job_application.job_posting.job.organization.name, @job_application.job_posting.job.organization %>, <%= link_to @job_application.job_posting.title, @job_application.job_posting %>
+      Application for <%= link_to @job_application.job_posting.title, @job_application.job_posting %>
     </h4>
-    <h2>
-      <%= @job_application.user.first_name %> <%= @job_application.user.last_name %>
-      <br>
-      <small><%= @job_application.user.email %></small>
-    </h2>
-  </div>
-</div>
-
-<div class="container container-md">
-  <div class="card">
-    <div class="card-body reader-block">
-      <div class="row">
-        <h1>Lorem</h1>
-        <br>
-        <%= link_to "Back to Job Posting", @job_application.job_posting %>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h3>
+              <small><%= @job_application.status.humanize %></small>
+              <br>
+              <%= link_to @job_application.user.first_name + " " + @job_application.user.last_name, profile_path(@job_application.user.id) %>
+              <br>
+              <small><%= @job_application.user.email %></small>
+            </h3>
+          </div>
+          <div class="col-md-8">
+            <% if @job_application.job_posting_answers.any? %>
+              <h6>Question Responses</h6>
+              <ol>
+              <% @job_application.job_posting_answers.each do |answer| %>
+                <% qu = JobPostingQuestion.where(id: @job_application.job_posting_answers.index(answer) + 1).first %>
+                <li>
+                  <p><strong><%= qu.content %></strong></p>
+                  <p><%= answer.content %></p>
+                </li>
+              <% end %>
+              </ol>
+            <% end %>
+          </div>
+          <div class="col-md-4">
+            <ul>
+              <li>Job Posting Deadline:
+                <br><strong><%= @job_application.job_posting.deadline.to_time.strftime('%a %d, %B, %y') %></strong></li>
+              <li>Application Submitted: 
+                <br><strong><%= @job_application.created_at.to_time.strftime('%a %d, %B, %y') %></strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Other Applications</h4>
+            <%= render "job_applications_table"%>
+          </div>
+        </div>
+        <div class="row">
+          <%= link_to "Back to Job Posting", @job_application.job_posting, class: "btn btn-flat btn-primary btn-block" %>
+        </div>
       </div>
     </div>
   </div>
