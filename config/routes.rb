@@ -30,7 +30,12 @@ Rails.application.routes.draw do
   end
 
   resources :organizations do
+
     resources :jobs, only: [:new, :create, :show]
+    member do
+      get 'approve'
+      get 'withdraw'
+    end
   end
 
   resources :job_applications, only: [:show, :edit, :update, :destroy] do
