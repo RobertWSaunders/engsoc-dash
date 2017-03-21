@@ -17,7 +17,7 @@
         <ul class="list-group">
           <% if @approval_job_postings.any? %>
             <% @approval_job_postings.each do |posting| %>
-              <%= render 'job_posting_list_item', posting: posting %>
+              <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
             <% end %>
           <% else %>
             <p class="text-center">No Job Postings Waiting Approval</p>
@@ -33,7 +33,7 @@
         <ul class="list-group">
           <% if @open_job_postings.any? %>
             <% @open_job_postings.each do |posting| %>
-              <%= render 'job_posting_list_item', posting: posting %>
+              <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
             <% end %>
           <% else %>
             <p class="text-center">No Open Job Postings</p>
@@ -49,7 +49,7 @@
         <ul class="list-group">
           <% if @interviews_pending_job_postings.any? %>
             <% @interviews_pending_job_postings.each do |posting| %>
-              <%= render 'job_posting_list_item', posting: posting %>
+              <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
             <% end %>
           <% else %>
             <p class="text-center">No Job Postings With Interviews Pending</p>
@@ -65,7 +65,7 @@
         <ul class="list-group">
           <% if @interviews_scheduled_job_postings.any? %>
             <% @interviews_scheduled_job_postings.each do |posting| %>
-            <%= render 'job_posting_list_item', posting: posting %>
+            <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
             <% end %>
           <% else %>
             <p class="text-center">No Job Postings With Interviews Scheduled</p>
@@ -81,7 +81,7 @@
         <ul class="list-group">
           <% if @closed_job_postings.any? %>
             <% @closed_job_postings.each do |posting| %>
-            <%= render 'job_posting_list_item', posting: posting %>
+            <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
             <% end %>
           <% else %>
             <p class="text-center">No Closed Job Postings</p>

@@ -1,8 +1,10 @@
 <!-- beginning of list item -->
 <li class="list-group-item">
 
-  <!-- render the dropdown for the item -->
-  <%= render 'organization_list_item_dropdown', organization: organization %>
+  <!-- render the dropdown for the item if configured -->
+  <% if dropdown %>
+    <%= render 'organization_list_item_dropdown', organization: organization %>
+  <% end %>
 
   <!-- display the organization name -->
   <h5 class="mb-sm">

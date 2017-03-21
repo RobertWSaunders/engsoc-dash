@@ -17,7 +17,7 @@
         <ul class="list-group">
           <% if @approval_organizations.any? %>
               <% @approval_organizations.each do |organization| %>
-                  <%= render 'organization_list_item', organization: organization %>
+                  <%= render 'organization_list_item', organization: organization, dropdown: true %>
               <% end %>
           <% else %>
               <p class="text-center">No Organizations Waiting Approval</p>
@@ -33,7 +33,7 @@
         <ul class="list-group">
           <% if @active_organizations.any? %>
             <% @active_organizations.each do |organization| %>
-              <%= render 'organization_list_item', organization: organization %>
+              <%= render 'organization_list_item', organization: organization, dropdown: true %>
             <% end %>
           <% else %>
             <p class="text-center">No Active Organizations</p>
@@ -49,7 +49,7 @@
         <ul class="list-group">
           <% if @archived_organizations.any? %>
             <% @archived_organizations.each do |organization| %>
-              <%= render 'organization_list_item', organization: organization %>
+              <%= render 'organization_list_item', organization: organization, dropdown: true %>
             <% end %>
           <% else %>
             <p class="text-center">No Archived Organizations</p>

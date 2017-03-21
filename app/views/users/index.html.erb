@@ -6,34 +6,12 @@
     <div class="card-body">
       <ul class="list-group">
         <% if @users.count == 0 %><br /><br />
-          <p class="lead text-center">There are curÏrently no organizations.</p>
+          <p class="lead text-center">There are currently no organizations.</p>
         <% else %>
           <% @users.each do |user| %>
-            <li class="list-group-item">
-              <div class="pull-right dropdown">
-                <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-                <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                  <li>
-                    <%= link_to "Edit User", edit_profile_path(user.id) %>
-                  </li>
-                  <li>
-                    TODO: link to archive user
-                  </li>
-                </ul>
-              </div>
-              <h5 class="mb-sm">
-                <%= link_to profile_path(user), class: "ripple" do %>
-                  <%= user.first_name %> <%= user.last_name %>
-                <% end %>
-              </h5>
-              <!-- display the application deadline -->
-              <p class="text-soft">
-                  <a href="<%= user.email %>"><%= user.email %></a>
-              </p>
-            </li>
+            <%= render 'user_list_item', user: user, dropdown: true %>
           <% end %>
         <% end %>
-
       </ul>
       <center>
         <!-- show the paginator for the will_paginate gem -->

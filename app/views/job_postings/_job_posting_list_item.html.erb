@@ -1,7 +1,9 @@
 <li class="list-group-item">
 
-  <!-- render the dropdown for the item -->
-  <%= render 'job_posting_list_item_dropdown', posting: posting %>
+  <!-- render the dropdown for the item if configured -->
+  <% if dropdown %>
+    <%= render 'job_posting_list_item_dropdown', posting: posting %>
+  <% end %>
 
   <!-- show the job title and link to the job posting detail -->
   <h5 class="mb-sm">
