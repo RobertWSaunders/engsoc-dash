@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get   'about'        =>  "static_pages#about"
   get   'contact'      =>  "static_pages#contact"
   get   'credits'      =>  "static_pages#credits"
+  get   'settings'      =>  "static_pages#settings"
 
   # devise routes for authentication
   devise_for :users
