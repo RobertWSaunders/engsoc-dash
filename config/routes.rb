@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     member do
       get 'approve'
       get 'withdraw'
+      get 'archive'
     end
   end
 

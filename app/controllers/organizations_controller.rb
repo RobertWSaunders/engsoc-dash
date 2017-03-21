@@ -60,6 +60,12 @@ class OrganizationsController < ApplicationController
     redirect_to organizations_manage_path
   end
 
+  def archive
+    @organization.status = "archived"
+    @organization.save
+    redirect_to organizations_manage_path
+  end
+
   def user_organizations
   end
 

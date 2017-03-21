@@ -1,32 +1,8 @@
 <!-- beginning of list item -->
 <li class="list-group-item">
 
-  <!-- if has permissions to manage organizations show the dropdown -->
-  <% if can? :manage_organizations, organization %>
-    <div class="pull-right dropdown">
-      <%= status_label(organization) %>
-      <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-      <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-        <% if organization.status == "waiting_approval" %>
-          <li>
-            <%= link_to "Approve Organization", approve_organization_path(organization) %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to "Withdraw Approval", withdraw_organization_path(organization) %>
-          </li>
-        <% end %>
-
-        <li>
-          <%= link_to "Edit Organization", edit_organization_path(organization.id) %>
-        </li>
-        <li>
-          <%= link_to "Delete Organization", organization, method: :delete,
-            data: { confirm: "Are you sure?" } %>
-        </li>
-      </ul>
-    </div>
-  <% end %>
+  <!-- render the dropdown for the item -->
+  <%= render 'organization_list_item_dropdown', organization: organization %>
 
   <!-- display the organization name -->
   <h5 class="mb-sm">
