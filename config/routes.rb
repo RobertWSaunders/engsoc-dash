@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get 'organizations/new'
   get 'user_organizations'            =>    'organizations#user_organizations'
-  get 'organizations/manage'            =>    'organizations#manage'
+  get 'organizations/manage'          =>    'organizations#manage'
   get 'job_postings/manage'           =>    'job_postings#manage', :as => 'manage_job_postings'
   get 'job_postings/select'           =>    'job_postings#select', :as => 'select_job'
   get 'jobs/:id/assign'               =>    'jobs#assign', :as => 'assign_job'

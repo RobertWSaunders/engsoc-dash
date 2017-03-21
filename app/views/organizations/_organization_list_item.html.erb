@@ -1,0 +1,37 @@
+<!-- beginning of list item -->
+<li class="list-group-item">
+
+  <!-- if has permissions to manage organizations show the dropdown -->
+  <% if can? :manage_organizations, organization %>
+    <div class="pull-right dropdown">
+      <%= status_label(organization) %>
+      <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+      <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+        <li>
+          <%= link_to "Edit Organization", edit_organization_path(organization.id) %>
+        </li>
+        <li>
+          <%= link_to "Delete Organization", organization, method: :delete,
+            data: { confirm: "Are you sure?" } %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- display the organization name -->
+  <h5 class="mb-sm">
+    <%= link_to organization_path(organization), class: "ripple" do %>
+      <%= organization.name %>
+    <% end %>
+  </h5>
+
+  <!-- display the organization contact email -->
+  <p class="text-soft">
+      <a href="<%= organization.email %>"><%= organization.email %></a>
+  </p>
+
+  <!-- display the organization truncated description -->
+  <p>
+    <%= h truncate(organization.description, :length => 270) %>
+  </p>
+</li>

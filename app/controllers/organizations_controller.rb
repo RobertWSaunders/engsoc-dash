@@ -55,7 +55,7 @@ class OrganizationsController < ApplicationController
 
   # define the jobs parameters
     def organization_params
-      params.require(:organization).permit(:name, :description, :email)
+      params.require(:organization).permit(:name, :description, :email, :status)
     end
 
 end

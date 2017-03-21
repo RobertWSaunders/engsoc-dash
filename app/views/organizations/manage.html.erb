@@ -1,75 +1,62 @@
+<!-- page title -->
 <% content_for :title, "Manage Organizations" %>
 
+<!-- create organization button -->
 <div class="container container-fluid">
   <div class="mb-lg text-right">
       <%= link_to "Create Organization", new_organization_path, class: "btn btn-primary" %>
   </div>
-<!-- main container for job postings -->
+
+  <!-- main container for organizations -->
   <div class="container-fluid container-md">
+
+    <!-- organizations waiting approval -->
     <div class="card">
       <div class="card-body">
         <h3 class="lead">Waiting Approval</h3>
         <ul class="list-group">
-
+          <% if @approval_organizations.any? %>
+              <% @approval_organizations.each do |organization| %>
+                  <%= render 'organization_list_item', organization: organization %>
+              <% end %>
+          <% else %>
+              <p class="text-center">No Organizations Waiting Approval</p>
+          <% end %>
         </ul>
       </div>
     </div>
 
+    <!-- active organizations -->
     <div class="card">
       <div class="card-body">
         <h3 class="lead">Active Organizations</h3>
         <ul class="list-group">
           <% if @active_organizations.any? %>
             <% @active_organizations.each do |organization| %>
-            <li class="list-group-item">
-            <% if can? :manage_organizations, organization %>
-
-              <div class="pull-right dropdown">
-                <%= status_label(organization) %>
-                <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-                <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                  <li>
-                    <%= link_to "Edit Organization", edit_organization_path(organization.id) %>
-                  </li>
-                  <li>
-                    <%= link_to "Delete Organization", organization, method: :delete,
-                      data: { confirm: "Are you sure?" } %>
-                  </li>
-                </ul>
-              </div>
-            <% end %>
-            <h5 class="mb-sm">
-              <%= link_to organization_path(organization), class: "ripple" do %>
-                <%= organization.name %>
-              <% end %>
-            </h5>
-            <!-- display the application deadline -->
-            <p class="text-soft">
-                <a href="<%= organization.email %>"><%= organization.email %></a>
-            </p>
-            <!-- show the truncated job posting description -->
-            <p>
-              <%= h truncate(organization.description, :length => 270) %>
-            </p>
-          </li>
+              <%= render 'organization_list_item', organization: organization %>
             <% end %>
           <% else %>
-            <p class="text-center">No posts</p>
+            <p class="text-center">No Active Organizations</p>
           <% end %>
         </ul>
       </div>
     </div>
 
+    <!-- archived organizations -->
     <div class="card">
       <div class="card-body">
         <h3 class="lead">Archived Organizations</h3>
         <ul class="list-group">
-
+          <% if @archived_organizations.any? %>
+            <% @archived_organizations.each do |organization| %>
+              <%= render 'organization_list_item', organization: organization %>
+            <% end %>
+          <% else %>
+            <p class="text-center">No Archived Organizations</p>
+          <% end %>
         </ul>
       </div>
     </div>
-
-
 
   </div>
 </div>
