@@ -1,19 +1,20 @@
 class UsersController < ApplicationController
 
+  before_action :set_user, only: [:show, :destroy, :edit, :update]
+
   def index
     @users = User.paginate(:page => params[:page], :per_page => 30)
   end
 
   def show
-    @user = User.find(params[:id])
+    @user
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       redirect_to controller: 'users', action: 'show', id: @user.id
     else
@@ -27,4 +28,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:preferred_name, :tagline, :bio, :faculty, :specialization, :gender)
     end
 
+    def set_user
+      @user = User.find(params[:id])
+    end
 end

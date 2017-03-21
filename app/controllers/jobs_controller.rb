@@ -2,14 +2,16 @@ class JobsController < ApplicationController
 
   load_and_authorize_resource
 
+  before_action :set_job, only: [:show, :assign, :destroy, :edit, :update]
+
   def index
     @jobs = Job.paginate(:page => params[:page], :per_page => 5)
     @organization = Organization.find(params[:organization_id])
   end
 
   def show
-    @job = Job.find(params[:id])
     @organization = Organization.find(params[:organization_id])
+    @job
   end
 
   def create
@@ -28,11 +30,10 @@ class JobsController < ApplicationController
   end
 
   def assign
-    @job = Job.find(params[:id])
+    @job
   end
 
   def update
-    @job = Job.find(params[:id])
     if @job.update_attributes(job_params)
       redirect_to organization_job_path(:organization_id => @job.organization_id)
     else
@@ -41,11 +42,11 @@ class JobsController < ApplicationController
   end
 
   def edit
-    @job = Job.find(params[:id])
+    @job
   end
 
   def destroy
-    job = Job.find(params[:id]).destroy
+    @job.destroy
     redirect_to organization_path(job.organization_id)
   end
 
@@ -56,4 +57,7 @@ class JobsController < ApplicationController
       params.require(:job).permit(:title, :user_id, :organization_id, :description, :role)
     end
 
+    def set_job
+      @job = Job.find(params[:id])
+    end
 end

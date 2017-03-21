@@ -48,51 +48,9 @@ class JobPostingAnswersController < ApplicationController
       @job_posting_answer = @job_application.job_posting_answers.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    # def job_posting_answer_params
-    #   params.require(:job_posting_answer).permit(:content, :job_application_id)
-    # end
-
     def answer_params(my_params)
       my_params.permit(:content, :job_posting_questions_id, :job_application_id)
     end
 
-
-  #   @job_posting_answer = JobPostingAnswer.new(job_posting_answer_params)
-
-  #   respond_to do |format|
-  #     if @job_posting_answer.save
-  #       format.html { redirect_to @job_posting_answer, notice: 'Job posting answer was successfully created.' }
-  #       format.json { render :show, status: :created, location: @job_posting_answer }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @job_posting_answer.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
-  # PATCH/PUT /job_posting_answers/1
-  # PATCH/PUT /job_posting_answers/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @job_posting_answer.update(job_posting_answer_params)
-  #       format.html { redirect_to @job_posting_answer, notice: 'Job posting answer was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @job_posting_answer }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @job_posting_answer.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
-  # DELETE /job_posting_answers/1
-  # DELETE /job_posting_answers/1.json
-  # def destroy
-  #   @job_posting_answer.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to job_posting_answers_url, notice: 'Job posting answer was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
 
 end

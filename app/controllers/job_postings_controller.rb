@@ -60,7 +60,7 @@ class JobPostingsController < ApplicationController
   end
 
   def destroy
-    jobposting = JobPosting.find(params[:id]).destroy
+    @jobposting.destroy
     redirect_to job_postings_url
   end
 
