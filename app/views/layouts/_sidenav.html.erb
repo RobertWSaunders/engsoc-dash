@@ -67,7 +67,7 @@
                 <% end %>
               </li>
               <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && ( (controller.action_name.eql?('manage')) || (controller.action_name.eql?('new')) ) %>">
-                <%= link_to organizations_manage_path, class:"ripple" do %>
+                <%= link_to manage_organizations_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span>
                 <% end %>
               </li>

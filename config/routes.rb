@@ -1,19 +1,16 @@
 Rails.application.routes.draw do
 
-  resources :job_posting_answers
-  # define the index route
   root                     "static_pages#home"
   get   'about'        =>  "static_pages#about"
   get   'contact'      =>  "static_pages#contact"
   get   'credits'      =>  "static_pages#credits"
   get   'settings'      =>  "static_pages#settings"
-
+# 
   # devise routes for authentication
   devise_for :users
 
-  get 'organizations/new'
-  get 'user_organizations'                      =>    'organizations#user_organizations'
-  get 'organizations/manage'                    =>    'organizations#manage'
+  get 'user_organizations'                      =>    'organizations#user_organizations', :as => 'user_organizations'
+  get 'organizations/manage'                    =>    'organizations#manage', :as => 'manage_organizations'
   get 'job_applications/user_job_applications'  =>  'job_applications#user_job_applications', :as => 'user_job_applications'
   get 'job_applications/:id/finalize'           =>    'job_applications#finalize', :as => 'finalize_job_application'
   get 'job_postings/manage'                     =>    'job_postings#manage', :as => 'manage_job_postings'
@@ -32,7 +29,6 @@ Rails.application.routes.draw do
   end
 
   resources :organizations do
-
     resources :jobs, only: [:new, :create, :show]
     member do
       get 'approve'
