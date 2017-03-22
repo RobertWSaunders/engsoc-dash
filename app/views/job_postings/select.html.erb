@@ -14,10 +14,10 @@
           <ul class="list-group">
           <% @vacant_jobs.each do |job| %>
             <li class="list-group-item">
-              <h4><%= job.title %><br>
+              <h4><%= link_to job.title, job %><br>
                 <small><%= job.organization.name %></small>
               </h4>
-              <%= link_to "Select", new_job_job_posting_path(:job_id => job.id), class: "btn btn-primary" %>
+              <%= link_to "Select", new_job_posting_path(:job_id => job.id), class: "btn btn-flat btn-primary" %>
             </li>
           <% end %>
           </ul>

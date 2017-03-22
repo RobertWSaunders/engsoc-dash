@@ -2,16 +2,19 @@ class OrganizationsController < ApplicationController
 
   load_and_authorize_resource
 
-  before_action :set_organization, only: [:show, :destroy, :edit, :update, :approve, :withdraw]
+  before_action :set_organization, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :archive]
 
+  # GET /organizations
   def index
     @organizations = Organization.where(status: "active").paginate(:page => params[:page], :per_page => 10)
   end
 
-  def show
-    @jobs = @organization.jobs.order(role: :desc, created_at: :asc)
+  # GET /organizations/new
+  def new
+    @organization = Organization.new
   end
 
+  # POST /organizations
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
@@ -21,10 +24,17 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  def new
-    @organization = Organization.new
+  # GET /organizations/:id
+  def show
+    @jobs = @organization.jobs.order(role: :desc, created_at: :asc)
   end
 
+  # GET /organizations/:id/edit
+  def edit
+    @organization = Organization.find(params[:id])
+  end
+
+  # PUT /organizations/:id
   def update
     if @organization.update_attributes(organization_params)
       redirect_to controller: 'organizations', action: 'show', id: @organization.id
@@ -33,45 +43,46 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  def edit
-    @organization = Organization.find(params[:id])
-  end
-
+  # DELETE /organizations/:id
   def destroy
     @organization.destroy
     redirect_to organizations_url
   end
 
+  # GET /organizations/manage
   def manage
     @approval_organizations = Organization.where(status: "waiting_approval")
     @active_organizations = Organization.where(status: "active")
     @archived_organizations = Organization.where(status: "archived")
   end
 
+  # GET /organizations/user
+  def user
+  end
+
+  # GET /organizations/:id/approve
   def approve
     @organization.status = "active"
     @organization.save
-    redirect_to organizations_manage_path
+    redirect_to manage_organizations_path
   end
 
+  # GET /organizations/:id/withdraw
   def withdraw
     @organization.status = "waiting_approval"
     @organization.save
-    redirect_to organizations_manage_path
+    redirect_to manage_organizations_path
   end
 
+  # GET /organizations/:id/archive
   def archive
     @organization.status = "archived"
     @organization.save
-    redirect_to organizations_manage_path
-  end
-
-  def user_organizations
+    redirect_to manage_organizations_path
   end
 
   private
 
-  # define the jobs parameters
     def organization_params
       params.require(:organization).permit(:name, :description, :email, :status)
     end
@@ -79,4 +90,5 @@ class OrganizationsController < ApplicationController
     def set_organization
       @organization = Organization.find(params[:id])
     end
+
 end

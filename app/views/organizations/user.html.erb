@@ -17,8 +17,8 @@
       <div class="card">
         <div class="card-body">
           <ul class="list-group">
-            <% if current_user.organizations.count == 0 %><br /><br />
-              <p class="lead text-center">You are not apart of any organizations.</p>
+            <% if !current_user.organizations.any? %><br /><br />
+              <p class="lead text-center">You are not a part of any organizations.</p>
             <% else %>
               <!-- iterate through all of user's orgs -->
               <% current_user.organizations.each do |organization| %>

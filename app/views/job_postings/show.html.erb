@@ -43,7 +43,7 @@
           Application Deadline: <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %> (<%= @jobposting.deadline.to_date %>)
         </p>
         <p>
-          Job: <%= link_to @job.title, organization_job_path(:organization_id => @organization.id, :id => @job.id) %>
+          Job: <%= link_to @job.title, job_path(:id => @job.id) %>
         </p>
         <p>
           Organization: <%= link_to @organization.name, @organization %>

@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to job.title.titleize, organization_job_path(:organization_id => job.organization_id, :id => job.id) %></td>
+  <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
   <% if job.user %>
     <td><%= job.user.first_name %> <%= job.user.last_name %></td>
     <td><%= job.user.email %></td>

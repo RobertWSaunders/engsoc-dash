@@ -1,22 +1,6 @@
-<% content_for :title, @job.title + ", " + @organization.name %>
+<% content_for :title, "Job" %>
 
 <div class="container container-fluid">
-  <!-- Breadcrumb next to view title-->
-  <ul class="breadcrumb breadcrumb-lead">
-    <li>
-      <%= link_to "Organizations", organizations_path %>
-    </li>
-    <li class="active">
-      <%= link_to organization_path(@organization) do %>
-        <%= @organization.name %>
-      <% end %>
-    </li>
-    <li class="active">
-      <%= link_to organization_job_path do %>
-        <%= @job.title %>
-      <% end %>
-    </li>
-  </ul>
   <div class="card">
     <div class="card-body reader-block">
       <div class="row">
@@ -36,9 +20,15 @@
             <p>
               Position currently vacant.
             </p>
+            <% if posting = JobPosting.find_by(:job_id => @job.id) %>
+              <p>
+                View <%= link_to "job posting", job_posting_path(posting) %>.
+              </p>
+            <% else %>
             <p>
               Create <%= link_to "new job post", new_job_posting_path %>?
             </p>
+            <% end %>
           <% end %>
           <% if @job.role == "management" %>
             <p>

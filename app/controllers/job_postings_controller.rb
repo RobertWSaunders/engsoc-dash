@@ -6,33 +6,12 @@ class JobPostingsController < ApplicationController
   # define the helper for the controller
   helper :application
 
+  # GET /job_postings
   def index
     @open_job_postings = JobPosting.where(status: "open").order(:deadline).paginate(:page => params[:page], :per_page => 10)
   end
 
-  def manage
-    @approval_job_postings = JobPosting.where(status: "waiting_approval")
-    @open_job_postings = JobPosting.where(status: "open").order(:deadline)
-    @interviews_pending_job_postings = JobPosting.where(status: "interviews_pending").order(:deadline)
-    @interviews_scheduled_job_postings = JobPosting.where(status: "interviews_scheduled").order(:deadline)
-    @closed_job_postings = JobPosting.where(status: "closed").order(:deadline)
-  end
-
-  def show
-    @job = Job.find_by! id: @jobposting.job_id
-    @organization = Organization.find_by! id: @job.organization_id
-  end
-
-  def create
-    @jobposting = JobPosting.new(job_posting_params)
-    if @jobposting.save
-      redirect_to job_posting_job_posting_questions_path(@jobposting.id)
-      # redirect_to controller: 'job_postings', action: 'show', id: @job.organization.id
-    else
-      render 'new'
-    end
-  end
-
+  # GET /job_postings/new?job_id=:id
   def new
     @jobposting = JobPosting.new
     if params[:job_id]
@@ -41,12 +20,35 @@ class JobPostingsController < ApplicationController
       redirect_to select_job_path
     end
   end
-
+  # Redirected from /job_postings/new if job_id unspecified
+  # GET /job_postings/select
   def select
     @jobs_without_postings = Job.includes(:job_postings).where(job_postings: { job_id: nil })
     @vacant_jobs = @jobs_without_postings.where(:user_id => nil)
   end
 
+  # POST /job_posting
+  def create
+    @jobposting = JobPosting.new(job_posting_params)
+    if @jobposting.save
+      redirect_to job_posting_job_posting_questions_path(@jobposting.id)
+    else
+      render 'new'
+    end
+  end
+
+  # GET /job_postings/:id
+  def show
+    @job = Job.find_by! id: @jobposting.job_id
+    @organization = Organization.find_by! id: @job.organization_id
+  end
+
+  # GET /job_postings/:id/edit
+  def edit
+    @jobposting = JobPosting.find(params[:id])
+  end
+
+  # PUT /job_postings/:id
   def update
     @jobposting = JobPosting.find(params[:id])
     if @jobposting.update_attributes(job_posting_params)
@@ -56,21 +58,29 @@ class JobPostingsController < ApplicationController
     end
   end
 
-  def edit
-    @jobposting = JobPosting.find(params[:id])
-  end
-
+  # DESTROY /job_postings/:id
   def destroy
     @jobposting.destroy
     redirect_to job_postings_url
   end
 
+  # GET /job_postings/manage
+  def manage
+    @approval_job_postings = JobPosting.where(status: "waiting_approval")
+    @open_job_postings = JobPosting.where(status: "open").order(:deadline)
+    @interviews_pending_job_postings = JobPosting.where(status: "interviews_pending").order(:deadline)
+    @interviews_scheduled_job_postings = JobPosting.where(status: "interviews_scheduled").order(:deadline)
+    @closed_job_postings = JobPosting.where(status: "closed").order(:deadline)
+  end
+
+  # GET /job_postings/:id/approve
   def approve
     @jobposting.status = "open"
     @jobposting.save
     redirect_to job_postings_path
   end
 
+  # GET /job_postings/:id/withdraw
   def withdraw
     @jobposting.status = "waiting_approval"
     @jobposting.save
@@ -79,7 +89,6 @@ class JobPostingsController < ApplicationController
 
   private
 
-  # define the jpbs parameters
     def job_posting_params
       params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status)
     end
@@ -87,4 +96,5 @@ class JobPostingsController < ApplicationController
     def set_job_posting
       @jobposting = JobPosting.find(params[:id])
     end
+
 end
