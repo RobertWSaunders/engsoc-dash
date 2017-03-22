@@ -17,7 +17,12 @@ class JobApplicationsController < ApplicationController
     @job_posting = JobPosting.find(params[:job_posting_id])
     @existing = JobApplication.where(user_id: current_user.id, job_posting_id: params[:job_posting_id]).first
     if @existing
-      redirect_to edit_job_posting_job_application_job_posting_answer_path(:job_application_id => @existing.id, :id => 1)
+      if @existing.status == "submitted"
+        flash[:notice] = "It seems like you have already applied for this job."
+        redirect_to job_posting_path(@job_posting)
+      else
+        redirect_to edit_job_posting_job_application_job_posting_answer_path(:job_application_id => @existing.id, :id => 1)
+      end
     end
     @job_application = JobApplication.new
   end

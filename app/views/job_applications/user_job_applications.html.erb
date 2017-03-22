@@ -9,7 +9,11 @@
           <ul>
             <% @user_job_applications.each do |app| %>
               <li>
-                <%= app.job_posting.title %>
+                <%= app.job_posting.title %> 
+                <br>
+                <%= app.status %>
+                <br>
+                <%= app.id %>
               </li>
             <% end %>
           </ul>
