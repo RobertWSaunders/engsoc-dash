@@ -22,7 +22,7 @@
               <h6>Question Responses</h6>
               <ol>
               <% @job_application.job_posting_answers.each do |answer| %>
-                <% qu = JobPostingQuestion.where(id: @job_application.job_posting_answers.index(answer) + 1).first %>
+                <% qu = JobPostingQuestion.where(id: answer.job_posting_questions_id).last %>
                 <li>
                   <p><strong><%= qu.content %></strong></p>
                   <p><%= answer.content %></p>

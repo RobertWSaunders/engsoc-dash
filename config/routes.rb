@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :job_applications, only: [:show, :edit, :update, :destroy] do
+  resources :job_applications, only: [:edit, :update, :destroy] do
   end
 
   # route to job postings
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     get 'manage'
     resources :job_posting_questions
     resources :job_applications do
-      resources :job_posting_answers, only: [:new, :create, :show, :edit, :index]
+      resources :job_posting_answers, only: [:new, :create, :show, :edit, :update, :index]
     end
     member do
       get 'approve'

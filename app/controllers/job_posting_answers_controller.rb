@@ -1,5 +1,6 @@
 class JobPostingAnswersController < ApplicationController
-  before_action :set_job_posting_answer, only: [:show, :edit, :update, :destroy]
+  before_action :set_job_posting_answer, only: [:show, :edit, :destroy]
+  before_action :clear_cache, only: [:new]
 
   # GET /job_posting_answers
   # GET /job_posting_answers.json
@@ -16,6 +17,9 @@ class JobPostingAnswersController < ApplicationController
   def new
     @job_posting = JobPosting.find(params[:job_posting_id])
     @job_application = JobApplication.find(params[:job_application_id])
+    if @job_application.job_posting_answers.any?
+      redirect_to edit_job_posting_job_application_job_posting_answer_path(:id => 1)
+    end
     @all_questions = @job_posting.job_posting_questions.all
     @page_answers = []
     @job_posting.job_posting_questions.count.times do
@@ -25,15 +29,24 @@ class JobPostingAnswersController < ApplicationController
 
   # GET /job_posting_answers/1/edit
   def edit
+    @job_posting_answers = JobPostingAnswer.where(:job_application_id => @job_application.id)
   end
 
   # POST /job_posting_answers
   # POST /job_posting_answers.json
   def create
-    p params["answers"]
     params["answers"].each do |key, answer|
-      # p answer
       @answer = JobPostingAnswer.create(answer_params(answer))
+    end
+    @job_application_id = @answer.job_application_id
+    redirect_to finalize_job_application_path(:id => @job_application_id)
+  end
+
+  def update
+    params["answers"].each do |key, answer|
+      # p answer[:id]
+      @answer = JobPostingAnswer.find(answer[:id])
+      @answer.update_attributes(answer_params(answer))
     end
     @job_application_id = @answer.job_application_id
     redirect_to finalize_job_application_path(:id => @job_application_id)
@@ -45,12 +58,17 @@ class JobPostingAnswersController < ApplicationController
     def set_job_posting_answer
       @job_posting = JobPosting.find(params[:job_posting_id])
       @job_application = @job_posting.job_applications.find(params[:job_application_id])
-      @job_posting_answer = @job_application.job_posting_answers.find(params[:id])
+      # @job_posting_answer = @job_application.job_posting_answers.find(params[:id])
     end
 
     def answer_params(my_params)
-      my_params.permit(:content, :job_posting_questions_id, :job_application_id)
+      my_params.permit(:content, :job_posting_questions_id, :job_application_id, :id)
     end
 
+    def clear_cache
+      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+      response.headers["Pragma"] = "no-cache"
+      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    end
 
 end

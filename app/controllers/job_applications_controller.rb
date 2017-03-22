@@ -65,6 +65,8 @@ class JobApplicationsController < ApplicationController
   end
 
   def finalize
+    @job_application = JobApplication.find(params[:id])
+    @all_questions = @job_application.job_posting.job_posting_questions.all
     @job_posting_answers = JobPostingAnswer.where(:job_application_id => @job_application.id)
   end
 
