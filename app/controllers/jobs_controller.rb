@@ -30,7 +30,6 @@ class JobsController < ApplicationController
   end
 
   def assign
-    @job
   end
 
   def update
@@ -42,7 +41,6 @@ class JobsController < ApplicationController
   end
 
   def edit
-    @job
   end
 
   def destroy

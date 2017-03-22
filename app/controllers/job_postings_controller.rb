@@ -7,7 +7,7 @@ class JobPostingsController < ApplicationController
   helper :application
 
   def index
-    @open_job_postings = JobPosting.where(status: "open").order(:deadline).paginate(:page => params[:page], :per_page => 5)
+    @open_job_postings = JobPosting.where(status: "open").order(:deadline).paginate(:page => params[:page], :per_page => 10)
   end
 
   def manage
@@ -43,7 +43,8 @@ class JobPostingsController < ApplicationController
   end
 
   def select
-    @vacant_jobs = Job.where(:user_id => nil)
+    @jobs_without_postings = Job.includes(:job_postings).where(job_postings: { job_id: nil })
+    @vacant_jobs = @jobs_without_postings.where(:user_id => nil)
   end
 
   def update

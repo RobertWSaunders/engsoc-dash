@@ -13,7 +13,13 @@
     <% else %>
     <td>Vacant Position</td>
     <td></td>
-    <td></td>
+    <td>
+      <% if job.role == "management" %>
+        <em class="ion-checkmark-round"></em>
+      <% elsif job.role == "admin" %>
+        <em class="ion-star"></em>
+      <% end %>
+    </td>
   <% end %>
   <% if can? :manage, job %>
     <td>

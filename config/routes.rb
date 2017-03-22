@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :job_applications, only: [:edit, :update, :destroy] do
+  resources :job_applications, only: [:destroy] do
   end
 
   # route to job postings
