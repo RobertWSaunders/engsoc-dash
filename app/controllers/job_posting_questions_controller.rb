@@ -3,10 +3,12 @@ class JobPostingQuestionsController < ApplicationController
   # before any action gets fired set the job posting
   before_action :set_job_posting_questions
 
+  # GET /job_postings/:job_posting_id/job_posting_questions
   def index
     @jobpostingquestion = JobPostingQuestion.new
   end
 
+  # POST /job_postings/:job_posting_id/job_posting_questions
   def create
     @jobpostingquestion = JobPostingQuestion.new(job_posting_question_params)
     if @jobpostingquestion.save
@@ -15,6 +17,8 @@ class JobPostingQuestionsController < ApplicationController
       render 'index'
     end
   end
+
+  # Should add capability to be able to edit questions!
 
   private
 

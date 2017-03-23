@@ -55,9 +55,6 @@
           <li role="separator" class="divider">
             <hr>
           </li>
-          <li class="dropdown-header">
-            Super User
-          </li>
           <li class="active">
             <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-key icon-fw"></em></span><span>Admin</span></a>
             <ul class="sidebar-subnav">
@@ -72,6 +69,16 @@
                 <% end %>
               </li>
               <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) && ( (controller.action_name.eql?('manage')) || (controller.action_name.eql?('new')) || (controller.action_name.eql?('select')) ) %>">
+                <%= link_to manage_job_postings_path, class:"ripple" do %>
+                  <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-list icon-fw"></em></span><span>Job Postings</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-social-buffer icon-fw"></em></span><span>Manage</span></a>
+            <ul class="sidebar-subnav">
+              <li class="<%= 'active' if (controller.controller_name.eql?('users')) %>">
                 <%= link_to manage_job_postings_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-list icon-fw"></em></span><span>Job Postings</span>
                 <% end %>

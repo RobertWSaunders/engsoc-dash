@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   end
 
   resources :job_postings do
-    resources :job_posting_questions
+    resources :job_posting_questions, only: [:index, :create]
     resources :job_applications, only: [:index, :new, :create] do
       resources :job_posting_answers, only: [:new, :create]
     end
