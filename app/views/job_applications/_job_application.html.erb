@@ -3,7 +3,7 @@
   <td><%= job_application.created_at %></td>
   <td><%= job_application.user.first_name %> <%= job_application.user.last_name %></td>
   <td><%= job_application.status.titleize %></td>
-  <td><%= link_to 'View', job_posting_job_application_path(:job_posting_id => job_application.job_posting_id, :id => job_application.id) %></td>
+  <td><%= link_to 'View', job_application_path(job_application) %></td>
   <% if can? :manage, JobApplication %>
     <td>
       <div class="pull-right dropdown">

@@ -61,7 +61,7 @@ class JobPostingsController < ApplicationController
   # DESTROY /job_postings/:id
   def destroy
     @jobposting.destroy
-    redirect_to job_postings_url
+    redirect_to job_postings_path
   end
 
   # GET /job_postings/manage

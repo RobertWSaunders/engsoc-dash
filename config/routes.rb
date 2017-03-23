@@ -19,9 +19,6 @@ Rails.application.routes.draw do
   # Custom Routes
   get 'jobs/:id/assign'                         =>    'jobs#assign', :as => 'assign_job'
   get 'job_postings/select'                     =>    'job_postings#select', :as => 'select_job'
-  get 'job_applications/user_job_applications'  =>    'job_applications#user_job_applications', :as => 'user_job_applications'
-  get 'job_applications/:id/finalize'           =>    'job_applications#finalize', :as => 'finalize_job_application'
-
 
   ####################################################
   # Profiles
@@ -50,7 +47,7 @@ Rails.application.routes.draw do
 
   resources :job_postings do
     resources :job_posting_questions
-    resources :job_applications do
+    resources :job_applications, only: [:index, :new, :create] do
       resources :job_posting_answers, only: [:new, :create, :show, :edit, :update, :index]
     end
     member do
@@ -61,6 +58,14 @@ Rails.application.routes.draw do
       get 'manage'
     end
   end
-  resources :job_applications, only: [:destroy]
+
+  resources :job_applications, only: [:show, :destroy] do
+    member do
+      get 'finalize'
+    end
+    collection do
+      get 'user'
+    end
+  end
 
 end
