@@ -64,8 +64,8 @@ class JobPostingsController < ApplicationController
     redirect_to job_postings_path
   end
 
-  # GET /job_postings/manage
-  def manage
+  # GET /job_postings/admin
+  def admin
     @approval_job_postings = JobPosting.where(status: "waiting_approval")
     @open_job_postings = JobPosting.where(status: "open").order(:deadline)
     @interviews_pending_job_postings = JobPosting.where(status: "interviews_pending").order(:deadline)
@@ -85,6 +85,13 @@ class JobPostingsController < ApplicationController
     @jobposting.status = "waiting_approval"
     @jobposting.save
     redirect_to job_postings_path
+  end
+
+  # GET /job_postings/manage
+  def manage
+    @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
+    @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
+    @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).order("deadline")
   end
 
   private

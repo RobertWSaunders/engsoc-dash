@@ -2,9 +2,9 @@ class Job < ApplicationRecord
 
   #Relationships
   #a job belongs to an organization
-  belongs_to :organization
+  belongs_to :organization, :foreign_key => :organization_id
   #a job job belongs to a user
-  belongs_to :user
+  belongs_to :user, :foreign_key => :user_id
 
   has_many :job_postings, :foreign_key => :job_id, dependent: :destroy
 

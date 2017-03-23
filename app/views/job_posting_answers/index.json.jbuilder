@@ -1,1 +1,0 @@
-json.array! @job_posting_answers, partial: 'job_posting_answers/job_posting_answer', as: :job_posting_answer

@@ -49,8 +49,8 @@ class OrganizationsController < ApplicationController
     redirect_to organizations_url
   end
 
-  # GET /organizations/manage
-  def manage
+  # GET /organizations/admin
+  def admin
     @approval_organizations = Organization.where(status: "waiting_approval")
     @active_organizations = Organization.where(status: "active")
     @archived_organizations = Organization.where(status: "archived")

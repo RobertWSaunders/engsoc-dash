@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       get 'archive'
     end
     collection do
-      get 'manage'
+      get 'admin'
       get 'user'
     end
     resources :jobs, only: [:new, :create]
@@ -49,8 +49,9 @@ Rails.application.routes.draw do
       get 'withdraw'
     end
     collection do
-      get 'manage'
       get 'select'
+      get 'admin'
+      get 'manage'
     end
   end
 

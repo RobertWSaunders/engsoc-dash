@@ -64,12 +64,12 @@
                 <% end %>
               </li>
               <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && ( (controller.action_name.eql?('manage')) || (controller.action_name.eql?('new')) ) %>">
-                <%= link_to manage_organizations_path, class:"ripple" do %>
+                <%= link_to admin_organizations_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span>
                 <% end %>
               </li>
               <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) && ( (controller.action_name.eql?('manage')) || (controller.action_name.eql?('new')) || (controller.action_name.eql?('select')) ) %>">
-                <%= link_to manage_job_postings_path, class:"ripple" do %>
+                <%= link_to admin_job_postings_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-list icon-fw"></em></span><span>Job Postings</span>
                 <% end %>
               </li>

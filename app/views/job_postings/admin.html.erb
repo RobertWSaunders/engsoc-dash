@@ -1,0 +1,94 @@
+<!-- page title -->
+<% content_for :title, "Admin Job Postings" %>
+
+<!-- create job posting button -->
+<div class="container container-fluid">
+  <div class="mb-lg text-right">
+      <%= link_to "Create New Job Posting", new_job_posting_path, class: "btn btn-primary" %>
+  </div>
+
+  <!-- main container for job postings -->
+  <div class="container-fluid container-md">
+
+    <!-- job postings waiting approval -->
+    <div class="card">
+      <div class="card-body">
+        <h3 class="lead">Waiting Approval</h3>
+        <ul class="list-group">
+          <% if @approval_job_postings.any? %>
+            <% @approval_job_postings.each do |posting| %>
+              <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
+            <% end %>
+          <% else %>
+            <p class="text-center">No Job Postings Waiting Approval</p>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <!-- open job postings -->
+    <div class="card">
+      <div class="card-body">
+        <h3 class="lead">Accepting Applications</h3>
+        <ul class="list-group">
+          <% if @open_job_postings.any? %>
+            <% @open_job_postings.each do |posting| %>
+              <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
+            <% end %>
+          <% else %>
+            <p class="text-center">No Open Job Postings</p>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <!-- job postings with interviews pending -->
+    <div class="card">
+      <div class="card-body">
+        <h3 class="lead">Interviews Pending</h3>
+        <ul class="list-group">
+          <% if @interviews_pending_job_postings.any? %>
+            <% @interviews_pending_job_postings.each do |posting| %>
+              <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
+            <% end %>
+          <% else %>
+            <p class="text-center">No Job Postings With Interviews Pending</p>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <!-- job postings with interviews scheduled -->
+    <div class="card">
+      <div class="card-body">
+        <h3 class="lead">Interviews Scheduled</h3>
+        <ul class="list-group">
+          <% if @interviews_scheduled_job_postings.any? %>
+            <% @interviews_scheduled_job_postings.each do |posting| %>
+            <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
+            <% end %>
+          <% else %>
+            <p class="text-center">No Job Postings With Interviews Scheduled</p>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <!-- job postings that are closed -->
+    <div class="card">
+      <div class="card-body">
+        <h3 class="lead">Closed</h3>
+        <ul class="list-group">
+          <% if @closed_job_postings.any? %>
+            <% @closed_job_postings.each do |posting| %>
+            <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
+            <% end %>
+          <% else %>
+            <p class="text-center">No Closed Job Postings</p>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
