@@ -32,7 +32,7 @@ class JobsController < ApplicationController
   # PUT /jobs/:id
   def update
     if @job.update_attributes(job_params)
-      redirect_to organization_job_path(:organization_id => @job.organization_id)
+      redirect_to job_path(@job)
     else
       render 'edit'
     end

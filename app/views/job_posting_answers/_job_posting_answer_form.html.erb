@@ -21,7 +21,7 @@
   <% end %>
 
   <% elsif controller.action_name.eql?('edit') %>
-    <%= form_tag job_posting_job_application_job_posting_answer_path(:id => @job_posting_answers.first.id), :method => :put do %>
+    <%= form_tag job_application_job_posting_answer_path(:id => @job_posting_answers.first.id), :method => :put do %>
 
       <% @job_posting_answers.each do |answer| %>
         <%= fields_for 'answers[]', answer do |a| %>
@@ -34,7 +34,7 @@
       <% end %>
       <hr>
       <div class="actions">
-        <%= submit_tag "Save Answers", class: "btn btn-raised btn-success btn-lg btn-block ripple" %>
+        <%= submit_tag "Save Answers", class: "btn btn-raised btn-primary btn-lg btn-block ripple" %>
       </div>
     <% end %>
 

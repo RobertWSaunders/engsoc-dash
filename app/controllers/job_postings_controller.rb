@@ -17,7 +17,7 @@ class JobPostingsController < ApplicationController
     if params[:job_id]
       @job = Job.find(params[:job_id])
     else
-      redirect_to select_job_path
+      redirect_to select_job_postings_path
     end
   end
   # Redirected from /job_postings/new if job_id unspecified

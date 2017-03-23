@@ -17,7 +17,7 @@ class JobApplicationsController < ApplicationController
         flash[:notice] = "It seems like you have already applied for this job."
         redirect_to job_posting_path(@job_posting)
       else
-        redirect_to edit_job_posting_job_application_job_posting_answer_path(:job_application_id => @existing.id, :id => 1)
+        redirect_to edit_job_application_job_posting_answer_path(:job_application_id => @existing.id, :id => 1)
       end
     end
     @job_application = JobApplication.new
@@ -49,7 +49,7 @@ class JobApplicationsController < ApplicationController
   # PUT /job_applications/:id
   def update
     if @job_application.update_attributes(job_application_params)
-      redirect_to root_path
+      redirect_to job_postings_path
     else
       render 'finalize'
     end
@@ -59,10 +59,6 @@ class JobApplicationsController < ApplicationController
   def destroy
     @job_application.destroy
     redirect_to job_posting_job_applications_path
-    respond_to do |format|
-      format.html { redirect_to(job_posting_job_applications_path(@job_application.job_posting.id)) }
-      format.json { head :no_content }
-    end
   end
 
   # GET /job_applications/user

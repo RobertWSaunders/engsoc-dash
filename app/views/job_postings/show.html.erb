@@ -24,13 +24,13 @@
             <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
             <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
               <li>
-                <%= link_to "View Applicants", job_postings_path %>
+                <%= link_to "View Applicants", job_posting_job_applications_path(:job_posting_id => @jobposting.id) %>
               </li>
               <li>
-                <%= link_to "Edit Posting", job_postings_path %>
+                <%= link_to "Edit Posting", edit_job_posting_path(@jobposting) %>
               </li>
               <li>
-                <%= link_to "Delete Posting", job_postings_path %>
+                <%= link_to 'Delete Posting', @jobposting, method: :delete, data: { confirm: 'Are you sure?' } %>
               </li>
             </ul>
           <% end %>

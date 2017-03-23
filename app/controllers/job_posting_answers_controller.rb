@@ -1,24 +1,14 @@
 class JobPostingAnswersController < ApplicationController
-  before_action :set_job_posting_answer, only: [:show, :edit, :destroy]
+
+  before_action :set_job_application, only: [:edit, :destroy]
   before_action :clear_cache, only: [:new]
 
-  # GET /job_posting_answers
-  # GET /job_posting_answers.json
-  # def index
-  #   @job_posting_answers = JobPostingAnswer.all
-  # end
-
-  # GET /job_posting_answers/1
-  # GET /job_posting_answers/1.json
-  def show
-  end
-
-  # GET /job_posting_answers/new
+  # GET /job_posting/:job_posting_id/job_application/:job_application_id/job_posting_answers/new
   def new
     @job_posting = JobPosting.find(params[:job_posting_id])
     @job_application = JobApplication.find(params[:job_application_id])
     if @job_application.job_posting_answers.any?
-      redirect_to edit_job_posting_job_application_job_posting_answer_path(:id => 1)
+      redirect_to edit_job_application_job_posting_answer_path(:id => 1)
     end
     @all_questions = @job_posting.job_posting_questions.all
     @page_answers = []
@@ -27,13 +17,7 @@ class JobPostingAnswersController < ApplicationController
     end
   end
 
-  # GET /job_posting_answers/1/edit
-  def edit
-    @job_posting_answers = JobPostingAnswer.where(:job_application_id => @job_application.id)
-  end
-
-  # POST /job_posting_answers
-  # POST /job_posting_answers.json
+  # POST /job_posting/:job_posting_id/job_application/:job_application_id/job_posting_answers
   def create
     params["answers"].each do |key, answer|
       @answer = JobPostingAnswer.create(answer_params(answer))
@@ -42,6 +26,12 @@ class JobPostingAnswersController < ApplicationController
     redirect_to finalize_job_application_path(:id => @job_application_id)
   end
 
+  # GET /job_applications/:job_application_id/job_posting_answers/:id/edit
+  def edit
+    @job_posting_answers = JobPostingAnswer.where(:job_application_id => @job_application.id).all
+  end
+
+  # PUT /job_applications/:job_application_id/job_posting_answers/:id
   def update
     params["answers"].each do |key, answer|
       # p answer[:id]
@@ -52,13 +42,9 @@ class JobPostingAnswersController < ApplicationController
     redirect_to finalize_job_application_path(:id => @job_application_id)
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_job_posting_answer
-      @job_posting = JobPosting.find(params[:job_posting_id])
-      @job_application = @job_posting.job_applications.find(params[:job_application_id])
-      # @job_posting_answer = @job_application.job_posting_answers.find(params[:id])
+    def set_job_application
+      @job_application = JobApplication.find(params[:job_application_id])
     end
 
     def answer_params(my_params)
