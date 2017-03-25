@@ -1,5 +1,7 @@
 class JobPosting < ApplicationRecord
 
+  scope :status, -> (status) { where status: status }
+
   #Relationships
   #a job posting belongs to a job
   belongs_to :job, :foreign_key => :job_id, dependent: :destroy
