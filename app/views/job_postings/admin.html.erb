@@ -11,7 +11,9 @@
   <div class="container-fluid container-md">
 
     <%= form_tag({controller: "job_postings", action: "filter"}, method: "post") do %>
-      <%= select_tag :status, options_for_select(JobPosting.statuses.keys.map { |w| [w.humanize, w] }) %>
+      <% select_list = JobPosting.statuses.keys.map { |w| [w.humanize, w] } %>
+      <% select_list.insert(0,"All") %>
+      <%= select_tag :status, options_for_select(select_list, params[:status]) %>
       <%= submit_tag 'Filter' %>
     <% end %>
 

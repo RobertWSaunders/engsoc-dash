@@ -91,7 +91,11 @@ class JobPostingsController < ApplicationController
   end
 
   def filter
-    redirect_to admin_job_postings_path(status: params[:status])
+    if params[:status] == "All"
+      redirect_to admin_job_postings_path
+    else
+      redirect_to admin_job_postings_path(status: params[:status])
+    end
   end
 
   private
