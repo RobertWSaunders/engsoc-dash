@@ -66,16 +66,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/admin
   def admin
-    if params[:status].present?
-      @job_postings = JobPosting.status(params[:status]) if params[:status].present?
-    else
-      @job_postings = JobPosting.all
-    end 
-    #@approval_job_postings = JobPosting.where(status: "waiting_approval")
-    #@open_job_postings = JobPosting.where(status: "open").order(:deadline)
-    #@interviews_pending_job_postings = JobPosting.where(status: "interviews_pending").order(:deadline)
-    #@interviews_scheduled_job_postings = JobPosting.where(status: "interviews_scheduled").order(:deadline)
-    #@closed_job_postings = JobPosting.where(status: "closed").order(:deadline)
+    @job_postings = JobPosting.filter(params.slice(:status))
   end
 
   # GET /job_postings/:id/approve
@@ -108,5 +99,4 @@ class JobPostingsController < ApplicationController
     def set_job_posting
       @jobposting = JobPosting.find(params[:id])
     end
-
 end
