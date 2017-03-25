@@ -34,8 +34,10 @@
           <% end %>
         </ul>
       </div>
+      <center>
+        <!-- show the paginator for the will_paginate gem -->
+        <%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br />
+      </center>
     </div>
-
-
   </div>
 </div>
