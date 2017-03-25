@@ -90,6 +90,10 @@ class JobPostingsController < ApplicationController
     @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).order("deadline")
   end
 
+  def filter
+    redirect_to admin_job_postings_path(status: params[:status])
+  end
+
   private
 
     def job_posting_params

@@ -1,5 +1,6 @@
 class JobPosting < ApplicationRecord
   include Filterable
+
   scope :status, -> (status) { where status: status }
 
   #Relationships

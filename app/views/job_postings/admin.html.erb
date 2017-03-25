@@ -10,7 +10,7 @@
   <!-- main container for job postings -->
   <div class="container-fluid container-md">
 
-    <%= form_tag admin_job_postings_path do %>
+    <%= form_tag({controller: "job_postings", action: "filter"}, method: "post") do %>
       <%= select_tag :status, options_for_select(JobPosting.statuses.keys.map { |w| [w.humanize, w] }) %>
       <%= submit_tag 'Filter' %>
     <% end %>
