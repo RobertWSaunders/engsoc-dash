@@ -66,7 +66,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/admin
   def admin
-    @job_postings = JobPosting.filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 5)
+    @job_postings = JobPosting.filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /job_postings/:id/approve

@@ -1,29 +1,33 @@
 <!-- page title -->
 <% content_for :title, "Admin Job Postings" %>
 
-<!-- create job posting button -->
-<div class="container container-fluid">
-  <div class="mb-lg text-right">
-      <%= link_to "Create New Job Posting", new_job_posting_path, class: "btn btn-primary" %>
-  </div>
-
   <!-- main container for job postings -->
   <div class="container-fluid container-md">
 
-    <%= form_tag({controller: "job_postings", action: "filter"}, method: "post") do %>
-      <% select_list = JobPosting.statuses.keys.map { |w| [w.humanize, w] } %>
-      <% select_list.insert(0,"All") %>
-      <%= select_tag :status, options_for_select(select_list, params[:status]) %>
-      <%= submit_tag 'Filter' %>
-    <% end %>
+    <!-- filtering header -->
+    <div class="row mv">
+      <div class="col-sm-4">
+        <%= link_to(new_job_posting_path, class: "btn btn-primary") do %>
+          <em class="ion-plus mr-sm"></em>Create Job Posting
+        <% end %>
+      </div>
+      <div class="col-sm-8 text-right hidden-xs">
+        <%= form_tag({controller: "job_postings", action: "filter"}, method: "post", class:"form-inline") do %>
+          <div class="form-group mr">
+            <% select_list = JobPosting.statuses.keys.map { |w| [w.humanize, w] } %>
+            <% select_list.insert(0,"All") %>
+            <%= label_tag 'Status', nil, class: 'mr' %>
+            <%= select_tag :status, options_for_select(select_list, params[:status]), class: "form-control input-sm" %>
+            <%= submit_tag 'Filter' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
 
-
-
-    <!-- job postings waiting approval -->
-
+    <!-- list of job postings -->
     <div class="card">
       <div class="card-body">
-        <h3 class="lead">Job Postings</h3>
+        <p class="lead">Job Postings</p>
         <ul class="list-group">
           <% if @job_postings.any? %>
             <% @job_postings.each do |posting| %>
@@ -34,10 +38,9 @@
           <% end %>
         </ul>
       </div>
-      <center>
-        <!-- show the paginator for the will_paginate gem -->
-        <%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br />
-      </center>
+
+      <!-- show the paginator for the will_paginate gem -->
+      <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
+
     </div>
   </div>
-</div>
