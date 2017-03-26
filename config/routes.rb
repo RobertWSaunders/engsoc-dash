@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     end
   end
 
-
+  post '/organizations/admin', to: 'organizations#filter'
   post '/job_postings/admin', to: 'job_postings#filter'
 
 end

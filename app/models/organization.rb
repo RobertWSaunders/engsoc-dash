@@ -1,5 +1,10 @@
 class Organization < ApplicationRecord
 
+  include Filterable
+
+  scope :status, -> (status) { where status: status }
+
+
   #Relationships
   #an organization has many jobs, delete if organization is also deleted
   has_many :jobs, dependent: :destroy

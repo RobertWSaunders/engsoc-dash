@@ -39,8 +39,10 @@
         </ul>
       </div>
 
-      <!-- show the paginator for the will_paginate gem -->
-      <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
+      <% if @job_postings.count > 9 %>
+        <!-- show the paginator for the will_paginate gem -->
+        <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
+      <% end %>
 
     </div>
   </div>
