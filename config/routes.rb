@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       get 'manage'
       get 'user'
       post 'admin', to: 'organizations#filter'
+      post 'manage', to: 'organizations#filter_manage'
     end
     resources :jobs, only: [:new, :create]
   end
@@ -55,6 +56,7 @@ Rails.application.routes.draw do
       get 'admin'
       get 'manage'
       post 'admin', to: 'job_postings#filter'
+      post 'manage', to: 'job_postings#filter_manage'
     end
   end
 

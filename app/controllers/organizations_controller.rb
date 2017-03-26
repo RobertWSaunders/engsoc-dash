@@ -87,6 +87,18 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def filter_manage
+    if params[:status] == "All"
+      redirect_to manage_organizations_path
+    else
+      redirect_to manage_organizations_path(status: params[:status])
+    end
+  end
+
+  def manage
+    @managed_organizations = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] }).filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
+  end
+
   private
 
     def organization_params

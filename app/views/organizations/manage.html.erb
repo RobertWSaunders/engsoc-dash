@@ -1,20 +1,15 @@
 <!-- page title -->
-<% content_for :title, "Manage Job Postings" %>
+<% content_for :title, "Manage Organizations" %>
 
-  <!-- main container for job postings -->
+  <!-- main container for organizations -->
   <div class="container-md container-fluid">
 
     <!-- filtering header -->
     <div class="row mv">
-      <div class="col-sm-4">
-        <%= link_to(new_job_posting_path, class: "btn btn-primary") do %>
-          <em class="ion-plus mr-sm"></em>Create Job Posting
-        <% end %>
-      </div>
-      <div class="col-sm-8 text-right hidden-xs">
-        <%= form_tag({controller: "job_postings", action: "filter_manage"}, method: "post", class:"form-inline") do %>
+      <div class="col-sm-12 text-right hidden-xs">
+        <%= form_tag({controller: "organizations", action: "filter_manage"}, method: "post", class:"form-inline") do %>
           <div class="form-group">
-            <% select_list = JobPosting.statuses.keys.map { |w| [w.humanize, w] } %>
+            <% select_list = Organization.statuses.keys.map { |w| [w.humanize, w] } %>
             <% select_list.insert(0,"All") %>
             <%= label_tag 'Status', nil, class: 'mr' %>
             <%= select_tag :status, options_for_select(select_list, params[:status]), class: "form-control input-sm" %>
@@ -24,22 +19,22 @@
       </div>
     </div>
 
-    <!-- list of job postings -->
+    <!-- list of organizations -->
     <div class="card">
       <div class="card-body">
         <ul class="list-group">
-          <% if @managed_postings.any? %>
-            <% @managed_postings.each do |posting| %>
-              <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
+          <% if @managed_organizations.any? %>
+            <% @managed_organizations.each do |organization| %>
+              <%= render 'organization_list_item', organization: organization, dropdown: true %>
             <% end %>
           <% else %>
             <br /><br />
-            <p class="lead text-center">No Job Postings To Show</p>
+            <p class="lead text-center">No Organizations To Show</p>
           <% end %>
         </ul>
       </div>
 
-      <% if @managed_postings.count > 9 %>
+      <% if @managed_organizations.count > 9 %>
         <!-- show the paginator for the will_paginate gem -->
         <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
       <% end %>
