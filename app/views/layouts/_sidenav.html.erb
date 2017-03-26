@@ -18,15 +18,15 @@
           <% end %>
         </li>
         <!-- orgs link -->
-        <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) %>">
+        <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (!controller.action_name.eql?('admin')) && (!controller.action_name.eql?('manage')) %>">
           <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span></a>
           <ul class="sidebar-subnav">
-            <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (controller.action_name.eql?('index')) %>">
+            <li class="<%= 'active' if (controller.action_name.eql?('index')) %>">
               <%= link_to organizations_path, class: "ripple" do %>
                 <span class="pull-right nav-label"></span><span>View All</span>
               <% end %>
             </li>
-            <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (controller.action_name.eql?('user_organizations')) %>">
+            <li class="<%= 'active' if (controller.action_name.eql?('user')) %>">
               <%= link_to user_organizations_path, class: "ripple" do %>
                 <span class="pull-right nav-label"></span><span>My Organizations</span>
               <% end %>
@@ -35,7 +35,7 @@
           </ul>
         </li>
         <!-- jobs link -->
-        <li class="<%= 'active' if ( (controller.controller_name.eql?('job_postings')) || (controller.controller_name.eql?('job_applications')) ) %>">
+        <li class="<%= 'active' if ( (controller.controller_name.eql?('job_postings')) || (controller.controller_name.eql?('job_applications')) ) && ( (!controller.action_name.eql?('manage')) && (!controller.action_name.eql?('admin')) ) %>">
           <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-list icon-fw"></em></span><span>Job Postings</span></a>
           <ul class="sidebar-subnav">
             <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) && (controller.action_name.eql?('index')) %>">
@@ -55,7 +55,7 @@
           <li role="separator" class="divider">
             <hr>
           </li>
-          <li class="active">
+          <li class="<%= 'active' if ( controller.action_name.eql?('admin') || ( controller.controller_name.eql?('users') && controller.action_name.eql?('index')) ) %>">
             <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-key icon-fw"></em></span><span>Admin</span></a>
             <ul class="sidebar-subnav">
               <li class="<%= 'active' if (controller.controller_name.eql?('users')) %>">
@@ -63,24 +63,34 @@
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Users</span>
                 <% end %>
               </li>
-              <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && ( (controller.action_name.eql?('manage')) || (controller.action_name.eql?('new')) ) %>">
+              <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) %>">
                 <%= link_to admin_organizations_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span>
                 <% end %>
               </li>
-              <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) && ( (controller.action_name.eql?('manage')) || (controller.action_name.eql?('new')) || (controller.action_name.eql?('select')) ) %>">
+              <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) %>">
                 <%= link_to admin_job_postings_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-list icon-fw"></em></span><span>Job Postings</span>
                 <% end %>
               </li>
             </ul>
           </li>
-          <li>
+          <li class="<%= 'active' if (controller.action_name.eql?('manage')) %>">
             <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-social-buffer icon-fw"></em></span><span>Manage</span></a>
             <ul class="sidebar-subnav">
-              <li class="<%= 'active' if (controller.controller_name.eql?('users')) %>">
+              <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) %>">
+                <%= link_to manage_organizations_path, class:"ripple" do %>
+                  <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span>
+                <% end %>
+              </li>
+              <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) %>">
                 <%= link_to manage_job_postings_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-list icon-fw"></em></span><span>Job Postings</span>
+                <% end %>
+              </li>
+              <li class="<%= 'active' if (controller.controller_name.eql?('interviews')) %>">
+                <%= link_to manage_job_postings_path, class:"ripple" do %>
+                  <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-android-calendar icon-fw"></em></span><span>Job Interviews</span>
                 <% end %>
               </li>
             </ul>

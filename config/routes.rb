@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'admin'
+      get 'manage'
       get 'user'
       post 'admin', to: 'organizations#filter'
     end
