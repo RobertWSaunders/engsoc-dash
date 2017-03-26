@@ -87,7 +87,7 @@ class JobPostingsController < ApplicationController
   def manage
     @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
-    @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).order("deadline")
+    @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).filter(params.slice(:status)).order("deadline").paginate(:page => params[:page], :per_page => 10)
   end
 
   def filter
