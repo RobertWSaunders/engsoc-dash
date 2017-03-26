@@ -62,21 +62,21 @@ class OrganizationsController < ApplicationController
   def approve
     @organization.status = "active"
     @organization.save
-    redirect_to manage_organizations_path
+    redirect_to admin_organizations_path
   end
 
   # GET /organizations/:id/withdraw
   def withdraw
     @organization.status = "waiting_approval"
     @organization.save
-    redirect_to manage_organizations_path
+    redirect_to admin_organizations_path
   end
 
   # GET /organizations/:id/archive
   def archive
     @organization.status = "archived"
     @organization.save
-    redirect_to manage_organizations_path
+    redirect_to admin_organizations_path
   end
 
   def filter

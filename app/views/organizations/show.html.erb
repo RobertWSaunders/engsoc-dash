@@ -1,17 +1,6 @@
 <% content_for :title, @organization.name %>
 
 <div class="container-overlap bg-indigo-500">
-    <!-- Breadcrumb next to view title-->
-    <ul class="breadcrumb breadcrumb-lead">
-      <li>
-        <%= link_to "Organizations", organizations_path %>
-      </li>
-      <li class="active">
-        <%= link_to organization_path do %>
-          <%= @organization.name %>
-        <% end %>
-      </li>
-    </ul>
   <div class="container container-md">
     <h2><%= @organization.name %></h2>
     <h4><%= @organization.email %></h4>
@@ -49,4 +38,3 @@
     </div>
   </div>
 </div>
-
