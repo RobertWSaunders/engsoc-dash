@@ -2,7 +2,7 @@
 <% content_for :title, "Admin Job Postings" %>
 
   <!-- main container for job postings -->
-  <div class="container-fluid container-md">
+  <div class="container-md container-fluid">
 
     <!-- filtering header -->
     <div class="row mv">
@@ -13,12 +13,12 @@
       </div>
       <div class="col-sm-8 text-right hidden-xs">
         <%= form_tag({controller: "job_postings", action: "filter"}, method: "post", class:"form-inline") do %>
-          <div class="form-group mr">
+          <div class="form-group">
             <% select_list = JobPosting.statuses.keys.map { |w| [w.humanize, w] } %>
             <% select_list.insert(0,"All") %>
             <%= label_tag 'Status', nil, class: 'mr' %>
             <%= select_tag :status, options_for_select(select_list, params[:status]), class: "form-control input-sm" %>
-            <%= submit_tag 'Filter' %>
+            <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>
           </div>
         <% end %>
       </div>
@@ -27,14 +27,14 @@
     <!-- list of job postings -->
     <div class="card">
       <div class="card-body">
-        <p class="lead">Job Postings</p>
         <ul class="list-group">
           <% if @job_postings.any? %>
             <% @job_postings.each do |posting| %>
               <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
             <% end %>
           <% else %>
-            <p class="text-center">No Job Postings Waiting Approval</p>
+            <br /><br />
+            <p class="lead text-center">No Job Postings To Show</p>
           <% end %>
         </ul>
       </div>

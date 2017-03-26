@@ -20,3 +20,7 @@
 //= require centric/jquery.browser.js
 //= require select2
 //= require_tree .
+
+$('#choose_status').change(function() {
+  console.log("Heyo")
+});
