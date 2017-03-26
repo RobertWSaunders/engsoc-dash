@@ -1,0 +1,16 @@
+<li class="list-group-item">
+
+  <!-- render the dropdown for the item if configured -->
+  <% if dropdown %>
+    <%= render 'job_application_list_item_dropdown', application: application %>
+  <% end %>
+
+  <!-- show the job title and link to the job posting detail -->
+  <h5 class="mb-sm">
+    <%= link_to job_application_path(application), class: "ripple" do %>
+      <%= application.job_posting.title %>
+      <% end %>
+  </h5>
+
+
+</li>

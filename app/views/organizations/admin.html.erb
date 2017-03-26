@@ -1,62 +1,48 @@
 <!-- page title -->
 <% content_for :title, "Admin Organizations" %>
 
-<!-- create organization button -->
-<div class="container container-fluid">
-  <div class="mb-lg text-right">
-      <%= link_to "Create Organization", new_organization_path, class: "btn btn-primary" %>
-  </div>
-
   <!-- main container for organizations -->
-  <div class="container-fluid container-md">
+  <div class="container-md container-fluid">
 
-    <!-- organizations waiting approval -->
-    <div class="card">
-      <div class="card-body">
-        <h3 class="lead">Waiting Approval</h3>
-        <ul class="list-group">
-          <% if @approval_organizations.any? %>
-              <% @approval_organizations.each do |organization| %>
-                  <%= render 'organization_list_item', organization: organization, dropdown: true %>
-              <% end %>
-          <% else %>
-              <p class="text-center">No Organizations Waiting Approval</p>
-          <% end %>
-        </ul>
+    <!-- filtering header -->
+    <div class="row mv">
+      <div class="col-sm-4">
+        <%= link_to(new_organization_path, class: "btn btn-primary") do %>
+          <em class="ion-plus mr-sm"></em>Create Organization
+        <% end %>
+      </div>
+      <div class="col-sm-8 text-right hidden-xs">
+        <%= form_tag({controller: "organizations", action: "filter"}, method: "post", class:"form-inline") do %>
+          <div class="form-group">
+            <% select_list = Organization.statuses.keys.map { |w| [w.humanize, w] } %>
+            <% select_list.insert(0,"All") %>
+            <%= label_tag 'Status', nil, class: 'mr' %>
+            <%= select_tag :status, options_for_select(select_list, params[:status]), class: "form-control input-sm" %>
+            <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>
+          </div>
+        <% end %>
       </div>
     </div>
 
-    <!-- active organizations -->
+    <!-- list of organization -->
     <div class="card">
       <div class="card-body">
-        <h3 class="lead">Active Organizations</h3>
         <ul class="list-group">
-          <% if @active_organizations.any? %>
-            <% @active_organizations.each do |organization| %>
+          <% if @organizations.any? %>
+            <% @organizations.each do |organization| %>
               <%= render 'organization_list_item', organization: organization, dropdown: true %>
             <% end %>
           <% else %>
-            <p class="text-center">No Active Organizations</p>
+            <br /><br />
+            <p class="lead text-center">No Organizations To Show</p>
           <% end %>
         </ul>
       </div>
-    </div>
 
-    <!-- archived organizations -->
-    <div class="card">
-      <div class="card-body">
-        <h3 class="lead">Archived Organizations</h3>
-        <ul class="list-group">
-          <% if @archived_organizations.any? %>
-            <% @archived_organizations.each do |organization| %>
-              <%= render 'organization_list_item', organization: organization, dropdown: true %>
-            <% end %>
-          <% else %>
-            <p class="text-center">No Archived Organizations</p>
-          <% end %>
-        </ul>
-      </div>
-    </div>
+      <% if @organizations.count > 9 %>
+        <!-- show the paginator for the will_paginate gem -->
+        <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
+      <% end %>
 
+    </div>
   </div>
-</div>

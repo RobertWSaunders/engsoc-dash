@@ -30,4 +30,20 @@ module ApplicationHelper
     end
   end
 
+  # content for the job application status labels
+  def status_label_application(application)
+    case application.status
+      when "draft"
+        content_tag(:div, 'draft', class: 'label label-warning')
+      when "submitted"
+        content_tag(:div, 'submitted', class: 'label label-primary')
+      when "interview_scheduled"
+        content_tag(:div, 'interview scheduled', class: 'label label-info')
+      when "hired"
+        content_tag(:div, 'hired', class: 'label label-success')
+      else
+        content_tag(:div, 'not chosen', class: 'label label-inverse')
+    end
+  end
+
 end

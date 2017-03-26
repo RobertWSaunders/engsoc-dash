@@ -66,11 +66,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/admin
   def admin
-    @approval_job_postings = JobPosting.where(status: "waiting_approval")
-    @open_job_postings = JobPosting.where(status: "open").order(:deadline)
-    @interviews_pending_job_postings = JobPosting.where(status: "interviews_pending").order(:deadline)
-    @interviews_scheduled_job_postings = JobPosting.where(status: "interviews_scheduled").order(:deadline)
-    @closed_job_postings = JobPosting.where(status: "closed").order(:deadline)
+    @job_postings = JobPosting.filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /job_postings/:id/approve
@@ -94,6 +90,14 @@ class JobPostingsController < ApplicationController
     @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).order("deadline")
   end
 
+  def filter
+    if params[:status] == "All"
+      redirect_to admin_job_postings_path
+    else
+      redirect_to admin_job_postings_path(status: params[:status])
+    end
+  end
+
   private
 
     def job_posting_params
@@ -103,5 +107,4 @@ class JobPostingsController < ApplicationController
     def set_job_posting
       @jobposting = JobPosting.find(params[:id])
     end
-
 end

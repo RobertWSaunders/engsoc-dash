@@ -1,23 +1,23 @@
+<!-- define title for the page -->
 <% content_for :title, "My Job Applications" %>
 
+<!-- container for the page -->
 <div class="container-fluid container-md">
+
   <div class="container-fluid container-md">
-    <h3>My Job Applications</h3>
     <div class="card">
       <div class="card-body">
-        <% if @user_job_applications.any? %>
-          <ul>
+          <% if @user_job_applications.any? %>
+            <ul class="list-group">
+            <!-- iterate through all of the open job postings -->
             <% @user_job_applications.each do |app| %>
-              <li>
-                <%= app.job_posting.title %> 
-                <br>
-                <%= app.status %>
-                <br>
-                <%= app.id %>
-              </li>
+              <%= render 'job_application_list_item', application: app, dropdown: true %>
             <% end %>
-          </ul>
-        <% end %>
+            </ul>
+          <% else %>
+          <br /><br />
+          <p class="lead text-center">Uh oh! You have no job applications.</p>
+          <% end %>
       </div>
     </div>
   </div>

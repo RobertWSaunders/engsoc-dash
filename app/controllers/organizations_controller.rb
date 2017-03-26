@@ -51,9 +51,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/admin
   def admin
-    @approval_organizations = Organization.where(status: "waiting_approval")
-    @active_organizations = Organization.where(status: "active")
-    @archived_organizations = Organization.where(status: "archived")
+    @organizations = Organization.filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /organizations/user
@@ -64,21 +62,29 @@ class OrganizationsController < ApplicationController
   def approve
     @organization.status = "active"
     @organization.save
-    redirect_to manage_organizations_path
+    redirect_to admin_organizations_path
   end
 
   # GET /organizations/:id/withdraw
   def withdraw
     @organization.status = "waiting_approval"
     @organization.save
-    redirect_to manage_organizations_path
+    redirect_to admin_organizations_path
   end
 
   # GET /organizations/:id/archive
   def archive
     @organization.status = "archived"
     @organization.save
-    redirect_to manage_organizations_path
+    redirect_to admin_organizations_path
+  end
+
+  def filter
+    if params[:status] == "All"
+      redirect_to admin_organizations_path
+    else
+      redirect_to admin_organizations_path(status: params[:status])
+    end
   end
 
   private
