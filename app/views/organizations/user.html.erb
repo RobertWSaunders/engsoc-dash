@@ -22,7 +22,7 @@
             <% else %>
               <!-- iterate through all of user's orgs -->
               <% current_user.organizations.each do |organization| %>
-                <%= render 'organization_list_item', organization: organization, dropdown: true %>
+                <%= render 'organization_list_item', organization: organization, status: false, role: true %>
               <% end %>
             <% end %>
           </ul>

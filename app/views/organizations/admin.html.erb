@@ -30,7 +30,7 @@
         <ul class="list-group">
           <% if @organizations.any? %>
             <% @organizations.each do |organization| %>
-              <%= render 'organization_list_item', organization: organization, dropdown: true %>
+              <%= render 'organization_list_item', organization: organization, status: true, role: true %>
             <% end %>
           <% else %>
             <br /><br />

@@ -52,6 +52,8 @@ module ApplicationHelper
       content_tag(:div, 'manager', class: 'label label-info')
     elsif organization.jobs.any? { |job| job.user_id == current_user.id && job.role == "admin" }
       content_tag(:div, 'admin', class: 'label label-primary')
+    elsif organization.jobs.any? { |job| job.user_id == current_user.id && job.role == "regular" }
+      content_tag(:div, 'member', class: 'label label-warning')
     end
   end
 end
