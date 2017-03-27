@@ -46,4 +46,12 @@ module ApplicationHelper
     end
   end
 
+  # content for the job application status labels
+  def role_label_organization(organization)
+    if organization.jobs.any? { |job| job.user_id == current_user.id && job.role == "management" }
+      content_tag(:div, 'manager', class: 'label label-info')
+    elsif organization.jobs.any? { |job| job.user_id == current_user.id && job.role == "admin" }
+      content_tag(:div, 'admin', class: 'label label-primary')
+    end
+  end
 end
