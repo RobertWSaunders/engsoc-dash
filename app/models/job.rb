@@ -22,7 +22,8 @@ class Job < ApplicationRecord
   enum status: [:waiting_approval, :active, :archived]
 
   enum role: [:regular, :management, :admin]
+  enum type: [:volunteer, :part_time, :full_time]
 
   accepts_nested_attributes_for :user, :organization
-  
+
 end
