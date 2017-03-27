@@ -104,6 +104,14 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def filter_user
+    if params[:department] == "All"
+      redirect_to user_organizations_path
+    else
+      redirect_to user_organizations_path(department: params[:department])
+    end
+  end
+
   def manage
     @managed_organizations = Organization.user_managed(current_user).filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
   end
