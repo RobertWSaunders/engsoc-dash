@@ -29,4 +29,5 @@ class Organization < ApplicationRecord
 
   accepts_nested_attributes_for :jobs
 
+
 end
