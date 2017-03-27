@@ -3,7 +3,7 @@ class Organization < ApplicationRecord
   include Filterable
 
   scope :status, -> (status) { where status: status }
-
+  scope :user_managed, -> (current_user) { includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })}
 
   #Relationships
   #an organization has many jobs, delete if organization is also deleted

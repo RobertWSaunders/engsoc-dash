@@ -96,7 +96,7 @@ class OrganizationsController < ApplicationController
   end
 
   def manage
-    @managed_organizations = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] }).filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
+    @managed_organizations = Organization.user_managed(current_user).filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
   end
 
   private

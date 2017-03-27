@@ -21,7 +21,7 @@
             <p class="lead text-center">There are currently no organizations.</p>
           <% else %>
             <% @organizations.each do |organization| %>
-              <%= render 'organization_list_item', organization: organization, dropdown: false %>
+              <%= render 'organization_list_item', organization: organization, dropdown: true %>
             <% end %>
           <% end %>
         </ul>
