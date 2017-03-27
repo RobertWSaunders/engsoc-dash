@@ -11,9 +11,14 @@
     <% end %>
   </h5>
 
+
   <!-- display the organization contact email -->
   <p class="text-soft">
       <a href="<%= organization.email %>"><%= organization.email %></a>
+  </p>
+
+  <p class="text-soft">
+    Department: <%= organization.department.titleize %>
   </p>
 
   <!-- display the organization truncated description -->

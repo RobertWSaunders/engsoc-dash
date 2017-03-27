@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       get 'user'
       post 'admin', to: 'organizations#filter'
       post 'manage', to: 'organizations#filter_manage'
+      post 'organizations', to: 'organizations#filter_index'
     end
     resources :jobs, only: [:new, :create]
   end

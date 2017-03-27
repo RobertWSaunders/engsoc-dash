@@ -6,8 +6,8 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations
   def index
-    @organizations = Organization.where(status: "active").paginate(:page => params[:page], :per_page => 10)
-    
+    @organizations = Organization.where(status: "active").filter(params.slice(:department)).paginate(:page => params[:page], :per_page => 10)
+
   end
 
   # GET /organizations/new
@@ -96,6 +96,14 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def filter_index
+    if params[:department] == "All"
+      redirect_to organizations_path
+    else
+      redirect_to organizations_path(department: params[:department])
+    end
+  end
+
   def manage
     @managed_organizations = Organization.user_managed(current_user).filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
   end
@@ -103,7 +111,7 @@ class OrganizationsController < ApplicationController
   private
 
     def organization_params
-      params.require(:organization).permit(:name, :description, :email, :status)
+      params.require(:organization).permit(:name, :description, :email, :status, :department)
     end
 
     def set_organization

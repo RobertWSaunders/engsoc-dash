@@ -23,12 +23,13 @@ User.create!(first_name:  "Robert",
                role:          0)
 end
 
-99.times do |n|
+20.times do |n|
   name = Faker::Company.name
   email = Faker::Internet.email
   desc = Faker::Lorem.paragraph(4, true)
   Organization.create!(
       name: name,
       email: email,
-      description: desc)
+      description: desc,
+      department: "conferences")
 end

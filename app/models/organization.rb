@@ -3,6 +3,7 @@ class Organization < ApplicationRecord
   include Filterable
 
   scope :status, -> (status) { where status: status }
+  scope :department, -> (department) { where department: department }
   scope :user_managed, -> (current_user) { includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })}
 
   #Relationships
@@ -15,7 +16,7 @@ class Organization < ApplicationRecord
   default_scope -> { order(name: :asc)}
 
   #type of organizations with the engineering society
-  enum department: [:unspecified, :conference, :design_team, :service, :club, :event]
+  enum department: [:conferences, :design_teams, :services, :clubs, :events, :communications, :internal_affairs, :academics, :community_outreach, :science_formal, :first_year, :orientation_week, :human_resources, :professional_development, :finance, :information_technology, :engineering_review_board, :directors]
 
   enum status: [:waiting_approval, :active, :archived]
 
