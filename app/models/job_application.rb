@@ -1,4 +1,6 @@
 class JobApplication < ApplicationRecord
+  include Filterable
+  scope :status, -> (status) { where status: status }
 
   #Relationships
   #a job application belongs to a job posting

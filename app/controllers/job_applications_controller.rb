@@ -63,7 +63,15 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/user
   def user
-    @user_job_applications = JobApplication.where(user_id: current_user.id)
+    @user_job_applications = JobApplication.where(user_id: current_user.id).filter(params.slice(:status))
+  end
+
+  def filter_user
+    if params[:status] == "All"
+      redirect_to user_job_applications_path
+    else
+      redirect_to user_job_applications_path(status: params[:status])
+    end
   end
 
   private

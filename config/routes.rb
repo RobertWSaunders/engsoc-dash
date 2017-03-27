@@ -69,6 +69,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'user'
+      post 'user', to: 'job_applications#filter_user'
     end
   end
 
