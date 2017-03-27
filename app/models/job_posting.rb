@@ -2,6 +2,9 @@ class JobPosting < ApplicationRecord
   include Filterable
 
   scope :status, -> (status) { where status: status }
+  #scope :department, -> (department) { where status: status }
+  scope :job_type, -> (job_type) { joins(:job).where(jobs: { :job_type => job_type }) }
+
 
   #Relationships
   #a job posting belongs to a job

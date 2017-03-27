@@ -8,7 +8,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings
   def index
-    @open_job_postings = JobPosting.where(status: "open").order(:deadline).paginate(:page => params[:page], :per_page => 10)
+    @open_job_postings = JobPosting.where(status: "open").filter(params.slice(:job_type)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /job_postings/new?job_id=:id
@@ -90,6 +90,14 @@ class JobPostingsController < ApplicationController
     @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).filter(params.slice(:status)).order("deadline").paginate(:page => params[:page], :per_page => 10)
   end
 
+  def filter_index
+    if params[:job_type] == "All"
+      redirect_to job_postings_path
+    else
+      redirect_to job_postings_path(job_type: params[:job_type])
+    end
+  end
+
   def filter
     if params[:status] == "All"
       redirect_to admin_job_postings_path
@@ -109,7 +117,7 @@ class JobPostingsController < ApplicationController
   private
 
     def job_posting_params
-      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status)
+      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status, :job_type)
     end
 
     def set_job_posting
