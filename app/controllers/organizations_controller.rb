@@ -93,10 +93,14 @@ class OrganizationsController < ApplicationController
   end
 
   def filter_manage
-    if params[:status] == "All"
+    if params[:status] == "All" && params[:department] == "All"
       redirect_to manage_organizations_path
-    else
+    elsif params[:status] != "All" && params[:department] == "All"
       redirect_to manage_organizations_path(status: params[:status])
+    elsif params[:status] == "All" && params[:department] != "All"
+      redirect_to manage_organizations_path(department: params[:department])
+    else
+      redirect_to manage_organizations_path(status: params[:status], department: params[:department])
     end
   end
 
@@ -117,7 +121,7 @@ class OrganizationsController < ApplicationController
   end
 
   def manage
-    @managed_organizations = Organization.user_managed(current_user).filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
+    @managed_organizations = Organization.user_managed(current_user).filter(params.slice(:status, :department)).paginate(:page => params[:page], :per_page => 10)
   end
 
   private
