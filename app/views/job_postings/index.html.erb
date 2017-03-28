@@ -12,10 +12,10 @@
           <div class="form-group">
             <% select_list = Job.job_types.keys.map { |w| [w.titleize, w] } %>
             <% select_list.insert(0,"All") %>
-          <!--  <% department_list = Organization.departments.keys.map { |w| [w.titleize, w] } %>
+            <% department_list = Organization.departments.keys.map { |w| [w.titleize, w] } %>
             <% department_list.insert(0,"All") %>
             <%= label_tag 'Department', nil, class: 'mr' %>
-            <%= select_tag :department, options_for_select(department_list, params[:department]), class: "form-control input-sm mr" %>-->
+            <%= select_tag :department, options_for_select(department_list, params[:department]), class: "form-control input-sm mr" %>
             <%= label_tag 'Type', nil, class: 'mr' %>
             <%= select_tag :job_type, options_for_select(select_list, params[:job_type]), class: "form-control input-sm" %>
             <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>

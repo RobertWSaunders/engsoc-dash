@@ -1,5 +1,7 @@
 class Job < ApplicationRecord
 
+  scope :job_department, -> (job_department) { joins(:organization).where(organizations: { :department => job_department }) }
+
   #Relationships
   #a job belongs to an organization
   belongs_to :organization, :foreign_key => :organization_id
