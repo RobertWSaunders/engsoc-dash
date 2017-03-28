@@ -6,7 +6,8 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations
   def index
-    @organizations = Organization.where(status: "active").paginate(:page => params[:page], :per_page => 10)
+    @organizations = Organization.where(status: "active").filter(params.slice(:department)).paginate(:page => params[:page], :per_page => 10)
+
   end
 
   # GET /organizations/new
@@ -51,7 +52,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/admin
   def admin
-    @organizations = Organization.filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
+    @organizations = Organization.filter(params.slice(:status, :department)).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /organizations/user
@@ -80,17 +81,53 @@ class OrganizationsController < ApplicationController
   end
 
   def filter
-    if params[:status] == "All"
+    if params[:status] == "All" && params[:department] == "All"
       redirect_to admin_organizations_path
-    else
+    elsif params[:status] != "All" && params[:department] == "All"
       redirect_to admin_organizations_path(status: params[:status])
+    elsif params[:status] == "All" && params[:department] != "All"
+      redirect_to admin_organizations_path(department: params[:department])
+    else
+      redirect_to admin_organizations_path(status: params[:status], department: params[:department])
     end
+  end
+
+  def filter_manage
+    if params[:status] == "All" && params[:department] == "All"
+      redirect_to manage_organizations_path
+    elsif params[:status] != "All" && params[:department] == "All"
+      redirect_to manage_organizations_path(status: params[:status])
+    elsif params[:status] == "All" && params[:department] != "All"
+      redirect_to manage_organizations_path(department: params[:department])
+    else
+      redirect_to manage_organizations_path(status: params[:status], department: params[:department])
+    end
+  end
+
+  def filter_index
+    if params[:department] == "All"
+      redirect_to organizations_path
+    else
+      redirect_to organizations_path(department: params[:department])
+    end
+  end
+
+  def filter_user
+    if params[:department] == "All"
+      redirect_to user_organizations_path
+    else
+      redirect_to user_organizations_path(department: params[:department])
+    end
+  end
+
+  def manage
+    @managed_organizations = Organization.user_managed(current_user).filter(params.slice(:status, :department)).paginate(:page => params[:page], :per_page => 10)
   end
 
   private
 
     def organization_params
-      params.require(:organization).permit(:name, :description, :email, :status)
+      params.require(:organization).permit(:name, :description, :email, :status, :department)
     end
 
     def set_organization

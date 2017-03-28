@@ -1,18 +1,13 @@
 <!-- page title -->
-<% content_for :title, "Admin Organizations" %>
+<% content_for :title, "Manage Organizations" %>
 
   <!-- main container for organizations -->
   <div class="container-md container-fluid">
 
     <!-- filtering header -->
     <div class="row mv">
-      <div class="col-sm-4">
-        <%= link_to(new_organization_path, class: "btn btn-primary") do %>
-          <em class="ion-plus mr-sm"></em>Create Organization
-        <% end %>
-      </div>
-      <div class="col-sm-8 text-right hidden-xs">
-        <%= form_tag({controller: "organizations", action: "filter"}, method: "post", class:"form-inline") do %>
+      <div class="col-sm-12 text-right hidden-xs">
+        <%= form_tag({controller: "organizations", action: "filter_manage"}, method: "post", class:"form-inline") do %>
           <div class="form-group">
             <% select_list = Organization.statuses.keys.map { |w| [w.titleize, w] } %>
             <% select_list.insert(0,"All") %>
@@ -28,12 +23,12 @@
       </div>
     </div>
 
-    <!-- list of organization -->
+    <!-- list of organizations -->
     <div class="card">
       <div class="card-body">
         <ul class="list-group">
-          <% if @organizations.any? %>
-            <% @organizations.each do |organization| %>
+          <% if @managed_organizations.any? %>
+            <% @managed_organizations.each do |organization| %>
               <%= render 'organization_list_item', organization: organization, status: true, role: true %>
             <% end %>
           <% else %>
@@ -43,7 +38,7 @@
         </ul>
       </div>
 
-      <% if @organizations.count > 9 %>
+      <% if @managed_organizations.count > 9 %>
         <!-- show the paginator for the will_paginate gem -->
         <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
       <% end %>

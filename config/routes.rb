@@ -29,6 +29,9 @@ Rails.application.routes.draw do
       get 'manage'
       get 'user'
       post 'admin', to: 'organizations#filter'
+      post 'manage', to: 'organizations#filter_manage'
+      post 'organizations', to: 'organizations#filter_index'
+      post 'user', to: 'organizations#filter_user'
     end
     resources :jobs, only: [:new, :create]
   end
@@ -44,7 +47,7 @@ Rails.application.routes.draw do
   resources :job_postings do
     resources :job_posting_questions, only: [:index, :create]
     resources :job_applications, only: [:index, :new, :create] do
-      resources :job_posting_answers, only: [:new, :create]
+    resources :job_posting_answers, only: [:new, :create]
     end
     member do
       get 'approve'
@@ -55,6 +58,8 @@ Rails.application.routes.draw do
       get 'admin'
       get 'manage'
       post 'admin', to: 'job_postings#filter'
+      post 'manage', to: 'job_postings#filter_manage'
+      post 'job_postings', to: 'job_postings#filter_index'
     end
   end
 
@@ -65,6 +70,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'user'
+      post 'user', to: 'job_applications#filter_user'
     end
   end
 

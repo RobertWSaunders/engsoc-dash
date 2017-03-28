@@ -6,7 +6,7 @@
           <%= f.text_field :title, class: 'form-control' %>
 
           <%= f.label :Description %>
-          <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>     
+          <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
 
           <% if defined? @job.organization.id %>
             <%= f.hidden_field :organization_id, :value => @job.organization.id %>
@@ -16,6 +16,10 @@
 
           <%= f.label :Role %>
           <%= f.select :role, Job.roles.keys.map { |w| [w.humanize, w] }  %>
+
+          <br />
+          <%= f.label :job_type %>
+          <%= f.select :job_type, Job.job_types.keys.map { |w| [w.humanize, w] }  %>
 
           <hr>
 

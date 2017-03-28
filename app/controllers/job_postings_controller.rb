@@ -8,7 +8,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings
   def index
-    @open_job_postings = JobPosting.where(status: "open").order(:deadline).paginate(:page => params[:page], :per_page => 10)
+    @open_job_postings = JobPosting.where(status: "open").filter(params.slice(:job_type)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /job_postings/new?job_id=:id
@@ -87,7 +87,15 @@ class JobPostingsController < ApplicationController
   def manage
     @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
-    @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).order("deadline")
+    @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).filter(params.slice(:status)).order("deadline").paginate(:page => params[:page], :per_page => 10)
+  end
+
+  def filter_index
+    if params[:job_type] == "All"
+      redirect_to job_postings_path
+    else
+      redirect_to job_postings_path(job_type: params[:job_type])
+    end
   end
 
   def filter
@@ -98,10 +106,18 @@ class JobPostingsController < ApplicationController
     end
   end
 
+  def filter_manage
+    if params[:status] == "All"
+      redirect_to manage_job_postings_path
+    else
+      redirect_to manage_job_postings_path(status: params[:status])
+    end
+  end
+
   private
 
     def job_posting_params
-      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status)
+      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status, :job_type)
     end
 
     def set_job_posting

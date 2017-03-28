@@ -1,5 +1,7 @@
 class Job < ApplicationRecord
 
+  scope :job_department, -> (job_department) { joins(:organization).where(organizations: { :department => job_department }) }
+
   #Relationships
   #a job belongs to an organization
   belongs_to :organization, :foreign_key => :organization_id
@@ -22,7 +24,8 @@ class Job < ApplicationRecord
   enum status: [:waiting_approval, :active, :archived]
 
   enum role: [:regular, :management, :admin]
+  enum job_type: [:volunteer, :part_time, :full_time]
 
   accepts_nested_attributes_for :user, :organization
-  
+
 end

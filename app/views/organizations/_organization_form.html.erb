@@ -15,8 +15,12 @@
   <% if cannot? :manage, Organization %>
   <%= f.select :status, Organization.statuses => "Waiting approval" %>
   <% else %>
-  <%= f.select :status, Organization.statuses.keys.map { |w| [w.humanize, w] }  %>
+  <%= f.select :status, Organization.statuses.keys.map { |w| [w.titleize, w] }  %>
   <% end %>
+
+  <br />
+  <%= f.label :department %>
+  <%= f.select :department, Organization.departments.keys.map { |w| [w.titleize, w] }  %>
 
   <hr>
 

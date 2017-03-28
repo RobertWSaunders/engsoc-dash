@@ -1,8 +1,15 @@
 <!-- if user has the permissions to manage organizations show the dropdown -->
 <% if can? :manage_organizations, organization %>
   <div class="pull-right dropdown">
+
     <!-- add the status label define in application helper -->
-    <%= status_label_organization(organization) %>
+    <% if status %>
+      <%= status_label_organization(organization) %>
+    <% end %>
+    <% if role %>
+      <%= role_label_organization(organization) %>
+    <% end %>
+
     <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
     <!-- menu list -->
     <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">

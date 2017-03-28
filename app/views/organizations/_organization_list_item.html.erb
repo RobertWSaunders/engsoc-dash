@@ -1,10 +1,8 @@
 <!-- beginning of list item -->
 <li class="list-group-item">
 
-  <!-- render the dropdown for the item if configured -->
-  <% if dropdown %>
-    <%= render 'organization_list_item_dropdown', organization: organization %>
-  <% end %>
+
+  <%= render 'organization_list_item_dropdown', organization: organization, status: status, role: role %>
 
   <!-- display the organization name -->
   <h5 class="mb-sm">
@@ -13,9 +11,14 @@
     <% end %>
   </h5>
 
+
   <!-- display the organization contact email -->
   <p class="text-soft">
       <a href="<%= organization.email %>"><%= organization.email %></a>
+  </p>
+
+  <p class="text-soft">
+    Department: <%= organization.department.titleize %>
   </p>
 
   <!-- display the organization truncated description -->

@@ -1,19 +1,24 @@
 <% content_for :title, "All Organizations" %>
 
 <!-- container for the page -->
-<div class="container container-fluid">
+<div class="container-fluid container-md">
 
-  <!-- add search bar -->
-  <div class="mb-lg">
-    <form role="form">
-      <div class="mda-form-control">
-        <input type="text" placeholder="Search Organization Title, Department, etc..." class="form-control input-lg">
-      </div>
-    </form>
+  <!-- filtering header -->
+  <div class="row mv">
+    <div class="col-sm-12 text-right hidden-xs">
+      <%= form_tag({controller: "organizations", action: "filter_index"}, method: "post", class:"form-inline") do %>
+        <div class="form-group">
+          <% select_list = Organization.departments.keys.map { |w| [w.titleize, w] } %>
+          <% select_list.insert(0,"All") %>
+          <%= label_tag 'Department', nil, class: 'mr' %>
+          <%= select_tag :department, options_for_select(select_list, params[:department]), class: "form-control input-sm" %>
+          <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <!-- main container for job postings -->
-  <div class="container-fluid container-md">
     <div class="card">
       <div class="card-body">
         <ul class="list-group">
@@ -21,7 +26,7 @@
             <p class="lead text-center">There are currently no organizations.</p>
           <% else %>
             <% @organizations.each do |organization| %>
-              <%= render 'organization_list_item', organization: organization, dropdown: false %>
+              <%= render 'organization_list_item', organization: organization, status: false, role: true %>
             <% end %>
           <% end %>
         </ul>
@@ -32,4 +37,3 @@
       </div>
     </div>
   </div>
-</div>
