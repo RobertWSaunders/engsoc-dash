@@ -61,8 +61,8 @@
           <div class="card">
             <div class="card-body">
               <ul class="list-group">
-                <% if @intervewing_postings.any? %>
-                  <% @intervewing_postings.each do |posting| %>
+                <% if @interviewing_postings.any? %>
+                  <% @interviewing_postings.each do |posting| %>
                     <%= render 'job_postings/job_posting_interview_select_list_item', posting: posting %>
                   <% end %>
                 <% else %>
@@ -72,7 +72,7 @@
               </ul>
             </div>
 
-            <% if @intervewing_postings.count > 9 %>
+            <% if @interviewing_postings.count > 9 %>
               <!-- show the paginator for the will_paginate gem -->
               <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
             <% end %>

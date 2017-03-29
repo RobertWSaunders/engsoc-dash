@@ -1,7 +1,7 @@
 class JobPostingsController < ApplicationController
 
   # before any action gets fired set the job posting
-  before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw]
+  before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview]
 
   # define the helper for the controller
   helper :application
@@ -83,9 +83,10 @@ class JobPostingsController < ApplicationController
     redirect_to job_postings_path
   end
 
-  # GET /job_postings/:id/close
-  def pending_interview
-    @jobposting.status = "interviews_pending"
+  # GET /job_postings/:id/interview
+  def interview
+    p @jobposting
+    @jobposting.status = "interviewing"
     @jobposting.save
     redirect_to job_postings_path
   end
