@@ -83,6 +83,13 @@ class JobPostingsController < ApplicationController
     redirect_to job_postings_path
   end
 
+  # GET /job_postings/:id/close
+  def pending_interview
+    @jobposting.status = "interviews_pending"
+    @jobposting.save
+    redirect_to job_postings_path
+  end
+
   # GET /job_postings/manage
   def manage
     @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })

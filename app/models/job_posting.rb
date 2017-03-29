@@ -20,7 +20,7 @@ class JobPosting < ApplicationRecord
   has_one :interview
 
   #different statuses for a job posting
-  enum status: [:waiting_approval, :draft, :open, :interviews_pending, :interviews_scheduled, :closed, :extension_pending]
+  enum status: [:waiting_approval, :draft, :open, :intervewing, :closed, :extension_pending]
 
   #Validations
   #make sure a job_id is present

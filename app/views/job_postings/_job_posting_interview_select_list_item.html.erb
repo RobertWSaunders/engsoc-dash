@@ -1,0 +1,20 @@
+<li class="list-group-item">
+
+  <!-- show the job title and link to the job posting detail -->
+  <h5 class="mb-sm">
+    <%= link_to job_posting_path(posting), class: "ripple" do %>
+      <%= posting.title %>
+    <% end %>
+  </h5>
+
+  <!-- display the application deadline -->
+  <p class="text-soft">
+    Application Deadline: <%= distance_of_time_in_words(Time.now, posting.deadline) %><br />
+  </p>
+
+  <!-- display the truncated job posting description -->
+  <p>
+    <%= h truncate(posting.description, :length => 270) %>
+  </p>
+
+</li>

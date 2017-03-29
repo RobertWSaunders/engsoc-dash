@@ -7,14 +7,14 @@ class InterviewsController < ApplicationController
     @interviews = Interview.all
   end
 
-  # GET /interviews/1
-  # GET /interviews/1.json
-  def show
-  end
-
   # GET /interviews/new
   def new
     @interview = Interview.new
+  end
+
+  # GET /interviews/1
+  # GET /interviews/1.json
+  def show
   end
 
   # GET /interviews/1/edit
@@ -56,6 +56,9 @@ class InterviewsController < ApplicationController
   # GET /interviews/manage
   def manage
     @interviews = Interview.all
+    @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
+    @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
+    @intervewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "intervewing").order("deadline").paginate(:page => params[:page], :per_page => 10)  
   end
 
   private
