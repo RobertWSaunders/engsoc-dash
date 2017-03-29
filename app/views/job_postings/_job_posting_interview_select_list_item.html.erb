@@ -2,7 +2,7 @@
 
   <!-- show the job title and link to the job posting detail -->
   <h5 class="mb-sm">
-    <%= link_to job_posting_path(posting), class: "ripple" do %>
+    <%= link_to job_posting_job_applications_path(posting), class: "ripple" do %>
       <%= posting.title %>
     <% end %>
   </h5>
@@ -12,9 +12,14 @@
     Application Deadline: <%= distance_of_time_in_words(Time.now, posting.deadline) %><br />
   </p>
 
-  <!-- display the truncated job posting description -->
-  <p>
-    <%= h truncate(posting.description, :length => 270) %>
-  </p>
+  <% if posting.job_applications.any? %>
+    <ul>
+    <% posting.job_applications.each do |app| %>
+      <li>
+      #<%= app.id %> - <%= app.user.first_name %> <%= app.user.last_name %> <%= link_to "Schedule Interview", new_job_application_interview_path(app) %>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
 
 </li>

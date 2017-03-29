@@ -12,8 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :job_posting_id %>
-    <%= f.text_field :job_posting_id %>
+    <%= f.hidden_field :job_posting_id, :value => @job_posting.id %>
   </div>
 
   <div class="field">
@@ -26,7 +25,9 @@
     <%= f.datetime_select :end_time %>
   </div>
 
+  <hr>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Finish Scheduling", class: "btn btn-primary btn-flat btn-block" %>
   </div>
 <% end %>

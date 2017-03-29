@@ -66,6 +66,7 @@ Rails.application.routes.draw do
 
   resources :job_applications, only: [:show, :update, :destroy] do
     resources :job_posting_answers, only: [:edit, :update, :destroy]
+    resources :interviews, only: [:new]
     member do
       get 'finalize'
     end

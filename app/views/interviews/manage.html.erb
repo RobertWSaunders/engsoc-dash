@@ -1,5 +1,5 @@
 <% content_for :title, "Manage Job Interviews" %>
-<div class="container-md container-fluid">
+<div class="container-lg container-fluid">
 
   <div class="row">
     <div class="col-md-8">
@@ -10,7 +10,9 @@
 
             <% interviews.each do |interview| %>
               <div>
-                <%= interview.name %>
+                <%= interview.job_posting.user.first_name %>
+                <%= interview.job_posting.user.last_name %>
+
               </div>
             <% end %>
           <% end %>

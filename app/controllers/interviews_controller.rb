@@ -7,8 +7,10 @@ class InterviewsController < ApplicationController
     @interviews = Interview.all
   end
 
-  # GET /interviews/new
+  # GET /job_applications/:job_application_id/interviews/new
   def new
+    @job_application = JobApplication.find(params[:job_application_id])
+    @job_posting = JobPosting.find(@job_application.job_posting_id)
     @interview = Interview.new
   end
 

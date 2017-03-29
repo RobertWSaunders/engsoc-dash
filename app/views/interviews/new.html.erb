@@ -1,5 +1,13 @@
-<h1>New Interview</h1>
+<% content_for :title, "Schedule Interview" %>
+<div class="container-md container-fluid">
 
-<%= render 'form', interview: @interview %>
+  <div class="card">
+    <div class="card-body">
+      <h3>Interview with <%= @job_application.user.first_name %><br>
+        <small>for <%= @job_posting.title %></small></h3>
 
-<%= link_to 'Back', interviews_path %>
+      <%= render 'form', interview: @interview %>
+
+      <%= link_to 'Cancel', manage_interviews_path, class: "btn btn-warning btn-flat btn-block" %>
+    </div>
+  </div>
