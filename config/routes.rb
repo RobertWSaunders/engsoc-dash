@@ -74,4 +74,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :interviews do
+    collection do
+      get 'manage'
+    end
+  end
+
+
 end

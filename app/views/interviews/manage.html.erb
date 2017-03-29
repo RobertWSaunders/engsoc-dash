@@ -1,0 +1,47 @@
+<% content_for :title, "Manage Job Interviews" %>
+<div class="container-md container-fluid">
+
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <%= month_calendar do |date| %>
+          <%= date %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body"> 
+        <table>
+          <thead>
+            <tr>
+              <th>Job posting</th>
+              <th>Start time</th>
+              <th>End time</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @interviews.each do |interview| %>
+              <tr>
+                <td><%= interview.job_posting %></td>
+                <td><%= interview.start_time %></td>
+                <td><%= interview.end_time %></td>
+                <td><%= link_to 'Show', interview %></td>
+                <td><%= link_to 'Edit', edit_interview_path(interview) %></td>
+                <td><%= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <br>
+
+        <%= link_to 'New Interview', new_interview_path %>
+      </div>
+    </div>
+  </div>
+
+</div>
