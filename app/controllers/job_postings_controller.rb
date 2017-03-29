@@ -8,7 +8,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings
   def index
-    @open_job_postings = JobPosting.where(status: "open").filter(params.slice(:job_type)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
+    @open_job_postings = JobPosting.where(status: "open").filter(params.slice(:job_type, :job_department)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /job_postings/new?job_id=:id
@@ -91,10 +91,14 @@ class JobPostingsController < ApplicationController
   end
 
   def filter_index
-    if params[:job_type] == "All"
+    if params[:job_type] == "All" && params[:job_department] == "All"
       redirect_to job_postings_path
-    else
+    elsif params[:job_type] != "All" && params[:job_department] == "All"
       redirect_to job_postings_path(job_type: params[:job_type])
+    elsif params[:job_type] == "All" && params[:job_department] != "All"
+      redirect_to job_postings_path(job_department: params[:job_department])
+    else
+      redirect_to job_postings_path(job_type: params[:job_type], job_department: params[:job_department])
     end
   end
 

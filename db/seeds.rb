@@ -31,5 +31,5 @@ end
       name: name,
       email: email,
       description: desc,
-      department: "conferences")
+      department: 0)
 end
