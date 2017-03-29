@@ -10,8 +10,12 @@ class InterviewsController < ApplicationController
   # GET /job_applications/:job_application_id/interviews/new
   def new
     @job_application = JobApplication.find(params[:job_application_id])
-    @job_posting = JobPosting.find(@job_application.job_posting_id)
-    @interview = Interview.new
+    if @job_application.interview.present?
+      redirect_to manage_interviews_path, :alert => "This application already has a scheduled interview"
+    else
+      @job_posting = JobPosting.find(@job_application.job_posting_id)
+      @interview = Interview.new
+    end
   end
 
   # GET /interviews/1
@@ -27,12 +31,10 @@ class InterviewsController < ApplicationController
   def create
     @interview = Interview.new(interview_params)
 
-    respond_to do |format|
-      if @interview.save
-        format.html { redirect_to @interview, notice: 'Interview was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @interview.save
+      redirect_to manage_interviews_path
+    else
+      render :new
     end
   end
 
@@ -57,7 +59,7 @@ class InterviewsController < ApplicationController
 
   # GET /interviews/manage
   def manage
-    @interviews = Interview.all
+    @interviews = Interview.all.order(end_time: :asc)
     @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
     @interviewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "interviewing").order("deadline").paginate(:page => params[:page], :per_page => 10)  
@@ -71,6 +73,6 @@ class InterviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def interview_params
-      params.require(:interview).permit(:job_posting_id, :start_time, :end_time)
+      params.require(:interview).permit(:job_application_id, :start_time, :end_time)
     end
 end

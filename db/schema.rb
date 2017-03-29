@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329171110) do
+ActiveRecord::Schema.define(version: 20170329203354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "interviews", force: :cascade do |t|
-    t.integer  "job_posting_id"
+    t.integer  "job_application_id"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["job_posting_id"], name: "index_interviews_on_job_posting_id", using: :btree
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["job_application_id"], name: "index_interviews_on_job_application_id", using: :btree
   end
 
   create_table "job_applications", force: :cascade do |t|
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 20170329171110) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "interviews", "job_postings"
+  add_foreign_key "interviews", "job_postings", column: "job_application_id"
   add_foreign_key "job_posting_answers", "job_applications"
   add_foreign_key "job_posting_answers", "job_posting_questions", column: "job_posting_questions_id"
   add_foreign_key "job_posting_questions", "job_postings"
