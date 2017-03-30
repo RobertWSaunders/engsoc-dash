@@ -5,7 +5,7 @@ class JobApplicationsController < ApplicationController
   # GET /job_postings/:job_posting_id/job_applications
   def index
     @job_posting = JobPosting.find(params[:job_posting_id])
-    @job_applications = @job_posting.job_applications.all
+    @job_applications = @job_posting.job_applications.where(:status => "submitted")
   end
 
   # GET /job_postings/:job_posting_id/job_applications/new
