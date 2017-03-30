@@ -17,5 +17,5 @@ class Interview < ApplicationRecord
     end
 
     # should add validation for making sure interviews don't schedule for the past
-    # but for the sake of being able to 'complete' interviews to reschedule, not implementing for now
+    # but for the sake of being able to reschedule interviews to simulate completion for dev, not implementing for now
 end
