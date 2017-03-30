@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :job_postings, :foreign_key => :creator_id
 
   #the roles a user can be associated with
-  enum role: [:student, :management, :admin, :superadmin]
+  enum role: [:student, :superadmin]
 
   enum gender: [:unspecified, :male, :female]
 

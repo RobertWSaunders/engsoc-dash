@@ -1,5 +1,6 @@
 class JobPostingsController < ApplicationController
-
+  
+  load_and_authorize_resource
   # before any action gets fired set the job posting
   before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview]
 

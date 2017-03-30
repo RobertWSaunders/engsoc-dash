@@ -1,4 +1,5 @@
 class InterviewsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_interview, only: [:show, :edit, :update, :destroy]
 
   # GET /job_applications/:job_application_id/interviews/new
@@ -33,13 +34,13 @@ class InterviewsController < ApplicationController
   # PATCH/PUT /interviews/1
   def update
     if @interview.update_attributes(interview_params)
-      redirect_to manage_interviews_path, notice: 'Interview was successfully updated.' 
+      redirect_to manage_interviews_path, notice: 'Interview was successfully updated.'
     else
       render :edit
     end
   end
 
-  # Removed destroy action for now... even if interview cancels, applications should be processed as 
+  # Removed destroy action for now... even if interview cancels, applications should be processed as
   # a non-hire, instead of a destroying of an interview object...
 
   # GET /interviews/manage

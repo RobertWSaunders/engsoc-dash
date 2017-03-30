@@ -7,19 +7,6 @@ User.create!(first_name:  "Robert",
              password:    "password",
              role:        "superadmin")
 
-#admin
-User.create!(first_name:  "Kaitlyn",
-             last_name:   "Saunders",
-             email:       "admin@example.com",
-             password:    "password",
-             role:        "admin")
-
-#student
-User.create!(first_name:  "Ashleigh",
-             last_name:   "Saunders",
-             email:       "student@example.com",
-             password:    "password",
-             role:        "student")
 #hr example
 User.create!(first_name:  "Rachel",
              last_name:   "McConnell",
