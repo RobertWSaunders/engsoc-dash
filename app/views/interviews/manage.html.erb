@@ -6,14 +6,18 @@
       <div class="card">
         <div class="card-body">
           <%= month_calendar events: @interviews do |date, interviews| %>
-            <%= date %>
-
+            <div class="date">
+              <%= date %>
+            </div>
             <% interviews.each do |interview| %>
-              <div>
+              <hr>
+              <div class="interview">
                 <%= interview.job_application.user.first_name %>
                 <%= interview.job_application.user.last_name %>
                 <br>
-                <%= interview.start_time.strftime("%I:%M %p") %>
+                <div class="time">
+                <%= interview.start_time.strftime("%I:%M %p") %> - <%= interview.end_time.strftime("%I:%M %p") %>
+                </div>
               </div>
             <% end %>
           <% end %>
@@ -47,17 +51,11 @@
                     <% end %>
                   </td>
                   <td><%= link_to 'Show', interview %></td>
-                  <td><%= link_to 'Edit', edit_interview_path(interview) %></td>
-                  <td><%= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= link_to 'Reschedule', edit_interview_path(interview) %></td>
                 </tr>
               <% end %>
             </tbody>
           </table>
-
-          <br>
-
-          <%= link_to 'New Interview', new_interview_path %>
-
         </div>
       </div>
     </div>
@@ -67,7 +65,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <h4>Schedule Interviews</h4>
+          <h4>Manage Applications / Schedule Interviews</h4>
           <!-- list of job postings -->
           <div class="card">
             <div class="card-body">

@@ -2,7 +2,6 @@ class InterviewsController < ApplicationController
   before_action :set_interview, only: [:show, :edit, :update, :destroy]
 
   # GET /interviews
-  # GET /interviews.json
   def index
     @interviews = Interview.all
   end
@@ -18,11 +17,6 @@ class InterviewsController < ApplicationController
     end
   end
 
-  # GET /interviews/1
-  # GET /interviews/1.json
-  def show
-  end
-
   # GET /interviews/1/edit
   def edit
   end
@@ -33,7 +27,7 @@ class InterviewsController < ApplicationController
     @job_application = JobApplication.find(@interview.job_application_id)
     @job_application.status = "interview_scheduled"
     @job_application.save
-    
+
     if @interview.save
       redirect_to manage_interviews_path
     else
@@ -43,22 +37,15 @@ class InterviewsController < ApplicationController
 
   # PATCH/PUT /interviews/1
   def update
-    respond_to do |format|
-      if @interview.update(interview_params)
-        format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @interview.update_attributes(interview_params)
+      redirect_to manage_interviews_path, notice: 'Interview was successfully updated.' 
+    else
+      render :edit
     end
   end
 
-  # DELETE /interviews/1
-  def destroy
-    @interview.destroy
-    respond_to do |format|
-      format.html { redirect_to interviews_url, notice: 'Interview was successfully destroyed.' }
-    end
-  end
+  # Removed destroy action for now... even if interview cancels, applications should be processed as 
+  # a non-hire, instead of a destroying of an interview object...
 
   # GET /interviews/manage
   def manage
