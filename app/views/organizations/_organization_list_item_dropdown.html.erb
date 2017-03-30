@@ -1,5 +1,6 @@
 <!-- if user has the permissions to manage organizations show the dropdown -->
-<% if can? :manage_organizations, organization %>
+<% if can? :manage, organization %>
+
   <div class="pull-right dropdown">
 
     <!-- add the status label define in application helper -->

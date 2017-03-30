@@ -26,17 +26,17 @@ class Ability
     # for users that have a job where they are an manager
     elsif user.jobs.any? { |job| job.user_id == user.id && job.role == "management" }
       # can manage organizations they have a job under
-      can :manage, Organization, id: Organization.select(:id).joins(:jobs).where(jobs: { user_id: user.id })
+      can :manage, Organization, id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id)
       # can manage jobs that fall under the organizations they are managers for
-      can :manage, Job, id: Job.select(:id).where(organization_id: Organization.select(:id).joins(:jobs).where(jobs: { user_id: user.id }) )
+      can :manage, Job, id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)
       # can manage job postings fall under the jobs they can manage
-      can :manage, JobPosting, id: JobPosting.select(:id).where(job_id: Job.select(:id).where(organization_id: Organization.select(:id).joins(:jobs).where(jobs: { user_id: user.id }) ))
+      can :manage, JobPosting, id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)
       # can manage any job posting questions that fall under any job posting they can manage
-      can :manage, JobPostingQuestion, id: JobPostingQuestion.select(:id).where(job_posting_id: JobPosting.select(:id).where(job_id: Job.select(:id).where(organization_id: Organization.select(:id).joins(:jobs).where(jobs: { user_id: user.id }) )) )
+      can :manage, JobPostingQuestion, id: JobPostingQuestion.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id) ).pluck(:id)
       # can manage the job applications that fall under any job posting they can manage
-      can :manage, JobApplication, id: JobApplication.select(:id).where(job_posting_id: JobPosting.select(:id).where(job_id: Job.select(:id).where(organization_id: Organization.select(:id).joins(:jobs).where(jobs: { user_id: user.id }) )) )
+      can :manage, JobApplication, id: JobApplication.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)).pluck(:id)
       # can manage the job interviews that fall under any job application they can manage
-      can :manage, Interview, id: Interview.select(:id).where(job_application_id: JobApplication.select(:id).where(job_posting_id: JobPosting.select(:id).where(job_id: Job.select(:id).where(organization_id: Organization.select(:id).joins(:jobs).where(jobs: { user_id: user.id }) )) ) )
+      can :manage, Interview, id: Interview.where(job_application_id: JobApplication.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)).pluck(:id) ).pluck(:id)
     # for normal users, they can only read things
     else
       #users can apply to jobs, hence can perform actions on job applications
