@@ -15,4 +15,7 @@ class Interview < ApplicationRecord
       two_hours_later = self.start_time + 2.hours
       errors.add(:end_time, "should be at most 2 hours after start time (interviews must be shorter than 2 hours in duration)") if self.end_time > two_hours_later
     end
+
+    # should add validation for making sure interviews don't schedule for the past
+    # but for the sake of being able to 'complete' interviews to reschedule, not implementing for now
 end

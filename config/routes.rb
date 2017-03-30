@@ -69,6 +69,8 @@ Rails.application.routes.draw do
     resources :interviews, only: [:new]
     member do
       get 'finalize'
+      get 'hire'
+      get 'decline'
     end
     collection do
       get 'user'
@@ -76,7 +78,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :interviews do
+  resources :interviews, only: [:create, :edit, :update] do
     collection do
       get 'manage'
     end

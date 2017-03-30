@@ -1,6 +1,6 @@
 class JobApplicationsController < ApplicationController
 
-  before_action :set_job_application, only: [:show, :edit, :update, :destroy, :finalize]
+  before_action :set_job_application, only: [:show, :edit, :update, :destroy, :finalize, :hire, :decline]
 
   # GET /job_postings/:job_posting_id/job_applications
   def index
@@ -72,6 +72,30 @@ class JobApplicationsController < ApplicationController
     else
       redirect_to user_job_applications_path(status: params[:status])
     end
+  end
+
+
+  # GET /job_applications/:id/hire
+  def hire
+    @job_application.status = "hired"
+
+    job_posting = @job_application.job_posting
+    job_posting.status = "closed"
+
+    job = job_posting.job
+    job.user_id = @job_application.user_id
+
+    job.save
+    job_posting.save
+    @job_application.save
+    redirect_to :back
+  end
+
+  # GET /job_applications/:id/decline
+  def decline
+    @job_application.status = "declined"
+    @job_application.save
+    redirect_to :back
   end
 
   private
