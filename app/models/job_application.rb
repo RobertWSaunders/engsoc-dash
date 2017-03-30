@@ -10,6 +10,8 @@ class JobApplication < ApplicationRecord
   #a job application has many job applications answers
   has_many :job_posting_answers, dependent: :destroy
 
+  has_one :interview
+
   enum status: [:draft, :submitted, :interview_scheduled, :hired, :not_chosen ]
 
   accepts_nested_attributes_for :job_posting_answers

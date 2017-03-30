@@ -9,8 +9,14 @@
   <h5 class="mb-sm">
     <%= link_to job_application_path(application), class: "ripple" do %>
       <%= application.job_posting.title %>
-      <% end %>
+    <% end %>
   </h5>
+  <% if application.interview.present? %>
+    <p>
+      <strong>Interview Scheduled for:</strong>
+      <%= application.interview.start_time.strftime("%b %e, %l:%M %p") %>, to <%= application.interview.end_time.strftime("%b %e, %l:%M %p") %>
+    </p>
+  <% end %>
 
 
 </li>

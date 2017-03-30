@@ -9,10 +9,8 @@ module ApplicationHelper
         content_tag(:div, 'draft', class: 'label label-warning')
       when "open"
         content_tag(:div, 'open', class: 'label label-success')
-      when "interviews_pending"
-        content_tag(:div, 'interviews pending', class: 'label label-warning')
-      when "interviews_scheduled"
-        content_tag(:div, 'interviews scheduled', class: 'label label-info')
+      when "interviewing"
+        content_tag(:div, 'interviewing', class: 'label label-info')
       else
         content_tag(:div, 'closed', class: 'label label-danger')
     end

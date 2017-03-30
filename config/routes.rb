@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     member do
       get 'approve'
       get 'withdraw'
+      get 'interview'
     end
     collection do
       get 'select'
@@ -65,6 +66,7 @@ Rails.application.routes.draw do
 
   resources :job_applications, only: [:show, :update, :destroy] do
     resources :job_posting_answers, only: [:edit, :update, :destroy]
+    resources :interviews, only: [:new]
     member do
       get 'finalize'
     end
@@ -73,5 +75,12 @@ Rails.application.routes.draw do
       post 'user', to: 'job_applications#filter_user'
     end
   end
+
+  resources :interviews do
+    collection do
+      get 'manage'
+    end
+  end
+
 
 end
