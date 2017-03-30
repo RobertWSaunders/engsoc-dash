@@ -1,6 +1,18 @@
-<h1>Editing Interview</h1>
+<% content_for :title, "Reschedule Interview" %>
+<div class="container-md container-fluid">
 
-<%= render 'form', interview: @interview %>
+  <div class="card">
+    <div class="card-body">
+      <h3>Reschedule Interview with <%= @interview.job_application.user.first_name %><br>
+        <small>for <%= @interview.job_application.job_posting.title %></small></h3>
 
-<%= link_to 'Show', @interview %> |
-<%= link_to 'Back', interviews_path %>
+        <p class="lead">
+          Currently scheduled for <i><%= @interview.start_time.strftime("%b %e, %l:%M %p") %></i> to <i><%= @interview.end_time.strftime("%b %e, %l:%M %p") %></i>
+        </p>
+
+      <%= render 'form', interview: @interview %>
+
+      <%= link_to 'Cancel', manage_interviews_path, class: "btn btn-warning btn-flat btn-block" %>
+    </div>
+  </div>
+</div>

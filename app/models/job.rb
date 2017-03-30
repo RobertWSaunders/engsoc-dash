@@ -8,7 +8,7 @@ class Job < ApplicationRecord
   #a job job belongs to a user
   belongs_to :user, :foreign_key => :user_id
 
-  has_many :job_postings, :foreign_key => :job_id, dependent: :destroy
+  has_one :job_posting, :foreign_key => :job_id, dependent: :destroy
 
 
   #Validations

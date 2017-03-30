@@ -1,12 +1,6 @@
 class InterviewsController < ApplicationController
   before_action :set_interview, only: [:show, :edit, :update, :destroy]
 
-  # GET /interviews
-  # GET /interviews.json
-  def index
-    @interviews = Interview.all
-  end
-
   # GET /job_applications/:job_application_id/interviews/new
   def new
     @job_application = JobApplication.find(params[:job_application_id])
@@ -16,11 +10,6 @@ class InterviewsController < ApplicationController
       @job_posting = JobPosting.find(@job_application.job_posting_id)
       @interview = Interview.new
     end
-  end
-
-  # GET /interviews/1
-  # GET /interviews/1.json
-  def show
   end
 
   # GET /interviews/1/edit
@@ -33,7 +22,7 @@ class InterviewsController < ApplicationController
     @job_application = JobApplication.find(@interview.job_application_id)
     @job_application.status = "interview_scheduled"
     @job_application.save
-    
+
     if @interview.save
       redirect_to manage_interviews_path
     else
@@ -43,29 +32,23 @@ class InterviewsController < ApplicationController
 
   # PATCH/PUT /interviews/1
   def update
-    respond_to do |format|
-      if @interview.update(interview_params)
-        format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @interview.update_attributes(interview_params)
+      redirect_to manage_interviews_path, notice: 'Interview was successfully updated.' 
+    else
+      render :edit
     end
   end
 
-  # DELETE /interviews/1
-  def destroy
-    @interview.destroy
-    respond_to do |format|
-      format.html { redirect_to interviews_url, notice: 'Interview was successfully destroyed.' }
-    end
-  end
+  # Removed destroy action for now... even if interview cancels, applications should be processed as 
+  # a non-hire, instead of a destroying of an interview object...
 
   # GET /interviews/manage
   def manage
-    @interviews = Interview.all.order(end_time: :asc)
     @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
-    @interviewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "interviewing").order("deadline").paginate(:page => params[:page], :per_page => 10)  
+    @interviewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "interviewing").order("deadline").paginate(:page => params[:page], :per_page => 10)
+    @applications = JobApplication.where(:job_posting_id => @interviewing_postings.ids, :status =>"interview_scheduled")
+    @interviews = Interview.where(:job_application_id => @applications.ids).order(end_time: :asc)
   end
 
   private

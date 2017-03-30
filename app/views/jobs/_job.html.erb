@@ -11,7 +11,13 @@
       <% end %>
     </td>
     <% else %>
-    <td>Vacant Position</td>
+    <td>
+      <% if job.job_posting.present? %>
+        <%= link_to "View Job Posting", job_posting_path(JobPosting.find_by(job_id: job.id)) %>
+      <% else %>
+        Vacant Position
+      <% end %>
+    </td>
     <td></td>
     <td>
       <% if job.role == "management" %>

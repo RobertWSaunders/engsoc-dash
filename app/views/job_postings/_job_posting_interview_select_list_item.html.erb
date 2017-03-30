@@ -16,7 +16,7 @@
     <ul>
     <% posting.job_applications.each do |app| %>
       <li>
-        #<%= app.id %> - <%= app.user.first_name %> <%= app.user.last_name %> 
+        #<%= app.id %> - <%= app.user.first_name %> <%= app.user.last_name %> <%= app.status %>
         <%= link_to "Schedule Interview", new_job_application_interview_path(app) %>
       </li>
     <% end %>

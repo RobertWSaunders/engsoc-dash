@@ -6,14 +6,18 @@
       <div class="card">
         <div class="card-body">
           <%= month_calendar events: @interviews do |date, interviews| %>
-            <%= date %>
-
+            <div class="date">
+              <%= date %>
+            </div>
             <% interviews.each do |interview| %>
-              <div>
+              <hr>
+              <div class="interview">
                 <%= interview.job_application.user.first_name %>
                 <%= interview.job_application.user.last_name %>
                 <br>
-                <%= interview.start_time.strftime("%I:%M %p") %>
+                <div class="time">
+                <%= interview.start_time.strftime("%I:%M %p") %> - <%= interview.end_time.strftime("%I:%M %p") %>
+                </div>
               </div>
             <% end %>
           <% end %>
@@ -24,11 +28,12 @@
             <thead>
               <tr>
                 <th>#</th>
+                <th>Position</th>
                 <th>Applicant</th>
                 <th>Start time</th>
                 <th>End time</th>
                 <th>Status</th>
-                <th colspan="3"></th>
+                <th colspan="1"></th>
               </tr>
             </thead>
 
@@ -36,28 +41,31 @@
               <% @interviews.each do |interview| %>
                 <tr>
                   <td><%= interview.job_application.id %></td>
-                  <td><%= interview.job_application.user.first_name %></td>
+                  <td><%= interview.job_application.job_posting.title %></td>
+                  <td><%= interview.job_application.user.first_name %> <%= interview.job_application.user.last_name %></td>
                   <td><%= interview.start_time.strftime("%b %e, %l:%M %p") %></td>
                   <td><%= interview.end_time.strftime("%b %e, %l:%M %p") %></td>
                   <td>
                     <% if interview.end_time.future? %> 
                       Not Interviewed Yet
                     <% else %>
-                      Completed Interview
+                      <%= link_to hire_job_application_path(interview.job_application), :confirm => "Are you sure you want to HIRE this candidate?" do %>
+                        <em class="ion-checkmark icon-fw"></em> Hire
+                      <% end %> | 
+                      <%= link_to decline_job_application_path(interview.job_application), :confirm => "Are you sure you want to DECLINE this candidate?" do %>
+                        <em class="ion-close icon-fw"></em> Decline
+                      <% end %>
                     <% end %>
                   </td>
-                  <td><%= link_to 'Show', interview %></td>
-                  <td><%= link_to 'Edit', edit_interview_path(interview) %></td>
-                  <td><%= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td>
+                    <%= link_to edit_interview_path(interview) do %>
+                      <em class="ion-edit icon-fw"></em> Reschedule
+                    <% end %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>
           </table>
-
-          <br>
-
-          <%= link_to 'New Interview', new_interview_path %>
-
         </div>
       </div>
     </div>
@@ -67,7 +75,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <h4>Schedule Interviews</h4>
+          <h4>Manage Applications / Schedule Interviews</h4>
           <!-- list of job postings -->
           <div class="card">
             <div class="card-body">

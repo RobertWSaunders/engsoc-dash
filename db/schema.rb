@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329203354) do
+ActiveRecord::Schema.define(version: 20170330055621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 20170329203354) do
     t.integer  "status"
     t.integer  "role",            default: 0
     t.integer  "job_type",        default: 0
+    t.integer  "job_posting_id"
+    t.index ["job_posting_id"], name: "index_jobs_on_job_posting_id", using: :btree
     t.index ["organization_id"], name: "index_jobs_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_jobs_on_user_id", using: :btree
   end
@@ -120,4 +122,5 @@ ActiveRecord::Schema.define(version: 20170329203354) do
   add_foreign_key "job_posting_answers", "job_posting_questions", column: "job_posting_questions_id"
   add_foreign_key "job_posting_questions", "job_postings"
   add_foreign_key "job_postings", "jobs"
+  add_foreign_key "jobs", "job_postings"
 end
