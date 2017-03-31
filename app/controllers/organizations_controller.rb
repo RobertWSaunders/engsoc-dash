@@ -1,6 +1,8 @@
 class OrganizationsController < ApplicationController
 
-  
+  load_and_authorize_resource
+
+  skip_authorize_resource :only => :show
 
   before_action :set_organization, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :archive]
 
@@ -79,6 +81,7 @@ class OrganizationsController < ApplicationController
     @organization.save
     redirect_to admin_organizations_path
   end
+
 
   def filter
     if params[:status] == "All" && params[:department] == "All"

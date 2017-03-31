@@ -16,9 +16,18 @@
 
         <!-- main section -->
         <main class="main-container">
+
+
+
           <!-- page content -->
           <section>
-            <%= yield %>
+            <div class="container-fluid container-md">
+              <% flash.each do |key, value| %>
+                <%= content_tag :div, value, class: "alert alert-#{key} " %>
+              <% end %>
+              <%= yield %>
+            </div>
+
           </section>
           <%= render 'layouts/footer' %>
         </main>

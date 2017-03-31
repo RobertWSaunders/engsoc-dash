@@ -2,6 +2,8 @@ class JobsController < ApplicationController
 
   load_and_authorize_resource
 
+  skip_authorize_resource :only => :new
+
   before_action :set_job, only: [:show, :assign, :destroy, :edit, :update]
 
   # GET /organizations/:organization_id/jobs/new
@@ -57,5 +59,5 @@ class JobsController < ApplicationController
     def set_job
       @job = Job.find(params[:id])
     end
-    
+
 end

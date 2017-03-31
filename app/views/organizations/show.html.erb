@@ -27,12 +27,10 @@
       <div class="row" id="jobs">
         <%= render "jobs_table" %>
       </div>
-      <% if can? :manage, Organization %>
+      <% if can? :manage, @organization %>
         <hr>
         <%= link_to "Edit Organization", edit_organization_path %>
-      <% end %>
-      <br>
-      <% if can? :manage, Job %>
+        <br />
         <%= link_to "New Job", new_organization_job_path(@organization.id) %>
       <% end %>
     </div>

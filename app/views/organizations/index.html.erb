@@ -1,8 +1,5 @@
 <% content_for :title, "All Organizations" %>
 
-<!-- container for the page -->
-<div class="container-fluid container-md">
-
   <!-- filtering header -->
   <div class="row mv">
     <div class="col-sm-12 text-right hidden-xs">
@@ -21,19 +18,19 @@
   <!-- main container for job postings -->
     <div class="card">
       <div class="card-body">
+        <% if @organizations.any? %>
         <ul class="list-group">
-          <% if @organizations.count == 0 %><br /><br />
-            <p class="lead text-center">There are currently no organizations.</p>
-          <% else %>
             <% @organizations.each do |organization| %>
               <%= render 'organization_list_item', organization: organization, status: false, role: true %>
             <% end %>
-          <% end %>
         </ul>
+        <% else %>
+          <br /><br />
+          <p class="lead text-center">No Organizations To Show</p>
+        <% end %>
         <center>
           <!-- show the paginator for the will_paginate gem -->
           <%= will_paginate @organizations, renderer: BootstrapPagination::Rails, page_links: false %><br />
         </center>
       </div>
-    </div>
   </div>

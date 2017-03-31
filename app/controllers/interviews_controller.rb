@@ -6,7 +6,7 @@ class InterviewsController < ApplicationController
   def new
     @job_application = JobApplication.find(params[:job_application_id])
     if @job_application.interview.present?
-      redirect_to manage_interviews_path, :alert => "This application already has a scheduled interview"
+      redirect_to manage_interviews_path, :info => "This application already has a scheduled interview"
     else
       @job_posting = JobPosting.find(@job_application.job_posting_id)
       @interview = Interview.new
@@ -34,7 +34,7 @@ class InterviewsController < ApplicationController
   # PATCH/PUT /interviews/1
   def update
     if @interview.update_attributes(interview_params)
-      redirect_to manage_interviews_path, notice: 'Interview was successfully updated.'
+      redirect_to manage_interviews_path, success: 'Interview was successfully updated.'
     else
       render :edit
     end

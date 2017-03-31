@@ -1,9 +1,6 @@
 <!-- page title -->
 <% content_for :title, "Admin Organizations" %>
 
-  <!-- main container for organizations -->
-  <div class="container-md container-fluid">
-
     <!-- filtering header -->
     <div class="row mv">
       <div class="col-sm-4">
@@ -48,5 +45,4 @@
         <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
       <% end %>
 
-    </div>
   </div>
