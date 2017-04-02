@@ -1,38 +1,26 @@
+<!-- page title -->
 <% content_for :title, @organization.name %>
 
-<div class="container-overlap bg-indigo-500">
-  <div class="container container-md">
-    <h2><%= @organization.name %></h2>
-    <h4><%= @organization.email %></h4>
-  </div>
-</div>
-
-<div class="container container-md">
+<div class="container container-lg">
   <div class="card">
-    <div class="card-body reader-block">
-      <div class="row">
-        <div class="col-md-8">
-          <h3>Description</h3>
-          <p>
-            <%= simple_format(@organization.description) %>
-          </p>
-        </div>
-        <div class="col-md-4">
-          <h4>Quick Facts</h4>
-          <ul>
-            <li>Established in: <%= @organization.created_at.to_time.strftime('%B, %Y') %></li>
-          </ul>
-        </div>
-      </div>
-      <div class="row" id="jobs">
-        <%= render "jobs_table" %>
-      </div>
-      <% if can? :manage, @organization %>
-        <hr>
-        <%= link_to "Edit Organization", edit_organization_path %>
-        <br />
-        <%= link_to "New Job", new_organization_job_path(@organization.id) %>
-      <% end %>
+    <div class="card-body">
+      <!-- render the dropdown -->
+      <%= render 'organization_list_item_dropdown', organization: @organization, status: false, role: false %>
+      <p class="lead">Organization Overview</p>
+      <p>
+        <%= @organization.description %>
+      </p>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-body">
+      <%= render 'organization_list_item_dropdown', organization: @organization, status: false, role: false %>
+      <p class="lead">Jobs</p>
+      <div class="row" id="jobs">
+          <%= render "jobs_table" %>
+      </div>
+    </div>
+  </div>
+
 </div>
