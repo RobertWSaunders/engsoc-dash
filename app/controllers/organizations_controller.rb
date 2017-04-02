@@ -9,7 +9,6 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   def index
     @organizations = Organization.where(status: "active").filter(params.slice(:department)).paginate(:page => params[:page], :per_page => 10)
-
   end
 
   # GET /organizations/new
@@ -21,6 +20,7 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
+      flash[:success] = "Organization Successfully Created!"
       redirect_to controller: 'organizations', action: 'show', id: @organization.id
     else
       render 'new'

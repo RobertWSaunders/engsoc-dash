@@ -1,8 +1,11 @@
 <!-- page title -->
 <% content_for :title, "Admin Organizations" %>
 
+<!-- page container -->
+<div class="container-fluid container-lg">
+
     <!-- filtering header -->
-    <div class="row mv">
+    <div class="row mb">
       <div class="col-sm-4">
         <%= link_to(new_organization_path, class: "btn btn-primary") do %>
           <em class="ion-plus mr-sm"></em>Create Organization
@@ -46,3 +49,4 @@
       <% end %>
 
   </div>
+</div>

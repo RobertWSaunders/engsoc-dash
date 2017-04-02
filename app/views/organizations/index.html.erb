@@ -1,12 +1,15 @@
+<!-- page title -->
 <% content_for :title, "All Organizations" %>
 
+<!-- page container -->
+<div class="container-fluid container-lg">
+
   <!-- filtering header -->
-  <div class="row mv">
+  <div class="row mb">
     <div class="col-sm-12 text-right hidden-xs">
       <%= form_tag({controller: "organizations", action: "filter_index"}, method: "post", class:"form-inline") do %>
         <div class="form-group">
-          <% select_list = Organization.departments.keys.map { |w| [w.titleize, w] } %>
-          <% select_list.insert(0,"All") %>
+          <% select_list = Organization.departments.keys.map { |w| [w.titleize, w] }.insert(0,"All") %>
           <%= label_tag 'Department', nil, class: 'mr' %>
           <%= select_tag :department, options_for_select(select_list, params[:department]), class: "form-control input-sm" %>
           <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>
@@ -28,9 +31,12 @@
           <br /><br />
           <p class="lead text-center">No Organizations To Show</p>
         <% end %>
-        <center>
-          <!-- show the paginator for the will_paginate gem -->
-          <%= will_paginate @organizations, renderer: BootstrapPagination::Rails, page_links: false %><br />
-        </center>
+        <!-- show the paginator if needed -->
+        <% if @organizations.count >= 10 %>
+          <center>
+              <%= will_paginate @organizations, renderer: BootstrapPagination::Rails, page_links: false %><br />
+          </center>
+        <% end %>
       </div>
   </div>
+</div>

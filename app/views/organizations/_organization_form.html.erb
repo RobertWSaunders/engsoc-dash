@@ -1,29 +1,67 @@
-<%= form_for(@organization) do |f| %>
+<%= form_for @organization, :html => {:class => 'form-horizontal'} do |f| %>
 
+  <!-- render any error messages -->
   <%= render 'shared/organization_error_messages' %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name, class: 'form-control' %>
+  <!-- form fields -->
+  <!-- name -->
+  <fieldset class="last-child">
+    <div class="form-group">
+      <%= f.label :name, class: "col-sm-1 control-label" %>
+      <div class="col-sm-11">
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+    </div>
+  </fieldset>
 
-  <%= f.label :email %>
-  <%= f.text_field :email, class: 'form-control' %>
+  <!-- email -->
+  <fieldset class="last-child">
+    <div class="form-group">
+      <%= f.label :email, class: "col-sm-1 control-label" %>
+      <div class="col-sm-11">
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
+    </div>
+  </fieldset>
 
-  <%= f.label :description %>
-  <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
+  <!-- description -->
+  <fieldset>
+    <div class="form-group">
+      <%= f.label :description, class: "col-sm-1 control-label" %>
+      <div class="col-sm-11">
+        <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
+      </div>
+    </div>
+  </fieldset>
 
-  <%= f.label :status %>
-  <% if cannot? :manage, Organization %>
-  <%= f.select :status, Organization.statuses => "Waiting approval" %>
-  <% else %>
-  <%= f.select :status, Organization.statuses.keys.map { |w| [w.titleize, w] }  %>
+  <!-- status -->
+  <% if can? :manage, Organization %>
+    <fieldset>
+      <div class="row">
+      <%= f.label :status, class: "col-sm-1 control-label" %>
+        <!-- only admins are able to set the status -->
+        <div class="col-sm-11">
+            <%= f.select :status, Organization.statuses.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+
+        </div>
+      </div>
+    </fieldset>
   <% end %>
 
-  <br />
-  <%= f.label :department %>
-  <%= f.select :department, Organization.departments.keys.map { |w| [w.titleize, w] }  %>
+  <!-- department -->
+  <fieldset class="last-child">
+    <div class="row">
+      <%= f.label :department, class: "col-sm-1 control-label" %>
+        <!-- only admins are able to set the status -->
+        <div class="col-sm-11">
+          <%= f.select :department, Organization.departments.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+        </div>
+    </div>
+  </fieldset>
 
   <hr>
 
-  <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
+  <!-- create organization button -->
+  <%= f.submit "Create Organization", class: "btn btn-primary btn-block" %>
 
 <% end %>

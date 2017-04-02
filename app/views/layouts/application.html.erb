@@ -1,39 +1,39 @@
+<!-- Purpose: To provide engineering students a kickass online hub that serves all of their Engineering Society needs. -->
+<!-- Authors: Robert Saunders & Peter Ju (2017) -->
+<!-- Contact: r.saunders@queensu.ca -->
+<!-- Contribute: Your looking at the source code which means you are interested in the project, contribute at: https://github.com/RobertWSaunders/engsoc-dash -->
 <!DOCTYPE html>
 <html lang="en">
+  <!-- header -->
   <head>
     <title><%= yield(:title) %> - Engineering Society Dashboard</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+  <!-- body -->
   <% if user_signed_in? %>
       <body class="theme-6">
-      <div class="layout-container">
-
-        <%= render 'layouts/header' %>
-        <%= render 'layouts/sidenav' %>
-
-        <!-- main section -->
-        <main class="main-container">
-
-
-
-          <!-- page content -->
-          <section>
-            <div class="container-fluid container-md">
-              <% flash.each do |key, value| %>
-                <%= content_tag :div, value, class: "alert alert-#{key} " %>
-              <% end %>
-              <%= yield %>
-            </div>
-
-          </section>
-          <%= render 'layouts/footer' %>
-        </main>
-      </div>
-    </body>
-  <!-- load the login page otherwise -->
+        <div class="layout-container">
+          <!-- render the header -->
+          <%= render 'layouts/header' %>
+          <!-- render the side navigation menu -->
+          <%= render 'layouts/sidenav' %>
+          <!-- main section -->
+          <main class="main-container">
+            <section>
+                <!-- show flash messages if there are any -->
+                <% flash.each do |key, value| %>
+                  <%= content_tag :div, value, class: "mt mr ml alert alert-#{key}" %>
+                <% end %>
+                <!-- yield page content -->
+                <%= yield %>
+            </section>
+            <!-- render the footer of the page -->
+            <%= render 'layouts/footer' %>
+          </main>
+        </div>
+      </body>
   <% else %>
     <body>
       <%= yield %>

@@ -1,8 +1,11 @@
 <!-- page title -->
 <% content_for :title, "Manage Organizations" %>
 
+<!-- page container -->
+<div class="container-fluid container-lg">
+
     <!-- filtering header -->
-    <div class="row mv">
+    <div class="row mb">
       <div class="col-sm-12 text-right hidden-xs">
         <%= form_tag({controller: "organizations", action: "filter_manage"}, method: "post", class:"form-inline") do %>
           <div class="form-group">
@@ -41,3 +44,4 @@
       <% end %>
 
     </div>
+</div>
