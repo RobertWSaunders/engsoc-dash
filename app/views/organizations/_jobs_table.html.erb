@@ -1,30 +1,13 @@
-<h3>Positions</h3>
 <% if @organization.jobs.any? %>
-  <div class="table-responsive">
+  <div class="table-responsive ml mr">
     <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>
-            Title
-          </th>
-          <th>
-            Name
-          </th>
-          <th>
-            Email
-          </th>
-          <th>
-            Manager
-          </th>
-        </tr>
-      </thead>
       <tbody>
         <%= render @jobs %>
       </tbody>
     </table>
   </div>
 <% else %>
-  <div class="alert alert-warning">
+  <div class="alert alert-warning ml mr">
     There are currently no jobs in this organization.
   </div>
 <% end %>

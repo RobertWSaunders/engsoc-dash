@@ -5,8 +5,9 @@
   <div class="card">
     <div class="card-body">
       <!-- render the dropdown -->
-      <%= render 'organization_list_item_dropdown', organization: @organization, status: false, role: false %>
+      <%= render 'organization_list_item_dropdown', organization: @organization, status: true, role: true %>
       <p class="lead">Organization Overview</p>
+      <hr />
       <p>
         <%= @organization.description %>
       </p>
@@ -15,7 +16,11 @@
 
   <div class="card">
     <div class="card-body">
-      <%= render 'organization_list_item_dropdown', organization: @organization, status: false, role: false %>
+      <% if can? :manage, @organization %>
+        <%= link_to(new_organization_job_path(@organization.id), class: "btn btn-primary pull-right") do %>
+          <em class="ion-plus mr-sm"></em>Add Job
+        <% end %>
+      <% end %>
       <p class="lead">Jobs</p>
       <div class="row" id="jobs">
           <%= render "jobs_table" %>

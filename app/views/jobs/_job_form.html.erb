@@ -1,6 +1,6 @@
-        <%= form_for([@organization, @job], :html => {:class => 'form-horizontal'}) do |f| %>
+<%= form_for([@organization, @job], :html => {:class => 'form-horizontal'}) do |f| %>
 
-          <%= render 'shared/job_error_messages' %>
+<%= render 'shared/job_error_messages' %>
 
           <!-- form fields -->
           <!-- organization -->
@@ -57,5 +57,5 @@
 
           <hr>
 
-          <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
+          <%= f.submit "Create Job", class: "btn btn-primary btn-block" %>
         <% end %>

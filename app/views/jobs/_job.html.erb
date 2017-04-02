@@ -5,10 +5,15 @@
     <td><%= job.user.email %></td>
     <td>
       <% if job.role == "management" %>
-        <em class="ion-checkmark-round"></em>
+        Managerial Position
       <% elsif job.role == "admin" %>
-        <em class="ion-star"></em>
+        Administration Position
+      <% elsif job.role == "regular" %>
+        General Member Position
       <% end %>
+    </td>
+    <td>
+      <%= job.job_type.titleize %>
     </td>
     <% else %>
     <td>
@@ -21,27 +26,31 @@
     <td></td>
     <td>
       <% if job.role == "management" %>
-        <em class="ion-checkmark-round"></em>
+        Managerial Position
       <% elsif job.role == "admin" %>
-        <em class="ion-star"></em>
+        Administration Position
+      <% elsif job.role == "regular" %>
+        General Member Position
       <% end %>
     </td>
+    <td>
+      <%= job.job_type.titleize %>
+    </td>
+
   <% end %>
   <% if can? :manage, job %>
     <td>
-      <div class="pull-right dropdown">
-        <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-        <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-          <li>
-            <%= link_to "Edit", edit_job_path(job.id) %>
-          </li>
-          <li>
-            <%= link_to "Delete", job, method: :delete,
-                        data: { confirm: "Are you sure?" } %>
-          </li>
-        </ul>
-      </div>
+      <% if job.job_posting.present? %>
+      <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-primary" do %>
+        <em class="ion-ios-list"></em>
+      <% end %>
+      <% end %>
+      <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-warning" do %>
+        <em class="ion-edit"></em>
+      <% end %>
+      <%= link_to job, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger"  do %>
+        <em class="ion-trash-a"></em>
+      <% end %>
     </td>
-
   <% end %>
 </tr>
