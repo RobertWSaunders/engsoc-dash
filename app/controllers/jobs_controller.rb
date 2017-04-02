@@ -2,7 +2,7 @@ class JobsController < ApplicationController
 
   load_and_authorize_resource
 
-  skip_authorize_resource :only => :new
+  skip_authorize_resource :only => [:new, :create]
 
   before_action :set_job, only: [:show, :assign, :destroy, :edit, :update]
 

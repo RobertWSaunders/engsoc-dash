@@ -40,6 +40,7 @@ class OrganizationsController < ApplicationController
   # PUT /organizations/:id
   def update
     if @organization.update_attributes(organization_params)
+      flash[:success] = "Organization Successfully Updated!"
       redirect_to controller: 'organizations', action: 'show', id: @organization.id
     else
       render 'edit'
@@ -49,6 +50,7 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/:id
   def destroy
     @organization.destroy
+    flash[:success] = "Organization Successfully Deleted!"
     redirect_to organizations_url
   end
 
