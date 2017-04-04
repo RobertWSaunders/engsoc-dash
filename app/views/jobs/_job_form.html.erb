@@ -1,6 +1,6 @@
 <%= form_for([@organization, @job], :html => {:class => 'form-horizontal'}) do |f| %>
-
-<%= render 'shared/job_error_messages' %>
+  <!-- render any error messages -->
+  <%= render 'shared/job_error_messages' %>
 
   <!-- hidden field for the organization id -->
   <% if defined? @job.organization.id %>
