@@ -31,7 +31,6 @@ class JobsController < ApplicationController
 
   # GET /jobs/:id/edit
   def edit
-    @organization = @job.organization
   end
 
   # PUT /jobs/:id
