@@ -1,9 +1,6 @@
 <li class="list-group-item">
-
-  <!-- render the dropdown for the item if configured -->
-  <% if dropdown %>
-    <%= render 'job_posting_list_item_dropdown', posting: posting %>
-  <% end %>
+  <!-- render the dropdown-->
+  <%= render 'job_posting_list_item_dropdown', posting: posting %>
 
   <!-- show the job title and link to the job posting detail -->
   <h5 class="mb-sm">
@@ -13,17 +10,11 @@
   </h5>
 
   <!-- display the application deadline -->
-  <p class="text-gray-darker">
-    Application Deadline: <%= distance_of_time_in_words(Time.now, posting.deadline) %><br />
-  </p>
+  <p class="text-gray-darker">Application Deadline: <%= distance_of_time_in_words(Time.now, posting.deadline) %><br /></p>
 
-  <p class="text-gray-darker">
-    Organization: <%= posting.job.organization.name %><br />
-  </p>
+  <p class="text-gray-darker">Organization: <%= posting.job.organization.name %><br /></p>
 
   <!-- display the truncated job posting description -->
-  <p>
-    <%= h truncate(posting.description, :length => 270) %>
-  </p>
+  <p><%= h truncate(posting.description, :length => 270) %></p>
 
 </li>

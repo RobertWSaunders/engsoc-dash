@@ -42,12 +42,6 @@ class Ability
       #users can apply to jobs, hence can perform actions on job applications
       can [:update, :destroy, :create], [JobApplication, JobPostingAnswers, JobPostingQuestions]
     end
-
-    ####################
-    #CUSTOM PERMISSIONS#
-    ####################
-
-
   end
 
 end

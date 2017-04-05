@@ -1,62 +1,25 @@
 <% content_for :title, "Job Postings" %>
 
-<div class="container container-fluid">
-  <!-- Breadcrumb next to view title-->
-  <ul class="breadcrumb breadcrumb-lead">
-    <li>
-      <%= link_to "Job Postings", job_postings_path %>
-    </li>
-    <li class="active">
-      <%= link_to job_postings_path do %>
-        <%= @jobposting.title %>
-      <% end %>
-    </li>
-  </ul>
+<div class="container container-lg">
+  <div class="card">
+    <div class="card-body">
+      <!-- render the dropdown-->
+      <%= render 'job_posting_list_item_dropdown', posting: @jobposting %>
+      <p class="lead"><%= link_to @job.title, job_path(:id => @job.id) %></p>
+      <hr />
+      <p>
+        Application Deadline: <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %> (<%= @jobposting.deadline.to_date %>)
+      </p>
+      <p>
+        Organization: <%= link_to @organization.name, @organization %>
+      </p>
+      <p>
+        <%= simple_format(@jobposting.description) %>
+      </p>
+    </div>
 
-  <div class="container container-md">
-    <%= notice %>
-    <div class="card">
-      <div class="card-heading">
-        <!-- START dropdown-->
-        <div class="pull-right dropdown">
-          <%= status_label(@jobposting) %>
-          <% if can? :manage_job_postings, @jobposting %>      
-            <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-            <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-              <li>
-                <%= link_to "View Applicants", job_posting_job_applications_path(:job_posting_id => @jobposting.id) %>
-              </li>
-              <li>
-                <%= link_to "Edit Posting", edit_job_posting_path(@jobposting) %>
-              </li>
-              <li>
-                <%= link_to 'Delete Posting', @jobposting, method: :delete, data: { confirm: 'Are you sure?' } %>
-              </li>
-            </ul>
-          <% end %>
-        </div>
-        <!-- END dropdown-->
-      </div>
-      <div class="card-body pt0">
-        <h4 class="mt0"><%= @jobposting.title %></h4>
-        <p>
-          Application Deadline: <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %> (<%= @jobposting.deadline.to_date %>)
-        </p>
-        <p>
-          Job: <%= link_to @job.title, job_path(:id => @job.id) %>
-        </p>
-        <p>
-          Organization: <%= link_to @organization.name, @organization %>
-        </p>
-        <br />
-        <p>
-          <%= simple_format(@jobposting.description) %>
-        </p>
-      </div>
-      <div class="card-footer">
-        <%= link_to "Apply Now", new_job_posting_job_application_path(@jobposting.id), :class =>"btn btn-flat btn-primary" %>
-      </div>
+    <div class="card-footer">
+      <%= link_to "APPLY NOW", new_job_posting_job_application_path(@jobposting.id), :class =>"btn btn btn-primary" %>
     </div>
   </div>
-
 </div>

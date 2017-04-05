@@ -1,4 +1,4 @@
-<% if can? :submit_job_postings, posting %>
+<% if can? :manage, posting %>
   <div class="pull-right dropdown">
     <%= status_label(posting) %>
     <% if can? :approve_job_postings, posting %>
@@ -26,7 +26,6 @@
         <%= link_to "Delete Posting", posting, method: :delete, data: { confirm: "Are you sure?" } %>
       </li>
     </ul>
-
     <% end %>
   </div>
 <% end %>
