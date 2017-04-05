@@ -62,7 +62,8 @@ class JobPostingsController < ApplicationController
       flash[:success] = "Job Posting Successfully Updated!"
       redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
-      render 'edit'
+      flash[:danger] = "Could Not Update Job Posting!"
+      redirect_to root_path
     end
   end
 

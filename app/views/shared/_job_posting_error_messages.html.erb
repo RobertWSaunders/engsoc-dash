@@ -1,12 +1,12 @@
 <% if @jobposting.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
-      This creation attempt contains <%= pluralize(@jobposting.errors.count, "error") %>.
-    </div>
+      This creation attempt contains <%= pluralize(@jobposting.errors.count, "error") %>:
     <ul>
-    <% @jobposting.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
+      <% @jobposting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
     </ul>
+    </div>
   </div>
 <% end %>

@@ -12,7 +12,11 @@
   <div class="form-group">
     <label class="col-sm-1 control-label">Organization</label>
     <div class="col-sm-11">
-        <input type="text" value="<%= @job.organization.name %>" disabled="" class="form-control">
+        <% if action_name == 'edit' %>
+          <input type="text" value="<%= @jobposting.job.organization.name %>" disabled="" class="form-control">
+        <% else %>
+          <input type="text" value="<%= @job.organization.name %>" disabled="" class="form-control">
+        <% end %>
     </div>
   </div>
 </fieldset>
