@@ -35,11 +35,12 @@ class JobPostingsController < ApplicationController
   # POST /job_posting
   def create
     @jobposting = JobPosting.new(job_posting_params)
-    if @jobposting.save
+    if @jobposting.save!
       flash[:success] = "Job Posting Successfully Created!"
       redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
-      render 'new'
+      flash[:danger] = "Could Not Create Job Posting!"
+      redirect_to root_path
     end
   end
 
@@ -137,7 +138,7 @@ class JobPostingsController < ApplicationController
   private
 
     def job_posting_params
-      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status, :job_type)
+      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status)
     end
 
     def set_job_posting

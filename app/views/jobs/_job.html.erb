@@ -2,7 +2,6 @@
   <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
 
   <% if job.user %>
-
     <td><%= job.user.first_name %> <%= job.user.last_name %></td>
     <td><%= job.user.email %></td>
     <td>
@@ -23,7 +22,7 @@
     <td>Vacant Position</td>
     <td>
       <% if job.job_posting.present? %>
-        <%= link_to job_posting_path(job.job_posting_id), class: "btn btn-sm btn-primary" do %>
+        <%= link_to job_posting_path(id: job.job_posting.id), class: "btn btn-sm btn-primary" do %>
           View Job Posting
         <% end %>
       <% else %>
@@ -50,11 +49,6 @@
 
   <% if can? :manage, job %>
     <td>
-      <% if job.job_posting.present? %>
-        <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-primary" do %>
-          <em class="ion-ios-list"></em>
-        <% end %>
-      <% end %>
         <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-warning" do %>
         <em class="ion-edit"></em>
       <% end %>

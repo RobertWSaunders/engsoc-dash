@@ -4,39 +4,32 @@
 
 <!-- hidden field for the creator id -->
 <%= f.hidden_field :creator_id, :value => current_user.id %>
+<%= f.hidden_field :job_id, :value => params[:job_id] %>
 
 <!-- form fields -->
-<!-- title -->
+<!-- organization -->
 <fieldset class="last-child">
   <div class="form-group">
-    <%= f.label :title, class: "col-sm-1 control-label" %>
+    <label class="col-sm-1 control-label">Organization</label>
     <div class="col-sm-11">
-      <%= f.text_field :title, class: "form-control" %>
+        <input type="text" value="<%= @job.organization.name %>" disabled="" class="form-control">
     </div>
   </div>
 </fieldset>
 
-<!--
-<div class="form-group">
-  <%= f.label :Title %>
-  <br>
-    <% if @jobposting.title %>
-      <%= @jobposting.title %>
-    <% else %>
-      <%= f.hidden_field :job_id, :value => params[:job_id] %>
-      <% if @job.role == "management" %>
-        <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (Manager)" %>
-        <%= @job.title %>, for <%= @job.organization.name %> (Manager)
-      <% elsif @job.role == "admin" %>
-        <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (EngSoc Admin)" %>
-          <%= @job.title %>, for <%= @job.organization.name %> (EngSoc Admin)
+<!-- title -->
+<fieldset class="last-child">
+  <div class="form-group">
+    <%= f.label :title, 'Job Title', class: "col-sm-1 control-label" %>
+    <div class="col-sm-11">
+      <% if @jobposting.title %>
+        <%= f.text_field :title, :value => @jobposting.title, class: 'form-control' %>
       <% else %>
-        <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name %>
-        <%= @job.title %>, for <%= @job.organization.name %>
+        <%= f.text_field :title, :value => @job.title, class: 'form-control' %>
       <% end %>
-    <% end %>
-</div>
--->
+    </div>
+  </div>
+</fieldset>
 
 <!-- description -->
 <fieldset>
@@ -56,8 +49,8 @@
 <fieldset>
     <div class="row">
       <%= f.label :deadline, class: "col-sm-1 control-label" %>
-      <div class="col-sm-11">
-        <%= f.date_select :deadline, {"data-provide" => 'datepicker'}, {class: "mb form-control"} %>
+      <div class="col-sm-11 form-inline">
+        <%= f.datetime_select :deadline, {"data-provide" => 'datepicker'}, {class: "form-control"} %>
       </div>
     </div>
 </fieldset>
@@ -71,7 +64,7 @@
       <% if cannot? :manage, JobPosting %>
         <%= f.select :status, JobPosting.statuses => "Waiting approval" %>
       <% else %>
-        <%= f.select :status, JobPosting.statuses.keys.map { |w| [w.humanize, w] }, {}, {class: "form-control"}  %>
+        <%= f.select :status, JobPosting.statuses.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"}  %>
       <% end %>
     </div>
   </div>
