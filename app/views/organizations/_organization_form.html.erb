@@ -42,7 +42,6 @@
         <!-- only admins are able to set the status -->
         <div class="col-sm-11">
             <%= f.select :status, Organization.statuses.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
-
         </div>
       </div>
     </fieldset>
@@ -61,7 +60,10 @@
 
   <hr>
 
-  <!-- create organization button -->
-  <%= f.submit "Create Organization", class: "btn btn-primary btn-block" %>
-
+  <!-- submit button -->
+  <% if action_name == 'edit' %>
+    <%= f.submit "Edit Organization", class: "btn btn-primary btn-block" %>
+  <% else %>
+    <%= f.submit "Create Organization", class: "btn btn-primary btn-block" %>
+  <% end %>
 <% end %>

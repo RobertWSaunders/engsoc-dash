@@ -45,7 +45,7 @@ class JobsController < ApplicationController
   # DELETE /jobs/:id
   def destroy
     @job.destroy
-    redirect_to organization_path(job.organization_id)
+    redirect_to organization_path(@job.organization_id)
   end
 
   # GET /jobs/:id/assign
