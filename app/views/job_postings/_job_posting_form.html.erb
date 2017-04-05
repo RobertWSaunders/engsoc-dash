@@ -1,54 +1,81 @@
-<%= form_for @jobposting do |f| %>
-
+<%= form_for(@jobposting, :html => {:class => 'form-horizontal'}) do |f| %>
+<!-- render any error messages -->
 <%= render 'shared/job_posting_error_messages' %>
 
+<!-- hidden field for the creator id -->
 <%= f.hidden_field :creator_id, :value => current_user.id %>
 
+<!-- form fields -->
+<!-- title -->
+<fieldset class="last-child">
+  <div class="form-group">
+    <%= f.label :title, class: "col-sm-1 control-label" %>
+    <div class="col-sm-11">
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+  </div>
+</fieldset>
+
+<!--
 <div class="form-group">
-<%= f.label :Title %>
-<br>
-  <% if @jobposting.title %>
-    <%= @jobposting.title %>
-  <% else %>
-    <%= f.hidden_field :job_id, :value => params[:job_id] %>
-    <% if @job.role == "management" %>
-      <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (Manager)" %>
-      <%= @job.title %>, for <%= @job.organization.name %> (Manager)
-    <% elsif @job.role == "admin" %>
-      <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (EngSoc Admin)" %>
-        <%= @job.title %>, for <%= @job.organization.name %> (EngSoc Admin)
+  <%= f.label :Title %>
+  <br>
+    <% if @jobposting.title %>
+      <%= @jobposting.title %>
     <% else %>
-      <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name %>
-      <%= @job.title %>, for <%= @job.organization.name %>
+      <%= f.hidden_field :job_id, :value => params[:job_id] %>
+      <% if @job.role == "management" %>
+        <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (Manager)" %>
+        <%= @job.title %>, for <%= @job.organization.name %> (Manager)
+      <% elsif @job.role == "admin" %>
+        <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (EngSoc Admin)" %>
+          <%= @job.title %>, for <%= @job.organization.name %> (EngSoc Admin)
+      <% else %>
+        <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name %>
+        <%= @job.title %>, for <%= @job.organization.name %>
+      <% end %>
     <% end %>
-  <% end %>
 </div>
+-->
 
+<!-- description -->
+<fieldset>
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-1 control-label" %>
+    <div class="col-sm-11">
+      <% if @job %>
+        <%= f.text_area :description, :value => @job.description, class: 'form-control', style: 'resize:none', rows: "14" %>
+      <% else %>
+        <%= f.text_area :description, class: 'form-control', style: 'resize:none', rows: "14" %>
+      <% end %>
+    </div>
+  </div>
+</fieldset>
 
-<div class="form-group">
-<%= f.label :Description %>
-<% if @job %>
-  <%= f.text_area :description, :value => @job.description, class: 'form-control', style: 'resize:none', rows: "20" %>
-<% else %>
-  <%= f.text_area :description, class: 'form-control', style: 'resize:none', rows: "20" %>
-<% end %>
-</div>
+<!-- deadline -->
+<fieldset>
+    <div class="row">
+      <%= f.label :deadline, class: "col-sm-1 control-label" %>
+      <div class="col-sm-11">
+        <%= f.date_select :deadline, {"data-provide" => 'datepicker'}, {class: "mb form-control"} %>
+      </div>
+    </div>
+</fieldset>
 
-<hr>
-
-<div class="form-group">
-<%= f.label :Deadline %>
-<%= f.date_select :deadline, "data-provide" => 'datepicker' %>
-</div>
-
-<div class="form-group">
-<%= f.label :Status %>
-<% if cannot? :manage, JobPosting %>
-<%= f.select :status, JobPosting.statuses => "Waiting approval" %>
-<% else %>
-<%= f.select :status, JobPosting.statuses.keys.map { |w| [w.humanize, w] }  %>
-<% end %>
-</div>
+<!-- status -->
+<fieldset>
+  <div class="row">
+    <%= f.label :status, class: "col-sm-1 control-label" %>
+    <!-- only admins are able to set the status -->
+    <div class="col-sm-11">
+      <% if cannot? :manage, JobPosting %>
+        <%= f.select :status, JobPosting.statuses => "Waiting approval" %>
+      <% else %>
+        <%= f.select :status, JobPosting.statuses.keys.map { |w| [w.humanize, w] }, {}, {class: "form-control"}  %>
+      <% end %>
+    </div>
+  </div>
+</fieldset>
 
 <hr>
 
@@ -62,4 +89,6 @@
 <hr>
 
 <%= f.submit "Next", class: "btn btn-primary btn-block" %>
+<%= link_to "Cancel",root_path, class: "btn btn-inverse btn-block" %>
+
 <% end %>

@@ -39,7 +39,7 @@
     <div class="form-group">
       <%= f.label :description, class: "col-sm-1 control-label" %>
       <div class="col-sm-11">
-        <%= f.text_area :description, class: 'form-control', style: 'resize:none' %>
+        <%= f.text_area :description, class: 'form-control', rows: "8", style: 'resize:none' %>
       </div>
     </div>
   </fieldset>
@@ -72,4 +72,5 @@
   <% else %>
     <%= f.submit "Create Job", class: "btn btn-primary btn-block" %>
   <% end %>
+  <%= link_to "Cancel",root_path, class: "btn btn-inverse btn-block" %>
 <% end %>
