@@ -1,70 +1,45 @@
-<% content_for :title, "Job" %>
 
-<div class="container-fluid container-lg">
-  <div class="card">
-    <div class="card-body reader-block">
-      <div class="row">
-        <div class="col-md-6">
-          <h3><%= @job.title %><br>
-            <small><%= link_to @organization.name, @organization %></small>
-          </h3>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <% if @job.user %>
-            <p>
-              Position currently held by: <strong><%= link_to @job.user.first_name + " " + @job.user.last_name, profile_path(@job.user.id) %>.</strong>
-            </p>
-          <% else %>
-            <p>
-              Position currently vacant.
-            </p>
-            <% if posting = JobPosting.find_by(:job_id => @job.id) %>
-              <p>
-                View <%= link_to "job posting", job_posting_path(posting) %>.
-              </p>
-            <% else %>
-            <p>
-              Create <%= link_to "new job post", new_job_posting_path %>?
-            </p>
-            <% end %>
+<% content_for :title, "Job Information" %>
+
+<div class="container container-lg">
+
+
+<div class="card">
+  <div class="card-body">
+    <!-- render the dropdown-->
+    <%= render 'job_dropdown', job: @job %>
+
+    <p class="lead"><%= link_to @job.title, job_path(:id => @job.id) %></p>
+    <hr />
+    <p>
+      Organization: <%= link_to @organization.name, @organization %>
+    </p>
+    <p>
+      Job Type: <%= @job.job_type.titleize %>
+    </p>
+    <p>
+      Role: <%= @job.role.titleize %>
+    </p>
+    <p>
+      <%= simple_format(@job.description) %>
+    </p>
+  </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+      <% if !@job.user %>
+        <% if @job.job_posting.present? %>
+          <%= link_to 'View Job Posting', job_posting_path(id: @job.job_posting.id), class: "btn btn-primary pull-right" %>
+        <% else %>
+          <% if can? :manage, @job %>
+            <%= link_to 'Create Job Posting', new_job_posting_path(job_id: job.id), class: "btn btn-primary pull-right" %>
           <% end %>
-          <% if @job.role == "management" %>
-            <p>
-              This is a management position. <a href="#">What is a management position?</a>
-            </p>
-          <% end %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <%= simple_format(@job.description) %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="table-responsive mv-lg">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Year</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Hired Date</th>
-                <th>Finished Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>2006</td>
-                <td>Joey Bing</td>
-                <td>joey@bing</td>
-                <td>January, 2004</td>
-                <td>April, 2006</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <% end %>
+      <% end %>
+      <p class="lead">Position History</p>
+      <div class="row" id="users">
+          <%= render "users_table" %>
       </div>
     </div>
   </div>

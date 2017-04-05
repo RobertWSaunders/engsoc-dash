@@ -27,6 +27,7 @@ class JobsController < ApplicationController
   # GET /jobs/:id
   def show
     @organization = @job.organization
+    @users = @job.user
   end
 
   # GET /jobs/:id/edit
