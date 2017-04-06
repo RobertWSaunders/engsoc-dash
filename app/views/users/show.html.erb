@@ -2,7 +2,6 @@
 
 <div class="container-overlap bg-blue-500">
   <div class="container-fluid container-lg">
-
       <h4 class="media-heading">
         <%= @user.first_name %> <%= @user.last_name %>
         <% if @user.preferred_name? %>
@@ -19,7 +18,6 @@
 <div class="container-fluid container-lg">
   <div class="row">
       <div class="card">
-
         <% if @user.bio? %>
           <h5 class="card-heading pb0">
             <div class="pull-right dropdown">
@@ -41,6 +39,17 @@
           <div class="card-divider"></div>
         <% end %>
         <h5 class="card-heading pb0">
+          <% if @user.bio? == false %>
+          <div class="pull-right dropdown">
+            <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+            <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+              <li>
+                <%= link_to "Edit", edit_profile_path(@user.id) %>
+              </li>
+
+            </ul>
+          </div>
+          <% end %>
           About
         </h5>
 

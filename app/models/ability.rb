@@ -44,7 +44,7 @@ class Ability
       # gneral users can see the organizations they are apart of
       can [:user], Organization
       # users can apply to jobs, hence can perform actions on job applications
-      can [:edit, :new, :create, :user,:finalize], [JobApplication, JobPostingAnswer]
+      can [:edit,:update, :create, :new, :user, :finalize], [JobApplication, JobPostingAnswer]
       can :read, [Organization, JobPosting, JobPostingQuestion, Job, User, JobApplication]
       can [:edit, :update], User, id: user.id
     end
