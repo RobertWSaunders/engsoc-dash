@@ -26,6 +26,7 @@ class Ability
       can :manage, [Organization,JobPosting,JobApplication,JobPostingQuestion,JobPostingAnswer,Job,Interview]
     # for users that have a job where they are an manager
     elsif user.jobs.any? { |job| job.user_id == user.id && job.role == "management" }
+      can [:new], JobPosting
       # can manage organizations they have a job under
       can :manage, Organization, id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id)
       # can manage jobs that fall under the organizations they are managers for

@@ -17,7 +17,6 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/new?job_id=:id
   def new
-
     @jobposting = JobPosting.new
     if params[:job_id]
       @job = Job.find(params[:job_id])
@@ -28,7 +27,7 @@ class JobPostingsController < ApplicationController
   # Redirected from /job_postings/new if job_id unspecified
   # GET /job_postings/select
   def select
-    @jobs_without_postings = Job.includes(:job_postings).where(job_postings: { job_id: nil })
+    @jobs_without_postings = Job.includes(:job_posting).where(job_postings: { job_id: nil })
     @vacant_jobs = @jobs_without_postings.where(:user_id => nil)
   end
 
