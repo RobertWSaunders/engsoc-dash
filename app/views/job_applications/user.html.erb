@@ -21,18 +21,25 @@
 
 
     <div class="card">
-      <div class="card-body">
           <% if @user_job_applications.any? %>
-            <ul class="list-group">
+          <table class="table table-fixed va-middle">
+            <tbody>
             <!-- iterate through all of the open job postings -->
             <% @user_job_applications.each do |app| %>
-              <%= render 'job_application_list_item', application: app, dropdown: true %>
+            <tr class="msg-display">
+              <td class="text-ellipsis"><%= link_to job_application_path(app), class: "ripple" do %>
+                <%= app.job_posting.title %>
+              <% end %></td>
+              <td><%= render 'job_application_list_item_dropdown', application: app %></td>
+            </tr>
             <% end %>
-            </ul>
+          </tbody>
+        </table>
           <% else %>
+          <div class="card-body">
           <p class="m-xl lead text-center">You have no job applications.</p>
           <center><%= link_to "Get Involved", job_postings_path, class: "btn btn-primary mb-xl" %></center>
-          <% end %>
-      </div>
+          </div>
+        <% end %>
     </div>
   </div>
