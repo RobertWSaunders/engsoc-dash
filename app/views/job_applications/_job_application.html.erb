@@ -4,20 +4,13 @@
   <td><%= job_application.user.first_name %> <%= job_application.user.last_name %></td>
   <td><%= job_application.status.titleize %></td>
   <td><%= link_to 'View', job_application_path(job_application) %></td>
-  <% if can? :manage, JobApplication %>
+
+  <% if can? :manage, job_application %>
     <td>
-      <div class="pull-right dropdown">
-        <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-        <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-          <li>
-            <%= link_to 'Delete Application', job_application, method: :delete, data: { confirm: 'Are you sure?' } %>
-          </li>
-        </ul>
-      </div>
+      <%= link_to job_application, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger"  do %>
+        <em class="ion-trash-a"></em>
+      <% end %>
     </td>
-
   <% end %>
+
 </tr>
-
-
-
