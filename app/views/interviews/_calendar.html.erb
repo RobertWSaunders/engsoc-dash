@@ -1,0 +1,67 @@
+          <%= month_calendar events: interviews do |date, interviews| %>
+            <div class="date">
+              <%= date %>
+            </div>
+            <% interviews.each do |interview| %>
+              <hr>
+              <div class="interview">
+                <%= interview.job_application.user.first_name %>
+                <%= interview.job_application.user.last_name %>
+                <br>
+                <div class="time">
+                <%= interview.start_time.strftime("%I:%M %p") %> - <%= interview.end_time.strftime("%I:%M %p") %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+
+
+          <hr>
+
+          <% if interviews.any? %>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Position</th>
+                  <th>Applicant</th>
+                  <th>Start time</th>
+                  <th>End time</th>
+                  <th>Status</th>
+                  <th colspan="1"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+              <% interviews.each do |interview| %>
+
+                <tr>
+                  <td><%= interview.job_application.id %></td>
+                  <td><%= interview.job_application.job_posting.title %></td>
+                  <td><%= interview.job_application.user.first_name %> <%= interview.job_application.user.last_name %></td>
+                  <td><%= interview.start_time.strftime("%b %e, %l:%M %p") %></td>
+                  <td><%= interview.end_time.strftime("%b %e, %l:%M %p") %></td>
+                  <td>
+                    <% if interview.end_time.future? %> 
+                      Not Interviewed Yet
+                    <% else %>
+                      <%= link_to hire_job_application_path(interview.job_application), :confirm => "Are you sure you want to HIRE this candidate?" do %>
+                        <em class="ion-checkmark icon-fw"></em> Hire
+                      <% end %> | 
+                      <%= link_to decline_job_application_path(interview.job_application), :confirm => "Are you sure you want to DECLINE this candidate?" do %>
+                        <em class="ion-close icon-fw"></em> Decline
+                      <% end %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to edit_interview_path(interview) do %>
+                      <em class="ion-edit icon-fw"></em> Reschedule
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>                
+          <% else %>
+            <p class="lead text-center">No scheduled interviews</p>
+        <% end %>

@@ -11,4 +11,9 @@
       <%= link_to 'Cancel', manage_interviews_path, class: "btn btn-warning btn-flat btn-block" %>
     </div>
   </div>
+  <div class="card">
+    <div class="card-body">
+      <%= render 'calendar', interviews: @interviews %>	
+    </div>
+  </div>
 </div>
