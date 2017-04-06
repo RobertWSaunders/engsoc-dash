@@ -55,7 +55,7 @@
     <div class="row">
       <%= f.label :deadline, class: "col-sm-1 control-label" %>
       <div class="col-sm-11 form-inline">
-        <%= f.datetime_select :deadline, {"data-provide" => 'datepicker'}, {class: "form-control"} %>
+        <%= f.datetime_select :deadline, {ampm: true, "data-provide" => 'datepicker'}, {class: "form-control"} %>
       </div>
     </div>
 </fieldset>

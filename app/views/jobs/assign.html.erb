@@ -51,7 +51,7 @@
   </div>
   </div>
 <% end %>
-<% if @job.user == false %>
+<% if !@job.user.present? %>
   <div class="card">
     <div class="card-body">
 

@@ -38,6 +38,7 @@ class JobsController < ApplicationController
   # PUT /jobs/:id
   def update
     if @job.update_attributes(job_params)
+      flash[:success] = "Job Updated"
       redirect_to job_path(@job)
     else
       render 'edit'
@@ -52,7 +53,6 @@ class JobsController < ApplicationController
 
   # GET /jobs/:id/assign
   def assign
-  
   end
 
   private
