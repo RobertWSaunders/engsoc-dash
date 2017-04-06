@@ -17,7 +17,7 @@
     <% posting.job_applications.each do |app| %>
       <% if app.status == "submitted" %>
         <li>
-          #<%= app.id %> - <%= app.user.first_name %> <%= app.user.last_name %> <%= app.status %>
+          #<%= app.id %> - <%= app.user.first_name %> <%= app.user.last_name %>
           <%= link_to "Schedule Interview", new_job_application_interview_path(app) %>
         </li>
       <% end %>

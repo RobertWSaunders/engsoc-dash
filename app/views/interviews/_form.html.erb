@@ -10,12 +10,12 @@
 
     <div class="field">
       <%= f.label :start_time %>
-      <%= f.datetime_select :start_time, ampm: true %>
+      <%= f.datetime_select :start_time, ampm: true, :default => Time.now %>
     </div>
 
     <div class="field">
       <%= f.label :end_time %>
-      <%= f.datetime_select :end_time, ampm: true %>
+      <%= f.datetime_select :end_time, ampm: true, :default => Time.now + 30.minutes %>
     </div>
 
     <hr>

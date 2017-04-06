@@ -4,6 +4,15 @@ class InterviewsController < ApplicationController
 
   # GET /job_applications/:job_application_id/interviews/new
   def new
+
+    # Required resources for calendar
+    @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
+    @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
+    @interviewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "interviewing").order("deadline").paginate(:page => params[:page], :per_page => 10)
+    @applications = JobApplication.where(:job_posting_id => @interviewing_postings.ids, :status =>"interview_scheduled")
+    @interviews = Interview.where(:job_application_id => @applications.ids).order(end_time: :asc)
+    # end
+
     @job_application = JobApplication.find(params[:job_application_id])
     if @job_application.interview.present?
       redirect_to manage_interviews_path, :info => "This application already has a scheduled interview"
@@ -48,7 +57,6 @@ class InterviewsController < ApplicationController
     @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
     @interviewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "interviewing").order("deadline").paginate(:page => params[:page], :per_page => 10)
-    # TODO: show only job applications that have status 'submitted'
     @applications = JobApplication.where(:job_posting_id => @interviewing_postings.ids, :status =>"interview_scheduled")
     @interviews = Interview.where(:job_application_id => @applications.ids).order(end_time: :asc)
   end
