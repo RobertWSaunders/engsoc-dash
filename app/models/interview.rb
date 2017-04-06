@@ -1,5 +1,5 @@
 class Interview < ApplicationRecord
-  belongs_to :job_application
+  belongs_to :job_application, :foreign_key => :job_application_id
 
   validate :start_time_is_earlier
   validate :less_than_2_hours
