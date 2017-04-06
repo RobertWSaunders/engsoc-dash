@@ -1,21 +1,18 @@
-<% content_for :title, "Job Application" %>
-<div class="container container-fluid">
+<% content_for :title, "Edit Job Application" %>
 
-  <div class="container-fluid container-md">
-    <h3>
-      <%= link_to @job_application.job_posting.title, @job_application.job_posting %>
-    </h3>
-    <p>
-      Please answer the questions below.
-    </p>
-    <div class="card">
-      <div class="card-body">
+<div class="container-fluid container-lg">
 
-        <%= render 'job_posting_answer_form', job_posting_answer: @job_posting_answer %>
+  <div class="card">
+    <div class="card-body">
+      <p class="lead"> <%= link_to @job_application.job_posting.title, @job_application.job_posting %></p>
+      <hr />
+      <p>
+        Please answer the questions below:
+      </p>
+      <br />
+      <%= render 'job_posting_answer_form', job_posting_answer: @job_posting_answer %>
 
-        <%#= link_to 'Back', job_posting_answers_path %>
-      </div>
     </div>
-
   </div>
+
 </div>
