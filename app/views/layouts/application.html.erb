@@ -24,7 +24,10 @@
             <section>
                 <!-- show flash messages if there are any -->
                 <% flash.each do |key, value| %>
-                  <%= content_tag :div, value, class: "mt mr ml alert alert-#{key}" %>
+                  <%= content_tag :div, class: "mt mr ml alert alert-#{key}", data: { dismiss: "alert" } do %>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <%= value %>
+                  <% end %>
                 <% end %>
                 <!-- yield page content -->
                 <%= yield %>
