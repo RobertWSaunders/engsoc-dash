@@ -1,20 +1,18 @@
-<% content_for :title, "Job Application" %>
+<% content_for :title, "Complete Job Application" %>
 
-<div class="container container-fluid">
+  <div class="container-fluid container-lg">
 
-  <div class="container-fluid container-md">
-    <h3>
-      <%= link_to @job_application.job_posting.title, @job_posting %>
-    </h3>
-    <p>
-      Please finalize your job application below.
-    </p>
     <div class="card">
       <div class="card-body">
+        <p class="lead"> <%= link_to @job_application.job_posting.title, @job_application.job_posting %></p>
+        <hr />
         <p>
-          Once this form is submitted, it cannot be re-editted. You may continue this application at any time if you do not choose to submit, but your application will not be considered until it is submitted.
+          Please finalize your job application below:
         </p>
-
+        <p>
+          Once this form is submitted, it cannot be re-editted. You may continue this application at any time if you do not choose to submit, but your application will not be considered until it is submitted. To view any application drafts you can navigate to "My Applications" in the side menu bar.
+        </p>
+        <br />
         <% if @job_posting_answers.any? %>
           <ol>
           <% @job_posting_answers.each do |answer| %>
@@ -31,4 +29,3 @@
       </div>
     </div>
   </div>
-</div>

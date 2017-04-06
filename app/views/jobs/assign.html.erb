@@ -1,36 +1,71 @@
 <!-- page title -->
-<% content_for :title, "Assign New Job" %>
+<% content_for :title, "Assign "+@job.title %>
 
 <!-- page content -->
 <div class="container-fluid container-lg">
-  <h5><%= @job.title %>, <%= @job.organization.name %></h5>
-  <p>Please perform one of the actions below</p>
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          <p class="lead">
-            Assign someone to the job posting:
-          </p>
-          <%= form_for([@organization, @job]) do |f| %>
 
-            <%= f.label :User %>
-            <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] } %>
+<div class="card">
+  <div class="card-body">
+    <p class="lead">
+      Assign Job To User:
+    </p>
+    <p>
+    <% if @job.user %>
+        This position is current held by <%= @job.user.first_name %> <%= @job.user.last_name %>, however you can assign it to someone else, select the new user and press 'Assign':
+    <% else %>
+        This position is currently vacant, however you can assign it to someone, select the user and press 'Assign':
+    <% end %>
+    </p>
+    <br />
+    <%= form_for([@organization, @job], :html => {:class => 'form-horizontal'}) do |f| %>
 
-            <%= f.submit "Select", class: "btn btn-flat btn-primary btn-block" %>
-          <% end %>
-          <hr>
-          <p class="lead">
-            Create a job posting for the position:
-          </p>
-          <%= link_to "Create Job Posting", new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn-flat btn-success btn-block" %>
-          <hr>
-          <p class="lead">
-            Leave position Vacant for now
-          </p>
-          <%= link_to "Leave Vacant", organization_path(@job.organization), class: "btn btn-flat btn-warning btn-block" %>
-        </div>
-      </div>
+      <%= f.label :User,class: "col-sm-1 control-label" %>
+      <div class="col-sm-11">
+      <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] }, {},{class: "form-control"} %>
     </div>
+      <br />
+      <br />
+
+      <br />
+      <%= f.submit "Select User", class: "btn btn btn-primary" %>
+    <% end %>
   </div>
 </div>
+
+<% if !@job.job_posting.present? %>
+  <div class="card">
+    <div class="card-body">
+          <p class="lead">
+            Create Job Posting:
+          </p>
+          <p>
+          <% if @job.user %>
+
+              This position is current held by <%= @job.user.first_name %> <%= @job.user.last_name %>, however you can create a new job posting to hire someone new for the position by creating a new job posting.
+              <% else %>
+                  This position is currently vacant, however you can create a new job posting to hire someone for the position by creating a new job posting.
+              <% end %>
+          </p>
+          <br />
+          <%= link_to "Create Job Posting", new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn btn-primary" %>
+  </div>
+  </div>
+<% end %>
+<% if @job.user == false %>
+  <div class="card">
+    <div class="card-body">
+
+
+          <p class="lead">
+            Leave Job Vacant:
+          </p>
+          <p>
+            This job is currently vacant, if you wish to keep it vacant please choose the option below:
+          </p>
+          <br />
+          <%= link_to "Leave Vacant", organization_path(@job.organization), class: "btn btn btn-primary" %>
+        </div>
+
+  </div>
+</div>
+<% end %>

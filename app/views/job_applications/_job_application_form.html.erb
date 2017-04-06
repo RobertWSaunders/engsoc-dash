@@ -5,21 +5,21 @@
     <% if controller.action_name.eql?('new') %>
 
       <%= f.hidden_field :user_id, :value => current_user.id %>
-    
+
       <%= f.hidden_field :job_posting_id, :value => @job_posting.id %>
 
       <%= f.hidden_field :status, :value => 'draft' %>
 
       <hr>
       <div class="actions">
-        <%= f.submit "Begin Application", class: "btn btn-raised btn-primary btn-lg btn-block ripple" %>
+        <%= f.submit "Begin Application", class: "btn btn-primary btn-block ripple" %>
       </div>
 
     <% else %>
       <%= f.hidden_field :status, :value => 'submitted' %>
       <hr>
       <div class="actions">
-        <%= f.submit "Complete Application", class: "btn btn-raised btn-success btn-lg btn-block ripple" %>
+        <%= f.submit "Complete Application", class: "btn btn-success btn-block ripple" %>
       </div>
     <% end %>
 <% end %>
