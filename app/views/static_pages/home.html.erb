@@ -1,119 +1,146 @@
 <% content_for :title, "Home" %>
 
 
+<div class="content-heading bg-white">
+  <div class="row">
+    <div class="col-sm-9">
+      <h4 class="m0 text-thin">Welcome to Engineering Society Dashboard</h4><small>The hub for your Queen's engineering career</small>
+    </div>
+    <div class="col-sm-3 text-right hidden-xs">
+      <button type="button" class="mt-sm btn btn-labeled btn-default ripple">Widgets<span class="btn-label btn-label-right"><i class="ion-plus-round"></i></span></button>
+    </div>
+  </div>
+</div>
 
 <div class="container container-fluid">
-  <div class="card">
-    <div class="card-body">
-      <div class="text-center pb-lg">
-        <%= image_tag("Engcrest.gif", :alt => "engsoc crest", :style => "max-height: 150px;") %>
-        <%= image_tag("logo.png", :alt => "logo", :style => "max-height: 150px;") %>
-        <h3 class="text-bold">EngSoc <i>DASH</i></h3>
-        <p class="text-muted">Your one stop hub for engaging with one of the oldest representative bodies for engineering students in Canada.<br>Become a part of over 50 student-run initiatives, all using this dashboard.</p>
-      </div>
-      <div class="row mt-lg">
-        <div class="col-md-6">
-          <div id="accordion1" class="panel-group">
-            <div class="panel panel-default b0">
-              <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#acc1collapse1"><small><em class="ion-arrow-right-c text-muted mr icon-lg"></em></small><span>What Assets Can I Use In My Items?</span></a></h4>
-              </div>
-              <div id="acc1collapse1" class="panel-collapse collapse in">
-                <div class="panel-body">
-                  <p>Donec congue sagittis mi sit amet tincidunt. Quisque sollicitudin massa vel erat tincidunt blandit. Curabitur quis leo nulla. Phasellus faucibus placerat luctus. Integer fermentum molestie massa at congue. Quisque quis quam dictum diam volutpat adipiscing.</p>
-                  <p>Proin ut urna enim. Nam non enim vitae mi semper egestas. Pellentesque convallis mauris eu elit imperdiet quis eleifend quam aliquet.</p>
-                  <div class="pull-right"><small class="text-muted mr">Was this article helpful?</small>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-up text-muted"></em></button>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-down text-muted"></em></button>
-                  </div>
-                </div>
-              </div>
+
+  <div class="row">
+    <div class="col-lg-9 col-md-12">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-heading">
+              <div class="card-title">Suggested Open Jobs</div><small>Based on your experience and application history</small>
             </div>
-            <div class="panel panel-default b0">
-              <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#acc1collapse2"><small><em class="ion-arrow-right-c text-muted mr icon-lg"></em></small><span>Where is the Market Terms?</span></a></h4>
-              </div>
-              <div id="acc1collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <p>Donec congue sagittis mi sit amet tincidunt. Quisque sollicitudin massa vel erat tincidunt blandit. Curabitur quis leo nulla. Phasellus faucibus placerat luctus. Integer fermentum molestie massa at congue. Quisque quis quam dictum diam volutpat adipiscing.</p>
-                  <p>Proin ut urna enim. Nam non enim vitae mi semper egestas. Pellentesque convallis mauris eu elit imperdiet quis eleifend quam aliquet.</p>
-                  <div class="pull-right"><small class="text-muted mr">Was this article helpful?</small>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-up text-muted"></em></button>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-down text-muted"></em></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default b0">
-              <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#acc1collapse3"><small><em class="ion-arrow-right-c text-muted mr icon-lg"></em></small><span>Morbi pretium varius aliquam?</span></a></h4>
-              </div>
-              <div id="acc1collapse3" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <p>Donec congue sagittis mi sit amet tincidunt. Quisque sollicitudin massa vel erat tincidunt blandit. Curabitur quis leo nulla. Phasellus faucibus placerat luctus. Integer fermentum molestie massa at congue. Quisque quis quam dictum diam volutpat adipiscing.</p>
-                  <p>Proin ut urna enim. Nam non enim vitae mi semper egestas. Pellentesque convallis mauris eu elit imperdiet quis eleifend quam aliquet.</p>
-                  <div class="pull-right"><small class="text-muted mr">Was this article helpful?</small>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-up text-muted"></em></button>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-down text-muted"></em></button>
-                  </div>
-                </div>
-              </div>
+            <div class="card-body">
+              <table class="table table-hover table-fixed va-middle">
+      <tbody>
+        <% @job_postings.each do |posting| %>
+        <tr class="msg-display clickable">
+          <td class="wd-xxs">
+            <div class="initial32 bg-indigo-500"><%= posting.title[0,1] %></div>
+          </td>
+          <td>
+            <%= link_to root_path, class: "ripple" do %>
+              <%= posting.title %>
+            <% end %>
+          </td>
+          <td>
+            <%= posting.job.organization.name %>
+          </td>
+          <% end %>
+        </tbody>
+      </table>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div id="accordion2" class="panel-group">
-            <div class="panel panel-default b0">
-              <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#acc2collapse1"><small><em class="ion-arrow-right-c text-muted mr icon-lg"></em></small><span>How to Contact an Author</span></a></h4>
-              </div>
-              <div id="acc2collapse1" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <p>Donec congue sagittis mi sit amet tincidunt. Quisque sollicitudin massa vel erat tincidunt blandit. Curabitur quis leo nulla. Phasellus faucibus placerat luctus. Integer fermentum molestie massa at congue. Quisque quis quam dictum diam volutpat adipiscing.</p>
-                  <p>Proin ut urna enim. Nam non enim vitae mi semper egestas. Pellentesque convallis mauris eu elit imperdiet quis eleifend quam aliquet.</p>
-                  <div class="pull-right"><small class="text-muted mr">Was this article helpful?</small>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-up text-muted"></em></button>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-down text-muted"></em></button>
-                  </div>
-                </div>
-              </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <div class="card">
+            <div class="card-heading">
+              <div class="card-title">Your Job Applications</div>
+              <small>You've got this, don't worry!</small>
             </div>
-            <div class="panel panel-default b0">
-              <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#acc2collapse2"><small><em class="ion-arrow-right-c text-muted mr icon-lg"></em></small><span>What is Item Support?</span></a></h4>
-              </div>
-              <div id="acc2collapse2" class="panel-collapse collapse in">
-                <div class="panel-body">
-                  <p>Donec congue sagittis mi sit amet tincidunt. Quisque sollicitudin massa vel erat tincidunt blandit. Curabitur quis leo nulla. Phasellus faucibus placerat luctus. Integer fermentum molestie massa at congue. Quisque quis quam dictum diam volutpat adipiscing.</p>
-                  <p>Proin ut urna enim. Nam non enim vitae mi semper egestas. Pellentesque convallis mauris eu elit imperdiet quis eleifend quam aliquet.</p>
-                  <div class="pull-right"><small class="text-muted mr">Was this article helpful?</small>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-up text-muted"></em></button>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-down text-muted"></em></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default b0">
-              <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#acc2collapse3"><small><em class="ion-arrow-right-c text-muted mr icon-lg"></em></small><span>Where Is My Purchase Code?</span></a></h4>
-              </div>
-              <div id="acc2collapse3" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <p>Donec congue sagittis mi sit amet tincidunt. Quisque sollicitudin massa vel erat tincidunt blandit. Curabitur quis leo nulla. Phasellus faucibus placerat luctus. Integer fermentum molestie massa at congue. Quisque quis quam dictum diam volutpat adipiscing.</p>
-                  <p>Proin ut urna enim. Nam non enim vitae mi semper egestas. Pellentesque convallis mauris eu elit imperdiet quis eleifend quam aliquet.</p>
-                  <div class="pull-right"><small class="text-muted mr">Was this article helpful?</small>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-up text-muted"></em></button>
-                    <button type="button" class="btn btn-default btn-xs"><em class="ion-chevron-down text-muted"></em></button>
-                  </div>
-                </div>
-              </div>
+            <div class="card-body">
             </div>
           </div>
         </div>
+
+          <div class="col-xs-12 col-lg-6">
+            <div class="card">
+              <div class="card-heading">
+                <div class="card-title">Your Job Interviews</div>
+                <small>You've got this, don't worry!</small>
+              </div>
+              <div class="card-body">
+              </div>
+            </div>
+          </div>
+
+
       </div>
-      <div class="text-center pb-lg">
-        <p>Have more questions?</p>
-        <button type="button" class="btn btn-info">Contact Us</button>
+    </div>
+    <div class="col-lg-3 col-xs-12">
+      <!-- Activity feed-->
+      <div class="card">
+        <div class="card-heading">
+          <!-- START dropdown-->
+          <div class="pull-right dropdown">
+            <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+            <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+              <li><a href="">Last 30 days</a></li>
+              <li><a href="">Last week</a></li>
+              <li><a href="">Last year</a></li>
+            </ul>
+          </div>
+          <!-- END dropdown-->
+          <div class="card-title">News Feed</div><small>Engineering Society news</small>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="img/user/04.jpg" alt="User" class="img-circle thumb32"></a></p>
+          <div class="oh">
+            <p><strong class="spr">Adam</strong><span class="spr">posted in</span><a href="">Material</a></p>
+            <p class="bl pl"><i>That's awesome!</i></p>
+            <div class="clearfix">
+              <div class="pull-left text-muted"><em class="ion-android-time mr-sm"></em><span>2 hours ago</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="img/user/06.jpg" alt="User" class="img-circle thumb32"></a></p>
+          <div class="oh">
+            <p><strong class="spr">Dora</strong><span>added a new task</span></p>
+            <p><em class="ion-calendar icon-fw"></em><a href="">Start migration</a></p>
+            <div class="clearfix">
+              <div class="pull-left text-muted"><em class="ion-android-time mr-sm"></em><span>3 hours ago</span></div>
+              <div class="pull-right"><span>2</span><em class="ion-star ml-sm text-warning"></em></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="img/user/07.jpg" alt="User" class="img-circle thumb32"></a></p>
+          <div class="oh">
+            <p><strong class="spr">Kathryn</strong><span class="spr">published</span><a href="">Trip</a></p>
+            <p><a href=""><img src="img/pic1.jpg" alt="Pic" class="mr-sm thumb48"></a><a href=""><img src="img/pic2.jpg" alt="Pic" class="mr-sm thumb48"></a></p>
+            <div class="clearfix">
+              <div class="pull-left text-muted"><em class="ion-android-time mr-sm"></em><span>4 hours ago</span></div>
+              <div class="pull-right"><span>2</span><em class="ion-ios-heart ml-sm text-danger"></em></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="img/user/02.jpg" alt="User" class="img-circle thumb32"></a></p>
+          <div class="oh">
+            <p><strong class="spr">Daniel</strong><span class="spr">joined to</span><a href="">Group</a></p>
+            <p><span class="image-list"><a href=""><img src="img/user/03.jpg" alt="User" class="img-circle thumb32"></a><a href=""><img src="img/user/04.jpg" alt="User" class="img-circle thumb32"></a><a href=""><img src="img/user/05.jpg" alt="User" class="img-circle thumb32"></a><a href=""><img src="img/user/07.jpg" alt="User" class="img-circle thumb32"></a><strong><a href="" class="ml-sm link-unstyled">+3</a></strong></span></p>
+            <div class="clearfix">
+              <div class="pull-left text-muted"><em class="ion-android-time mr-sm"></em><span>yesterday</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="img/user/03.jpg" alt="User" class="img-circle thumb32"></a></p>
+          <div class="oh">
+            <p><strong class="spr">Leroy Day</strong><span class="spr">wakes up!</span></p>
+            <p class="bl pl"><i>That's awesome!</i></p>
+            <div class="clearfix">
+              <div class="pull-left text-muted"><em class="ion-android-time mr-sm"></em><span>2 weeks ago</span></div>
+            </div>
+          </div>
+        </div><a href="" class="card-footer btn btn-flat btn-default"><small class="text-center text-muted lh1">See more activities</small></a>
       </div>
     </div>
   </div>
