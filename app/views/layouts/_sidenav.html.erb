@@ -18,7 +18,7 @@
           <% end %>
         </li>
         <!-- orgs link -->
-        <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) && (!controller.action_name.eql?('admin')) && (!controller.action_name.eql?('manage')) %>">
+        <li class="<%= 'active' if (controller.controller_name.eql?('organizations') || controller.controller_name.eql?('jobs')) && (!controller.action_name.eql?('admin')) && (!controller.action_name.eql?('manage')) %>">
           <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span></a>
           <ul class="sidebar-subnav">
             <li class="<%= 'active' if (controller.action_name.eql?('index')) %>">

@@ -52,7 +52,8 @@ class JobApplicationsController < ApplicationController
   # PUT /job_applications/:id
   def update
     if @job_application.update_attributes(job_application_params)
-      redirect_to job_postings_path
+      flash[:success] = "Job Application Successfully Created!"
+      redirect_to user_job_applications_path
     else
       render 'finalize'
     end

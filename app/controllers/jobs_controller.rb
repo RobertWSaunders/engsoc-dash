@@ -19,8 +19,9 @@ class JobsController < ApplicationController
       flash[:success] = "Job Successfully Created!"
       redirect_to assign_job_path(@job.id)
     else
-      flash[:danger] = "Could Not Save Job!"
-      redirect_to root_path
+      # TODO: correctly render helpful form errors
+      flash.keep[:danger] = "Could Not Save Job!"
+      redirect_to new_organization_job_path
     end
   end
 

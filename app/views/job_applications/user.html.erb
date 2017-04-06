@@ -26,12 +26,16 @@
             <tbody>
             <!-- iterate through all of the open job postings -->
             <% @user_job_applications.each do |app| %>
+<<<<<<< HEAD
             <tr class="msg-display">
               <td class="text-ellipsis"><%= link_to job_application_path(app), class: "ripple" do %>
                 <%= app.job_posting.title %>
               <% end %></td>
               <td><%= render 'job_application_list_item_dropdown', application: app %></td>
             </tr>
+=======
+              <%= render 'user_job_application_list_item', application: app, dropdown: true %>
+>>>>>>> development
             <% end %>
           </tbody>
         </table>
