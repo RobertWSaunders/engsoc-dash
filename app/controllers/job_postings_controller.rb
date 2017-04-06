@@ -27,6 +27,7 @@ class JobPostingsController < ApplicationController
   # Redirected from /job_postings/new if job_id unspecified
   # GET /job_postings/select
   def select
+    #only show the job postings the user can manage 
     if current_user.superadmin? || current_user.jobs.any? { |job| job.user_id == current_user.id && job.role == "admin" }
       @jobs_without_postings = Job.includes(:job_posting).where(job_postings: { job_id: nil })
     else
