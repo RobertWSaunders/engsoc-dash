@@ -1,5 +1,8 @@
 class JobApplicationsController < ApplicationController
   load_and_authorize_resource
+
+  skip_authorize_resource :only => [:filter_index, :filter, :filter_user]
+
   before_action :set_job_application, only: [:show, :edit, :update, :destroy, :finalize, :hire, :decline]
 
   # GET /job_postings/:job_posting_id/job_applications

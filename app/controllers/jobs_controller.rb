@@ -27,11 +27,11 @@ class JobsController < ApplicationController
   # GET /jobs/:id
   def show
     @organization = @job.organization
+    @users = @job.user
   end
 
   # GET /jobs/:id/edit
   def edit
-    @organization = @job.organization
   end
 
   # PUT /jobs/:id
@@ -46,7 +46,7 @@ class JobsController < ApplicationController
   # DELETE /jobs/:id
   def destroy
     @job.destroy
-    redirect_to organization_path(job.organization_id)
+    redirect_to organization_path(@job.organization_id)
   end
 
   # GET /jobs/:id/assign

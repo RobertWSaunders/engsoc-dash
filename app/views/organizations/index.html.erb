@@ -24,7 +24,7 @@
         <% if @organizations.any? %>
         <ul class="list-group">
             <% @organizations.each do |organization| %>
-              <%= render 'organization_list_item', organization: organization, status: false, role: true %>
+              <%= render 'organization_list_item', organization: organization, status: true, role: true %>
             <% end %>
         </ul>
         <% else %>

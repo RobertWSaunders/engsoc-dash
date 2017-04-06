@@ -2,7 +2,7 @@ class OrganizationsController < ApplicationController
 
   load_and_authorize_resource
 
-  skip_authorize_resource :only => :show
+  skip_authorize_resource :only => [:filter_index, :filter_user]
 
   before_action :set_organization, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :archive]
 

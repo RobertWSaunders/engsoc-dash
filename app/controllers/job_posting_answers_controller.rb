@@ -1,7 +1,9 @@
 class JobPostingAnswersController < ApplicationController
 
   # TODO: write a check to for no params created - in case there are no job questions associated with the job posting!
+
   load_and_authorize_resource
+
   before_action :set_job_application, only: [:edit, :destroy]
   before_action :clear_cache, only: [:new]
 

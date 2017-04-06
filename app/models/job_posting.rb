@@ -26,6 +26,6 @@ class JobPosting < ApplicationRecord
   #title must be minimum length of five characters
   validates :title, presence: true, length: { minimum: 5, maximum: 100 }
   #description must be at least fifteen characters
-  validates :description, presence: true, length: { minimum: 15, maximum: 2000 }
+  validates :description, presence: true, length: { minimum: 15, maximum: 4000 }
 
 end

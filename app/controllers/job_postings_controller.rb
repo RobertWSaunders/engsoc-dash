@@ -1,6 +1,9 @@
 class JobPostingsController < ApplicationController
 
   load_and_authorize_resource
+
+  skip_authorize_resource :only => [:filter_index, :filter, :filter_manage]
+
   # before any action gets fired set the job posting
   before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview]
 
@@ -14,6 +17,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/new?job_id=:id
   def new
+
     @jobposting = JobPosting.new
     if params[:job_id]
       @job = Job.find(params[:job_id])
@@ -31,11 +35,12 @@ class JobPostingsController < ApplicationController
   # POST /job_posting
   def create
     @jobposting = JobPosting.new(job_posting_params)
-    if @jobposting.save
+    if @jobposting.save!
       flash[:success] = "Job Posting Successfully Created!"
       redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
-      render 'new'
+      flash[:danger] = "Could Not Create Job Posting!"
+      redirect_to root_path
     end
   end
 
@@ -53,11 +58,12 @@ class JobPostingsController < ApplicationController
   # PUT /job_postings/:id
   def update
     @jobposting = JobPosting.find(params[:id])
-    if @jobposting.update_attributes(job_posting_params)
+    if @jobposting.update_attributes!(job_posting_params)
       flash[:success] = "Job Posting Successfully Updated!"
       redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
-      render 'edit'
+      flash[:danger] = "Could Not Update Job Posting!"
+      redirect_to root_path
     end
   end
 
@@ -133,7 +139,7 @@ class JobPostingsController < ApplicationController
   private
 
     def job_posting_params
-      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status, :job_type)
+      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status)
     end
 
     def set_job_posting

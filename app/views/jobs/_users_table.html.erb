@@ -1,0 +1,13 @@
+<% if @job.user %>
+  <div class="table-responsive ml mr">
+    <table class="table table-hover">
+      <tbody>
+        <%= render @users %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="alert alert-warning ml mr">
+    This position has no employment history and is currently vacant.
+  </div>
+<% end %>

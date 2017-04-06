@@ -1,0 +1,13 @@
+<% if can? :manage, job %>
+  <div class="pull-right dropdown">
+    <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+    <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+      <li>
+        <%= link_to "Edit Job", edit_job_path(job.id) %>
+      </li>
+      <li>
+        <%= link_to "Delete Job", method: :delete, data: { confirm: "Are you sure?" } %>
+      </li>
+  </div>
+
+<% end %>

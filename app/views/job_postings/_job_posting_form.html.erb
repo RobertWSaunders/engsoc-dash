@@ -1,65 +1,92 @@
-        <%= form_for @jobposting do |f| %>
+<%= form_for(@jobposting, :html => {:class => 'form-horizontal'}) do |f| %>
+<!-- render any error messages -->
+<%= render 'shared/job_posting_error_messages' %>
 
-          <%= render 'shared/job_posting_error_messages' %>
+<!-- hidden field for the creator id -->
+<%= f.hidden_field :creator_id, :value => current_user.id %>
 
-          <%= f.hidden_field :creator_id, :value => current_user.id %>
-
-          <div class="form-group">
-          <%= f.label :Title %>
-          <br>
-            <% if @jobposting.title %>
-              <%= @jobposting.title %>
-            <% else %>
-              <%= f.hidden_field :job_id, :value => params[:job_id] %>
-              <% if @job.role == "management" %>
-                <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (Manager)" %>
-                <%= @job.title %>, for <%= @job.organization.name %> (Manager)
-              <% elsif @job.role == "admin" %>
-                <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name + " (EngSoc Admin)" %>
-                  <%= @job.title %>, for <%= @job.organization.name %> (EngSoc Admin)
-              <% else %>
-                <%= f.hidden_field :title, :value => @job.title + ", for " + @job.organization.name %>
-                <%= @job.title %>, for <%= @job.organization.name %>
-              <% end %>
-            <% end %>
-          </div>
-
-
-          <div class="form-group">
-          <%= f.label :Description %>
-          <% if @job %>
-            <%= f.text_area :description, :value => @job.description, class: 'form-control', style: 'resize:none', rows: "20" %>
-          <% else %>
-            <%= f.text_area :description, class: 'form-control', style: 'resize:none', rows: "20" %>
-          <% end %>
-          </div>
-
-          <hr>
-
-          <div class="form-group">
-          <%= f.label :Deadline %>
-          <%= f.date_select :deadline, "data-provide" => 'datepicker' %>
-          </div>
-
-          <div class="form-group">
-          <%= f.label :Status %>
-          <% if cannot? :manage, JobPosting %>
-          <%= f.select :status, JobPosting.statuses => "Waiting approval" %>
-          <% else %>
-          <%= f.select :status, JobPosting.statuses.keys.map { |w| [w.humanize, w] }  %>
-          <% end %>
-          </div>
-
-          <hr>
-
-          <h4>Job Posting Questions</h4>
-          <% if @jobposting.job_posting_questions.any? %>
-            Currently <%= @jobposting.job_posting_questions.count %> <%= 'question'.pluralize(@jobposting.job_posting_questions.count) %>.
-          <% else %>
-            Currently no questions. You can add questions once you first create the job posting.
-          <% end %>
-
-          <hr>
-
-          <%= f.submit "Next", class: "btn btn-primary btn-block" %>
+<!-- form fields -->
+<!-- organization -->
+<fieldset class="last-child">
+  <div class="form-group">
+    <label class="col-sm-1 control-label">Organization</label>
+    <div class="col-sm-11">
+        <% if action_name == 'edit' %>
+          <input type="text" value="<%= @jobposting.job.organization.name %>" disabled="" class="form-control">
+          <%= f.hidden_field :job_id, :value => @jobposting.job.id %>
+        <% else %>
+          <input type="text" value="<%= @job.organization.name %>" disabled="" class="form-control">
+          <%= f.hidden_field :job_id, :value => params[:job_id] %>
         <% end %>
+    </div>
+  </div>
+</fieldset>
+
+<!-- title -->
+<fieldset class="last-child">
+  <div class="form-group">
+    <%= f.label :title, 'Job Title', class: "col-sm-1 control-label" %>
+    <div class="col-sm-11">
+      <% if @jobposting.title %>
+        <%= f.text_field :title, :value => @jobposting.title, class: 'form-control' %>
+      <% else %>
+        <%= f.text_field :title, :value => @job.title, class: 'form-control' %>
+      <% end %>
+    </div>
+  </div>
+</fieldset>
+
+<!-- description -->
+<fieldset>
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-1 control-label" %>
+    <div class="col-sm-11">
+      <% if @job %>
+        <%= f.text_area :description, :value => @job.description, class: 'form-control', style: 'resize:none', rows: "14" %>
+      <% else %>
+        <%= f.text_area :description, class: 'form-control', style: 'resize:none', rows: "14" %>
+      <% end %>
+    </div>
+  </div>
+</fieldset>
+
+<!-- deadline -->
+<fieldset>
+    <div class="row">
+      <%= f.label :deadline, class: "col-sm-1 control-label" %>
+      <div class="col-sm-11 form-inline">
+        <%= f.datetime_select :deadline, {"data-provide" => 'datepicker'}, {class: "form-control"} %>
+      </div>
+    </div>
+</fieldset>
+
+<!-- status -->
+<fieldset>
+  <div class="row">
+    <%= f.label :status, class: "col-sm-1 control-label" %>
+    <!-- only admins are able to set the status -->
+    <div class="col-sm-11">
+      <% if cannot? :manage, JobPosting %>
+        <%= f.select :status, JobPosting.statuses => "Waiting approval" %>
+      <% else %>
+        <%= f.select :status, JobPosting.statuses.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"}  %>
+      <% end %>
+    </div>
+  </div>
+</fieldset>
+
+<hr>
+
+<h4>Job Posting Questions</h4>
+<% if @jobposting.job_posting_questions.any? %>
+  Currently <%= @jobposting.job_posting_questions.count %> <%= 'question'.pluralize(@jobposting.job_posting_questions.count) %>.
+<% else %>
+  Currently no questions. You can add questions once you first create the job posting.
+<% end %>
+
+<hr>
+
+<%= f.submit "Next", class: "btn btn-primary btn-block" %>
+<%= link_to "Cancel",root_path, class: "btn btn-inverse btn-block" %>
+
+<% end %>

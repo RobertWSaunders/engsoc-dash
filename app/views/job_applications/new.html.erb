@@ -1,27 +1,41 @@
-<% content_for :title, "Job Application" %>
+<!-- page title -->
+<% content_for :title, "New Job Application" %>
 
-<div class="container container-fluid">
+  <div class="container-fluid container-lg">
 
-  <div class="container-fluid container-md">
-    <h3>
-      <%= link_to @job_posting.title, @job_posting %>
-    </h3>
-    <p>
-      Please read the disclamers below.
-    </p>
-    <div class="card">
-      <div class="card-body">
-        <p>
-          WELCOME PAGE
-        </p>
-        <p>
-          THESE ARE SOME JOB DESCRIPTIONS
-        </p>
-        <p>
-          <i>This is a disclamer ...</i>
-        </p>
-        <%= render 'job_application_form' %>
-      </div>
+  <div class="card">
+    <div class="card-body">
+      <p class="lead"><%= link_to @job_posting.title, @job_posting %></p>
+      <p>
+        Application Deadline: <%= distance_of_time_in_words(Time.now, @job_posting.deadline) %> (<%= @job_posting.deadline.to_date %>)
+      </p>
+      <p>
+        Organization: <%= link_to @job_posting.job.organization.name, @job_posting.job.organization %>
+      </p>
+      <hr />
+      <p>
+        <%= @job_posting.description %>
+      </p>
+        <hr />
+      <p>Before you begin your application please acknowledge the following:<br />
+        <ul>
+          <li>
+            The Engineering Society is an Equal Opportunity Hiring Organization
+          </li>
+          <li>
+            Hiring will be done in accordance with Engineering Society Hiring Policy Manual as seen on the Engineering Society website.
+          </li>
+          <li>
+            If you have any questions regarding the interview process please feel free to email <a href="mailto:vpsa@engsoc.queensu.ca">vpsa@engsoc.queensu.ca.</a>
+          </li>
+          <li>
+            Please feel free to contact the Engineering Review Board at <a href="mailto:erb@engsoc.queensu.ca">erb@engsoc.queensu.ca</a> for any concerns regarding the interview process.
+          </li>
+        </ul>
+        <br />
+By submitting any application on the Engineering Society Dashboard you hereby declare that the information included is true and complete to the best of my knowledge. In addition, I authorize the hiring committee to verify the information presented here and my eligibility for this position, both at the time of hiring and during my employment. I affirm that any references listed in any of my application have been informed of their usage. I understand that a false statement may disqualify me from employment or cause my dismissal.
+      </p>
+    <%= render 'job_application_form' %>
     </div>
   </div>
-</div>
+  </div>
