@@ -24,7 +24,13 @@
             <section>
                 <!-- show flash messages if there are any -->
                 <% flash.each do |key, value| %>
-                  <%= content_tag :div, value, class: "mt mr ml alert alert-#{key}" %>
+                  <% if key == 'notice' %>
+                    <%= content_tag :div, value, class: "mt mr ml alert alert-success" %>
+                  <% elsif key == 'alert' %>
+                    <%= content_tag :div, value, class: "mt mr ml alert alert-warning" %>
+                  <% else %>
+                    <%= content_tag :div, value, class: "mt mr ml alert alert-#{key}" %>
+                  <% end %>
                 <% end %>
                 <!-- yield page content -->
                 <%= yield %>
