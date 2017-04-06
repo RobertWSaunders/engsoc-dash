@@ -35,6 +35,12 @@
                     <%= app.job_posting.title %>
                   <% end %>
                 <% end %>
+                <% if app.interview.present? %>
+                  <p>
+                    <strong>Interview Scheduled for:</strong>
+                    <%= app.interview.start_time.strftime("%b %e, %l:%M %p") %>, to <%= app.interview.end_time.strftime("%b %e, %l:%M %p") %>
+                  </p>
+                  <% end %>
               </td>
               <td>
 

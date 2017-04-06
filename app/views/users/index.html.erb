@@ -3,20 +3,35 @@
 <!-- main container for job postings -->
 <div class="container-fluid container-lg">
   <div class="card">
-    <div class="card-body">
-      <ul class="list-group">
-        <% if @users.count == 0 %><br /><br />
-          <p class="lead text-center">There are currently no organizations.</p>
-        <% else %>
-          <% @users.each do |user| %>
-            <%= render 'user_list_item', user: user, dropdown: true %>
+    <table class="table table-hover table-fixed va-middle">
+      <tbody>
+        <% @users.each do |user| %>
+        <tr class="msg-display clickable">
+          <td class="wd-xxs">
+            <div class="initial32 bg-indigo-500"><%= user.first_name[0,1] %></div>
+          </td>
+          <td>
+            <%= link_to profile_path(user), class: "ripple" do %>
+              <%= user.first_name %> <%= user.last_name %>
+            <% end %>
+          </td>
+          <td>
+            <div class="pull-right dropdown">
+              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                <li>
+                  <%= link_to "Edit User", edit_profile_path(user.id) %>
+                </li>
+
+              </ul>
+            </div>
+          </td>
           <% end %>
-        <% end %>
-      </ul>
+        </tbody>
+      </table>
       <center>
         <!-- show the paginator for the will_paginate gem -->
         <%= will_paginate @users, renderer: BootstrapPagination::Rails, page_links: false %><br />
       </center>
     </div>
   </div>
-</div>
