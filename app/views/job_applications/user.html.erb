@@ -21,18 +21,38 @@
 
 
     <div class="card">
-      <div class="card-body">
           <% if @user_job_applications.any? %>
-            <ul class="list-group">
+          <table class="table table-fixed va-middle">
+            <tbody>
             <!-- iterate through all of the open job postings -->
             <% @user_job_applications.each do |app| %>
-              <%= render 'user_job_application_list_item', application: app, dropdown: true %>
+            <tr class="msg-display">
+              <td class="text-ellipsis">
+                <% if app.status != "draft" %>
+                  <%= app.job_posting.title %>
+                <% else %>
+                  <%= link_to edit_job_application_job_posting_answer_path(:job_application_id => app.id, :id => 1), class: "ripple" do %>
+                    <%= app.job_posting.title %>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+
+
+              <div class="pull-right dropdown">
+                <%= status_label_application(app) %>
+              </div>
+                </td>
+            </tr>
+
             <% end %>
-            </ul>
+          </tbody>
+        </table>
           <% else %>
+          <div class="card-body">
           <p class="m-xl lead text-center">You have no job applications.</p>
           <center><%= link_to "Get Involved", job_postings_path, class: "btn btn-primary mb-xl" %></center>
-          <% end %>
-      </div>
+          </div>
+        <% end %>
     </div>
   </div>

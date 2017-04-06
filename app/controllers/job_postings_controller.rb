@@ -27,9 +27,13 @@ class JobPostingsController < ApplicationController
   # Redirected from /job_postings/new if job_id unspecified
   # GET /job_postings/select
   def select
-    @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
-    @unfilled_jobs = Job.where(job_posting_id: nil, id: @managed_orgs.ids)
-    @vacant_jobs = @unfilled_jobs.where(:user_id => nil)
+    #only show the job postings the user can manage 
+    if current_user.superadmin? || current_user.jobs.any? { |job| job.user_id == current_user.id && job.role == "admin" }
+      @jobs_without_postings = Job.includes(:job_posting).where(job_postings: { job_id: nil })
+    else
+      @jobs_without_postings = Job.includes(:job_posting).where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: current_user.id })).where(job_postings: { job_id: nil })
+    end
+    @vacant_jobs = @jobs_without_postings.where(:user_id => nil)
   end
 
   # POST /job_posting
