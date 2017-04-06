@@ -7,7 +7,7 @@
 
   <!-- show the job title and link to the job posting detail -->
   <h5 class="mb-sm">
-    <% if application.status == "submitted" %>
+    <% if application.status != "draft" %>
       <%= application.job_posting.title %>
     <% else %>
       <%= link_to edit_job_application_job_posting_answer_path(:job_application_id => application.id, :id => 1), class: "ripple" do %>
