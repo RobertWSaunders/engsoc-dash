@@ -2,16 +2,15 @@
 <% content_for :title, "My Job Applications" %>
 
 <!-- container for the page -->
-  <div class="container-fluid container-md">
+  <div class="container-fluid container-lg">
 
     <!-- filtering header -->
-    <div class="row mv">
+    <div class="row mb">
 
       <div class="col-sm-12 text-right hidden-xs">
         <%= form_tag({controller: "job_applications", action: "filter_user"}, method: "post", class:"form-inline") do %>
           <div class="form-group">
-            <% select_list = JobApplication.statuses.keys.map { |w| [w.titleize, w] } %>
-            <% select_list.insert(0,"All") %>
+            <% select_list = JobApplication.statuses.keys.map { |w| [w.titleize, w] }.insert(0,"All") %>
             <%= label_tag 'Status', nil, class: 'mr' %>
             <%= select_tag :status, options_for_select(select_list, params[:status]), class: "form-control input-sm" %>
             <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>
@@ -31,8 +30,8 @@
             <% end %>
             </ul>
           <% else %>
-          <br /><br />
-          <p class="lead text-center">Uh oh! You have no job applications.</p>
+          <p class="m-xl lead text-center">You have no job applications.</p>
+          <center><%= link_to "Get Involved", job_postings_path, class: "btn btn-primary mb-xl" %></center>
           <% end %>
       </div>
     </div>

@@ -1,15 +1,14 @@
 <% content_for :title, "My Organizations" %>
 
-<!-- container for the page -->
-<div class="container-fluid container-md">
+<!-- page container -->
+<div class="container-fluid container-lg">
 
   <!-- filtering header -->
-  <div class="row mv">
+  <div class="row mb">
     <div class="col-sm-12 text-right hidden-xs">
       <%= form_tag({controller: "organizations", action: "filter_user"}, method: "post", class:"form-inline") do %>
         <div class="form-group">
-          <% select_list = Organization.departments.keys.map { |w| [w.titleize, w] } %>
-          <% select_list.insert(0,"All") %>
+          <% select_list = Organization.departments.keys.map { |w| [w.titleize, w] }.insert(0,"All") %>
           <%= label_tag 'Department', nil, class: 'mr' %>
           <%= select_tag :department, options_for_select(select_list, params[:department]), class: "form-control input-sm" %>
           <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>
@@ -21,16 +20,16 @@
   <!-- main container for job postings -->
       <div class="card">
         <div class="card-body">
-          <ul class="list-group">
-            <% if !current_user.organizations.any? %><br /><br />
-              <p class="lead text-center">You are not a part of any organizations.</p>
-            <% else %>
-              <!-- iterate through all of user's orgs -->
+          <% if current_user.organizations.any? %>
+            <ul class="list-group">
               <% current_user.organizations.each do |organization| %>
                 <%= render 'organization_list_item', organization: organization, status: false, role: true %>
               <% end %>
-            <% end %>
-          </ul>
+            </ul>
+            <% else %>
+              <p class="m-xl lead text-center">You are not a part of any organizations.</p>
+              <center><%= link_to "Get Involved", job_postings_path, class: "btn btn-primary mb-xl" %></center>
+          <% end %>
         </div>
       </div>
-    </div>
+</div>

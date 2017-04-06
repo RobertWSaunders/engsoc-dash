@@ -2,12 +2,13 @@ class OrganizationsController < ApplicationController
 
   load_and_authorize_resource
 
+  skip_authorize_resource :only => :show
+
   before_action :set_organization, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :archive]
 
   # GET /organizations
   def index
     @organizations = Organization.where(status: "active").filter(params.slice(:department)).paginate(:page => params[:page], :per_page => 10)
-
   end
 
   # GET /organizations/new
@@ -19,6 +20,7 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
+      flash[:success] = "Organization Successfully Created!"
       redirect_to controller: 'organizations', action: 'show', id: @organization.id
     else
       render 'new'
@@ -38,6 +40,7 @@ class OrganizationsController < ApplicationController
   # PUT /organizations/:id
   def update
     if @organization.update_attributes(organization_params)
+      flash[:success] = "Organization Successfully Updated!"
       redirect_to controller: 'organizations', action: 'show', id: @organization.id
     else
       render 'edit'
@@ -47,6 +50,7 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/:id
   def destroy
     @organization.destroy
+    flash[:success] = "Organization Successfully Deleted!"
     redirect_to organizations_url
   end
 
@@ -79,6 +83,7 @@ class OrganizationsController < ApplicationController
     @organization.save
     redirect_to admin_organizations_path
   end
+
 
   def filter
     if params[:status] == "All" && params[:department] == "All"

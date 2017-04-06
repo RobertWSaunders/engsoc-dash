@@ -50,11 +50,13 @@
             </li>
           </ul>
         </li>
-        <!-- Just superadmin logic so far -->
-        <% if can? :manage, :all %>
+        <!-- anyone with ability to manage an organization can see extra items -->
+        <% if can? :manage, Organization  %>
           <li role="separator" class="divider">
             <hr>
           </li>
+          <!-- if a user can manage everything they can see the admin portal -->
+          <% if can? :manage, [Organization,JobPosting,JobApplication,JobPostingAnswer,Job,Interview]  %>
           <li class="<%= 'active' if ( controller.action_name.eql?('admin') || ( controller.controller_name.eql?('users') && controller.action_name.eql?('index')) ) %>">
             <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-key icon-fw"></em></span><span>Admin</span></a>
             <ul class="sidebar-subnav">
@@ -75,6 +77,8 @@
               </li>
             </ul>
           </li>
+          <% end %>
+          <% if can? :manage, Organization  %>
           <li class="<%= 'active' if (controller.action_name.eql?('manage')) %>">
             <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-social-buffer icon-fw"></em></span><span>Manage</span></a>
             <ul class="sidebar-subnav">
@@ -95,6 +99,7 @@
               </li>
             </ul>
           </li>
+          <% end %>
         <% end %>
       </ul>
     </nav>

@@ -1,15 +1,15 @@
+<!-- page title -->
 <% content_for :title, "All Organizations" %>
 
-<!-- container for the page -->
-<div class="container-fluid container-md">
+<!-- page container -->
+<div class="container-fluid container-lg">
 
   <!-- filtering header -->
-  <div class="row mv">
+  <div class="row mb">
     <div class="col-sm-12 text-right hidden-xs">
       <%= form_tag({controller: "organizations", action: "filter_index"}, method: "post", class:"form-inline") do %>
         <div class="form-group">
-          <% select_list = Organization.departments.keys.map { |w| [w.titleize, w] } %>
-          <% select_list.insert(0,"All") %>
+          <% select_list = Organization.departments.keys.map { |w| [w.titleize, w] }.insert(0,"All") %>
           <%= label_tag 'Department', nil, class: 'mr' %>
           <%= select_tag :department, options_for_select(select_list, params[:department]), class: "form-control input-sm" %>
           <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>
@@ -21,19 +21,22 @@
   <!-- main container for job postings -->
     <div class="card">
       <div class="card-body">
+        <% if @organizations.any? %>
         <ul class="list-group">
-          <% if @organizations.count == 0 %><br /><br />
-            <p class="lead text-center">There are currently no organizations.</p>
-          <% else %>
             <% @organizations.each do |organization| %>
               <%= render 'organization_list_item', organization: organization, status: false, role: true %>
             <% end %>
-          <% end %>
         </ul>
-        <center>
-          <!-- show the paginator for the will_paginate gem -->
-          <%= will_paginate @organizations, renderer: BootstrapPagination::Rails, page_links: false %><br />
-        </center>
+        <% else %>
+          <br /><br />
+          <p class="lead text-center">Cannot find any organizations.</p>
+        <% end %>
+        <!-- show the paginator if needed -->
+        <% if @organizations.count >= 10 %>
+          <center>
+              <%= will_paginate @organizations, renderer: BootstrapPagination::Rails, page_links: false %><br />
+          </center>
+        <% end %>
       </div>
-    </div>
   </div>
+</div>

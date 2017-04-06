@@ -1,5 +1,6 @@
 class JobPostingsController < ApplicationController
 
+  load_and_authorize_resource
   # before any action gets fired set the job posting
   before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview]
 
@@ -8,7 +9,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings
   def index
-    @open_job_postings = JobPosting.where(status: "open").filter(params.slice(:job_type)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
+    @open_job_postings = JobPosting.where(status: "open").filter(params.slice(:job_type, :job_department)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /job_postings/new?job_id=:id
@@ -31,6 +32,7 @@ class JobPostingsController < ApplicationController
   def create
     @jobposting = JobPosting.new(job_posting_params)
     if @jobposting.save
+      flash[:success] = "Job Posting Successfully Created!"
       redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
       render 'new'
@@ -52,6 +54,7 @@ class JobPostingsController < ApplicationController
   def update
     @jobposting = JobPosting.find(params[:id])
     if @jobposting.update_attributes(job_posting_params)
+      flash[:success] = "Job Posting Successfully Updated!"
       redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
       render 'edit'
@@ -61,6 +64,7 @@ class JobPostingsController < ApplicationController
   # DESTROY /job_postings/:id
   def destroy
     @jobposting.destroy
+    flash[:success] = "Job Posting Successfully Deleted!"
     redirect_to job_postings_path
   end
 
@@ -99,10 +103,14 @@ class JobPostingsController < ApplicationController
   end
 
   def filter_index
-    if params[:job_type] == "All"
+    if params[:job_type] == "All" && params[:job_department] == "All"
       redirect_to job_postings_path
-    else
+    elsif params[:job_type] != "All" && params[:job_department] == "All"
       redirect_to job_postings_path(job_type: params[:job_type])
+    elsif params[:job_type] == "All" && params[:job_department] != "All"
+      redirect_to job_postings_path(job_department: params[:job_department])
+    else
+      redirect_to job_postings_path(job_type: params[:job_type], job_department: params[:job_department])
     end
   end
 

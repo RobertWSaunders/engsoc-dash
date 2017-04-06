@@ -1,5 +1,5 @@
 class JobApplicationsController < ApplicationController
-
+  load_and_authorize_resource
   before_action :set_job_application, only: [:show, :edit, :update, :destroy, :finalize, :hire, :decline]
 
   # GET /job_postings/:job_posting_id/job_applications

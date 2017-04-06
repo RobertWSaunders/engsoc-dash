@@ -1,13 +1,10 @@
+<!-- page title -->
 <% content_for :title, "Edit " + @organization.name %>
 
-<div class="container container-fluid">
-
-  <div class="container-fluid container-md">
-    <h5>Edit <%= @organization.name %></h5>
-    <div class="card">
-      <div class="card-body">
-        <%= render 'organization_form' %>
-      </div>
+<div class="container-fluid container-md">
+  <div class="card">
+    <div class="card-body">
+      <%= render 'organization_form' %>
     </div>
   </div>
 </div>

@@ -2,6 +2,8 @@ class JobsController < ApplicationController
 
   load_and_authorize_resource
 
+  skip_authorize_resource :only => [:new, :create]
+
   before_action :set_job, only: [:show, :assign, :destroy, :edit, :update]
 
   # GET /organizations/:organization_id/jobs/new
@@ -14,9 +16,11 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     if @job.save
-      redirect_to controller: 'jobs', action: 'assign', id: @job.id
+      flash[:success] = "Job Successfully Created!"
+      redirect_to assign_job_path(@job.id)
     else
-      render 'new'
+      flash[:danger] = "Could Not Save Job!"
+      redirect_to root_path
     end
   end
 
@@ -27,6 +31,7 @@ class JobsController < ApplicationController
 
   # GET /jobs/:id/edit
   def edit
+    @organization = @job.organization
   end
 
   # PUT /jobs/:id
@@ -51,11 +56,11 @@ class JobsController < ApplicationController
   private
 
     def job_params
-      params.require(:job).permit(:title, :user_id, :organization_id, :description, :role)
+      params.require(:job).permit(:title, :user_id, :organization_id, :description, :role, :job_type)
     end
 
     def set_job
       @job = Job.find(params[:id])
     end
-    
+
 end

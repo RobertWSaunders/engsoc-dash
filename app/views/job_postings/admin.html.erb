@@ -2,10 +2,10 @@
 <% content_for :title, "Admin Job Postings" %>
 
   <!-- main container for job postings -->
-  <div class="container-md container-fluid">
+  <div class="container-lg container-fluid">
 
     <!-- filtering header -->
-    <div class="row mv">
+    <div class="row mb">
       <div class="col-sm-4">
         <%= link_to(new_job_posting_path, class: "btn btn-primary") do %>
           <em class="ion-plus mr-sm"></em>Create Job Posting
@@ -14,8 +14,7 @@
       <div class="col-sm-8 text-right hidden-xs">
         <%= form_tag({controller: "job_postings", action: "filter"}, method: "post", class:"form-inline") do %>
           <div class="form-group">
-            <% select_list = JobPosting.statuses.keys.map { |w| [w.titleize, w] } %>
-            <% select_list.insert(0,"All") %>
+            <% select_list = JobPosting.statuses.keys.map { |w| [w.titleize, w] }.insert(0,"All") %>
             <%= label_tag 'Status', nil, class: 'mr' %>
             <%= select_tag :status, options_for_select(select_list, params[:status]), class: "form-control input-sm" %>
             <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>
@@ -33,13 +32,12 @@
               <%= render 'job_posting_list_item', posting: posting, dropdown: true %>
             <% end %>
           <% else %>
-            <br /><br />
-            <p class="lead text-center">No Job Postings To Show</p>
+            <p class="m-xl lead text-center">Cannot find any job postings.</p>
           <% end %>
         </ul>
       </div>
 
-      <% if @job_postings.count > 9 %>
+      <% if @job_postings.count >= 10 %>
         <!-- show the paginator for the will_paginate gem -->
         <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
       <% end %>

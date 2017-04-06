@@ -2,11 +2,10 @@
 <% content_for :title, "Job Postings" %>
 
   <!-- main container for job postings -->
-  <div class="container-fluid container-md">
-
+  <div class="container-fluid container-lg">
 
     <!-- filtering header -->
-    <div class="row mv">
+    <div class="row mb">
       <div class="col-sm-12 text-right hidden-xs">
         <%= form_tag({controller: "job_postings", action: "filter_index"}, method: "post", class:"form-inline") do %>
           <div class="form-group">
@@ -15,7 +14,7 @@
             <% department_list = Organization.departments.keys.map { |w| [w.titleize, w] } %>
             <% department_list.insert(0,"All") %>
             <%= label_tag 'Department', nil, class: 'mr' %>
-            <%= select_tag :department, options_for_select(department_list, params[:department]), class: "form-control input-sm mr" %>
+            <%= select_tag :job_department, options_for_select(department_list, params[:job_department]), class: "form-control input-sm mr" %>
             <%= label_tag 'Type', nil, class: 'mr' %>
             <%= select_tag :job_type, options_for_select(select_list, params[:job_type]), class: "form-control input-sm" %>
             <%= submit_tag 'Filter', class: "ml btn btn-inverse" %>
@@ -23,8 +22,6 @@
         <% end %>
       </div>
     </div>
-
-
 
     <div class="card">
       <div class="card-body">
@@ -36,13 +33,15 @@
             <% end %>
             </ul>
           <% else %>
-          <br /><br />
-          <p class="lead text-center">Uh oh! There are no open jobs right now.</p>
+            <p class="m-xl lead text-center">Could not find any open jobs.</p>
           <% end %>
-        <center>
-          <!-- show the paginator for the will_paginate gem -->
-          <%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br />
-        </center>
+
+        <% if @open_job_postings.count >= 10 %>
+          <center>
+            <!-- show the paginator for the will_paginate gem -->
+            <%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br />
+          </center>
+        <% end %>
       </div>
     </div>
   </div>

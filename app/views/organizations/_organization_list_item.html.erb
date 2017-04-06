@@ -1,7 +1,6 @@
 <!-- beginning of list item -->
 <li class="list-group-item">
-
-
+  <!-- render the dropdown -->
   <%= render 'organization_list_item_dropdown', organization: organization, status: status, role: role %>
 
   <!-- display the organization name -->
@@ -11,13 +10,13 @@
     <% end %>
   </h5>
 
-
   <!-- display the organization contact email -->
-  <p class="text-soft">
+  <p class="text-gray-darker">
       <a href="<%= organization.email %>"><%= organization.email %></a>
   </p>
 
-  <p class="text-soft">
+  <!-- display the organization department -->
+  <p class="text-gray-darker">
     Department: <%= organization.department.titleize %>
   </p>
 
