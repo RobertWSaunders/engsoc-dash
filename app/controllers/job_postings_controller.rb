@@ -2,7 +2,7 @@ class JobPostingsController < ApplicationController
 
   load_and_authorize_resource
 
-  skip_authorize_resource :only => [:new, :create]
+  skip_authorize_resource :only => [:filter_index, :filter, :filter_manage]
 
   # before any action gets fired set the job posting
   before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview]
@@ -17,6 +17,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/new?job_id=:id
   def new
+
     @jobposting = JobPosting.new
     if params[:job_id]
       @job = Job.find(params[:job_id])

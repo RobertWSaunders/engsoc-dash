@@ -10,6 +10,7 @@ class Ability
 
   #define the actions users can perform based on their role and jobs they have
   def initialize(user)
+    # set or retrieve the user object
     user ||= User.new
 
     #####################
@@ -39,8 +40,12 @@ class Ability
       can :manage, Interview, id: Interview.where(job_application_id: JobApplication.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)).pluck(:id) ).pluck(:id)
     # for normal users, they can only read things
     else
-      #users can apply to jobs, hence can perform actions on job applications
-      can [:update, :destroy, :create], [JobApplication, JobPostingAnswers, JobPostingQuestions]
+      # gneral users can see the organizations they are apart of
+      can [:user], Organization
+      # users can apply to jobs, hence can perform actions on job applications
+      can [:edit, :new, :create, :user,:finalize], [JobApplication, JobPostingAnswer]
+      can :read, [Organization, JobPosting, JobPostingQuestion, Job, User, JobApplication]
+      can [:edit, :update], User, id: user.id
     end
   end
 
