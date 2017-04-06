@@ -39,7 +39,7 @@ class JobsController < ApplicationController
   def update
     if @job.update_attributes(job_params)
       flash[:success] = "Job Updated"
-      redirect_to job_path(@job)
+      redirect_to organization_path(@organization)
     else
       render 'edit'
     end
