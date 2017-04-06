@@ -52,6 +52,7 @@ class JobsController < ApplicationController
 
   # GET /jobs/:id/assign
   def assign
+  
   end
 
   private

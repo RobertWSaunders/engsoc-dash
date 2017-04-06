@@ -28,14 +28,12 @@
 
 <div class="card">
     <div class="card-body">
-      <% if !@job.user %>
         <% if @job.job_posting.present? %>
           <%= link_to 'View Job Posting', job_posting_path(id: @job.job_posting.id), class: "btn btn-primary pull-right" %>
         <% else %>
           <% if can? :manage, @job %>
-            <%= link_to 'Create Job Posting', new_job_posting_path(job_id: job.id), class: "btn btn-primary pull-right" %>
+            <%= link_to 'Create Job Posting', new_job_posting_path(job_id: @job.id), class: "btn btn-primary pull-right" %>
           <% end %>
-        <% end %>
       <% end %>
       <p class="lead">Position History</p>
       <div class="row" id="users">
