@@ -99,10 +99,9 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/:id/interview
   def interview
-    p @jobposting
     @jobposting.status = "interviewing"
     @jobposting.save
-    redirect_to job_postings_path
+    redirect_to manage_job_postings_path
   end
 
   # GET /job_postings/manage
