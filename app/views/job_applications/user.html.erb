@@ -26,7 +26,7 @@
             <ul class="list-group">
             <!-- iterate through all of the open job postings -->
             <% @user_job_applications.each do |app| %>
-              <%= render 'job_application_list_item', application: app, dropdown: true %>
+              <%= render 'user_job_application_list_item', application: app, dropdown: true %>
             <% end %>
             </ul>
           <% else %>
