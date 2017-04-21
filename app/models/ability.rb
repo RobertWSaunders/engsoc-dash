@@ -40,7 +40,7 @@ class Ability
       can :manage, Interview, id: Interview.where(job_application_id: JobApplication.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)).pluck(:id) ).pluck(:id)
 
       # users can apply to jobs, hence can perform actions on job applications
-      can [:edit,:update, :create, :new, :user, :finalize], [JobApplication, JobPostingAnswer]
+      can [:edit,:update, :create, :new, :user, :finalize], [Interview, JobPostingQuestion, JobPosting, JobApplication, JobPostingAnswer]
 
       can [:edit, :update], User, id: user.id
     # for normal users, they can only read things

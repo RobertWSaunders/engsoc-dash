@@ -87,14 +87,14 @@ class JobPostingsController < ApplicationController
   def approve
     @jobposting.status = "open"
     @jobposting.save
-    redirect_to job_postings_path
+    redirect_to admin_job_postings_path
   end
 
   # GET /job_postings/:id/withdraw
   def withdraw
     @jobposting.status = "waiting_approval"
     @jobposting.save
-    redirect_to job_postings_path
+    redirect_to admin_job_postings_path
   end
 
   # GET /job_postings/:id/interview
