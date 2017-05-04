@@ -29,11 +29,12 @@ class InterviewsController < ApplicationController
   # POST /interviews
   def create
     @interview = Interview.new(interview_params)
-    @job_application = JobApplication.find(@interview.job_application_id)
-    @job_application.status = "interview_scheduled"
-    @job_application.save
 
-    if @interview.save
+    if @interview.save!
+      flash[:success] = "Interview Scheduled"
+      @job_application = JobApplication.find(@interview.job_application_id)
+      @job_application.status = "interview_scheduled"
+      @job_application.save
       redirect_to manage_interviews_path
     else
       render :new

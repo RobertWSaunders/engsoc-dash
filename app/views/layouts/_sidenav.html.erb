@@ -56,15 +56,17 @@
             <hr>
           </li>
           <!-- if a user can manage everything they can see the admin portal -->
-          <% if can? :manage, [Organization,JobPosting,JobApplication,JobPostingAnswer,Job,Interview]  %>
+          <% if current_user.jobs.any? { |job| job.user_id == current_user.id && job.role == "admin" }  %>
           <li class="<%= 'active' if ( controller.action_name.eql?('admin') || ( controller.controller_name.eql?('users') && controller.action_name.eql?('index')) ) %>">
             <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-key icon-fw"></em></span><span>Admin</span></a>
             <ul class="sidebar-subnav">
+              <% if can? :manage, User %>
               <li class="<%= 'active' if (controller.controller_name.eql?('users')) %>">
                 <%= link_to profiles_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-person-stalker icon-fw"></em></span><span>Users</span>
                 <% end %>
               </li>
+              <% end %>
               <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) %>">
                 <%= link_to admin_organizations_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span>

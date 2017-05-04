@@ -22,9 +22,9 @@ class Ability
       can :manage, :all
     # for users that have a job where they are an admin
     elsif user.jobs.any? { |job| job.user_id == user.id && job.role == "admin" }
+      can :manage, :all
       #can manage pretty much everything except users
-      can :manage, [Organization,JobPosting,JobApplication,JobPostingQuestion,JobPostingAnswer,Job,Interview]
-    # for users that have a job where they are an manager
+   # for users that have a job where they are an manager
     elsif user.jobs.any? { |job| job.user_id == user.id && job.role == "management" }
       # can manage organizations they have a job under
       can :manage, Organization, id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id)
@@ -40,8 +40,8 @@ class Ability
       can :manage, Interview, id: Interview.where(job_application_id: JobApplication.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)).pluck(:id) ).pluck(:id)
 
       # users can apply to jobs, hence can perform actions on job applications
-      can [:edit,:update, :create, :new, :user, :finalize], [JobApplication, JobPostingAnswer]
-      
+      can [:edit,:update, :create, :new, :user, :finalize], [Interview, JobPostingQuestion, JobPosting, JobApplication, JobPostingAnswer]
+
       can [:edit, :update], User, id: user.id
     # for normal users, they can only read things
     else
