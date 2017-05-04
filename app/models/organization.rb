@@ -27,6 +27,7 @@ class Organization < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   #set bounds and make sure unique description
   validates :description, presence: true, length: { minimum: 10, maximum: 4000 }
+  validates :department, presence: true
 
   accepts_nested_attributes_for :jobs
 

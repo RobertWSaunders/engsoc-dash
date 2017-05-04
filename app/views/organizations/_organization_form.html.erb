@@ -50,9 +50,8 @@
   <fieldset class="last-child">
     <div class="row">
       <%= f.label :department, class: "col-sm-1 control-label" %>
-        <!-- only admins are able to set the status -->
         <div class="col-sm-11">
-          <%= f.select :department, Organization.departments.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+          <%= f.select :department, Organization.departments.keys.map { |w| [w.titleize, w] }, {:include_blank => "Select Department", :selected => 0}, {class: "form-control"} %>
         </div>
     </div>
   </fieldset>
