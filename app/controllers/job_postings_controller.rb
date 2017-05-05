@@ -39,12 +39,15 @@ class JobPostingsController < ApplicationController
   # POST /job_posting
   def create
     @jobposting = JobPosting.new(job_posting_params)
-    if @jobposting.save!
+    if @jobposting.save
       flash[:success] = "Job Posting Successfully Created!"
       redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
-      flash[:danger] = "Could Not Create Job Posting!"
-      redirect_to root_path
+      flash[:danger] = "Could not create Job Posting <ul>"
+      flash[:danger] << "<li>" + @jobposting.errors.full_messages.join('</li><li>')
+      flash[:danger] << "</ul>"
+      # render :new
+      redirect_to :action => "new", :job_id => @jobposting.job_id
     end
   end
 

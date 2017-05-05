@@ -27,5 +27,18 @@ class JobPosting < ApplicationRecord
   validates :title, presence: true, length: { minimum: 5, maximum: 100 }
   #description must be at least fifteen characters
   validates :description, presence: true, length: { minimum: 15, maximum: 4000 }
+  validates :deadline, presence: true
+  validate :deadline_cannot_be_in_the_past
+  validate :deadline_cannot_be_within_two_weeks
 
+  private
+
+    def deadline_cannot_be_in_the_past
+      errors.add(:deadline, "cannot be in the past") if self.deadline < Date.today
+    end
+
+    def deadline_cannot_be_within_two_weeks
+      two_weeks_later = Date.today + 2.weeks
+      errors.add(:deadline, "cannot be within 2 weeks") if self.deadline < two_weeks_later
+    end
 end

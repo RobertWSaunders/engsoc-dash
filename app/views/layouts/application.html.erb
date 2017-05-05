@@ -28,17 +28,17 @@
                   <% if key == 'notice' %>
                     <%= content_tag :div, class: "mt mr ml alert alert-success", data: { dismiss: "alert" } do %>
                       <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <%= value %>
+                    <%= value.html_safe %>
                     <% end %>
                   <% elsif key == 'alert' %>
                     <%= content_tag :div, class: "mt mr ml alert alert-alert", data: { dismiss: "alert" } do %>
                       <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <%= value %>
+                    <%= value.html_safe %>
                     <% end %>
                   <% else %>
                     <%= content_tag :div, class: "mt mr ml alert alert-#{key}", data: { dismiss: "alert" } do %>
                       <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <%= value %>
+                    <%= value.html_safe %>
                   <% end %>
                 <% end %>
                 <% end %>
