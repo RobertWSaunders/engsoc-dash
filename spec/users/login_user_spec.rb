@@ -1,6 +1,6 @@
 require 'rails_helper.rb'
 
-feature 'Login' do
+feature 'Regular user' do
   scenario 'can login' do
     user = create(:student)
     visit '/users/sign_in'

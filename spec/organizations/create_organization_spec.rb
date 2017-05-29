@@ -1,23 +1,24 @@
 # require 'rails_helper.rb'
 
-# # 1. go to root path
-# # 2. click on admin dropdown
-# # 3. click on organizations button
-# # 4. click on create organization
-# # 5. fill out form
-# # 6. submit form
-# # 7. see organizations show page
+# # 1. login user
+# # 2. go to root path
+# # 3. click on admin dropdown
+# # 4. click on organizations button
+# # 5. click on create organization
+# # 6. fill out form
+# # 7. submit form
+# # 8. see organizations show page
 
 # feature 'Create organization' do
 #   scenario 'can create an organization' do
-#     user = create(:student)
+#     user = create(:superadmin)
+#     login_as(user, :scope => :user)
 #     # 1.
-#     visit '/users/sign_in'
+#     visit '/'
 #     # 2.
-#     # click_link 'Admin'
-#     fill_in 'user_email', with: 'regular@example.com'
-#     fill_in 'user_password', with: 'password'
-#     click_button 'Log in'
-#     expect(page).to have_content('Regular')
+#     save_and_open_page
+#     click_link 'Admin'
+#     click_link 'Organizations'
+#     click_link 'Create Organization'
 #   end
 # end

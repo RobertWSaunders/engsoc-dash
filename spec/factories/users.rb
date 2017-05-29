@@ -1,10 +1,10 @@
 FactoryGirl.define do
-  factory :superuser, class: User do
-    first_name "Super"
-    last_name  "User"
-    email      "superuser@example.com"
+  factory :superadmin, class: User do
+    first_name "Robert"
+    last_name  "Saunders"
+    email      "superadmin@example.com"
     password   "password"
-    role       1
+    role       "superadmin"
   end
 
   factory :student, class: User do
@@ -12,6 +12,6 @@ FactoryGirl.define do
     last_name  "User"
     email      "regular@example.com"
     password   "password"
-    role       0
+    role       "student"
   end
 end

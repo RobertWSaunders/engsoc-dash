@@ -54,6 +54,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'launchy'
 end
 
 # gems only for development enviroment
