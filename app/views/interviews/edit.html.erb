@@ -6,9 +6,11 @@
       <h3>Reschedule Interview with <%= @interview.job_application.user.first_name %><br>
         <small>for <%= @interview.job_application.job_posting.title %></small></h3>
 
-        <p class="lead">
-          Currently scheduled for <i><%= @interview.start_time.strftime("%b %e, %l:%M %p") %></i> to <i><%= @interview.end_time.strftime("%b %e, %l:%M %p") %></i>
-        </p>
+        <% if !@interview.errors.any? %>
+          <p class="lead">
+            Currently scheduled for <i><%= @interview.start_time.strftime("%b %e, %l:%M %p") %></i> to <i><%= @interview.end_time.strftime("%b %e, %l:%M %p") %></i>
+          </p>
+        <% end %>
 
       <%= render 'form', interview: @interview %>
 
