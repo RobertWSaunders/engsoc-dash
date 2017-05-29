@@ -113,7 +113,12 @@ Organization.create!(
 end
 
 #####################
-# QGEC seeds
+# Generate imperative jobpostingquestion
+JobPostingAnswer.create!(
+  id: 1)
+
+#####################
+# Org & Position Seeds
 org = Organization.create!(
               name: "Queen's Global Energy Conference",
               email: "qgec@engsoc.queensu.ca",
@@ -211,3 +216,5 @@ job = Job.create!(
               job_type: "volunteer",
               role: "regular",
               description: Faker::Lorem.paragraph(4, true))
+
+
