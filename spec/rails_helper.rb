@@ -58,4 +58,6 @@ RSpec.configure do |config|
 
   # Use warden test helpers, for logging in
   config.include Warden::Test::Helpers
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.extend ControllerHelpers, type: :controller
 end

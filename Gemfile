@@ -55,6 +55,7 @@ group :development, :test do
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'rails-controller-testing'
 end
 
 # gems only for development enviroment
