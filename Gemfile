@@ -56,6 +56,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'launchy'
   gem 'rails-controller-testing'
+    # Generate fake users & posts
+  gem 'faker'
 end
 
 # gems only for development enviroment
@@ -68,8 +70,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'better_errors', '~> 2.1', '>= 2.1.1'
   gem 'binding_of_caller', '~> 0.7.2'
-  # Generate fake users & posts
-  gem 'faker'
 end
 
 

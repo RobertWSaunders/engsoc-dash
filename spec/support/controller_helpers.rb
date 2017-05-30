@@ -7,7 +7,7 @@ module ControllerHelpers
     end
   end
 
-  def login_user
+  def login_student
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:student]
       sign_in FactoryGirl.create(:student)

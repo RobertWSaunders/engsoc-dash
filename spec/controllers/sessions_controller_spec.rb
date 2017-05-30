@@ -11,18 +11,18 @@ describe UsersController do
 
   context 'When student user login is valid' do
     # using helper in /support/controller_helpers.rb (included in spec_helper.rb file)
-    login_user
+    login_student
     it 'logs in user, and they can access index' do
       get 'index'
       expect(response).to render_template :index
     end
   end
 
-  context 'When any user does not login' do
+  context 'When any user not logged in' do
     # using helper in /support/controller_helpers.rb (included in spec_helper.rb file)
-    it 'they cannot access index' do
+    it 'redirect to sign in page' do
       get 'index'
-      expect(response).not_to render_template :index
+      expect(response).to redirect_to ("/users/sign_in")
     end
   end
 
