@@ -1,6 +1,6 @@
 module ControllerHelpers
 
-  def login_admin
+  def login_superadmin
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:superadmin]
       sign_in FactoryGirl.create(:superadmin) # Using factory girl as an example

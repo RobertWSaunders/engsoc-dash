@@ -2,24 +2,41 @@ require 'rails_helper'
 
 # https://hackernoon.com/your-guide-to-testing-in-ruby-on-rails-5-c8bd122e38ad
 
-# Controller
+# Model/Unit, Controller, View tests just rely on RSpec
 # An example of a 'controller test' (of a user controller w/ Devise)
 # full form header syntax:
   # RSpec.describe UsersController, type: :controller do
 # short form header syntax:
 describe UsersController do
 
-  # begin writing user controller test cases
-
-  # using helper in /support/controller_helpers.rb (included in spec_helper.rb file)
-  login_user
-
   context 'When student user login is valid' do
-    it 'sets student user in session and redirects them to index' do
+    # using helper in /support/controller_helpers.rb (included in spec_helper.rb file)
+    login_user
+    it 'logs in user, and they can access index' do
       get 'index'
-      expect(response).to be_success
-      # expect(controller.current_user).to eq user
+      expect(response).to render_template :index
     end
+  end
+
+  context 'When any user does not login' do
+    # using helper in /support/controller_helpers.rb (included in spec_helper.rb file)
+    it 'they cannot access index' do
+      get 'index'
+      expect(response).not_to render_template :index
+    end
+  end
+
+  context 'When superadmin user login is valid' do
+    # to test if admin login was successful, need to verify page content...
+    # https://stackoverflow.com/questions/39894061/how-to-writes-test-case-in-rails-for-html-content
+    render_views
+    login_superadmin
+    it 'logs in user and directs them to index' do
+      get 'index'
+      expect(response).to render_template :index
+      expect(response.body).to have_content('Admin')
+    end
+    # as suggested in the SO post, this sort of test can be a feature test instead, like below
   end
 end
 
@@ -34,7 +51,7 @@ feature 'Login Superadmin user' do
   end
 end
 
-# Example of feature test, this time 
+# Example of feature test, this time a more thorough way
 feature 'Login Regular user' do
   scenario 'can login' do
     user = create(:student)
@@ -42,6 +59,6 @@ feature 'Login Regular user' do
     fill_in 'user_email', with: 'regular@example.com'
     fill_in 'user_password', with: 'password'
     click_button 'Log in'
-    expect(page).to have_content('Regular')
+    expect(page).not_to have_content('Admin')
   end
 end
