@@ -2,6 +2,19 @@ require 'rails_helper'
 
 describe OrganizationsController do
 
+  # organizations tests
+  # TODO: permissions details
+    # in admin org page, have func to
+      # create new org
+      # archive, withdraw, create job, edit
+      # treat the deletion of orgs very carefully
+    # in manage org page, have func to
+      # create job, edit
+      # (new feature) request for archival, or withdrawl
+      # NOT have func to
+        # create new org
+        # delete org
+
   context "When logged in as superadmin" do
     login_superadmin
 
@@ -52,7 +65,6 @@ describe OrganizationsController do
     end
 
     context "Can change org statuses" do
-      
       before(:all) do
         @organization = create(:organization, :active)  
       end
@@ -139,7 +151,6 @@ describe OrganizationsController do
         expect(response).not_to render_template :admin
       end
     end
-
   end
 
 end
