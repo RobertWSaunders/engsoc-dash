@@ -51,8 +51,39 @@ describe OrganizationsController do
       end
     end
 
-    # describe "POST #withdraw" do
-    #   it "withdraws the "
+    context "Can change org statuses" do
+      before(:all) do
+        @organization = create(:organization, :active)  
+      end
+      describe "GET #withdraw" do
+        it "approves the organization" do
+          get :withdraw, params: { :id => @organization }
+          @organization.reload
+          expect(@organization.status).to eql("waiting_approval")
+        end
+      end
+      describe "GET #approve" do
+        it "approves the organization" do
+          get :approve, params: { :id => @organization }
+          @organization.reload
+          expect(@organization.status).to eql("active")
+        end
+      end
+      describe "GET #archive" do
+        it "approves the organization" do
+          get :archive, params: { :id => @organization }
+          @organization.reload
+          expect(@organization.status).to eql("archived")
+        end
+      end
+    end
+
+    describe "GET #manage" do
+      it "renders the manage view" do
+        get :manage
+        expect(response).to render_template :manage
+      end
+    end
 
   end
 

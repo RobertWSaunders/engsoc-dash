@@ -8,5 +8,15 @@ FactoryGirl.define do
     trait :invalid do
       department  nil
     end
+
+    trait :waiting_approval do
+      status      "waiting_approval"
+    end
+    trait :active do
+      status      "active"
+    end
+    trait :archived do
+      status      "archived"
+    end
   end
 end
