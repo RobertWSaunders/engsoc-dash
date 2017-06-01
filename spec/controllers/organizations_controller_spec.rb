@@ -119,17 +119,18 @@ describe OrganizationsController do
       end
     end
 
-    describe "GET #admin" do
-      it "does not render the admin view" do
-        get :admin
-        expect(response).not_to render_template :admin
-      end
-    end
-
     describe "GET #user" do
       it "render the user view" do
         get :user
         expect(response).to render_template :user
+      end
+    end
+    
+    # if cannot render admin view, assume that they cannot do any other actions
+    describe "GET #admin" do
+      it "does not render the admin view" do
+        get :admin
+        expect(response).not_to render_template :admin
       end
     end
 
