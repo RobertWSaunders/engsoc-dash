@@ -20,19 +20,30 @@ FactoryGirl.define do
       status      "archived"
     end
 
-    factory :organization_with_regular_job do
-      after(:create) do |organization|
-        create(:job, role: "regular", organization: organization)
-      end
-    end
+    # never used in the current set of cases - because not sure 
+    # how to assign the after created job to a variable for access...
+    # factory :organization_with_regular_job do
+    #   after(:create) do |organization|
+    #     create(:job, role: "regular", organization: organization)
+    #   end
+    # end
   end
 
   factory :job do
     status        "active"
-    role          "regular"
     job_type      "volunteer"
     title         { Faker::Job.title }
     description   { Faker::Lorem.paragraph(4, true) }
+
+    trait :regular do
+      role        "regular"
+    end
+    trait :management do
+      role        "management"
+    end
+    trait :admin do
+      role        "admin"
+    end
   end
 
 end

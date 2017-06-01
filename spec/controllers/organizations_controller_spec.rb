@@ -52,9 +52,11 @@ describe OrganizationsController do
     end
 
     context "Can change org statuses" do
+      
       before(:all) do
         @organization = create(:organization, :active)  
       end
+
       describe "GET #withdraw" do
         it "approves the organization" do
           get :withdraw, params: { :id => @organization }
