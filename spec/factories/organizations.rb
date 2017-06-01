@@ -1,8 +1,8 @@
 FactoryGirl.define do
 
   factory :organization do
-    email         { Faker::Internet.email }
-    name          { Faker::Team.name }
+    email         { Faker::Internet.unique.email }
+    name          { Faker::Team.unique.name }
     description   { Faker::Lorem.paragraph(4, true) }
     department    "clubs"
 
