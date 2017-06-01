@@ -120,12 +120,16 @@ describe OrganizationsController do
     end
 
     describe "GET #user" do
-      it "render the user view" do
+      render_views  
+      it "render the user view with a user's organization" do
+        organization = create(:organization)
+        job = create(:job, organization: organization, user_id: subject.current_user.id)
         get :user
         expect(response).to render_template :user
+        expect(response.body).to have_content(organization.name)
       end
     end
-    
+
     # if cannot render admin view, assume that they cannot do any other actions
     describe "GET #admin" do
       it "does not render the admin view" do

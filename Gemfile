@@ -57,7 +57,7 @@ group :development, :test do
   gem 'launchy'
   gem 'rails-controller-testing'
     # Generate fake users & posts
-  gem 'faker'
+  gem 'faker',          '~> 1.7.3'
 end
 
 # gems only for development enviroment

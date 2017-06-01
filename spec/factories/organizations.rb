@@ -1,4 +1,5 @@
 FactoryGirl.define do
+
   factory :organization do
     email         { Faker::Internet.email }
     name          { Faker::Team.name }
@@ -18,5 +19,20 @@ FactoryGirl.define do
     trait :archived do
       status      "archived"
     end
+
+    factory :organization_with_regular_job do
+      after(:create) do |organization|
+        create(:job, role: "regular", organization: organization)
+      end
+    end
   end
+
+  factory :job do
+    status        "active"
+    role          "regular"
+    job_type      "volunteer"
+    title         { Faker::Job.title }
+    description   { Faker::Lorem.paragraph(4, true) }
+  end
+
 end
