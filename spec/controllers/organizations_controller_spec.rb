@@ -39,7 +39,7 @@ describe OrganizationsController do
     describe "POST #destroy" do
       it "destroys the org, and redirects to index" do
         organization = create(:organization)
-        put :destroy, params: { :id => organization.id }
+        expect { put :destroy, params: { :id => organization.id } }.to change(Organization, :count).by(-1)
         expect(response).to redirect_to ("/organizations")
       end
     end
