@@ -20,7 +20,7 @@ describe JobsController do
       end
       describe "POST #update" do
         it "updates a job and redirects to show" do
-          job_params = { :title => Faker::Job.title }
+          job_params = { :job_type => "part_time" }
           put :update, params: { :id => @job.id, :job => job_params }
           expect(response).to redirect_to(job_path(:id => @job.id))
         end
@@ -33,7 +33,7 @@ describe JobsController do
       end
     end
 
-    describe "GET #show for an inactive organization job" do
+    describe "GET #show for a waiting_approval organization job" do
       it "should render the show view" do
         organization = create(:organization, :waiting_approval)
         job = create(:job, organization: organization)
@@ -55,7 +55,7 @@ describe JobsController do
       end
     end
 
-    describe "GET #show for an inactive organization job" do
+    describe "GET #show for a waiting_approval organization job" do
       it "shouldn't render the show view" do
         organization = create(:organization, :waiting_approval)
         job = create(:job, organization: organization)

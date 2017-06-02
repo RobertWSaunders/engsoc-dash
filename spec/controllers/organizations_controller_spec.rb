@@ -105,9 +105,25 @@ describe OrganizationsController do
     login_student
 
     describe "GET #index" do
+      render_views
       it "renders the index view" do
         get :index
         expect(response).to render_template :index
+      end
+      it "lists at least one active org" do
+        organization = create(:organization, :active)
+        get :index
+        expect(response.body).to have_content(organization.name)
+      end
+      it "does not list waiting_approval orgs" do
+        organization = create(:organization, :waiting_approval)
+        get :index
+        expect(response.body).not_to have_content(organization.name)
+      end
+      it "does not list archived orgs" do
+        organization = create(:organization, :archived)
+        get :index
+        expect(response.body).not_to have_content(organization.name)
       end
     end
 
@@ -125,11 +141,18 @@ describe OrganizationsController do
       end
     end
 
-    describe "GET #show" do
+    describe "GET #show for an active org" do
       it "renders the show view" do
-        organization = create(:organization)
+        organization = create(:organization, :active)
         get :show, params: { id: organization.id }
         expect(response).to render_template :show
+      end
+    end
+    describe "GET #show for a waiting_approval org" do
+      it "does not render the show view" do
+        organization = create(:organization, :waiting_approval)
+        get :show, params: { id: organization.id }
+        expect(response).not_to render_template :show
       end
     end
 
