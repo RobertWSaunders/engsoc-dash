@@ -55,7 +55,8 @@ describe JobPostingsController do
       it "shouldn't show open postings for inactive organizations" do
         open_jp_inactive_org = create(:job_posting, :open, job: @job_inactive_org)
         get :index
-        expect(response.body).not_to have_content(open_jp_inactive_org.title)
+        # expect(response.body).not_to have_content(open_jp_inactive_org.title)
+        expect(response.body).not_to have_content(@inactive_org.name)
       end
     end
 
