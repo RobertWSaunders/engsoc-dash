@@ -53,7 +53,7 @@ describe OrganizationsController do
       it "destroys the org, and redirects to index" do
         organization = create(:organization)
         expect { put :destroy, params: { :id => organization.id } }.to change(Organization, :count).by(-1)
-        expect(response).to redirect_to ("/organizations")
+        expect(response).to redirect_to("/organizations")
       end
     end
 

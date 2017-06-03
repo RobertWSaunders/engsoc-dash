@@ -5,6 +5,16 @@ describe JobsController do
   context "When logged in as superadmin" do
     login_superadmin
 
+    describe "POST #create" do
+      it "should create job" do
+        organization = create(:organization)
+        job_params = FactoryGirl.attributes_for(:job, :organization_id => organization)
+        expect { post :create, params: { :job => job_params, :organization_id => organization } }.to change(Job, :count).by(1)
+        # created as per https://stackoverflow.com/questions/9055866/rspec-test-for-create-action-of-a-controller-for-a-nested-resource
+        # but why is org_id needed twice???
+      end
+    end
+
     context "Can manipulate job" do
 
       before(:all) do
