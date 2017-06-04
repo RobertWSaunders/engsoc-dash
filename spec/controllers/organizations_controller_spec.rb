@@ -70,7 +70,7 @@ describe OrganizationsController do
       end
 
       describe "GET #withdraw" do
-        it "approves the organization" do
+        it "withdraws permission for the organization" do
           get :withdraw, params: { :id => @organization }
           @organization.reload
           expect(@organization.status).to eql("waiting_approval")
@@ -84,7 +84,7 @@ describe OrganizationsController do
         end
       end
       describe "GET #archive" do
-        it "approves the organization" do
+        it "archives the organization" do
           get :archive, params: { :id => @organization }
           @organization.reload
           expect(@organization.status).to eql("archived")

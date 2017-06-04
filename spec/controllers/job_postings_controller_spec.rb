@@ -33,17 +33,21 @@ describe JobPostingsController do
     #   it "should redirect to job posting questions" do
     #     job_posting_params = FactoryGirl.attributes_for(:job_posting)
     #     post :create, params: { :job_posting => job_posting_params, :job_id => @job_active_org.id }
-    #     expect(response).to render_template(job_posting_job_questions_path(JobPosting.last.id))
+    #     expect(response).to render_template(job_posting_job_questions_path(JobPosting.last))
     #   end
     # end
 
-    # new
-    # select - only show job postings user can manage
+    describe "GET #select" do
+      render_views
+      it "should show job postings without postings" do
+        get :select
+        expect(response.body).to have_content(@job_active_org.title)
+      end
+    end
+
     # edit
     # update
     # destroy
-    # admin
-      # do they have access to admin func on this page?
     # approve, withdraw, interview, manage
 
     describe "GET #admin" do
@@ -73,6 +77,40 @@ describe JobPostingsController do
         # expect(response.body).not_to have_content(open_jp_inactive_org.title)
         expect(response.body).to have_content(@inactive_org.name)
         # maybe it should note that it is a posting for an inactive organization?
+      end
+    end
+
+    context "Can change job posting statuses" do
+      before(:all) do
+        @posting = create(:job_posting, :open, job: @job_active_org)
+      end
+
+      describe "GET #edit" do
+        it "renders the edit view" do
+          get :edit, params: { id: @posting.id }
+          expect(response).to render_template :edit
+        end
+      end
+      describe "GET #withdraw" do
+        it "withdraws permission for the posting" do
+          get :withdraw, params: { :id => @posting }
+          @posting.reload
+          expect(@posting.status).to eql("waiting_approval")
+        end
+      end
+      describe "GET #approve" do
+        it "approves the posting" do
+          get :approve, params: { :id => @posting }
+          @posting.reload
+          expect(@posting.status).to eql("open")
+        end
+      end
+      describe "GET #interview" do
+        it "sets status to be interviewing the posting" do
+          get :interview, params: { :id => @posting }
+          @posting.reload
+          expect(@posting.status).to eql("interviewing")
+        end
       end
     end
 
