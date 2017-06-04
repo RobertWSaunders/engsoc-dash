@@ -51,6 +51,13 @@ gem 'simple_calendar', '~> 2.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails', '~> 3.6'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'launchy'
+  gem 'rails-controller-testing'
+    # Generate fake users & posts
+  gem 'faker',          '~> 1.7.3'
 end
 
 # gems only for development enviroment
@@ -63,8 +70,10 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'better_errors', '~> 2.1', '>= 2.1.1'
   gem 'binding_of_caller', '~> 0.7.2'
-  # Generate fake users & posts
-  gem 'faker'
+end
+
+group :test do
+  gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

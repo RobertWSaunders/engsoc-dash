@@ -14,6 +14,10 @@ Engineering Society Dashboard is a central place that engineering students at Qu
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request
 
+## Testing
+
+Use the command `bundle exec rspec` to run the suite.
+
 ## Versioning
 
 We use [Semantic Versioning](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
