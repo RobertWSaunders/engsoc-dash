@@ -114,8 +114,8 @@ end
 
 #####################
 # Generate imperative jobpostingquestion
-JobPostingAnswer.create!(
-  id: 1)
+# JobPostingAnswer.create!(
+#   id: 1)
 
 #####################
 # Org & Position Seeds
@@ -196,25 +196,67 @@ org = Organization.create!(
               department: "clubs",
               status: "active")
 Job.create!(
-              title: "Captain",
-              organization_id: org.id,
-              status: "active",
-              job_type: "volunteer",
-              role: "management",
-              description: Faker::Lorem.paragraph(4, true))
-Job.create!(
-              title: "Bot Programmer",
-              organization_id: org.id,
-              status: "active",
-              job_type: "volunteer",
-              role: "regular",
-              description: Faker::Lorem.paragraph(4, true))
-job = Job.create!(
               title: "Statistics Analyer",
               organization_id: org.id,
               status: "active",
               job_type: "volunteer",
               role: "regular",
               description: Faker::Lorem.paragraph(4, true))
-
-
+user = User.create!(
+             first_name:  "Stosh",
+             last_name:   "Fabricus",
+             email:       "stosh@queensu.ca",
+             password:    "password",
+             role:        "student")
+Job.create!(
+              title: "Captain",
+              organization_id: org.id,
+              user_id: user.id,
+              status: "active",
+              job_type: "volunteer",
+              role: "management",
+              description: Faker::Lorem.paragraph(4, true))
+job = Job.create!(
+              title: "Bot Programmer",
+              organization_id: org.id,
+              status: "active",
+              job_type: "volunteer",
+              role: "regular",
+              description: Faker::Lorem.paragraph(4, true))
+posting = JobPosting.create!(
+              title: job.title,
+              deadline: Time.now + 30.days,
+              status: "open",
+              description: Faker::Lorem.paragraph(4, true),
+              job_id: job.id)
+question1 = JobPostingQuestion.create!(
+              job_posting_id: posting.id,
+              content: "Do you have experience with java?")
+question2 = JobPostingQuestion.create!(
+              job_posting_id: posting.id,
+              content: "Do you know version control?")
+question3 = JobPostingQuestion.create!(
+              job_posting_id: posting.id,
+              content: "Have you worked in a team?")
+user = User.create!(
+             first_name:  "Chris",
+             last_name:   "Barnes",
+             email:       "chris@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: "Yes im java expert",
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Git master righ here",
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Been a manager",
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)

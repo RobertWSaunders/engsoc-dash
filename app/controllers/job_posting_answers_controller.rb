@@ -9,6 +9,7 @@ class JobPostingAnswersController < ApplicationController
 
   # GET /job_posting/:job_posting_id/job_application/:job_application_id/job_posting_answers/new
   def new
+    p "GET NEW!"
     @job_posting = JobPosting.find(params[:job_posting_id])
     @job_application = JobApplication.find(params[:job_application_id])
     if @job_application.job_posting_answers.any?

@@ -10,8 +10,9 @@ class JobPostingAnswer < ApplicationRecord
   belongs_to :job_application, :foreign_key => :job_application_id
   validates :job_application_id, :presence => true, :if => :not_generated?
   #a job application answer belongs to a question
-  belongs_to :job_posting_question 
-  validates :job_posting_questions_id, :presence => true, :if => :not_generated?
+  belongs_to :job_posting_question
+  validates :job_posting_questions_id, :presence => true
+  validates :content, :presence => true, length: { minimum: 3, maximum: 200 }, :if => :not_generated?
 
   private
 
@@ -19,6 +20,7 @@ class JobPostingAnswer < ApplicationRecord
       raise "Cannot delete the first, generated job posting question" if (id == 1)
     end
 
+    # used to break some validation checks for the imperative jpq
     def not_generated?
       !(id == 1)
     end
