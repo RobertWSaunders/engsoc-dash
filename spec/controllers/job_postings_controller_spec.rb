@@ -43,6 +43,11 @@ describe JobPostingsController do
         get :select
         expect(response.body).to have_content(@job_active_org.title)
       end
+      it "shouldn't show job postings with postings" do
+        job_posting = create(:job_posting, :waiting_approval, job: @job_active_org)
+        get :select
+        expect(response.body).not_to have_content(@job_active_org.title)
+      end
     end
 
     # edit
@@ -84,7 +89,6 @@ describe JobPostingsController do
       before(:all) do
         @posting = create(:job_posting, :open, job: @job_active_org)
       end
-
       describe "GET #edit" do
         it "renders the edit view" do
           get :edit, params: { id: @posting.id }
@@ -103,6 +107,13 @@ describe JobPostingsController do
           get :approve, params: { :id => @posting }
           @posting.reload
           expect(@posting.status).to eql("open")
+        end
+      end
+      describe "GET #interview" do
+        it "sets status to be interviewing the posting" do
+          get :interview, params: { :id => @posting }
+          @posting.reload
+          expect(@posting.status).to eql("interviewing")
         end
       end
       describe "GET #interview" do
@@ -188,6 +199,19 @@ describe JobPostingsController do
         open_jp_active_org = create(:job_posting, :open, job: @job_active_org)
         get :edit, params: { id: open_jp_active_org }
         expect(response).not_to render_template :edit
+      end
+    end
+
+    context "Can't change org statuses" do
+      before(:all) do
+        @organization = create(:organization, :active)  
+      end
+      describe "GET #withdraw" do
+        it "does not withdraw permission for the organization" do
+          get :withdraw, params: { :id => @organization }
+          @organization.reload
+          expect(@organization.status).not_to eql("waiting_approval")
+        end
       end
     end
 
