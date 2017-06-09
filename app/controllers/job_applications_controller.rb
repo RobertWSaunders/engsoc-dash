@@ -20,7 +20,7 @@ class JobApplicationsController < ApplicationController
         flash[:notice] = "It seems like you have already applied for this job."
         redirect_to job_posting_path(@job_posting)
       else
-        redirect_to edit_job_application_job_posting_answers_path(:job_application_id => @existing.id)
+        redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @existing.id)
       end
     end
     @job_application = JobApplication.new
