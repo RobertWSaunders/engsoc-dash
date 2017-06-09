@@ -113,11 +113,6 @@ Organization.create!(
 end
 
 #####################
-# Generate imperative jobpostingquestion
-# JobPostingAnswer.create!(
-#   id: 1)
-
-#####################
 # Org & Position Seeds
 org = Organization.create!(
               name: "Queen's Global Energy Conference",

@@ -21,7 +21,7 @@
   <% end %>
 
   <% elsif controller.action_name.eql?('edit') %>
-    <%= form_tag job_application_job_posting_answer_path(:id => 1), :method => :put do %>
+    <%= form_tag job_application_job_posting_answers_path, :method => :put do %>
 
       <% @job_posting_answers.each do |answer| %>
         <%= fields_for 'answers[]', answer do |a| %>

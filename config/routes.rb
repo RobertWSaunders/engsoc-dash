@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   resources :job_postings do
     resources :job_posting_questions, only: [:index, :create]
     resources :job_applications, only: [:index, :new, :create] do
-    resources :job_posting_answers, only: [:new, :create]
+      resource :job_posting_answers, only: [:new, :create]
     end
     member do
       get 'approve'
@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   end
 
   resources :job_applications, only: [:show, :update, :destroy] do
-    resources :job_posting_answers, only: [:edit, :update, :destroy]
+    resource :job_posting_answers, only: [:edit, :update, :destroy]
     resources :interviews, only: [:new]
     member do
       get 'finalize'
