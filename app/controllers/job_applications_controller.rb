@@ -39,7 +39,7 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/:id
   def show
-    @job_applications = JobApplication.where(job_posting_id: @job_application.job_posting_id).all
+    @job_applications = JobApplication.where(job_posting_id: @job_application.job_posting_id).where(:status => "submitted")
   end
 
   # GET /job_applications/:id/finalize
