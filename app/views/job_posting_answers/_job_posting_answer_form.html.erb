@@ -1,8 +1,10 @@
   <!-- Need to add error messagin -->
 
   <% if controller.action_name.eql?('new') %>
-
     <%= form_tag job_posting_job_application_job_posting_answers_path do %>
+    
+      <%= token_tag %> 
+
       <% @page_answers.each do |answer| %>
         <%= fields_for 'answers[]', answer, include_id: false do |a| %>
           <% qu = @all_questions[@page_answers.index(answer)] %>
@@ -23,11 +25,12 @@
   <% elsif controller.action_name.eql?('edit') %>
     <%= form_tag job_application_job_posting_answers_path, :method => :put do %>
 
+      <%= token_tag %> 
+
       <% @job_posting_answers.each do |answer| %>
         <%= fields_for 'answers[]', answer do |a| %>
-          <% qu = @all_questions[@job_posting_answers.index(answer)] %>
           <div class="field">
-            <%= a.label :content, qu.content %>
+            <%= a.label :content, JobPostingQuestion.where(id: answer.job_posting_questions_id).first.content %>
             <%= a.text_area :content, class: 'form-control', style: 'resize:none', name: 'answers[' + (answer.id - 1).to_s + '][content]', value: answer.content %>
             <%= a.hidden_field :id, :value => answer.id, name: 'answers[' + (answer.id - 1).to_s + '][id]' %>
           </div>
