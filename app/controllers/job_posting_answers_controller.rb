@@ -27,6 +27,9 @@ class JobPostingAnswersController < ApplicationController
       @answer = JobPostingAnswer.create(answer_params(params["answer"]))
     else
       params["answers"].each do |key, answer|
+        if !answer.present?
+          params["answers"] = "blnak"
+        end
         @answer = JobPostingAnswer.create(answer_params(answer))
       end
     end
@@ -37,12 +40,12 @@ class JobPostingAnswersController < ApplicationController
   # GET /job_applications/:job_application_id/job_posting_answers/edit
   def edit
     @job_application = JobApplication.find(params[:job_application_id])
+    @job_posting = JobPosting.find(@job_application.job_posting_id)
     if !@job_application.job_posting_answers.exists?
-      @job_posting = JobPosting.find(@job_application.job_posting_id)
       redirect_to new_job_posting_job_application_job_posting_answers_path(:job_posting_id => @job_posting.id)
     end
+    @all_questions = @job_posting = @job_posting.job_posting_questions.all
     @job_posting_answers = JobPostingAnswer.where(:job_application_id => @job_application.id).all
-    p @job_posting_answers
   end
 
   # PUT /job_applications/:job_application_id/job_posting_answers/:id

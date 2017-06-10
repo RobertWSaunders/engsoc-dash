@@ -12,6 +12,5 @@ class JobPostingAnswer < ApplicationRecord
   #a job application answer belongs to a question
   belongs_to :job_posting_question
   validates :job_posting_questions_id, :presence => true
-  validates :content, :presence => true, length: { minimum: 3, maximum: 200 }
 
 end
