@@ -1,7 +1,6 @@
 <tr>
   <td><%= job_application.id %></td>
-  <td><%= job_application.created_at %></td>
-  <td><%= job_application.user.first_name %> <%= job_application.user.last_name %></td>
+  <td><abbr title="<%= job_application.updated_at.strftime("%A, %B %d, %l:%M %p") %>"><%= job_application.user.first_name %> <%= job_application.user.last_name %></abbr></td>
   <td><%= job_application.status.titleize %></td>
   <td><%= link_to 'View', job_application_path(job_application) %></td>
 
