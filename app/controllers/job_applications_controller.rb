@@ -8,7 +8,9 @@ class JobApplicationsController < ApplicationController
   # GET /job_postings/:job_posting_id/job_applications
   def index
     @job_posting = JobPosting.find(params[:job_posting_id])
-    @job_applications = @job_posting.job_applications.where(:status => "submitted")
+    @submitted_job_applications = @job_posting.job_applications.where(:status => "submitted")
+    @hired_job_applications = @job_posting.job_applications.where(:status => "hired")
+    @declined_job_applications = @job_posting.job_applications.where(:status => "declined")
   end
 
   # GET /job_postings/:job_posting_id/job_applications/new
@@ -39,7 +41,7 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/:id
   def show
-    @job_applications = JobApplication.where(job_posting_id: @job_application.job_posting_id).where(:status => "submitted")
+    @job_applications = JobApplication.where(job_posting_id: @job_application.job_posting_id).where(:status => @job_application.status)
   end
 
   # GET /job_applications/:id/finalize

@@ -1,11 +1,17 @@
 <% content_for :title, @job_posting.title + " Job Applications" %>
 
-  <div class="container-fluid container-lg">
+<div class="container-fluid container-lg">        
+  <%= render "job_applications_table", applications: @hired_job_applications%>
+  <%= render "job_applications_table", applications: @submitted_job_applications%>
+  <%= render "job_applications_table", applications: @declined_job_applications%>
+
+  <% if !@submitted_job_applications && !@hired_job_applications && !@declined_job_applications %>
     <div class="card">
       <div class="card-body">
-        
-        <%= render "job_applications_table"%>
-
+        <div class="alert alert-warning ml mr">
+          There are currently no job applications for this posting.
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
+</div>

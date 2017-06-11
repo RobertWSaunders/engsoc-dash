@@ -46,8 +46,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <h4>Other Applications</h4>
-            <%= render "job_applications_table"%>
+            <%= render "job_applications_table", applications: @job_applications, other: true %>
           </div>
         </div>
         <div class="row">
