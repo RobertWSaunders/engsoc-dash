@@ -24,6 +24,9 @@
         <%= render @job_applications %>
       </tbody>
     </table>
+    <p>
+      Total: <strong><%= @job_applications.count %></strong> Applicants
+    </p>
   </div>
 <% else %>
   <div class="alert alert-warning ml mr">
