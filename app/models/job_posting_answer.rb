@@ -8,19 +8,10 @@ class JobPostingAnswer < ApplicationRecord
   #Relationships
   #a job application answer belongs to a job application
   belongs_to :job_application, :foreign_key => :job_application_id
-  validates :job_application_id, :presence => true, :if => :not_generated?
+  validates :job_application_id, :presence => true
   #a job application answer belongs to a question
-  belongs_to :job_posting_question 
-  validates :job_posting_questions_id, :presence => true, :if => :not_generated?
-
-  private
-
-    def cannot_delete_generated
-      raise "Cannot delete the first, generated job posting question" if (id == 1)
-    end
-
-    def not_generated?
-      !(id == 1)
-    end
+  belongs_to :job_posting_question
+  validates :job_posting_questions_id, :presence => true
+  validates :content, length: { maximum: 6000 }
 
 end

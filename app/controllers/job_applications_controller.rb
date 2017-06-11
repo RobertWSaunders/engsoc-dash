@@ -20,7 +20,7 @@ class JobApplicationsController < ApplicationController
         flash[:notice] = "It seems like you have already applied for this job."
         redirect_to job_posting_path(@job_posting)
       else
-        redirect_to edit_job_application_job_posting_answer_path(:job_application_id => @existing.id, :id => 1)
+        redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @existing.id)
       end
     end
     @job_application = JobApplication.new
@@ -31,7 +31,7 @@ class JobApplicationsController < ApplicationController
     @job_application = JobApplication.new(job_application_params)
     @job_posting = JobPosting.find(params[:job_posting_id])
     if @job_application.save
-      redirect_to new_job_posting_job_application_job_posting_answer_path(:job_application_id => @job_application.id)
+      redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @job_application.id)
     else
       render 'new'
     end
@@ -39,7 +39,7 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/:id
   def show
-    @job_applications = JobApplication.where(job_posting_id: @job_application.job_posting_id).all
+    @job_applications = JobApplication.where(job_posting_id: @job_application.job_posting_id).where(:status => "submitted")
   end
 
   # GET /job_applications/:id/finalize

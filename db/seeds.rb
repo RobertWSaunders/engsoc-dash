@@ -113,11 +113,6 @@ Organization.create!(
 end
 
 #####################
-# Generate imperative jobpostingquestion
-JobPostingAnswer.create!(
-  id: 1)
-
-#####################
 # Org & Position Seeds
 org = Organization.create!(
               name: "Queen's Global Energy Conference",
@@ -195,26 +190,281 @@ org = Organization.create!(
               description: Faker::Lorem.paragraph(4, true),
               department: "clubs",
               status: "active")
+user = User.create!(
+             first_name:  "Stosh",
+             last_name:   "Fabricus",
+             email:       "stosh@queensu.ca",
+             password:    "password",
+             role:        "student")
 Job.create!(
               title: "Captain",
               organization_id: org.id,
+              user_id: user.id,
               status: "active",
               job_type: "volunteer",
               role: "management",
               description: Faker::Lorem.paragraph(4, true))
-Job.create!(
+job = Job.create!(
               title: "Bot Programmer",
               organization_id: org.id,
               status: "active",
               job_type: "volunteer",
               role: "regular",
               description: Faker::Lorem.paragraph(4, true))
+posting = JobPosting.create!(
+              title: job.title,
+              deadline: Time.now + 30.days,
+              status: "open",
+              description: Faker::Lorem.paragraph(4, true),
+              job_id: job.id)
+question1 = JobPostingQuestion.create!(
+              job_posting_id: posting.id,
+              content: "Do you have experience with java?")
+question2 = JobPostingQuestion.create!(
+              job_posting_id: posting.id,
+              content: "Do you know version control?")
+question3 = JobPostingQuestion.create!(
+              job_posting_id: posting.id,
+              content: "Have you worked in a team?")
+user = User.create!(
+             first_name:  "Chris",
+             last_name:   "Barnes",
+             email:       "chris@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: "Yes im java expert",
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Git master righ here",
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Been a manager",
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)
+user = User.create!(
+             first_name:  "James",
+             last_name:   "Pang",
+             email:       "james@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: "Uh Java isn't my strongsuit",
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Mostly SVN",
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "No I don't like talking",
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)
+user = User.create!(
+             first_name:  "Nathan",
+             last_name:   "Akinson",
+             email:       "nathan@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: "Is that like coffee",
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Like version numbers?",
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Yeah for flip cup",
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)
+user = User.create!(
+             first_name:  "Otto",
+             last_name:   "Bismark",
+             email:       "otto@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: "Jawohl",
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Nein",
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "For the reich",
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)
+user = User.create!(
+             first_name:  "Steve",
+             last_name:   "Jobs",
+             email:       "steve@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: "Haha I invented it",
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Yeah anything you can throw at me",
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "I'm kind of a dick",
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)
+user = User.create!(
+             first_name:  "Mark",
+             last_name:   "Zuckerberg",
+             email:       "mark@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: "Too easy",
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Yes, it's crucial",
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "I used to be pretty bad at it but I'm getting the hang of it now",
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)
 job = Job.create!(
-              title: "Statistics Analyer",
+              title: "Statistics Analyzer",
               organization_id: org.id,
               status: "active",
               job_type: "volunteer",
               role: "regular",
               description: Faker::Lorem.paragraph(4, true))
-
-
+posting = JobPosting.create!(
+              title: job.title,
+              deadline: Time.now + 30.days,
+              status: "open",
+              description: Faker::Lorem.paragraph(4, true),
+              job_id: job.id)
+question1 = JobPostingQuestion.create!(
+              job_posting_id: posting.id,
+              content: "Do you have experience with R?")
+question2 = JobPostingQuestion.create!(
+              job_posting_id: posting.id,
+              content: "How did you find out about QAPT?")
+question3 = JobPostingQuestion.create!(
+              job_posting_id: posting.id,
+              content: "Have you worked in a team?")
+user = User.create!(
+             first_name:  "Spencer",
+             last_name:   "Evans",
+             email:       "spencer@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: "Yes from my econ classes",
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "From a poker tournament",
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "Yee whacha sayin b'y",
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)
+user = User.create!(
+             first_name:  "John",
+             last_name:   "Nash",
+             email:       "john@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: "No just pen and paper for me",
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "From a poker tournament",
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: "I'm actually insane",
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)
+user = User.create!(
+             first_name:  "Julius",
+             last_name:   "Antonius",
+             email:       "julius@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: Faker::Lorem.paragraph(4, true),
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: Faker::Lorem.paragraph(4, true),
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: Faker::Lorem.paragraph(4, true),
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)
+user = User.create!(
+             first_name:  "Cleo",
+             last_name:   "Patra",
+             email:       "cleo@queensu.ca",
+             password:    "password",
+             role:        "student")
+application = JobApplication.create!(
+              user_id: user.id,
+              job_posting_id: posting.id,
+              status: "submitted")
+JobPostingAnswer.create!(
+              content: Faker::Lorem.paragraph(4, true),
+              job_posting_questions_id: question1.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: Faker::Lorem.paragraph(4, true),
+              job_posting_questions_id: question2.id,
+              job_application_id: application.id)
+JobPostingAnswer.create!(
+              content: Faker::Lorem.paragraph(4, true),
+              job_posting_questions_id: question3.id,
+              job_application_id: application.id)

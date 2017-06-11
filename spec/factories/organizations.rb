@@ -3,7 +3,7 @@ FactoryGirl.define do
   factory :organization do
     email         { Faker::Internet.unique.email }
     name          { Faker::Team.unique.name + (((1..1000).to_a).sample).to_s }
-    description   { Faker::Lorem.paragraph(1, true) }
+    description   { Faker::Lorem.paragraph(4, true) }
     department    "clubs"
 
     trait :invalid do
