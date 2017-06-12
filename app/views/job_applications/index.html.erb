@@ -1,8 +1,20 @@
 <% content_for :title, @job_posting.title + " Job Applications" %>
 
-<div class="container-fluid container-lg">        
-  <%= render "job_applications_table", applications: @hired_job_applications%>
+<div class="container-fluid container-lg">
+  <div class="row mb">
+    <div class="col-sm-4">
+      <%= link_to(manage_job_postings_path, class: "btn btn-primary") do %>
+        <em class="ion-ios-list-outline mr-sm"></em>Manage Job Postings
+      <% end %>
+      <%= link_to(manage_interviews_path, class: "btn btn-primary") do %>
+        <em class="ion-android-calendar mr-sm"></em>Manage Interviews
+      <% end %>
+    </div>
+  </div>
+
   <%= render "job_applications_table", applications: @submitted_job_applications%>
+  <%= render "job_applications_table", applications: @hired_job_applications%>
+  <%= render "job_applications_table", applications: @interviewing_job_applications%>
   <%= render "job_applications_table", applications: @declined_job_applications%>
 
   <% if !@submitted_job_applications && !@hired_job_applications && !@declined_job_applications %>
@@ -14,4 +26,5 @@
       </div>
     </div>
   <% end %>
+
 </div>

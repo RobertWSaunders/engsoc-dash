@@ -9,6 +9,7 @@ class JobApplicationsController < ApplicationController
   def index
     @job_posting = JobPosting.find(params[:job_posting_id])
     @submitted_job_applications = @job_posting.job_applications.where(:status => "submitted")
+    @interviewing_job_applications = @job_posting.job_applications.where(:status => "interview_scheduled")
     @hired_job_applications = @job_posting.job_applications.where(:status => "hired")
     @declined_job_applications = @job_posting.job_applications.where(:status => "declined")
   end

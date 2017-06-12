@@ -1,8 +1,18 @@
 <tr>
   <td><%= job_application.id %></td>
   <td><abbr title="<%= job_application.updated_at.strftime("%A, %B %d, %l:%M %p") %>"><%= job_application.user.first_name %> <%= job_application.user.last_name %></abbr></td>
-  <td><%= job_application.status.titleize %></td>
-  <td><%= link_to 'View', job_application_path(job_application) %></td>
+  <td>
+    <%= job_application.status.titleize %>
+    <% if job_application.status == "interview_scheduled" %>
+      <br>(<%= Interview.find_by(:job_application_id => job_application.id).start_time.strftime("%b %e, %l:%M %p") %> ~ <%= Interview.find_by(:job_application_id => job_application.id).end_time.strftime("%I:%M %p") %>)
+    <% end %>
+  </td>
+  <td>
+    <%= link_to 'View Application', job_application_path(job_application) %>
+    <% if job_application.status == "submitted" %>
+     | <%= link_to 'Schedule Interview', new_job_application_interview_path(job_application) %>
+    <% end %>
+  </td>
 
   <% if can? :manage, job_application %>
     <td>

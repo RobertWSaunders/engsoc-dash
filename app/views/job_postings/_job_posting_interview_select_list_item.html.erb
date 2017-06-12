@@ -13,16 +13,34 @@
   </p>
 
   <% if posting.job_applications.any? %>
-    <ul>
-    <% posting.job_applications.each do |app| %>
-      <% if app.status == "submitted" %>
-        <li>
-          #<%= app.id %> - <%= app.user.first_name %> <%= app.user.last_name %>
-          <%= link_to "Schedule Interview", new_job_application_interview_path(app) %>
-        </li>
-      <% end %>
-    <% end %>
-    </ul>
+    <h3><small>Submitted Applications</small></h3>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="col-md-1">
+            APP. ID
+          </th>
+          <th>
+            SUBMITTED BY <abbr title="Hover to show submission time"><em class="ion-help-circled icon-fw"></em></abbr>
+          </th>
+          <th>
+            STATUS
+          </th>
+          <% if can? :manage, JobApplication %>
+          <th>
+            ACTIONS
+          </th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% posting.job_applications.each do |app| %>
+          <% if app.status == "submitted" %>
+            <%= render 'job_applications/job_application', job_application: app %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
 
 </li>
