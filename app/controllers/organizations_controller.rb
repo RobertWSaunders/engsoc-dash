@@ -29,7 +29,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/:id
   def show
-    @jobs = @organization.jobs.order(role: :desc, created_at: :asc)
+    @jobs = @organization.jobs.order(role: :desc, title: :asc)
   end
 
   # GET /organizations/:id/edit
