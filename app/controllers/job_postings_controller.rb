@@ -107,6 +107,11 @@ class JobPostingsController < ApplicationController
     redirect_to manage_job_postings_path
   end
 
+  # GET /job_postings/:id/close
+  def close
+    # TODO: Write controller logic
+  end
+
   # GET /job_postings/manage
   def manage
     @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })

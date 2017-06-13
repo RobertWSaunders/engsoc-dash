@@ -84,16 +84,17 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/:id/hire
   def hire
+    # TODO: Add flash message
     @job_application.status = "hired"
 
     job_posting = @job_application.job_posting
-    job_posting.status = "closed"
+    # job_posting.status = "closed"
 
     job = job_posting.job
     job.user_id = @job_application.user_id
 
     job.save
-    job_posting.save
+    # job_posting.save
     @job_application.save
     redirect_to :back
   end

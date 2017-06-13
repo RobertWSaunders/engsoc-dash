@@ -3,7 +3,7 @@
 
   <div class="row mb">
     <div class="col-sm-5">
-      <%= link_to(manage_job_postings_path, class: "btn btn-primary") do %>
+      <%= link_to(manage_job_postings_path, class: "btn btn-default") do %>
         <em class="ion-ios-list-outline mr-sm"></em>Manage Job Postings
       <% end %>
     </div>
@@ -26,7 +26,7 @@
           <h4>Manage Applications / Schedule Interviews</h4>
           <!-- list of job postings -->
           <div class="card">
-            <div class="card-body">
+            <div class="">
               <ul class="list-group">
                 <% if @interviewing_postings.any? %>
                   <% @interviewing_postings.each do |posting| %>

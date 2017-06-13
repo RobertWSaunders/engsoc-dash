@@ -53,6 +53,7 @@ Rails.application.routes.draw do
       get 'approve'
       get 'withdraw'
       get 'interview'
+      get 'close'
     end
     collection do
       get 'select'

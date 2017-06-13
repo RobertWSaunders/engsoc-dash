@@ -2,12 +2,17 @@
 
 <div class="container-fluid container-lg">
   <div class="row mb">
-    <div class="col-sm-6">
-      <%= link_to(manage_job_postings_path, class: "btn btn-primary") do %>
+    <div class="col-sm-10">
+      <%= link_to(manage_job_postings_path, class: "btn btn-default") do %>
         <em class="ion-ios-list-outline mr-sm"></em>Manage Job Postings
       <% end %>
-      <%= link_to(manage_interviews_path, class: "btn btn-primary") do %>
+      <%= link_to(manage_interviews_path, class: "btn btn-default") do %>
         <em class="ion-android-calendar mr-sm"></em>Manage Interviews
+      <% end %>
+    </div>
+    <div class="col-sm-2">
+      <%= link_to(close_job_posting_path(@job_posting), class: "btn btn-primary") do %>
+        <em class="ion-checkmark-round mr-sm"></em>Close Job Posting
       <% end %>
     </div>
   </div>
@@ -18,8 +23,8 @@
     </div>
   </div>
 
-  <%= render "job_applications_table", applications: @submitted_job_applications%>
   <%= render "job_applications_table", applications: @hired_job_applications%>
+  <%= render "job_applications_table", applications: @submitted_job_applications%>
   <%= render "job_applications_table", applications: @interviewing_job_applications%>
   <%= render "job_applications_table", applications: @declined_job_applications%>
 
@@ -32,5 +37,13 @@
       </div>
     </div>
   <% end %>
+
+  <div class="row mb">
+    <div class="col-sm-2 col-sm-offset-10">
+      <%= link_to(close_job_posting_path(@job_posting), class: "btn btn-primary") do %>
+        <em class="ion-checkmark-round mr-sm"></em>Close Job Posting
+      <% end %>
+    </div>
+  </div>
 
 </div>

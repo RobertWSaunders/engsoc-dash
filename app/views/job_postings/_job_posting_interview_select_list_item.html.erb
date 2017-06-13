@@ -1,11 +1,11 @@
 <li class="list-group-item">
 
   <!-- show the job title and link to the job posting detail -->
-  <h5 class="mb-sm">
+  <h4 class="mb-sm">
     <%= link_to job_posting_job_applications_path(posting), class: "ripple" do %>
       <%= posting.title %>
     <% end %>
-  </h5>
+  </h4>
 
   <!-- display the application deadline -->
   <p class="text-soft">
@@ -13,7 +13,6 @@
   </p>
 
   <% if posting.job_applications.any? %>
-    <h3><small>Submitted Applications</small></h3>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -41,6 +40,9 @@
         <% end %>
       </tbody>
     </table>
+    <%= link_to job_posting_job_applications_path(posting), class: "ripple" do %>
+      <p class="text-right"><em>View All</em></p>
+    <% end %>
   <% end %>
 
 </li>
