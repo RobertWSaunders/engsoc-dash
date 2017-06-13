@@ -1,6 +1,14 @@
 <% content_for :title, "Manage Job Interviews" %>
 <div class="container-lg container-fluid">
 
+  <div class="row mb">
+    <div class="col-sm-5">
+      <%= link_to(manage_job_postings_path, class: "btn btn-primary") do %>
+        <em class="ion-ios-list-outline mr-sm"></em>Manage Job Postings
+      <% end %>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-12">
       <div class="card">
