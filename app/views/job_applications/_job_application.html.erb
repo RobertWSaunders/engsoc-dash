@@ -18,10 +18,10 @@
     <% if job_application.status == "interview_scheduled" %>
       | <%= link_to 'Reschedule', edit_interview_path(job_application.interview) %>
       <% if Interview.find_by(:job_application_id => job_application.id).end_time.past? %>
-        <%= link_to hire_job_application_path(Interview.find_by(:job_application_id => job_application.id).job_application), :confirm => "Are you sure you want to HIRE this candidate?" do %>
+        <%= link_to hire_job_application_path(Interview.find_by(:job_application_id => job_application.id).job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
           <em class="ion-checkmark icon-fw ml"></em> Hire
         <% end %> | 
-        <%= link_to decline_job_application_path(Interview.find_by(:job_application_id => job_application.id).job_application), :confirm => "Are you sure you want to DECLINE this candidate?" do %>
+        <%= link_to decline_job_application_path(Interview.find_by(:job_application_id => job_application.id).job_application), data: { :confirm => "Are you sure you want to DECLINE this candidate?" } do %>
           <em class="ion-close icon-fw"></em> Decline
         <% end %>
       <% end %>

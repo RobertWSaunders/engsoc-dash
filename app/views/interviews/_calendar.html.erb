@@ -47,10 +47,10 @@
                     <% if interview.end_time.future? %> 
                       Not Interviewed Yet
                     <% else %>
-                      <%= link_to hire_job_application_path(interview.job_application), :confirm => "Are you sure you want to HIRE this candidate?" do %>
+                      <%= link_to hire_job_application_path(interview.job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
                         <em class="ion-checkmark icon-fw"></em> Hire
                       <% end %> | 
-                      <%= link_to decline_job_application_path(interview.job_application), :confirm => "Are you sure you want to DECLINE this candidate?" do %>
+                      <%= link_to decline_job_application_path(interview.job_application), data: { :confirm => "Are you sure you want to DECLINE this candidate?" } do %>
                         <em class="ion-close icon-fw"></em> Decline
                       <% end %>
                     <% end %>
