@@ -1,21 +1,23 @@
 <tr>
   <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
 
-  <% if job.user %>
-    <td><%= job.user.first_name %> <%= job.user.last_name %></td>
-    <td><%= job.user.email %></td>
-    <td>
-      <% if job.role == "management" %>
-        Managerial Position
-      <% elsif job.role == "admin" %>
-        Administration Position
-      <% elsif job.role == "regular" %>
-        General Member Position
-      <% end %>
-    </td>
-    <td>
-      <%= job.job_type.titleize %>
-    </td>
+  <% if job.users.any? %>
+    <% job.users.each do |usr| %>
+      <td><%= usr.first_name %> <%= usr.last_name %></td>
+      <td><%= usr.email %></td>
+      <td>
+        <% if job.role == "management" %>
+          Managerial Position
+        <% elsif job.role == "admin" %>
+          Administration Position
+        <% elsif job.role == "regular" %>
+          General Member Position
+        <% end %>
+      </td>
+      <td>
+        <%= job.job_type.titleize %>
+      </td>
+    <% end %>
 
   <% else %>
 

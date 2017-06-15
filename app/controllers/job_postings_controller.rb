@@ -5,7 +5,7 @@ class JobPostingsController < ApplicationController
   skip_authorize_resource :only => [:filter_index, :filter, :filter_manage]
 
   # before any action gets fired set the job posting
-  before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview]
+  before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview, :close]
 
   # define the helper for the controller
   helper :application
@@ -109,7 +109,19 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/:id/close
   def close
-    # TODO: Write controller logic
+    # @jobposting.status = "closed"
+    # p @jobposting.job_applications.all
+
+    hired = @jobposting.job_applications.where({ status: "hired"})
+    # set all hired job_application user_ids to job
+
+    # everyone else, set to declined
+
+    @jobposting.job_applications.update_all archived: true
+    redirect_to job_posting_job_applications_path(:job_posting_id => @jobposting.id)
+    # @jobposting.save
+
+    # redirect_to manage_job_postings_path
   end
 
   # GET /job_postings/manage

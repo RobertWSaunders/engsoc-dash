@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   resources :jobs, only: [:show, :edit, :update, :destroy] do
     member do
       get 'assign'
+      put 'add_user'
     end
   end
 

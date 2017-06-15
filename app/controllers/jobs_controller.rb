@@ -28,7 +28,7 @@ class JobsController < ApplicationController
   # GET /jobs/:id
   def show
     @organization = @job.organization
-    @users = @job.user
+    # @users = @job.user
   end
 
   # GET /jobs/:id/edit
@@ -55,10 +55,15 @@ class JobsController < ApplicationController
   def assign
   end
 
+  def add_user
+    user = User.find(job_params[:user_id])
+    @job.users << user
+  end
+
   private
 
     def job_params
-      params.require(:job).permit(:title, :user_id, :organization_id, :description, :role, :job_type)
+      params.require(:job).permit(:title, :organization_id, :description, :role, :job_type, { :user_ids => [] })
     end
 
     def set_job

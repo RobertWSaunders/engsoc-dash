@@ -10,8 +10,10 @@
       Assign Job To User:
     </p>
     <p>
-    <% if @job.user %>
-        This position is current held by <%= @job.user.first_name %> <%= @job.user.last_name %>, however you can assign it to someone else, select the new user and press 'Assign':
+    <% if @job.users.any? %>
+      <% @job.users.each do |usr| %>
+        This position is current held by <%= usr.first_name %> <%= usr.last_name %>, however you can assign it to someone else, select the new user and press 'Assign':
+      <% end %>
     <% else %>
         This position is currently vacant, however you can assign it to someone, select the user and press 'Assign':
     <% end %>
@@ -21,8 +23,16 @@
 
       <%= f.label :User,class: "col-sm-1 control-label" %>
       <div class="col-sm-11">
-      <%= f.select :user_id, User.all.collect { |user| [ user.email, user.id ] }, {},{class: "form-control"} %>
-    </div>
+        <ul>
+          <%#= f.select :user_ids, User.all.collect { |user| [ user.email, user.id ] }, {},{class: "form-control"} %>
+          <%= f.collection_check_boxes :user_ids, User.all, :id, :email, unchecked: User.all.map(&:id) do |b| %>
+            <li>
+              <%= b.check_box %>
+              <%= b.label %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
       <br />
       <br />
 
@@ -35,37 +45,35 @@
 <% if !@job.job_posting.present? %>
   <div class="card">
     <div class="card-body">
-          <p class="lead">
-            Create Job Posting:
-          </p>
-          <p>
-          <% if @job.user %>
-
-              This position is current held by <%= @job.user.first_name %> <%= @job.user.last_name %>, however you can create a new job posting to hire someone new for the position by creating a new job posting.
-              <% else %>
-                  This position is currently vacant, however you can create a new job posting to hire someone for the position by creating a new job posting.
-              <% end %>
-          </p>
-          <br />
-          <%= link_to "Create Job Posting", new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn btn-primary" %>
-  </div>
+      <p class="lead">
+        Create Job Posting:
+      </p>
+      <p>
+      <% if @job.users %>
+        <% @job.users.each do |usr| %>
+          This position is current held by <%= usr.first_name %> <%= usr.last_name %>, however you can create a new job posting to hire someone new for the position by creating a new job posting.
+        <% end %>
+      <% else %>
+        This position is currently vacant, however you can create a new job posting to hire someone for the position by creating a new job posting.
+      <% end %>
+      </p>
+      <br />
+      <%= link_to "Create Job Posting", new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn btn-primary" %>
+    </div>
   </div>
 <% end %>
-<% if !@job.user.present? %>
+<% if !@job.users.present? %>
   <div class="card">
     <div class="card-body">
-
-
-          <p class="lead">
-            Leave Job Vacant:
-          </p>
-          <p>
-            This job is currently vacant, if you wish to keep it vacant please choose the option below:
-          </p>
-          <br />
-          <%= link_to "Leave Vacant", organization_path(@job.organization), class: "btn btn btn-primary" %>
-        </div>
-
+      <p class="lead">
+        Leave Job Vacant:
+      </p>
+      <p>
+        This job is currently vacant, if you wish to keep it vacant please choose the option below:
+      </p>
+      <br />
+      <%= link_to "Leave Vacant", organization_path(@job.organization), class: "btn btn btn-primary" %>
+    </div>
   </div>
 </div>
 <% end %>
