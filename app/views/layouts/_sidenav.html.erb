@@ -56,7 +56,7 @@
             <hr>
           </li>
           <!-- if a user can manage everything they can see the admin portal -->
-          <% if current_user.jobs.any? { |job| job.user_id == current_user.id && job.role == "admin" } || current_user.role == "superadmin"  %>
+          <% if current_user.jobs.any? { |job| job.users.ids == current_user.id && job.role == "admin" } || current_user.role == "superadmin"  %>
           <li class="<%= 'active' if ( controller.action_name.eql?('admin') || ( controller.controller_name.eql?('users') && controller.action_name.eql?('index')) ) %>">
             <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-key icon-fw"></em></span><span>Admin</span></a>
             <ul class="sidebar-subnav">

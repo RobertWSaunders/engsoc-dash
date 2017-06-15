@@ -7,8 +7,8 @@ class Job < ApplicationRecord
   belongs_to :organization, :foreign_key => :organization_id
   #a job job belongs to a user
   # belongs_to :user, :foreign_key => :user_id
-  has_and_belongs_to_many :users
-
+  has_many :users, :through => :positions
+  has_many :positions
   has_one :job_posting, :foreign_key => :job_id, dependent: :destroy
 
 

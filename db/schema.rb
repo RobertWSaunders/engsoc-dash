@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615091221) do
+ActiveRecord::Schema.define(version: 20170615125213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 20170615091221) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "organization_id"
     t.string   "title"
     t.datetime "created_at",                  null: false
@@ -76,12 +75,6 @@ ActiveRecord::Schema.define(version: 20170615091221) do
     t.integer  "job_posting_id"
     t.index ["job_posting_id"], name: "index_jobs_on_job_posting_id", using: :btree
     t.index ["organization_id"], name: "index_jobs_on_organization_id", using: :btree
-    t.index ["user_id"], name: "index_jobs_on_user_id", using: :btree
-  end
-
-  create_table "jobs_users", id: false, force: :cascade do |t|
-    t.integer "job_id",  null: false
-    t.integer "user_id", null: false
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -92,6 +85,13 @@ ActiveRecord::Schema.define(version: 20170615091221) do
     t.string   "description"
     t.integer  "department",  default: 0
     t.string   "name"
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.integer "job_id",  null: false
+    t.integer "user_id", null: false
+    t.index ["job_id"], name: "index_positions_on_job_id", using: :btree
+    t.index ["user_id"], name: "index_positions_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
