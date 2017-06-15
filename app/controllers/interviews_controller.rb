@@ -4,7 +4,6 @@ class InterviewsController < ApplicationController
 
   # GET /job_applications/:job_application_id/interviews/new
   def new
-
     # Required resources for calendar
     @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
