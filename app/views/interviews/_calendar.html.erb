@@ -5,8 +5,10 @@
             <% interviews.each do |interview| %>
               <hr>
               <div class="interview">
-                <%= interview.job_application.user.first_name %>
-                <%= interview.job_application.user.last_name %>
+                <abbr title="<%= interview.job_application.job_posting.title %>">
+                  <%= interview.job_application.user.first_name %>
+                  <%= interview.job_application.user.last_name %>
+                </abbr>
                 <br>
                 <div class="time">
                 <%= interview.start_time.strftime("%I:%M %p") %> - <%= interview.end_time.strftime("%I:%M %p") %>
