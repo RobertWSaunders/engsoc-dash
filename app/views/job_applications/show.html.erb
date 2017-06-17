@@ -1,25 +1,29 @@
 <% content_for :title, "Job Application"  %>
 
 <div class="container container-fluid">
-  <div class="container container-md">
+  <div class="container container-lg">
     <h4>
-      Application for <%= link_to @job_application.job_posting.title, @job_application.job_posting %>
+      <span class="text-thin text-gray-light">
+        <%= @job_application.job_posting.job.organization.name %>
+      </span>
+      <br>
+      <%= link_to @job_application.job_posting.title, @job_application.job_posting %>
     </h4>
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-12">
-            <h3>
-              <small><%= @job_application.status.humanize %> by</small>
-              <br>
-              <%= link_to @job_application.user.first_name + " " + @job_application.user.last_name, profile_path(@job_application.user.id) %>
-              <br>
-              <small><%= @job_application.user.email %></small>
-            </h3>
+    <div class="row">
+      <div class="col-md-7 col-lg-8" id="application-body">
+        <div class="card">
+          <div class="card-heading">
+            <div class="card-title">
+              <h3>
+                <%= link_to @job_application.user.first_name + " " + @job_application.user.last_name, profile_path(@job_application.user.id) %>
+                <br>
+                <small><%= @job_application.user.email %></small>
+              </h3>
+            </div>
           </div>
-          <div class="col-md-8">
+          <div class="card-body">
             <% if @job_application.job_posting_answers.any? %>
-              <h6>Question Responses</h6>
+              <h6>Responses</h6>
               <ol>
               <% @job_application.job_posting_answers.each do |answer| %>
                 <% qu = JobPostingQuestion.where(id: answer.job_posting_questions_id).last %>
@@ -31,28 +35,158 @@
               </ol>
             <% end %>
           </div>
-          <div class="col-md-4">
-            <ul>
-              <li>Job Posting Deadline:
-                <br><strong><%= @job_application.job_posting.deadline.to_time.strftime('%a %d, %B, %y') %></strong></li>
-              <li>Application Submitted: 
-                <br><strong><%= @job_application.created_at.to_time.strftime('%a %d, %B, %y') %></strong></li>
-            </ul>
+        </div>
+      </div>
+      <div class="col-md-5 col-lg-4" id="application-actions">
+        <div class="card">
+          <div class="card-body">
+            <div class="mda-list mda-list-bordered" id="actionlist">
+              <% if @job_application.status == "submitted" %>
+                <div class="mda-list-item" id="status">
+                  <div class="mda-list-item-icon bg-deep-purple-500">
+                    <em class="ion-archive icon-lg"></em>
+                  </div>
+                  <div class="mda-list-item-text mda-2-line">
+                    <h3><span class="text-thin">Status</span></h3>
+                    <h3><%= @job_application.status.humanize.titleize %></h3>
+                  </div>
+                </div>
+                <div class="mda-list-item" id="actions">
+                  <div class="mda-list-item-icon bg-deep-purple-500">
+                    <em class="ion-wand icon-lg"></em>
+                  </div>
+                  <div class="mda-list-item-text mda-2-line">
+                    <h3><span class="text-thin">Actions</span></h3>
+                      <span class="mr">
+                      <h3>
+                        <%= link_to new_job_application_interview_path(@job_application) do %>
+                          <em class="ion-android-calendar icon-fw"></em> Schedule Interview
+                        <% end %>
+                      </h3>
+                      <hr>
+                      <h3>
+                        <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
+                          <em class="ion-checkmark icon-fw"></em> Hire
+                        <% end %>
+                      </h3>
+                      <hr>
+                      <h3>
+                      <%= link_to decline_job_application_path(@job_application), data: { :confirm => "Are you sure you want to DECLINE this candidate?" } do %>
+                        <em class="ion-close icon-fw"></em> Decline
+                      <% end %>
+                      </h3>
+                    </span>
+                  </div>
+                </div>
+              <% elsif @job_application.status =="interview_scheduled" %>
+                <div class="mda-list-item" id="status">
+                  <div class="mda-list-item-icon bg-info">
+                    <em class="ion-android-calendar icon-lg"></em>
+                  </div>
+                  <div class="mda-list-item-text mda-2-line">
+                    <h3><span class="text-thin"><%= @job_application.status.humanize.titleize %></span></h3>
+                    <h4>for <%= Interview.find_by(:job_application_id => @job_application.id).start_time.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
+                  </div>
+                </div>
+                <div class="mda-list-item" id="actions">
+                  <div class="mda-list-item-icon bg-info">
+                    <em class="ion-wand icon-lg"></em>
+                  </div>
+                  <div class="mda-list-item-text mda-2-line">
+                    <h3><span class="text-thin">Actions</span></h3>
+                      <span class="mr">
+                      <h3>
+                        <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
+                          <em class="ion-checkmark icon-fw"></em> Hire
+                        <% end %>
+                      </h3>
+                      <hr>
+                      <h3>
+                      <%= link_to decline_job_application_path(@job_application), data: { :confirm => "Are you sure you want to DECLINE this candidate?" } do %>
+                        <em class="ion-close icon-fw"></em> Decline
+                      <% end %>
+                      </h3>
+                      <hr>
+                      <h3>
+                        <%= link_to edit_interview_path(Interview.find_by(:job_application_id => @job_application.id)) do %>
+                          <em class="ion-edit icon-fw"></em> Reschedule
+                        <% end %>
+                      </h3>
+                    </span>
+                  </div>
+                </div>
+              <% elsif @job_application.status =="hired" %>
+                <div class="mda-list-item" id="status">
+                  <div class="mda-list-item-icon bg-success">
+                    <em class="ion-checkmark icon-lg"></em>
+                  </div>
+                  <div class="mda-list-item-text mda-2-line">
+                    <h3><span class="text-thin">Status</span></h3>
+                    <h3><%= @job_application.status.humanize.titleize %></h3>
+                  </div>
+                </div>
+                <div class="mda-list-item" id="actions">
+                  <div class="mda-list-item-icon bg-success">
+                    <em class="ion-wand icon-lg"></em>
+                  </div>
+                  <div class="mda-list-item-text mda-2-line">
+                    <h3><span class="text-thin">Actions</span></h3>
+                      <span class="mr">
+                      <h3>
+                        <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
+                          <em class="ion-ios-people icon-fw"></em> View Organization
+                        <% end %>
+                      </h3>
+                      <hr>
+                      <h3>
+                        <%= link_to edit_interview_path(Interview.find_by(:job_application_id => @job_application.id)) do %>
+                          <em class="ion-ios-person-outline icon-fw"></em> View Job
+                        <% end %>
+                      </h3>
+                    </span>
+                  </div>
+                </div>
+              <% elsif @job_application.status =="declined" %>
+                <div class="mda-list-item" id="status">
+                  <div class="mda-list-item-icon bg-red-500">
+                    <em class="ion-close icon-lg"></em>
+                  </div>
+                  <div class="mda-list-item-text mda-2-line">
+                    <h3><span class="text-thin">Status</span></h3>
+                    <h3><%= @job_application.status.humanize.titleize %></h3>
+                  </div>
+                </div>
+              <% end %>
+              <div class="mda-list-item" id="last-updated">
+                <div class="mda-list-item-icon bg-blue-500">
+                  <em class="ion-refresh icon-lg"></em>
+                </div>
+                <div class="mda-list-item-text mda-2-line">
+                  <h3><span class="text-thin">Last Updated</span></h3>
+                  <h4>on <%= @job_application.updated_at.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
+                </div>
+              </div>
+              <div class="mda-list-item" id="deadline">
+                <div class="mda-list-item-icon bg-warning">
+                  <em class="ion-alert-circled icon-lg"></em>
+                </div>
+                <div class="mda-list-item-text mda-2-line">
+                  <h3><span class="text-thin">Posting Deadline</span></h3>
+                  <h4><%= @job_application.job_posting.deadline.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-12">
-            <%= render "job_applications_table", applications: @job_applications, other: true %>
-          </div>
-        </div>
-        <div class="row">
-          <%= link_to "Back to Job Posting", @job_application.job_posting, class: "btn btn-flat btn-primary btn-block" %>
-        </div>
+    <div class="row">
+      <div class="col-md-12">
+        <%= render "job_applications_table", applications: @job_applications, other: true %>
       </div>
+    </div>
+    <div class="row">
+      <%= link_to "Back to Job Posting", @job_application.job_posting, class: "btn btn-flat btn-primary btn-block" %>
     </div>
   </div>
 </div>

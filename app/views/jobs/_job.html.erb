@@ -1,4 +1,4 @@
-<% if job.positions.size == 1 %>
+<% if job.users.size == 1 %>
 
   <tr>
     <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
@@ -31,15 +31,11 @@
     </td>
   </tr>
 
-<% elsif job.positions.size > 1 %>
+<% elsif job.users.size > 1 %>
 
   <% job.users.each do |usr, index| %>
   <tr>
-    <% if index == 0 %>
-      <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
-    <% else %>
-      <td></td>
-    <% end %>
+    <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
     <td><%= usr.first_name %> <%= usr.last_name %></td>
     <td><%= usr.email %></td>
     <td>
@@ -72,7 +68,7 @@
   <% end %>
 
 <%# else %>
-<% elsif !job.positions.any? %>
+<% elsif !job.users.any? %>
   <tr>
     <td>
       <%= link_to job.title.titleize, job_path(:id => job.id) %>

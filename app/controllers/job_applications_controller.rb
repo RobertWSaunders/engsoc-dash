@@ -81,19 +81,22 @@ class JobApplicationsController < ApplicationController
     end
   end
 
-
   # GET /job_applications/:id/hire
   def hire
     # TODO: Add flash message
+    # TODO: improve code quality
     @job_application.status = "hired"
 
     job_posting = @job_application.job_posting
     # job_posting.status = "closed"
 
     job = job_posting.job
-    job.user_id = @job_application.user_id
+    user = User.find(@job_application.user_id)
+    # when using << operator, builds the position model for me
+    user.jobs << job
+    # job.positions.user.id = @job_application.user_id
 
-    job.save
+    # job.save
     # job_posting.save
     @job_application.save
     redirect_to :back

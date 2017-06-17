@@ -24,8 +24,8 @@
   </div>
 
   <%= render "job_applications_table", applications: @hired_job_applications%>
-  <%= render "job_applications_table", applications: @submitted_job_applications%>
   <%= render "job_applications_table", applications: @interviewing_job_applications%>
+  <%= render "job_applications_table", applications: @submitted_job_applications%>
   <%= render "job_applications_table", applications: @declined_job_applications%>
 
   <% if !@submitted_job_applications && !@hired_job_applications && !@declined_job_applications %>
