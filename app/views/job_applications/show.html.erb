@@ -49,15 +49,7 @@
                   <div class="mda-list-item-text mda-2-line">
                     <h3><span class="text-thin">Status</span></h3>
                     <h3><%= @job_application.status.humanize.titleize %></h3>
-                  </div>
-                </div>
-                <div class="mda-list-item" id="actions">
-                  <div class="mda-list-item-icon bg-deep-purple-500">
-                    <em class="ion-wand icon-lg"></em>
-                  </div>
-                  <div class="mda-list-item-text mda-2-line">
-                    <h3><span class="text-thin">Actions</span></h3>
-                      <span class="mr">
+                    <span class="mr">
                       <h3>
                         <%= link_to new_job_application_interview_path(@job_application) do %>
                           <em class="ion-android-calendar icon-fw"></em> Schedule Interview
@@ -84,17 +76,14 @@
                     <em class="ion-android-calendar icon-lg"></em>
                   </div>
                   <div class="mda-list-item-text mda-2-line">
-                    <h3><span class="text-thin"><%= @job_application.status.humanize.titleize %></span></h3>
-                    <h4>for <%= Interview.find_by(:job_application_id => @job_application.id).start_time.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
-                  </div>
-                </div>
-                <div class="mda-list-item" id="actions">
-                  <div class="mda-list-item-icon bg-info">
-                    <em class="ion-wand icon-lg"></em>
-                  </div>
-                  <div class="mda-list-item-text mda-2-line">
-                    <h3><span class="text-thin">Actions</span></h3>
-                      <span class="mr">
+                    <% if Interview.find_by(:job_application_id => @job_application.id).end_time.past? %>
+                      <h3><span class="text-thin">Interview Completed</span></h3>
+                      <h4>on <%= Interview.find_by(:job_application_id => @job_application.id).end_time.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
+                    <% else %>
+                      <h3><span class="text-thin"><%= @job_application.status.humanize.titleize %></span></h3>
+                      <h4>for <%= Interview.find_by(:job_application_id => @job_application.id).start_time.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
+                    <% end %>
+                    <span class="mr">
                       <h3>
                         <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
                           <em class="ion-checkmark icon-fw"></em> Hire
@@ -123,23 +112,15 @@
                   <div class="mda-list-item-text mda-2-line">
                     <h3><span class="text-thin">Status</span></h3>
                     <h3><%= @job_application.status.humanize.titleize %></h3>
-                  </div>
-                </div>
-                <div class="mda-list-item" id="actions">
-                  <div class="mda-list-item-icon bg-success">
-                    <em class="ion-wand icon-lg"></em>
-                  </div>
-                  <div class="mda-list-item-text mda-2-line">
-                    <h3><span class="text-thin">Actions</span></h3>
-                      <span class="mr">
+                    <span class="mr">
                       <h3>
-                        <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
+                        <%= link_to organization_path(@job_application.job_posting.job.organization) do %>
                           <em class="ion-ios-people icon-fw"></em> View Organization
                         <% end %>
                       </h3>
                       <hr>
                       <h3>
-                        <%= link_to edit_interview_path(Interview.find_by(:job_application_id => @job_application.id)) do %>
+                        <%= link_to job_path(@job_application.job_posting.job) do %>
                           <em class="ion-ios-person-outline icon-fw"></em> View Job
                         <% end %>
                       </h3>
@@ -157,12 +138,12 @@
                   </div>
                 </div>
               <% end %>
-              <div class="mda-list-item" id="last-updated">
+              <div class="mda-list-item" id="updated">
                 <div class="mda-list-item-icon bg-blue-500">
                   <em class="ion-refresh icon-lg"></em>
                 </div>
                 <div class="mda-list-item-text mda-2-line">
-                  <h3><span class="text-thin">Last Updated</span></h3>
+                  <h3><span class="text-thin">Updated</span></h3>
                   <h4>on <%= @job_application.updated_at.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
                 </div>
               </div>
