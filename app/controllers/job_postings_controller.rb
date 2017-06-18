@@ -5,7 +5,7 @@ class JobPostingsController < ApplicationController
   skip_authorize_resource :only => [:filter_index, :filter, :filter_manage]
 
   # before any action gets fired set the job posting
-  before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview, :close]
+  before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview, :close, :reopen]
 
   # define the helper for the controller
   helper :application
@@ -110,7 +110,6 @@ class JobPostingsController < ApplicationController
   # GET /job_postings/:id/close
   def close
     flash[:success] = "Job Posting Successfully Closed"
-
     @jobposting.status = "closed"
     # hired = @jobposting.job_applications.where({ status: "hired"})
     # job_application get #hire sets all hired job_application user_ids to job already
@@ -118,12 +117,19 @@ class JobPostingsController < ApplicationController
     # everyone else, decline
     not_hired = @jobposting.job_applications.where.not({ status: "hired"})
     not_hired.update_all status: "declined"
-
     # maybe set the previous job applications to be archived when the job_posting is reopened
     # @jobposting.job_applications.update_all archived: true
     @jobposting.save
+    redirect_to job_posting_job_applications_path(:job_posting_id => @job_posting.id)
+  end
 
-    redirect_to manage_job_postings_path
+  # GET /job_postings/:id/reopen
+  def reopen
+    flash[:success] = "Job Posting Successfully Reopened, Now Waiting for Admin Approval"
+    @jobposting.status = "waiting_approval"
+    @jobposting.job_applications.update_all archived: true
+    @jobposting.save
+    redirect_to job_posting_job_applications_path(:job_posting_id => @job_posting.id)
   end
 
   # GET /job_postings/manage

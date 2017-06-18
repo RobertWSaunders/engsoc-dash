@@ -2,10 +2,11 @@
 <div class="card">
   <div class="card-body">
     <div class="table-responsive ml mr">
-      <h4><% if defined? other %>
-        Other
-        <% end %> 
-        <%= applications.first.status.titleize %> Applications</h4>
+        <% if applications.first.archived == true %>
+          <h4>Archived Applications</h4>
+        <% else %>
+          <h4><%= applications.first.status.titleize %> Applications</h4>
+        <% end %>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -30,7 +31,12 @@
         </tbody>
       </table>
       <p>
-        Total: <strong><%= pluralize applications.count, applications.first.status.titleize + " Application" %></strong>
+        Total:
+        <% if applications.first.archived == true %>
+          <strong><%= applications.count %> Archived Applications</strong>
+        <% else %>
+          <strong><%= pluralize applications.count, applications.first.status.titleize + " Application" %></strong>
+        <% end %>
       </p>
     </div>
   </div>

@@ -3,6 +3,9 @@
   <td><abbr title="<%= job_application.updated_at.strftime("%A, %B %d, %l:%M %p") %>"><%= job_application.user.first_name %> <%= job_application.user.last_name %></abbr></td>
   <td>
     <%= job_application.status.titleize %>
+    <% if job_application.archived == true %>
+      <em class="ion-ios-box-outline icon-fw"></em>
+    <% end %>
     <% if job_application.status == "interview_scheduled" %>
       <% if Interview.find_by(:job_application_id => job_application.id).end_time.past? %>
         (Completed)

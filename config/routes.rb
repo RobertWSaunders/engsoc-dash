@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       get 'withdraw'
       get 'interview'
       get 'close'
+      get 'reopen'
     end
     collection do
       get 'select'

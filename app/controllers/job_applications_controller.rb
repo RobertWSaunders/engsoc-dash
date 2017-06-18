@@ -10,10 +10,11 @@ class JobApplicationsController < ApplicationController
   # GET /job_postings/:job_posting_id/job_applications
   def index
     @job_posting = JobPosting.find(params[:job_posting_id])
-    @submitted_job_applications = @job_posting.job_applications.where(:status => "submitted")
-    @interviewing_job_applications = @job_posting.job_applications.where(:status => "interview_scheduled")
-    @hired_job_applications = @job_posting.job_applications.where(:status => "hired")
-    @declined_job_applications = @job_posting.job_applications.where(:status => "declined")
+    @submitted_job_applications = @job_posting.job_applications.where(:status => "submitted").where.not(:archived => true)
+    @interviewing_job_applications = @job_posting.job_applications.where(:status => "interview_scheduled").where.not(:archived => true)
+    @hired_job_applications = @job_posting.job_applications.where(:status => "hired").where.not(:archived => true)
+    @declined_job_applications = @job_posting.job_applications.where(:status => "declined").where.not(:archived => true)
+    @archived_job_applications = @job_posting.job_applications.where(:archived => true).order("id").reverse_order
   end
 
   # GET /job_postings/:job_posting_id/job_applications/new

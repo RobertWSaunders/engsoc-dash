@@ -11,7 +11,7 @@
       <% end %>
     </div>
     <div class="col-sm-2">
-      <%= render "job_postings/job_posting_close_button", posting: @job_posting %>
+      <%= render "job_postings/job_posting_status_button", posting: @job_posting %>
     </div>
   </div>
 
@@ -25,6 +25,8 @@
   <%= render "job_applications_table", applications: @interviewing_job_applications%>
   <%= render "job_applications_table", applications: @submitted_job_applications%>
   <%= render "job_applications_table", applications: @declined_job_applications%>
+  <hr>
+  <%= render "job_applications_table", applications: @archived_job_applications%>
 
   <% if !@submitted_job_applications && !@hired_job_applications && !@declined_job_applications %>
     <div class="card">
@@ -38,7 +40,7 @@
 
   <div class="row mb">
     <div class="col-sm-2 col-sm-offset-10">
-      <%= render "job_postings/job_posting_close_button", posting: @job_posting %>
+      <%= render "job_postings/job_posting_status_button", posting: @job_posting %>
     </div>
   </div>
 
