@@ -5,7 +5,7 @@ class JobPostingsController < ApplicationController
   skip_authorize_resource :only => [:filter_index, :filter, :filter_manage]
 
   # before any action gets fired set the job posting
-  before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview]
+  before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview, :close]
 
   # define the helper for the controller
   helper :application
@@ -107,9 +107,29 @@ class JobPostingsController < ApplicationController
     redirect_to manage_job_postings_path
   end
 
+  # GET /job_postings/:id/close
+  def close
+    flash[:success] = "Job Posting Successfully Closed"
+
+    @jobposting.status = "closed"
+    # hired = @jobposting.job_applications.where({ status: "hired"})
+    # job_application get #hire sets all hired job_application user_ids to job already
+
+    # everyone else, decline
+    not_hired = @jobposting.job_applications.where.not({ status: "hired"})
+    not_hired.update_all status: "declined"
+
+    # maybe set the previous job applications to be archived when the job_posting is reopened
+    # @jobposting.job_applications.update_all archived: true
+    @jobposting.save
+
+    redirect_to manage_job_postings_path
+  end
+
   # GET /job_postings/manage
   def manage
-    @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
+    @managing_jobs = Job.includes(:positions).where(positions: { :user_id => current_user.id })
+    @managed_orgs = Organization.includes(:jobs).where(jobs: { :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
     @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).filter(params.slice(:status)).order("deadline").paginate(:page => params[:page], :per_page => 10)
   end

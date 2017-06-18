@@ -46,11 +46,11 @@ module ApplicationHelper
 
   # content for the job application status labels
   def role_label_organization(organization)
-    if organization.jobs.any? { |job| job.user_id == current_user.id && job.role == "management" }
+    if organization.jobs.any? { |job| job.users.ids == current_user.id && job.role == "management" }
       content_tag(:div, 'manager', class: 'label label-info')
-    elsif organization.jobs.any? { |job| job.user_id == current_user.id && job.role == "admin" }
+    elsif organization.jobs.any? { |job| job.users.ids == current_user.id && job.role == "admin" }
       content_tag(:div, 'admin', class: 'label label-primary')
-    elsif organization.jobs.any? { |job| job.user_id == current_user.id && job.role == "regular" }
+    elsif organization.jobs.any? { |job| job.users.ids == current_user.id && job.role == "regular" }
       content_tag(:div, 'member', class: 'label label-warning')
     end
   end

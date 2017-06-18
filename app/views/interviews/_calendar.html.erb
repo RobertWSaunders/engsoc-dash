@@ -5,8 +5,10 @@
             <% interviews.each do |interview| %>
               <hr>
               <div class="interview">
-                <%= interview.job_application.user.first_name %>
-                <%= interview.job_application.user.last_name %>
+                <abbr title="<%= interview.job_application.job_posting.title %>">
+                  <%= interview.job_application.user.first_name %>
+                  <%= interview.job_application.user.last_name %>
+                </abbr>
                 <br>
                 <div class="time">
                 <%= interview.start_time.strftime("%I:%M %p") %> - <%= interview.end_time.strftime("%I:%M %p") %>
@@ -45,10 +47,10 @@
                     <% if interview.end_time.future? %> 
                       Not Interviewed Yet
                     <% else %>
-                      <%= link_to hire_job_application_path(interview.job_application), :confirm => "Are you sure you want to HIRE this candidate?" do %>
+                      <%= link_to hire_job_application_path(interview.job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
                         <em class="ion-checkmark icon-fw"></em> Hire
                       <% end %> | 
-                      <%= link_to decline_job_application_path(interview.job_application), :confirm => "Are you sure you want to DECLINE this candidate?" do %>
+                      <%= link_to decline_job_application_path(interview.job_application), data: { :confirm => "Are you sure you want to DECLINE this candidate?" } do %>
                         <em class="ion-close icon-fw"></em> Decline
                       <% end %>
                     <% end %>

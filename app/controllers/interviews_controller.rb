@@ -4,9 +4,9 @@ class InterviewsController < ApplicationController
 
   # GET /job_applications/:job_application_id/interviews/new
   def new
-
     # Required resources for calendar
-    @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
+    @managing_jobs = Job.includes(:positions).where(positions: { :user_id => current_user.id })
+    @managed_orgs = Organization.includes(:jobs).where(jobs: { :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
     @interviewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "interviewing").order("deadline").paginate(:page => params[:page], :per_page => 10)
     @applications = JobApplication.where(:job_posting_id => @interviewing_postings.ids, :status =>"interview_scheduled")
@@ -55,11 +55,16 @@ class InterviewsController < ApplicationController
 
   # GET /interviews/manage
   def manage
-    @managed_orgs = Organization.includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })
+    @managing_jobs = Job.includes(:positions).where(positions: { :user_id => current_user.id })
+    @managed_orgs = Organization.includes(:jobs).where(jobs: { :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
     @interviewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "interviewing").order("deadline").paginate(:page => params[:page], :per_page => 10)
     @applications = JobApplication.where(:job_posting_id => @interviewing_postings.ids, :status =>"interview_scheduled")
     @interviews = Interview.where(:job_application_id => @applications.ids).order(end_time: :asc)
+  end
+
+  def admin
+    @interviews = Interview.all.order("end_time")
   end
 
   private

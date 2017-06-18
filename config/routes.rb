@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   resources :jobs, only: [:show, :edit, :update, :destroy] do
     member do
       get 'assign'
+      put 'add_user'
     end
   end
 
@@ -53,6 +54,7 @@ Rails.application.routes.draw do
       get 'approve'
       get 'withdraw'
       get 'interview'
+      get 'close'
     end
     collection do
       get 'select'
@@ -81,6 +83,7 @@ Rails.application.routes.draw do
   resources :interviews, only: [:create, :edit, :update] do
     collection do
       get 'manage'
+      get 'admin'
     end
   end
 

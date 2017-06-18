@@ -6,8 +6,9 @@ class Job < ApplicationRecord
   #a job belongs to an organization
   belongs_to :organization, :foreign_key => :organization_id
   #a job job belongs to a user
-  belongs_to :user, :foreign_key => :user_id
-
+  # belongs_to :user, :foreign_key => :user_id
+  has_many :users, :through => :positions
+  has_many :positions
   has_one :job_posting, :foreign_key => :job_id, dependent: :destroy
 
 
@@ -26,6 +27,6 @@ class Job < ApplicationRecord
   enum role: [:regular, :management, :admin]
   enum job_type: [:volunteer, :part_time, :full_time]
 
-  accepts_nested_attributes_for :user, :organization
+  accepts_nested_attributes_for :users, :organization
 
 end

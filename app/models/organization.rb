@@ -4,7 +4,8 @@ class Organization < ApplicationRecord
 
   scope :status, -> (status) { where status: status }
   scope :department, -> (department) { where department: department }
-  scope :user_managed, -> (current_user) { includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })}
+  # This scope needs a rewrite since the introduction of Positions through model
+  # scope :user_managed, -> (current_user) { includes(:jobs).where(jobs: { :user_id => current_user.id, :role => ["management", "admin"] })}
 
   #Relationships
   #an organization has many jobs, delete if organization is also deleted

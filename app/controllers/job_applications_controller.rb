@@ -4,11 +4,16 @@ class JobApplicationsController < ApplicationController
   skip_authorize_resource :only => [:filter_index, :filter, :filter_user]
 
   before_action :set_job_application, only: [:show, :edit, :update, :destroy, :finalize, :hire, :decline]
+  before_action :clear_cache, only: [:index]
+
 
   # GET /job_postings/:job_posting_id/job_applications
   def index
     @job_posting = JobPosting.find(params[:job_posting_id])
-    @job_applications = @job_posting.job_applications.where(:status => "submitted")
+    @submitted_job_applications = @job_posting.job_applications.where(:status => "submitted")
+    @interviewing_job_applications = @job_posting.job_applications.where(:status => "interview_scheduled")
+    @hired_job_applications = @job_posting.job_applications.where(:status => "hired")
+    @declined_job_applications = @job_posting.job_applications.where(:status => "declined")
   end
 
   # GET /job_postings/:job_posting_id/job_applications/new
@@ -39,7 +44,7 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/:id
   def show
-    @job_applications = JobApplication.where(job_posting_id: @job_application.job_posting_id).where(:status => "submitted")
+    @job_applications = JobApplication.where(job_posting_id: @job_application.job_posting_id).where(:status => @job_application.status)
   end
 
   # GET /job_applications/:id/finalize
@@ -78,19 +83,23 @@ class JobApplicationsController < ApplicationController
     end
   end
 
-
   # GET /job_applications/:id/hire
   def hire
+    # TODO: Add flash message
+    # TODO: improve code quality
     @job_application.status = "hired"
 
     job_posting = @job_application.job_posting
-    job_posting.status = "closed"
+    # job_posting.status = "closed"
 
     job = job_posting.job
-    job.user_id = @job_application.user_id
+    user = User.find(@job_application.user_id)
+    # when using << operator, builds the position model for me
+    user.jobs << job
+    # job.positions.user.id = @job_application.user_id
 
-    job.save
-    job_posting.save
+    # job.save
+    # job_posting.save
     @job_application.save
     redirect_to :back
   end
@@ -110,6 +119,12 @@ class JobApplicationsController < ApplicationController
 
     def job_application_params
       params.require(:job_application).permit(:user_id, :job_posting_id, :status, job_posting_answers: [:id, :content])
+    end
+
+    def clear_cache
+      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+      response.headers["Pragma"] = "no-cache"
+      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
     end
 
 end

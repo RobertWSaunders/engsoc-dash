@@ -2,7 +2,9 @@ class User < ApplicationRecord
 
   #Relationships
   #a user can have many jobs
-  has_many :jobs, dependent: :destroy
+  # has_many :jobs, dependent: :destroy
+  has_many :jobs, :through => :positions
+  has_many :positions
   #a user can be part of many organizations
   has_many :organizations, :through => :jobs
   #a user can have many job applications, delete applications if user is deleted

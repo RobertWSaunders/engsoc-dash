@@ -29,7 +29,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/:id
   def show
-    @jobs = @organization.jobs.order(role: :desc, created_at: :asc)
+    @jobs = @organization.jobs.order(role: :desc, title: :asc)
   end
 
   # GET /organizations/:id/edit
@@ -126,7 +126,8 @@ class OrganizationsController < ApplicationController
   end
 
   def manage
-    @managed_organizations = Organization.user_managed(current_user).filter(params.slice(:status, :department)).paginate(:page => params[:page], :per_page => 10)
+    @managing_jobs = Job.includes(:positions).where(positions: { :user_id => current_user.id })
+    @managed_organizations = Organization.includes(:jobs).where(jobs: { :role => ["management", "admin"] }).filter(params.slice(:status, :department)).paginate(:page => params[:page], :per_page => 10)
   end
 
   private

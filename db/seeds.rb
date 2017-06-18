@@ -126,60 +126,67 @@ user = User.create!(
              email:       "kat@queensu.ca",
              password:    "password",
              role:        "student")
-Job.create!(
+job = Job.create!(
               title: "Chair",
               organization_id: org.id,
-              user_id: user.id,
               status: "active",
               job_type: "volunteer",
               role: "management",
               description: Faker::Lorem.paragraph(4, true))
+Position.create!(
+              job_id: job.id,
+              user_id: user.id)
 user = User.create!(
              first_name:  "Peter",
              last_name:   "Ju",
              email:       "pete@queensu.ca",
              password:    "password",
              role:        "student")
-Job.create!(
+job = Job.create!(
               title: "Web & IT",
               organization_id: org.id,
-              user_id: user.id,
               status: "active",
               job_type: "volunteer",
               role: "regular",
               description: Faker::Lorem.paragraph(4, true))
+Position.create!(
+              job_id: job.id,
+              user_id: user.id)
 user = User.create!(
              first_name:  "Farhaj",
              last_name:   "Khan",
              email:       "farhaj@queensu.ca",
              password:    "password",
              role:        "student")
-Job.create!(
+job = Job.create!(
               title: "Logistics & Finance",
               organization_id: org.id,
-              user_id: user.id,
               status: "active",
               job_type: "volunteer",
               role: "regular",
               description: Faker::Lorem.paragraph(4, true))
+Position.create!(
+              job_id: job.id,
+              user_id: user.id)
 user = User.create!(
              first_name:  "Graham",
              last_name:   "Girard",
              email:       "graham@queensu.ca",
              password:    "password",
              role:        "student")
-Job.create!(
+job = Job.create!(
               title: "Head of Sponsorship",
               organization_id: org.id,
-              user_id: user.id,
               status: "active",
               job_type: "volunteer",
               role: "regular",
               description: Faker::Lorem.paragraph(4, true))
+Position.create!(
+              job_id: job.id,
+              user_id: user.id)
 Job.create!(
               title: "Head of Speakers",
               organization_id: org.id,
-              # user_id: user.id,
               status: "active",
               job_type: "volunteer",
               role: "regular",
@@ -196,14 +203,16 @@ user = User.create!(
              email:       "stosh@queensu.ca",
              password:    "password",
              role:        "student")
-Job.create!(
+job = Job.create!(
               title: "Captain",
               organization_id: org.id,
-              user_id: user.id,
               status: "active",
               job_type: "volunteer",
               role: "management",
               description: Faker::Lorem.paragraph(4, true))
+Position.create!(
+              job_id: job.id,
+              user_id: user.id)
 job = Job.create!(
               title: "Bot Programmer",
               organization_id: org.id,

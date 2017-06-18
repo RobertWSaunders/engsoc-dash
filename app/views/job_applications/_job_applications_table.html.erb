@@ -1,35 +1,38 @@
-
-<% if @job_applications %>
-  <div class="table-responsive ml mr">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th class="col-md-1">
-            APP. ID
-          </th>
-          <th>
-            SUBMITTED BY <abbr title="Hover to show submission time"><em class="ion-help-circled icon-fw"></em></abbr>
-          </th>
-          <th>
-            STATUS
-          </th>
-          <% if can? :manage, JobApplication %>
-          <th>
-            ACTIONS
-          </th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @job_applications %>
-      </tbody>
-    </table>
-    <p>
-      Total: <strong><%= @job_applications.count %></strong> Applicants
-    </p>
+<% if applications.any? %>
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive ml mr">
+      <h4><% if defined? other %>
+        Other
+        <% end %> 
+        <%= applications.first.status.titleize %> Applications</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="col-md-1">
+              APP. ID
+            </th>
+            <th class="col-md-3">
+              SUBMITTED BY <abbr title="Hover to show submission time"><em class="ion-help-circled icon-fw"></em></abbr>
+            </th>
+            <th class="col-md-3">
+              STATUS
+            </th>
+            <% if can? :manage, JobApplication %>
+            <th>
+              ACTIONS
+            </th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render applications %>
+        </tbody>
+      </table>
+      <p>
+        Total: <strong><%= pluralize applications.count, applications.first.status.titleize + " Application" %></strong>
+      </p>
+    </div>
   </div>
-<% else %>
-  <div class="alert alert-warning ml mr">
-    There are currently no jobs in this organization.
-  </div>
+</div>
 <% end %>
