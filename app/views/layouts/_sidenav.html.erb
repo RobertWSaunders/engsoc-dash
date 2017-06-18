@@ -77,11 +77,16 @@
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-list icon-fw"></em></span><span>Job Postings</span>
                 <% end %>
               </li>
+              <li class="<%= 'active' if (controller.controller_name.eql?('interviews')) %>">
+                <%= link_to admin_interviews_path, class:"ripple" do %>
+                  <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-android-calendar icon-fw"></em></span><span>Job Interviews</span>
+                <% end %>
+              </li>
             </ul>
           </li>
           <% end %>
           <% if can? :manage, Organization  %>
-          <li class="<%= 'active' if (controller.action_name.eql?('manage') || (controller.controller_name.eql?('job_applications') && ( (controller.action_name.eql?('index'))) || (controller.action_name.eql?('view'))) || (controller.controller_name.eql?('interviews')) ) %>">
+          <li class="<%= 'active' if (controller.action_name.eql?('manage') || (controller.controller_name.eql?('job_applications') && ( (controller.action_name.eql?('index'))) || (controller.action_name.eql?('view'))) || ( (controller.controller_name.eql?('interviews')) && (controller.action_name.eql?('manage')) ) ) %>">
             <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-social-buffer icon-fw"></em></span><span>Manage</span></a>
             <ul class="sidebar-subnav">
               <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) %>">

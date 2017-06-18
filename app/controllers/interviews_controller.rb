@@ -63,6 +63,10 @@ class InterviewsController < ApplicationController
     @interviews = Interview.where(:job_application_id => @applications.ids).order(end_time: :asc)
   end
 
+  def admin
+    @interviews = Interview.all.order("end_time")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_interview

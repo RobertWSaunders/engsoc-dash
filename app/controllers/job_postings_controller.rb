@@ -119,7 +119,8 @@ class JobPostingsController < ApplicationController
     not_hired = @jobposting.job_applications.where.not({ status: "hired"})
     not_hired.update_all status: "declined"
 
-    @jobposting.job_applications.update_all archived: true
+    # maybe set the previous job applications to be archived when the job_posting is reopened
+    # @jobposting.job_applications.update_all archived: true
     @jobposting.save
 
     redirect_to manage_job_postings_path

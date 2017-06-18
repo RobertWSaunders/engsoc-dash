@@ -83,6 +83,7 @@ Rails.application.routes.draw do
   resources :interviews, only: [:create, :edit, :update] do
     collection do
       get 'manage'
+      get 'admin'
     end
   end
 
