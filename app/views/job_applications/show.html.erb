@@ -78,10 +78,10 @@
                   <div class="mda-list-item-text mda-2-line">
                     <% if Interview.find_by(:job_application_id => @job_application.id).end_time.past? %>
                       <h3><span class="text-thin">Interview Completed</span></h3>
-                      <h4>on <%= Interview.find_by(:job_application_id => @job_application.id).end_time.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
+                      <h4>on <%= Interview.find_by(:job_application_id => @job_application.id).end_time.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
                     <% else %>
                       <h3><span class="text-thin"><%= @job_application.status.humanize.titleize %></span></h3>
-                      <h4>for <%= Interview.find_by(:job_application_id => @job_application.id).start_time.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
+                      <h4>for <%= Interview.find_by(:job_application_id => @job_application.id).start_time.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
                     <% end %>
                     <span class="mr">
                       <h3>
@@ -144,7 +144,7 @@
                 </div>
                 <div class="mda-list-item-text mda-2-line">
                   <h3><span class="text-thin">Updated</span></h3>
-                  <h4>on <%= @job_application.updated_at.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
+                  <h4>on <%= @job_application.updated_at.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
                 </div>
               </div>
               <div class="mda-list-item" id="deadline">
@@ -153,7 +153,16 @@
                 </div>
                 <div class="mda-list-item-text mda-2-line">
                   <h3><span class="text-thin">Posting Deadline</span></h3>
-                  <h4><%= @job_application.job_posting.deadline.to_time.strftime('%A, %B %d, %l:%M %p') %></h4>
+                  <h4><%= @job_application.job_posting.deadline.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
+                </div>
+              </div>
+              <div class="mda-list-item" id="back">
+                <div class="mda-list-item-icon bg-pink-500">
+                  <em class="ion-ios-person icon-lg"></em>
+                </div>
+                <div class="mda-list-item-text mda-2-line">
+                  <h3><span class="text-thin"><%= @job_application.job_posting.title %></span></h3>
+                  <h4><%= link_to "View All Job Applications", job_posting_job_applications_path(:job_posting_id => @job_application.job_posting.id) %></h4>
                 </div>
               </div>
             </div>
@@ -163,11 +172,16 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <%= render "job_applications_table", applications: @job_applications, other: true %>
+        <% if @job_application.archived != true %>
+          <%= render "job_applications_table", applications: @job_applications, other: true %>
+        <% end %>
       </div>
     </div>
     <div class="row">
-      <%= link_to "Back to Job Posting", @job_application.job_posting, class: "btn btn-flat btn-primary btn-block" %>
+      <%= link_to "Back to Posting", @job_application.job_posting, class: "btn btn-flat btn-primary btn-block" %>
+    </div>
+    <div class="row">
+      <%= link_to "Back to Posting's Applications", job_posting_job_applications_path(:job_posting_id => @job_application.job_posting.id), class: "btn btn-flat btn-primary btn-block" %>
     </div>
   </div>
 </div>
