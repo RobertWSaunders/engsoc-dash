@@ -86,7 +86,7 @@
           </li>
           <% end %>
           <% if can? :manage, Organization  %>
-          <li class="<%= 'active' if (controller.action_name.eql?('manage') || (controller.controller_name.eql?('job_applications') && ( (controller.action_name.eql?('index'))) || (controller.action_name.eql?('view'))) || ( (controller.controller_name.eql?('interviews')) && (controller.action_name.eql?('manage')) ) ) %>">
+          <li class="<%= 'active' if (controller.action_name.eql?('manage') || (controller.controller_name.eql?('job_applications') && ( (controller.action_name.eql?('index')) || (controller.action_name.eql?('show')) ) || (controller.action_name.eql?('view'))) || ( (controller.controller_name.eql?('interviews')) && (controller.action_name.eql?('manage')) ) ) %>">
             <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-social-buffer icon-fw"></em></span><span>Manage</span></a>
             <ul class="sidebar-subnav">
               <li class="<%= 'active' if (controller.controller_name.eql?('organizations')) %>">
@@ -94,7 +94,7 @@
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-people icon-fw"></em></span><span>Organizations</span>
                 <% end %>
               </li>
-              <li class="<%= 'active' if ( controller.controller_name.eql?('job_postings') || (controller.controller_name.eql?('job_applications') && (controller.action_name.eql?('index'))) ) %>">
+              <li class="<%= 'active' if ( controller.controller_name.eql?('job_postings') || (controller.controller_name.eql?('job_applications') && ((controller.action_name.eql?('index')) || (controller.action_name.eql?('show')))) ) %>">
                 <%= link_to manage_job_postings_path, class:"ripple" do %>
                   <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-list icon-fw"></em></span><span>Job Postings</span>
                 <% end %>
