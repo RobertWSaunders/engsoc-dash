@@ -109,19 +109,20 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/:id/close
   def close
-    # @jobposting.status = "closed"
-    # p @jobposting.job_applications.all
+    flash[:success] = "Job Posting Successfully Closed"
 
-    hired = @jobposting.job_applications.where({ status: "hired"})
-    # set all hired job_application user_ids to job
+    @jobposting.status = "closed"
+    # hired = @jobposting.job_applications.where({ status: "hired"})
+    # job_application get #hire sets all hired job_application user_ids to job already
 
-    # everyone else, set to declined
+    # everyone else, decline
+    not_hired = @jobposting.job_applications.where.not({ status: "hired"})
+    not_hired.update_all status: "declined"
 
     @jobposting.job_applications.update_all archived: true
-    redirect_to job_posting_job_applications_path(:job_posting_id => @jobposting.id)
-    # @jobposting.save
+    @jobposting.save
 
-    # redirect_to manage_job_postings_path
+    redirect_to manage_job_postings_path
   end
 
   # GET /job_postings/manage

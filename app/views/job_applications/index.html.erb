@@ -11,9 +11,7 @@
       <% end %>
     </div>
     <div class="col-sm-2">
-      <%= link_to(close_job_posting_path(@job_posting), class: "btn btn-primary") do %>
-        <em class="ion-checkmark-round mr-sm"></em>Close Job Posting
-      <% end %>
+      <%= render "job_postings/job_posting_close_button", posting: @job_posting %>
     </div>
   </div>
 
@@ -40,9 +38,7 @@
 
   <div class="row mb">
     <div class="col-sm-2 col-sm-offset-10">
-      <%= link_to(close_job_posting_path(@job_posting), class: "btn btn-primary") do %>
-        <em class="ion-checkmark-round mr-sm"></em>Close Job Posting
-      <% end %>
+      <%= render "job_postings/job_posting_close_button", posting: @job_posting %>
     </div>
   </div>
 
