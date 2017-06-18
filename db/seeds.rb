@@ -1,7 +1,7 @@
 
 #create some users
 #super admin
-User.create!(first_name:  "Robert",
+superadmin = User.create!(first_name:  "Robert",
              last_name:   "Saunders",
              email:       "superadmin@example.com",
              password:    "password",
@@ -213,6 +213,16 @@ job = Job.create!(
 Position.create!(
               job_id: job.id,
               user_id: user.id)
+job = Job.create!(
+              title: "Human Resources Manager",
+              organization_id: org.id,
+              status: "active",
+              job_type: "volunteer",
+              role: "management",
+              description: Faker::Lorem.paragraph(4, true))
+Position.create!(
+              job_id: job.id,
+              user_id: superadmin.id)
 job = Job.create!(
               title: "Bot Programmer",
               organization_id: org.id,
