@@ -4,6 +4,8 @@ class JobApplicationsController < ApplicationController
   skip_authorize_resource :only => [:filter_index, :filter, :filter_user]
 
   before_action :set_job_application, only: [:show, :edit, :update, :destroy, :finalize, :hire, :decline]
+  before_action :clear_cache, only: [:index]
+
 
   # GET /job_postings/:job_posting_id/job_applications
   def index
@@ -117,6 +119,12 @@ class JobApplicationsController < ApplicationController
 
     def job_application_params
       params.require(:job_application).permit(:user_id, :job_posting_id, :status, job_posting_answers: [:id, :content])
+    end
+
+    def clear_cache
+      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+      response.headers["Pragma"] = "no-cache"
+      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
     end
 
 end
