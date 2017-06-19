@@ -65,12 +65,12 @@ class JobPostingsController < ApplicationController
   # PUT /job_postings/:id
   def update
     @jobposting = JobPosting.find(params[:id])
-    if @jobposting.update_attributes!(job_posting_params)
+    if @jobposting.update_attributes(job_posting_params)
       flash[:success] = "Job Posting Successfully Updated!"
       redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
       flash[:danger] = "Could Not Update Job Posting!"
-      redirect_to root_path
+      redirect_to edit_job_posting_path(@jobposting)
     end
   end
 
