@@ -40,7 +40,7 @@ module ApplicationHelper
       when "hired"
         content_tag(:div, 'hired', class: 'label label-success')
       else
-        content_tag(:div, 'not chosen', class: 'label label-inverse')
+        content_tag(:div, 'not chosen', class: 'label label-danger')
     end
   end
 

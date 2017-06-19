@@ -28,13 +28,16 @@
             <% @user_job_applications.each do |app| %>
             <tr class="msg-display">
               <td class="text-ellipsis">
-                <% if app.status != "draft" %>
-                  <%= app.job_posting.title %>
-                <% else %>
+                <% if app.status == "draft" %>
                   <%= link_to edit_job_application_job_posting_answers_path(:job_application_id => app.id), class: "ripple" do %>
                     <%= app.job_posting.title %>
                   <% end %>
+                <% else %>
+                  <h4><%= app.job_posting.title %><small>, for</small> <%= link_to app.job_posting.job.organization.name, organization_path(app.job_posting.job.organization) %></h4>
                 <% end %>
+                <p>
+                  Application last updated: <%= app.updated_at.strftime('%A, %B %d, %l:%M %p, %Y') %>
+                </p>
                 <% if app.interview.present? %>
                   <p>
                     <strong>Interview Scheduled for:</strong>
@@ -43,12 +46,10 @@
                   <% end %>
               </td>
               <td>
-
-
-              <div class="pull-right dropdown">
-                <%= status_label_application(app) %>
-              </div>
-                </td>
+                <div class="pull-right dropdown">
+                  <%= status_label_application(app) %>
+                </div>
+              </td>
             </tr>
 
             <% end %>

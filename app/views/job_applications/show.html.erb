@@ -161,7 +161,7 @@
                   <em class="ion-ios-person icon-lg"></em>
                 </div>
                 <div class="mda-list-item-text mda-2-line">
-                  <h3><span class="text-thin"><%= @job_application.job_posting.title %></span></h3>
+                  <h3><span class="text-thin"><%= @job_application.job_posting.title %> <%= status_label(@job_application.job_posting) %></span></h3>
                   <h4><%= link_to "View All Job Applications", job_posting_job_applications_path(:job_posting_id => @job_application.job_posting.id) %></h4>
                 </div>
               </div>

@@ -83,7 +83,7 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/admin
   def admin
-    @job_postings = JobPosting.filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
+    @job_postings = JobPosting.filter(params.slice(:status)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /job_postings/:id/approve
@@ -140,7 +140,7 @@ class JobPostingsController < ApplicationController
   # GET /job_postings/manage
   def manage
     @managing_jobs = Job.includes(:positions).where(positions: { :user_id => current_user.id })
-    @managed_orgs = Organization.includes(:jobs).where(jobs: { :role => ["management", "admin"] })
+    @managed_orgs = Organization.includes(:jobs).where(jobs: { :id => @managing_jobs.ids, :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
     @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).filter(params.slice(:status)).order("deadline").paginate(:page => params[:page], :per_page => 10)
   end

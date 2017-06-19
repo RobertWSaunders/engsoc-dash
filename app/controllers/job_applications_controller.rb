@@ -73,7 +73,7 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/user
   def user
-    @user_job_applications = JobApplication.where(user_id: current_user.id).filter(params.slice(:status))
+    @user_job_applications = JobApplication.where(user_id: current_user.id).order(:id).filter(params.slice(:status))
   end
 
   def filter_user

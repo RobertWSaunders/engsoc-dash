@@ -29,6 +29,10 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/:id
   def show
+    if @organization.status != "active" && current_user.role != "superadmin"
+      flash[:danger] = "This organization is either not approved or archived, and therefore cannot be viewed."
+      redirect_to :back
+    end
     @jobs = @organization.jobs.order(role: :desc, title: :asc)
   end
 
@@ -127,7 +131,7 @@ class OrganizationsController < ApplicationController
 
   def manage
     @managing_jobs = Job.includes(:positions).where(positions: { :user_id => current_user.id })
-    @managed_organizations = Organization.includes(:jobs).where(jobs: { :role => ["management", "admin"] }).filter(params.slice(:status, :department)).paginate(:page => params[:page], :per_page => 10)
+    @managed_organizations = Organization.includes(:jobs).where(jobs: { :id => @managing_jobs.ids, :role => ["management", "admin"] }).filter(params.slice(:status, :department)).paginate(:page => params[:page], :per_page => 10)
   end
 
   private
