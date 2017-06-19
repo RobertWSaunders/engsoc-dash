@@ -10,7 +10,13 @@
   </h5>
 
   <!-- display the application deadline -->
-  <p class="text-gray-darker">Application Deadline: <%= distance_of_time_in_words(Time.now, posting.deadline) %><br /></p>
+  <p class="text-gray-darker">Application Deadline: 
+    <% if posting.deadline.past? %>
+      <%= posting.deadline.to_date %>
+    <% else %>
+      <%= distance_of_time_in_words(Time.now, posting.deadline) %><br />
+    <% end %>
+  </p>
 
   <p class="text-gray-darker">Organization: <%= posting.job.organization.name %><br /></p>
 

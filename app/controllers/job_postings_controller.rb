@@ -90,21 +90,26 @@ class JobPostingsController < ApplicationController
   def approve
     @jobposting.status = "open"
     @jobposting.save
-    redirect_to admin_job_postings_path
+    redirect_to :back
   end
 
   # GET /job_postings/:id/withdraw
   def withdraw
     @jobposting.status = "waiting_approval"
     @jobposting.save
-    redirect_to admin_job_postings_path
+    redirect_to :back
   end
 
   # GET /job_postings/:id/interview
   def interview
-    @jobposting.status = "interviewing"
-    @jobposting.save
-    redirect_to manage_job_postings_path
+    if @jobposting.deadline.past?
+      @jobposting.status = "interviewing"
+      @jobposting.save
+      redirect_to :back
+    else
+      flash[:danger] = "Cannot begin interviewing process, job posting deadline has not passed."
+      redirect_to :back
+    end
   end
 
   # GET /job_postings/:id/close
