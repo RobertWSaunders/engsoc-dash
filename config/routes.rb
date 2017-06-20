@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   end
 
   resources :job_postings do
-    resources :job_posting_questions, only: [:index, :create]
+    resources :job_posting_questions, only: [:index, :create, :update, :destroy]
     resources :job_applications, only: [:index, :new, :create] do
       resource :job_posting_answers, only: [:new, :create]
     end

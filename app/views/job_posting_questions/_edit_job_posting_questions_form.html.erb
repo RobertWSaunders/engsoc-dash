@@ -1,0 +1,30 @@
+<h6><span class="text-thin">Edit Existing Questions</span></h6>
+
+<%= render 'shared/job_posting_question_error_messages' %>
+
+<% questions.each do |ques| %>
+
+  <div class="row">
+
+    <%= form_for [@jobposting, ques], :method => :PUT do |f| %>
+
+      <%= f.hidden_field :job_posting_id, :value => @jobposting.id %>
+      <%= f.hidden_field :id, :value => ques.id %>
+
+      <div class="form-group">
+        <div class="col-md-10 mb">
+          <%= f.text_field :content, value: ques.content, placeholder: ques.content, class: 'form-control' %>
+        </div>
+        <div class="col-md-2 mb text-right">
+          <%= button_tag class: "btn btn-sm btn-success", :"data-toggle" => "popover", :"data-content" => "Save", :"data-trigger" => "hover", :"data-placement" => "bottom" do %>
+            <em class="ion-checkmark icon-fw"></em>
+          <% end %>
+          <%= link_to job_posting_job_posting_question_path(job_posting_id: @jobposting.id, id: ques.id), method: :delete, data: { confirm: "Are you sure? This cannot be undone." }, class: "btn btn-sm btn-danger", :"data-toggle" => "popover", :"data-content" => "Delete", :"data-trigger" => "hover", :"data-placement" => "bottom" do %>
+            <em class="ion-trash-a icon-fw"></em>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>  
+<% end %>
