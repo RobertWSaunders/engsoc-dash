@@ -29,9 +29,12 @@
               <tr class="msg-display">
                 <td class="text-ellipsis">
                   <% if app.status == "draft" %>
-                    <%= link_to edit_job_application_job_posting_answers_path(:job_application_id => app.id), class: "ripple" do %>
+                    <h4>
+                      <%= link_to edit_job_application_job_posting_answers_path(:job_application_id => app.id), class: "ripple" do %>
                       <%= app.job_posting.title %>
                     <% end %>
+                    <small>, for</small> <%= link_to app.job_posting.job.organization.name, organization_path(app.job_posting.job.organization) %>
+                    </h4>
                   <% else %>
                     <h4><%= app.job_posting.title %><small>, for</small> <%= link_to app.job_posting.job.organization.name, organization_path(app.job_posting.job.organization) %></h4>
                   <% end %>
