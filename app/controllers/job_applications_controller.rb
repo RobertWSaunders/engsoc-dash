@@ -3,9 +3,8 @@ class JobApplicationsController < ApplicationController
 
   skip_authorize_resource :only => [:filter_index, :filter, :filter_user]
 
-  before_action :set_job_application, only: [:show, :edit, :update, :destroy, :finalize, :hire, :decline]
-  before_action :clear_cache, only: [:index]
-
+  before_action :set_job_application, only: [:show, :edit, :update, :destroy, :select_resume, :finalize, :hire, :decline]
+  before_action :clear_cache, only: [:index, :select_resume]
 
   # GET /job_postings/:job_posting_id/job_applications
   def index
@@ -78,6 +77,22 @@ class JobApplicationsController < ApplicationController
     @user_job_applications = JobApplication.where(user_id: current_user.id).order(:id).filter(params.slice(:status))
   end
 
+  # GET /job_applications/:id/select_resume
+  def select_resume
+    @resumes = Resume.where(user_id: current_user.id).all
+  end
+
+  # PATCH /job_applications/:id/select_resume
+  def update_resume
+    if @job_application.update_attributes(resume_select_params)
+      # flash[:success] = "Job Application Successfully Submitted!"
+      redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @job_application.id, :job_posting_id => @job_application.job_posting.id)
+    else
+      flash[:warning] = "Hmm... something went wrong, please try again, or contact an Admin"
+      render 'select_resume'
+    end
+  end
+
   def filter_user
     if params[:status] == "All"
       redirect_to user_job_applications_path
@@ -121,7 +136,11 @@ class JobApplicationsController < ApplicationController
     end
 
     def job_application_params
-      params.require(:job_application).permit(:user_id, :job_posting_id, :status, job_posting_answers: [:id, :content])
+      params.require(:job_application).permit(:user_id, :job_posting_id, :status, :resumes_id, job_posting_answers: [:id, :content])
+    end
+
+    def resume_select_params
+      params.require(:job_application).permit(:resumes_id)
     end
 
     def clear_cache

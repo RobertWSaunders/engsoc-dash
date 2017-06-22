@@ -70,12 +70,11 @@ Rails.application.routes.draw do
   end
 
   resources :job_applications, only: [:show, :update, :destroy] do
-    resource :resume do
-      get 'select'
-    end
     resource :job_posting_answers, only: [:edit, :update, :destroy]
     resources :interviews, only: [:new]
     member do
+      get 'select_resume'
+      patch 'update_resume'
       get 'finalize'
       get 'hire'
       get 'decline'

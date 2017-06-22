@@ -1,0 +1,47 @@
+<% content_for :title, "Select Resume" %>
+
+<div class="container-fluid container-lg">
+  <div class="card">
+    <div class="card-body">
+      <h4><%= @job_application.job_posting.title %><br>
+        <small><%= @job_application.job_posting.job.organization.name %></small>
+      </h4>
+      <p>
+        Select a resume which you'd like to include along with your application.
+      </p>
+
+      <hr>
+
+      <% if @resumes.any? %>      
+        <%= form_for @job_application, :url => { :action => :update_resume }, :html => { class: "form-horizontal" } do |f| %>
+          <fieldset>
+            <div class="form-group">
+              <%= link_to "Add New Resume", profile_resumes_path(current_user), class: "btn btn-flat btn-default btn-block" %>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <%= f.label :resumes %>
+              </div>
+              <div class="col-sm-10">
+                <%= f.collection_select :resumes_id, @resumes.all, :id, :name, {:prompt => false}, {:class => "form-control"} %>
+              </div>
+            </div>
+          </fieldset>
+          <%= f.submit "Finish Selection", class: "btn btn-flat btn-success btn-block" %>
+        <% end %>
+      <% else %>
+        <p>
+          Seems like you currently have no resumes to select from. 
+        </p>
+        <p>
+          You can <%= link_to "add a resume to your profile", profile_resumes_path(current_user) %> and come back to this application, or <%= link_to "continue without including a resume", new_job_posting_job_application_job_posting_answers_path(:job_application_id => @job_application.id, :job_posting_id => @job_application.job_posting.id) %>.
+        </p>
+        <hr>
+        <%= link_to "Add Resume", profile_resumes_path(current_user), class: "btn btn-flat btn-default btn-block" %>
+        <%= link_to "Continue without Resume", new_job_posting_job_application_job_posting_answers_path(:job_application_id => @job_application.id, :job_posting_id => @job_application.job_posting.id), class: "btn btn-flat btn-warning btn-block" %>
+      <% end %>
+    </div>
+  </div>
+</div>

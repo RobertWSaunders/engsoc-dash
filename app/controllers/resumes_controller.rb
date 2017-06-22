@@ -1,6 +1,6 @@
 class ResumesController < ApplicationController
 
-  before_action :set_resume, except: [:select]
+  before_action :set_resume
 
   def index
     @resume = Resume.new
@@ -24,9 +24,6 @@ class ResumesController < ApplicationController
     resume.destroy
     flash[:success] = "Resume Successfully Deleted"
     redirect_to profile_resumes_path
-  end
-
-  def select
   end
 
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622104052) do
+ActiveRecord::Schema.define(version: 20170622145543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20170622104052) do
     t.integer  "job_posting_id"
     t.integer  "status",         default: 0
     t.boolean  "archived",       default: false
+    t.integer  "resumes_id"
+    t.index ["resumes_id"], name: "index_job_applications_on_resumes_id", using: :btree
   end
 
   create_table "job_posting_answers", force: :cascade do |t|
@@ -133,6 +135,7 @@ ActiveRecord::Schema.define(version: 20170622104052) do
   end
 
   add_foreign_key "interviews", "job_applications"
+  add_foreign_key "job_applications", "resumes", column: "resumes_id"
   add_foreign_key "job_posting_answers", "job_applications"
   add_foreign_key "job_posting_answers", "job_posting_questions", column: "job_posting_questions_id"
   add_foreign_key "job_posting_questions", "job_postings"

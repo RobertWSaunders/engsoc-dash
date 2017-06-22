@@ -35,7 +35,7 @@
           </tbody>
         </table>
         <p>
-          Total: <%= pluralize @resumes.count, + " Resume" %>
+          Total: <%= pluralize @resumes.count, + " Resume" %> (Max 7)
         </p>
 
       <% else %>
@@ -92,7 +92,7 @@
               </div>
             </fieldset>
 
-            <%= f.submit "Submit", class: "btn btn-flat btn-primary btn-block" %>
+            <%= f.submit "Upload", class: "btn btn-flat btn-primary btn-block" %>
           <% end %>
         </div>
       </div>

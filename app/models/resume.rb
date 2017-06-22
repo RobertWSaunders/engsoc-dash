@@ -5,6 +5,7 @@ class Resume < ApplicationRecord
   mount_uploader :attachment, AttachmentUploader
 
   belongs_to :user
+  belongs_to :job_application
 
   validates :user_id, presence: true
   validates :name, presence: true

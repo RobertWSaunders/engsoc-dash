@@ -55,6 +55,7 @@ class JobsController < ApplicationController
   def assign
   end
 
+  # PUT /jobs/:id/add_user
   def add_user
     user = User.find(job_params[:user_id])
     @job.users << user

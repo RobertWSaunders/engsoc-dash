@@ -30,7 +30,7 @@
                 <td class="text-ellipsis">
                   <% if app.status == "draft" %>
                     <h4>
-                      <%= link_to select_job_application_resume_path(:job_application_id => app.id), class: "ripple" do %>
+                      <%= link_to select_resume_job_application_path(app), class: "ripple" do %>
                       <%= app.job_posting.title %>
                     <% end %>
                     <small>, for</small> <%= link_to app.job_posting.job.organization.name, organization_path(app.job_posting.job.organization) %>
