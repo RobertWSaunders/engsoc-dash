@@ -5,7 +5,7 @@ class Resume < ApplicationRecord
   mount_uploader :attachment, AttachmentUploader
 
   belongs_to :user
-  belongs_to :job_application
+  has_many :job_applications, foreign_key: "resumes_id", dependent: :nullify
 
   validates :user_id, presence: true
   validates :name, presence: true

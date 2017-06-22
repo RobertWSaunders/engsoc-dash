@@ -22,6 +22,11 @@
             </div>
           </div>
           <div class="card-body">
+            <% if !@job_application.resumes_id.nil? %>
+              Resume: "<%= Resume.find(@job_application.resumes_id).name %>" | <%= link_to "Download", Resume.find(@job_application.resumes_id).attachment_url %>
+            <% else %>
+              No Resume found
+            <% end %>
             <% if @job_application.job_posting_answers.any? %>
               <h6>Responses</h6>
               <ol>

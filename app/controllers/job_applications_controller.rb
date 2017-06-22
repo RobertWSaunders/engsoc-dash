@@ -26,7 +26,7 @@ class JobApplicationsController < ApplicationController
         redirect_to job_posting_path(@job_posting)
       else
         # redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @existing.id)
-        redirect_to select_job_application_resume_path(:job_application_id => @existing.id)
+        redirect_to select_resume_job_application_path(@existing)
       end
     end
     @job_application = JobApplication.new
