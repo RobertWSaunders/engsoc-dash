@@ -65,12 +65,17 @@ class JobPostingsController < ApplicationController
   # PUT /job_postings/:id
   def update
     @jobposting = JobPosting.find(params[:id])
-    if @jobposting.update_attributes(job_posting_params)
-      flash[:success] = "Job Posting Successfully Updated!"
-      redirect_to job_posting_job_posting_questions_path(@jobposting.id)
+    if @jobposting.status != "waiting_approval"
+      flash[:danger] = "The Job Posting is currently not 'waiting approval', so cannot be created, deleted, or editted. Please contact an administrator if you require assistance."
+      redirect_to :back
     else
-      flash[:danger] = "Could Not Update Job Posting!"
-      redirect_to edit_job_posting_path(@jobposting)
+      if @jobposting.update_attributes(job_posting_params)
+        flash[:success] = "Job Posting Successfully Updated!"
+        redirect_to job_posting_job_posting_questions_path(@jobposting.id)
+      else
+        flash[:danger] = "Could Not Update Job Posting!"
+        redirect_to edit_job_posting_path(@jobposting)
+      end
     end
   end
 
