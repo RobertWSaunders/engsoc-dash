@@ -7,11 +7,12 @@ class ResumesController < ApplicationController
   end
 
   def create
+
     @resume = Resume.new(resume_params)
 
     if @resume.save
       flash[:success] = "Resume #{@resume.name} has been uploaded."
-      redirect_to profile_resumes_path(:user_id => @user.id)
+      redirect_to profile_resumes_path
     else
       flash[:warning] = "Resume #{@resume.name} did not upload properly. Please make sure it is the right file format, and try again."
       render "index"
@@ -22,7 +23,7 @@ class ResumesController < ApplicationController
     resume = Resume.find(params[:id])  
     resume.destroy
     flash[:success] = "Resume Successfully Deleted"
-    redirect_to profile_resumes_path(:user_id => @user.id)
+    redirect_to profile_resumes_path
   end
 
   private

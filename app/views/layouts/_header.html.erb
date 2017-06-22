@@ -21,6 +21,12 @@
             <% end %>
           </li>
           <li>
+            <!-- resumes link -->
+            <%= link_to profile_resumes_path(current_user) do %>
+              <em class="ion-document-text icon-fw"></em>Resumes
+            <% end %>
+          </li>
+          <li>
             <!-- settings link -->
             <%= link_to settings_path do %>
               <em class="ion-gear-a icon-fw"></em>Settings
