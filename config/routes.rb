@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   # Profiles
   # devise routes for authentication
   devise_for :users
-  resources :profiles, :controller => 'users'
+  resources :profiles, :controller => 'users' do
+    resources :resumes, only: [:index, :create, :destroy]
+  end
 
   ####################################################
   # Organizations

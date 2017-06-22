@@ -23,9 +23,9 @@
       <div class="card-body">
         <% if @organizations.any? %>
         <ul class="list-group">
-            <% @organizations.each do |organization| %>
-              <%= render 'organization_list_item', organization: organization, status: true, role: true %>
-            <% end %>
+          <% @organizations.each do |organization| %>
+            <%= render 'organization_list_item', organization: organization, status: true, role: true %>
+          <% end %>
         </ul>
         <% else %>
           <br /><br />
