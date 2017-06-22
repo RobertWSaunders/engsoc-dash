@@ -23,3 +23,4 @@
 /db/seeds.rb
 
 # Ignore updated files
+/public/uploads
