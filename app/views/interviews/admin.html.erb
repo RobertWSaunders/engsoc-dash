@@ -1,3 +1,34 @@
 <% content_for :title, "Admin Interviews" %>
 
-<p>This page should list all interviews for admins to view</p>
+<div class="container container-fluid">
+  <div class="container container-lg">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-heading">
+            All Interviews
+          </div>
+          <div class="mda-list mda-list-bordered">
+            <% @interviews.each do |int| %>
+              <div class="mda-list-item">
+                <div class="mda-list-item-text">
+                  <h3><%= link_to int.job_application.job_posting.job.organization.name, int.job_application.job_posting.job.organization %></h3>
+                  <h4><%= link_to int.job_application.job_posting.title, int.job_application.job_posting %> - <%= link_to "View Job", int.job_application.job_posting.job %></h4>
+                  <h3 class="mv-lg">
+                    With <%= link_to int.job_application.user.first_name + " " + int.job_application.user.last_name, profile_path(int.job_application.user) %>
+                  </h3>
+                  <p>
+                    <%= int.start_time.strftime('%A, %B %d, %l:%M %p, %Y') %> - <%= int.end_time.strftime('%A, %B %d, %l:%M %p, %Y') %>
+                  </p>
+                  <p class="text-thin">
+                    Last updated <%= int.updated_at.strftime('%A, %B %d, %l:%M %p, %Y') %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
