@@ -26,7 +26,7 @@
                 <tr>
                   <th>#</th>
                   <th>Position</th>
-                  <th>Applicant</th>
+                  <th>Application</th>
                   <th>Start time</th>
                   <th>End time</th>
                   <th>Status</th>
@@ -39,8 +39,8 @@
 
                 <tr>
                   <td><%= interview.job_application.id %></td>
-                  <td><%= interview.job_application.job_posting.title %></td>
-                  <td><%= interview.job_application.user.first_name %> <%= interview.job_application.user.last_name %></td>
+                  <td><%= link_to interview.job_application.job_posting.title, interview.job_application.job_posting %></td>
+                  <td><%= link_to interview.job_application.user.first_name + " " + interview.job_application.user.last_name, interview.job_application %></td>
                   <td><%= interview.start_time.strftime("%b %e, %l:%M %p") %></td>
                   <td><%= interview.end_time.strftime("%b %e, %l:%M %p") %></td>
                   <td>
