@@ -69,7 +69,7 @@ class InterviewsController < ApplicationController
   end
 
   def admin
-    @interviews = Interview.all.order("end_time")
+    @interviews = Interview.all.order("end_time").reverse_order
   end
 
   private
