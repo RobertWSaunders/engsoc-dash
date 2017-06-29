@@ -38,7 +38,7 @@ class JobApplicationsController < ApplicationController
     @job_posting = JobPosting.find(params[:job_posting_id])
     if @job_application.save
       # redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @job_application.id)
-      redirect_to select_job_application_resume_path(:job_application_id => @job_application.id)
+      redirect_to select_resume_job_application_path(@job_application)
     else
       render 'new'
     end
