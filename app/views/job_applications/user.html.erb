@@ -22,12 +22,12 @@
 
     <div class="card">
       <% if @user_job_applications.any? %>
-        <table class="table table-fixed va-middle">
+        <table class="table table-fixed">
           <tbody>
             <!-- iterate through all of the open job postings -->
             <% @user_job_applications.each do |app| %>
               <tr class="msg-display">
-                <td class="text-ellipsis">
+                <td class="col-md-10">
                   <% if app.status == "draft" %>
                     <h4>
                       <%= link_to job_posting_path(app.job_posting), class: "ripple" do %>
@@ -51,7 +51,7 @@
                     </p>
                   <% end %>
                 </td>
-                <td>
+                <td class="col-md-4">
                   <div class="pull-right dropdown">
                     <%= status_label_application(app) %>
                   </div>
