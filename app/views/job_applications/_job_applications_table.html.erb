@@ -1,5 +1,5 @@
 <% if applications.any? %>
-<div class="card">
+<div class="card <% if applications.first.archived == true %> bg-yellow-100 <% end %>">
   <div class="card-body">
     <div class="table-responsive ml mr">
         <% if applications.first.archived == true %>

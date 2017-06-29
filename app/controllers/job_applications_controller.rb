@@ -23,12 +23,12 @@ class JobApplicationsController < ApplicationController
       flash[:warning] = "This job posting is currently not taking applications."
       redirect_to :back
     else
-      @existing = JobApplication.where(user_id: current_user.id, job_posting_id: params[:job_posting_id]).first
+      @existing = JobApplication.find_by(user_id: current_user.id, job_posting_id: params[:job_posting_id], archived: false)
       if @existing
         if @existing.status == "submitted"
           flash[:warning] = "It seems like you have already applied for this job."
           redirect_to job_posting_path(@job_posting)
-        else
+        elsif @existing.status == "draft"
           # redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @existing.id)
           redirect_to select_resume_job_application_path(@existing)
         end

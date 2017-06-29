@@ -12,14 +12,14 @@
 
       <hr>
       <div class="actions">
-        <%= f.submit "Begin Application", class: "btn btn-primary btn-block ripple" %>
+        <%= f.submit "Begin Application", class: "btn btn-flat btn-primary btn-block ripple" %>
       </div>
 
     <% else %>
       <%= f.hidden_field :status, :value => 'submitted' %>
       <hr>
       <div class="actions">
-        <%= f.submit "Complete Application", class: "btn btn-success btn-block ripple" %>
+        <%= f.submit "Complete Application", class: "btn btn-flat btn-success btn-block ripple" %>
       </div>
     <% end %>
 <% end %>

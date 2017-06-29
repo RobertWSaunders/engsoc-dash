@@ -39,8 +39,9 @@
 
   <% if @archived_job_applications.any? %>
     <hr>
-
-    <%= render "job_applications_table", applications: @archived_job_applications%>
+    <div class="">
+      <%= render "job_applications_table", applications: @archived_job_applications %>
+    </div>
   <% end %>
 
   <div class="row mb">
