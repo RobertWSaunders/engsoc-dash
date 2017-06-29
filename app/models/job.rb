@@ -11,7 +11,6 @@ class Job < ApplicationRecord
   has_many :positions, dependent: :destroy
   has_one :job_posting, :foreign_key => :job_id, dependent: :destroy
 
-
   #Validations
   #make sure the organization id is present
   validates :organization_id, presence: true
