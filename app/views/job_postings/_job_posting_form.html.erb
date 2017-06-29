@@ -28,9 +28,10 @@
     <%= f.label :title, 'Job Title', class: "col-sm-1 control-label" %>
     <div class="col-sm-11">
       <% if @jobposting.title %>
-        <%= f.text_field :title, :value => @jobposting.title, class: 'form-control' %>
+        <%= f.text_field :title, :value => @jobposting.title, class: 'form-control', disabled: true %>
       <% else %>
-        <%= f.text_field :title, :value => @job.title, class: 'form-control' %>
+        <%= f.text_field :title, :value => @job.title, class: 'form-control', disabled: true %>
+        <%= f.hidden_field :title, :value => @job.title %>
       <% end %>
     </div>
   </div>
@@ -58,6 +59,19 @@
         <%= f.datetime_select :deadline, {ampm: true, "data-provide" => 'datepicker'}, {class: "form-control"} %>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-sm-11 col-sm-offset-1">
+        <div class="alert alert-warning mt">
+          <p>
+            Job Postings can begin to interview candidates only after the deadline.
+          </p>
+          <p>
+            It is recommended that you at set the deadline to be at least <strong class="lead"><%= (Date.today + 2.weeks).strftime("%B %d, %Y") %></strong> (2 weeks from now), as per EngSoc policy, for the job posting to be approved.
+          </p>
+        </div>
+      </div>
+    </div>
 </fieldset>
 
 <!-- status -->
@@ -79,14 +93,14 @@
 
 <h4>Job Posting Questions</h4>
 <% if @jobposting.job_posting_questions.any? %>
-  Currently <%= @jobposting.job_posting_questions.count %> <%= 'question'.pluralize(@jobposting.job_posting_questions.count) %>.
+  This job posting currently has <%= @jobposting.job_posting_questions.count %> <%= 'question'.pluralize(@jobposting.job_posting_questions.count) %>. You can add, edit, or remove questions for candidates to answer in the next page.
 <% else %>
-  Currently no questions. You can add questions once you first create the job posting.
+  There are currently no questions. You can add questions once you first create the job posting.
 <% end %>
 
 <hr>
 
-<%= f.submit "Next", class: "btn btn-primary btn-block" %>
-<%= link_to "Cancel",root_path, class: "btn btn-inverse btn-block" %>
+<%= f.submit "Next", class: "btn btn-flat btn-primary btn-lg btn-block" %>
+<%= link_to "Cancel",root_path, class: "btn btn-flat btn-inverse btn-block" %>
 
 <% end %>

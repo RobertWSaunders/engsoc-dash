@@ -8,7 +8,12 @@
       <p class="lead"><%= link_to @job.title, job_path(:id => @job.id) %></p>
       <hr />
       <p>
-        Application Deadline: <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %> (<%= @jobposting.deadline.to_date %>)
+        Application Deadline: 
+        <% if @jobposting.deadline.past? %>
+          <%= @jobposting.deadline.to_date %>
+        <% else %>
+          in <%= distance_of_time_in_words(Time.now, @jobposting.deadline) %> (<%= @jobposting.deadline.to_date %>)
+        <% end %>
       </p>
       <p>
         Organization: <%= link_to @organization.name, @organization %>

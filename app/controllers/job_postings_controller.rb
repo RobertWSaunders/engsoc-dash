@@ -33,7 +33,7 @@ class JobPostingsController < ApplicationController
     else
       @jobs_without_postings = Job.includes(:job_posting).where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: current_user.id })).where(job_postings: { job_id: nil })
     end
-    @vacant_jobs = @jobs_without_postings.where(:user_id => nil)
+    @vacant_jobs = @jobs_without_postings.includes(:positions).where(positions: { :user_id => nil})
   end
 
   # POST /job_posting
@@ -65,12 +65,17 @@ class JobPostingsController < ApplicationController
   # PUT /job_postings/:id
   def update
     @jobposting = JobPosting.find(params[:id])
-    if @jobposting.update_attributes!(job_posting_params)
-      flash[:success] = "Job Posting Successfully Updated!"
-      redirect_to job_posting_job_posting_questions_path(@jobposting.id)
+    if @jobposting.status != "waiting_approval"
+      flash[:danger] = "The Job Posting is currently not 'waiting approval', so cannot be created, deleted, or editted. Please contact an administrator if you require assistance."
+      redirect_back(fallback_location: job_postings_path)
     else
-      flash[:danger] = "Could Not Update Job Posting!"
-      redirect_to root_path
+      if @jobposting.update_attributes(job_posting_params)
+        flash[:success] = "Job Posting Successfully Updated!"
+        redirect_to job_posting_job_posting_questions_path(@jobposting.id)
+      else
+        flash[:danger] = "Could Not Update Job Posting!"
+        redirect_to edit_job_posting_path(@jobposting)
+      end
     end
   end
 
@@ -83,28 +88,33 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/admin
   def admin
-    @job_postings = JobPosting.filter(params.slice(:status)).paginate(:page => params[:page], :per_page => 10)
+    @job_postings = JobPosting.filter(params.slice(:status)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /job_postings/:id/approve
   def approve
     @jobposting.status = "open"
     @jobposting.save
-    redirect_to admin_job_postings_path
+    redirect_back(fallback_location: job_postings_path)
   end
 
   # GET /job_postings/:id/withdraw
   def withdraw
     @jobposting.status = "waiting_approval"
     @jobposting.save
-    redirect_to admin_job_postings_path
+    redirect_back(fallback_location: job_postings_path)
   end
 
   # GET /job_postings/:id/interview
   def interview
-    @jobposting.status = "interviewing"
-    @jobposting.save
-    redirect_to manage_job_postings_path
+    if @jobposting.deadline.past?
+      @jobposting.status = "interviewing"
+      @jobposting.save
+      redirect_back(fallback_location: job_postings_path)
+    else
+      flash[:danger] = "Cannot begin interviewing process, job posting deadline has not passed."
+      redirect_back(fallback_location: job_postings_path)
+    end
   end
 
   # GET /job_postings/:id/close
@@ -135,7 +145,7 @@ class JobPostingsController < ApplicationController
   # GET /job_postings/manage
   def manage
     @managing_jobs = Job.includes(:positions).where(positions: { :user_id => current_user.id })
-    @managed_orgs = Organization.includes(:jobs).where(jobs: { :role => ["management", "admin"] })
+    @managed_orgs = Organization.includes(:jobs).where(jobs: { :id => @managing_jobs.ids, :role => ["management", "admin"] })
     @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
     @managed_postings = JobPosting.where(:job_id => @managed_jobs.ids).filter(params.slice(:status)).order("deadline").paginate(:page => params[:page], :per_page => 10)
   end

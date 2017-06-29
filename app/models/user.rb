@@ -12,6 +12,8 @@ class User < ApplicationRecord
   #a user can have many job postings, given permission levels
   has_many :job_postings, :foreign_key => :creator_id
 
+  has_many :resumes, dependent: :destroy
+
   #the roles a user can be associated with
   enum role: [:student, :superadmin]
 

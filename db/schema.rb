@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615125213) do
+ActiveRecord::Schema.define(version: 20170622145543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20170615125213) do
     t.integer  "job_posting_id"
     t.integer  "status",         default: 0
     t.boolean  "archived",       default: false
+    t.integer  "resumes_id"
+    t.index ["resumes_id"], name: "index_job_applications_on_resumes_id", using: :btree
   end
 
   create_table "job_posting_answers", force: :cascade do |t|
@@ -94,6 +96,15 @@ ActiveRecord::Schema.define(version: 20170615125213) do
     t.index ["user_id"], name: "index_positions_on_user_id", using: :btree
   end
 
+  create_table "resumes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_resumes_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -124,9 +135,11 @@ ActiveRecord::Schema.define(version: 20170615125213) do
   end
 
   add_foreign_key "interviews", "job_applications"
+  add_foreign_key "job_applications", "resumes", column: "resumes_id"
   add_foreign_key "job_posting_answers", "job_applications"
   add_foreign_key "job_posting_answers", "job_posting_questions", column: "job_posting_questions_id"
   add_foreign_key "job_posting_questions", "job_postings"
   add_foreign_key "job_postings", "jobs"
   add_foreign_key "jobs", "job_postings"
+  add_foreign_key "resumes", "users"
 end

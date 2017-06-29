@@ -4,6 +4,12 @@ class InterviewsController < ApplicationController
 
   # GET /job_applications/:job_application_id/interviews/new
   def new
+    @job_application = JobApplication.find(params[:job_application_id])
+    if @job_application.job_posting.status != "interviewing"
+      flash[:danger] = "Job Posting has not been set to begin interviewing, which can only be done after the posting deadline.
+                        <br>You can only begin scheduling interviews after the posting is set to begin interviewing."
+      redirect_back(fallback_location: manage_interviews_path)
+    end
     # Required resources for calendar
     @managing_jobs = Job.includes(:positions).where(positions: { :user_id => current_user.id })
     @managed_orgs = Organization.includes(:jobs).where(jobs: { :role => ["management", "admin"] })
@@ -13,7 +19,6 @@ class InterviewsController < ApplicationController
     @interviews = Interview.where(:job_application_id => @applications.ids).order(end_time: :asc)
     # end
 
-    @job_application = JobApplication.find(params[:job_application_id])
     if @job_application.interview.present?
       redirect_to manage_interviews_path, :info => "This application already has a scheduled interview"
     else
@@ -64,7 +69,7 @@ class InterviewsController < ApplicationController
   end
 
   def admin
-    @interviews = Interview.all.order("end_time")
+    @interviews = Interview.all.order("end_time").reverse_order
   end
 
   private

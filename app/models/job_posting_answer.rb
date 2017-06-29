@@ -1,9 +1,4 @@
 class JobPostingAnswer < ApplicationRecord
-  
-  # necessary to ensure that the placeholder 
-  # first job posting question (imperative) cannot be deleted
-  # the first JPQ must be present due to the hardcoding of the first ID
-  before_destroy :cannot_delete_generated
 
   #Relationships
   #a job application answer belongs to a job application

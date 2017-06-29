@@ -21,3 +21,6 @@
 
 # Ignore personal seeds file
 /db/seeds.rb
+
+# Ignore updated files
+/public/uploads

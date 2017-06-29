@@ -21,36 +21,42 @@
 
 
     <div class="card">
-          <% if @user_job_applications.any? %>
-          <table class="table table-fixed va-middle">
-            <tbody>
+      <% if @user_job_applications.any? %>
+        <table class="table table-fixed va-middle">
+          <tbody>
             <!-- iterate through all of the open job postings -->
             <% @user_job_applications.each do |app| %>
-            <tr class="msg-display">
-              <td class="text-ellipsis">
-                <% if app.status != "draft" %>
-                  <%= app.job_posting.title %>
-                <% else %>
-                  <%= link_to edit_job_application_job_posting_answers_path(:job_application_id => app.id), class: "ripple" do %>
-                    <%= app.job_posting.title %>
+              <tr class="msg-display">
+                <td class="text-ellipsis">
+                  <% if app.status == "draft" %>
+                    <h4>
+                      <%= link_to job_posting_path(app.job_posting), class: "ripple" do %>
+                        <%= app.job_posting.title %>
+                      <% end %>
+                    <small>, for</small> <%= link_to app.job_posting.job.organization.name, organization_path(app.job_posting.job.organization) %>
+                    </h4>
+                  <% else %>
+                    <h4><%= app.job_posting.title %><small>, for</small> <%= link_to app.job_posting.job.organization.name, organization_path(app.job_posting.job.organization) %></h4>
                   <% end %>
-                <% end %>
-                <% if app.interview.present? %>
                   <p>
-                    <strong>Interview Scheduled for:</strong>
-                    <%= app.interview.start_time.strftime("%b %e, %l:%M %p") %>, to <%= app.interview.end_time.strftime("%b %e, %l:%M %p") %>
+                    Application last updated: <%= app.updated_at.strftime('%A, %B %d, %l:%M %p, %Y') %>
                   </p>
+                  <% if app.status == "draft" %>
+                    <%= button_to "Continue Application", select_resume_job_application_path(app), class: "btn btn-flat btn-info mv", method: :get %>
                   <% end %>
-              </td>
-              <td>
-
-
-              <div class="pull-right dropdown">
-                <%= status_label_application(app) %>
-              </div>
+                  <% if app.interview.present? %>
+                    <p>
+                      <strong>Interview Scheduled for:</strong>
+                      <%= app.interview.start_time.strftime("%b %e, %l:%M %p") %>, to <%= app.interview.end_time.strftime("%b %e, %l:%M %p") %>
+                    </p>
+                  <% end %>
                 </td>
-            </tr>
-
+                <td>
+                  <div class="pull-right dropdown">
+                    <%= status_label_application(app) %>
+                  </div>
+                </td>
+              </tr>
             <% end %>
           </tbody>
         </table>

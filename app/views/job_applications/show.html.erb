@@ -22,6 +22,11 @@
             </div>
           </div>
           <div class="card-body">
+            <% if !@job_application.resumes_id.nil? %>
+              Resume: "<%= Resume.find(@job_application.resumes_id).name %>" | <%= link_to "Download", Resume.find(@job_application.resumes_id).attachment_url %>
+            <% else %>
+              No Resume found
+            <% end %>
             <% if @job_application.job_posting_answers.any? %>
               <h6>Responses</h6>
               <ol>
@@ -39,131 +44,129 @@
       </div>
       <div class="col-md-5 col-lg-4" id="application-actions">
         <div class="card">
-          <div class="card-body">
-            <div class="mda-list mda-list-bordered" id="actionlist">
-              <% if @job_application.status == "submitted" %>
-                <div class="mda-list-item" id="status">
-                  <div class="mda-list-item-icon bg-deep-purple-500">
-                    <em class="ion-archive icon-lg"></em>
-                  </div>
-                  <div class="mda-list-item-text mda-2-line">
-                    <h3><span class="text-thin">Status</span></h3>
-                    <h3><%= @job_application.status.humanize.titleize %></h3>
-                    <span class="mr">
-                      <h3>
-                        <%= link_to new_job_application_interview_path(@job_application) do %>
-                          <em class="ion-android-calendar icon-fw"></em> Schedule Interview
-                        <% end %>
-                      </h3>
-                      <hr>
-                      <h3>
-                        <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
-                          <em class="ion-checkmark icon-fw"></em> Hire
-                        <% end %>
-                      </h3>
-                      <hr>
-                      <h3>
-                      <%= link_to decline_job_application_path(@job_application), data: { :confirm => "Are you sure you want to DECLINE this candidate?" } do %>
-                        <em class="ion-close icon-fw"></em> Decline
-                      <% end %>
-                      </h3>
-                    </span>
-                  </div>
+          <div class="mda-list mda-list-bordered" id="actionlist">
+            <% if @job_application.status == "submitted" %>
+              <div class="mda-list-item" id="status">
+                <div class="mda-list-item-icon bg-deep-purple-500">
+                  <em class="ion-archive icon-lg"></em>
                 </div>
-              <% elsif @job_application.status =="interview_scheduled" %>
-                <div class="mda-list-item" id="status">
-                  <div class="mda-list-item-icon bg-info">
-                    <em class="ion-android-calendar icon-lg"></em>
-                  </div>
-                  <div class="mda-list-item-text mda-2-line">
-                    <% if Interview.find_by(:job_application_id => @job_application.id).end_time.past? %>
-                      <h3><span class="text-thin">Interview Completed</span></h3>
-                      <h4>on <%= Interview.find_by(:job_application_id => @job_application.id).end_time.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
-                    <% else %>
-                      <h3><span class="text-thin"><%= @job_application.status.humanize.titleize %></span></h3>
-                      <h4>for <%= Interview.find_by(:job_application_id => @job_application.id).start_time.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
+                <div class="mda-list-item-text mda-2-line">
+                  <h3><span class="text-thin">Status</span></h3>
+                  <h3><%= @job_application.status.humanize.titleize %></h3>
+                  <span class="mr">
+                    <h3>
+                      <%= link_to new_job_application_interview_path(@job_application) do %>
+                        <em class="ion-android-calendar icon-fw"></em> Schedule Interview
+                      <% end %>
+                    </h3>
+                    <hr>
+                    <h3>
+                      <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
+                        <em class="ion-checkmark icon-fw"></em> Hire
+                      <% end %>
+                    </h3>
+                    <hr>
+                    <h3>
+                    <%= link_to decline_job_application_path(@job_application), data: { :confirm => "Are you sure you want to DECLINE this candidate?" } do %>
+                      <em class="ion-close icon-fw"></em> Decline
                     <% end %>
-                    <span class="mr">
-                      <h3>
-                        <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
-                          <em class="ion-checkmark icon-fw"></em> Hire
-                        <% end %>
-                      </h3>
-                      <hr>
-                      <h3>
-                      <%= link_to decline_job_application_path(@job_application), data: { :confirm => "Are you sure you want to DECLINE this candidate?" } do %>
-                        <em class="ion-close icon-fw"></em> Decline
+                    </h3>
+                  </span>
+                </div>
+              </div>
+            <% elsif @job_application.status =="interview_scheduled" %>
+              <div class="mda-list-item" id="status">
+                <div class="mda-list-item-icon bg-info">
+                  <em class="ion-android-calendar icon-lg"></em>
+                </div>
+                <div class="mda-list-item-text mda-2-line">
+                  <% if Interview.find_by(:job_application_id => @job_application.id).end_time.past? %>
+                    <h3><span class="text-thin">Interview Completed</span></h3>
+                    <h4>on <%= Interview.find_by(:job_application_id => @job_application.id).end_time.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
+                  <% else %>
+                    <h3><span class="text-thin"><%= @job_application.status.humanize.titleize %></span></h3>
+                    <h4>for <%= Interview.find_by(:job_application_id => @job_application.id).start_time.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
+                  <% end %>
+                  <span class="mr">
+                    <h3>
+                      <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
+                        <em class="ion-checkmark icon-fw"></em> Hire
                       <% end %>
-                      </h3>
-                      <hr>
-                      <h3>
-                        <%= link_to edit_interview_path(Interview.find_by(:job_application_id => @job_application.id)) do %>
-                          <em class="ion-edit icon-fw"></em> Reschedule
-                        <% end %>
-                      </h3>
-                    </span>
-                  </div>
-                </div>
-              <% elsif @job_application.status =="hired" %>
-                <div class="mda-list-item" id="status">
-                  <div class="mda-list-item-icon bg-success">
-                    <em class="ion-checkmark icon-lg"></em>
-                  </div>
-                  <div class="mda-list-item-text mda-2-line">
-                    <h3><span class="text-thin">Status</span></h3>
-                    <h3><%= @job_application.status.humanize.titleize %></h3>
-                    <span class="mr">
-                      <h3>
-                        <%= link_to organization_path(@job_application.job_posting.job.organization) do %>
-                          <em class="ion-ios-people icon-fw"></em> View Organization
-                        <% end %>
-                      </h3>
-                      <hr>
-                      <h3>
-                        <%= link_to job_path(@job_application.job_posting.job) do %>
-                          <em class="ion-ios-person-outline icon-fw"></em> View Job
-                        <% end %>
-                      </h3>
-                    </span>
-                  </div>
-                </div>
-              <% elsif @job_application.status =="declined" %>
-                <div class="mda-list-item" id="status">
-                  <div class="mda-list-item-icon bg-red-500">
-                    <em class="ion-close icon-lg"></em>
-                  </div>
-                  <div class="mda-list-item-text mda-2-line">
-                    <h3><span class="text-thin">Status</span></h3>
-                    <h3><%= @job_application.status.humanize.titleize %></h3>
-                  </div>
-                </div>
-              <% end %>
-              <div class="mda-list-item" id="updated">
-                <div class="mda-list-item-icon bg-blue-500">
-                  <em class="ion-refresh icon-lg"></em>
-                </div>
-                <div class="mda-list-item-text mda-2-line">
-                  <h3><span class="text-thin">Updated</span></h3>
-                  <h4>on <%= @job_application.updated_at.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
+                    </h3>
+                    <hr>
+                    <h3>
+                    <%= link_to decline_job_application_path(@job_application), data: { :confirm => "Are you sure you want to DECLINE this candidate?" } do %>
+                      <em class="ion-close icon-fw"></em> Decline
+                    <% end %>
+                    </h3>
+                    <hr>
+                    <h3>
+                      <%= link_to edit_interview_path(Interview.find_by(:job_application_id => @job_application.id)) do %>
+                        <em class="ion-edit icon-fw"></em> Reschedule
+                      <% end %>
+                    </h3>
+                  </span>
                 </div>
               </div>
-              <div class="mda-list-item" id="deadline">
-                <div class="mda-list-item-icon bg-warning">
-                  <em class="ion-alert-circled icon-lg"></em>
+            <% elsif @job_application.status =="hired" %>
+              <div class="mda-list-item" id="status">
+                <div class="mda-list-item-icon bg-success">
+                  <em class="ion-checkmark icon-lg"></em>
                 </div>
                 <div class="mda-list-item-text mda-2-line">
-                  <h3><span class="text-thin">Posting Deadline</span></h3>
-                  <h4><%= @job_application.job_posting.deadline.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
+                  <h3><span class="text-thin">Status</span></h3>
+                  <h3><%= @job_application.status.humanize.titleize %></h3>
+                  <span class="mr">
+                    <h3>
+                      <%= link_to organization_path(@job_application.job_posting.job.organization) do %>
+                        <em class="ion-ios-people icon-fw"></em> View Organization
+                      <% end %>
+                    </h3>
+                    <hr>
+                    <h3>
+                      <%= link_to job_path(@job_application.job_posting.job) do %>
+                        <em class="ion-ios-person-outline icon-fw"></em> View Job
+                      <% end %>
+                    </h3>
+                  </span>
                 </div>
               </div>
-              <div class="mda-list-item" id="back">
-                <div class="mda-list-item-icon bg-pink-500">
-                  <em class="ion-ios-person icon-lg"></em>
+            <% elsif @job_application.status =="declined" %>
+              <div class="mda-list-item" id="status">
+                <div class="mda-list-item-icon bg-red-500">
+                  <em class="ion-close icon-lg"></em>
                 </div>
                 <div class="mda-list-item-text mda-2-line">
-                  <h3><span class="text-thin"><%= @job_application.job_posting.title %></span></h3>
-                  <h4><%= link_to "View All Job Applications", job_posting_job_applications_path(:job_posting_id => @job_application.job_posting.id) %></h4>
+                  <h3><span class="text-thin">Status</span></h3>
+                  <h3><%= @job_application.status.humanize.titleize %></h3>
                 </div>
+              </div>
+            <% end %>
+            <div class="mda-list-item" id="updated">
+              <div class="mda-list-item-icon bg-blue-500">
+                <em class="ion-refresh icon-lg"></em>
+              </div>
+              <div class="mda-list-item-text mda-2-line">
+                <h3><span class="text-thin">Updated</span></h3>
+                <h4>on <%= @job_application.updated_at.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
+              </div>
+            </div>
+            <div class="mda-list-item" id="deadline">
+              <div class="mda-list-item-icon bg-warning">
+                <em class="ion-alert-circled icon-lg"></em>
+              </div>
+              <div class="mda-list-item-text mda-2-line">
+                <h3><span class="text-thin">Posting Deadline</span></h3>
+                <h4><%= @job_application.job_posting.deadline.to_time.strftime('%A, %B %d, %l:%M %p, %Y') %></h4>
+              </div>
+            </div>
+            <div class="mda-list-item" id="back">
+              <div class="mda-list-item-icon bg-pink-500">
+                <em class="ion-ios-person icon-lg"></em>
+              </div>
+              <div class="mda-list-item-text mda-2-line">
+                <h3><span class="text-thin"><%= @job_application.job_posting.title %> <%= status_label(@job_application.job_posting) %></span></h3>
+                <h4><%= link_to "View All Job Applications", job_posting_job_applications_path(:job_posting_id => @job_application.job_posting.id) %></h4>
               </div>
             </div>
           </div>

@@ -28,8 +28,10 @@ class JobPosting < ApplicationRecord
   #description must be at least fifteen characters
   validates :description, presence: true, length: { minimum: 15, maximum: 4000 }
   validates :deadline, presence: true
-  validate :deadline_cannot_be_in_the_past
-  validate :deadline_cannot_be_within_two_weeks
+
+  # Remove to manual 'validations' as admins must approve postings, for greater flexibility
+  # validate :deadline_cannot_be_in_the_past
+  # validate :deadline_cannot_be_within_two_weeks
 
   private
 
