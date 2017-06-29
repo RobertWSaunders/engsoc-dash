@@ -35,10 +35,10 @@
 
   <% job.users.each do |usr, index| %>
   <tr>
-    <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
-    <td><%= usr.first_name %> <%= usr.last_name %></td>
-    <td><%= usr.email %></td>
-    <td>
+    <td class="col-sm-2"><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
+    <td class="col-sm-2"><%= usr.first_name %> <%= usr.last_name %></td>
+    <td class="col-sm-3"><%= usr.email %></td>
+    <td class="col-sm-2">
       <% if job.role == "management" %>
         Managerial Position
       <% elsif job.role == "admin" %>
@@ -47,10 +47,10 @@
         General Member Position
       <% end %>
     </td>
-    <td>
+    <td class="col-sm-1">
       <%= job.job_type.titleize %>
     </td>
-    <td>
+    <td class="col-sm-2">
     <% if can? :manage, job %>
       <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-warning" do %>
         <em class="ion-edit"></em>

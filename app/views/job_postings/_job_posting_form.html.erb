@@ -31,6 +31,7 @@
         <%= f.text_field :title, :value => @jobposting.title, class: 'form-control', disabled: true %>
       <% else %>
         <%= f.text_field :title, :value => @job.title, class: 'form-control', disabled: true %>
+        <%= f.hidden_field :title, :value => @job.title %>
       <% end %>
     </div>
   </div>

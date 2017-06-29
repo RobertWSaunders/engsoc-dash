@@ -1,16 +1,18 @@
 <% if @organization.jobs.any? %>
   <div class="table-responsive ml mr">
     <table class="table table-hover">
+      <%#
       <thead>
         <tr>
           <th class="col-sm-2">Position</th>
-          <th class="col-sm-2">Name</th>
-          <th class="col-sm-3">Email</th>
+          <th class="col-sm-2"><!-- Name --></th>
+          <th class="col-sm-3"><!-- Email --></th>
           <th class="col-sm-2"></th>
           <th class="col-sm-1"></th>
           <th class="col-sm-2">Actions</th>
         </tr>
       </thead>
+      %>
       <tbody>
         <%= render @jobs %>
       </tbody>
