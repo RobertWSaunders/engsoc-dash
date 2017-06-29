@@ -33,7 +33,7 @@ class JobPostingsController < ApplicationController
     else
       @jobs_without_postings = Job.includes(:job_posting).where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: current_user.id })).where(job_postings: { job_id: nil })
     end
-    @vacant_jobs = @jobs_without_postings.where(:user_id => nil)
+    @vacant_jobs = @jobs_without_postings.includes(:positions).where(positions: { :user_id => nil})
   end
 
   # POST /job_posting
