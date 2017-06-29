@@ -67,7 +67,7 @@ class JobPostingsController < ApplicationController
     @jobposting = JobPosting.find(params[:id])
     if @jobposting.status != "waiting_approval"
       flash[:danger] = "The Job Posting is currently not 'waiting approval', so cannot be created, deleted, or editted. Please contact an administrator if you require assistance."
-      redirect_to :back
+      redirect_back(fallback_location: job_postings_path)
     else
       if @jobposting.update_attributes(job_posting_params)
         flash[:success] = "Job Posting Successfully Updated!"
@@ -95,14 +95,14 @@ class JobPostingsController < ApplicationController
   def approve
     @jobposting.status = "open"
     @jobposting.save
-    redirect_to :back
+    redirect_back(fallback_location: job_postings_path)
   end
 
   # GET /job_postings/:id/withdraw
   def withdraw
     @jobposting.status = "waiting_approval"
     @jobposting.save
-    redirect_to :back
+    redirect_back(fallback_location: job_postings_path)
   end
 
   # GET /job_postings/:id/interview
@@ -110,10 +110,10 @@ class JobPostingsController < ApplicationController
     if @jobposting.deadline.past?
       @jobposting.status = "interviewing"
       @jobposting.save
-      redirect_to :back
+      redirect_back(fallback_location: job_postings_path)
     else
       flash[:danger] = "Cannot begin interviewing process, job posting deadline has not passed."
-      redirect_to :back
+      redirect_back(fallback_location: job_postings_path)
     end
   end
 

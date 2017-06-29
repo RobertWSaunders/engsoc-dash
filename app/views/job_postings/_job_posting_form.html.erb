@@ -28,9 +28,9 @@
     <%= f.label :title, 'Job Title', class: "col-sm-1 control-label" %>
     <div class="col-sm-11">
       <% if @jobposting.title %>
-        <%= f.text_field :title, :value => @jobposting.title, class: 'form-control' %>
+        <%= f.text_field :title, :value => @jobposting.title, class: 'form-control', disabled: true %>
       <% else %>
-        <%= f.text_field :title, :value => @job.title, class: 'form-control' %>
+        <%= f.text_field :title, :value => @job.title, class: 'form-control', disabled: true %>
       <% end %>
     </div>
   </div>

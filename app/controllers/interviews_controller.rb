@@ -8,7 +8,7 @@ class InterviewsController < ApplicationController
     if @job_application.job_posting.status != "interviewing"
       flash[:danger] = "Job Posting has not been set to begin interviewing, which can only be done after the posting deadline.
                         <br>You can only begin scheduling interviews after the posting is set to begin interviewing."
-      redirect_to :back
+      redirect_back(fallback_location: manage_interviews_path)
     end
     # Required resources for calendar
     @managing_jobs = Job.includes(:positions).where(positions: { :user_id => current_user.id })

@@ -2,12 +2,13 @@ class ResumesController < ApplicationController
 
   before_action :set_resume
 
+  # GET profiles/:profile_id/resumes
   def index
     @resume = Resume.new
   end
 
+  # POST profiles/:profile_id/resumes
   def create
-
     @resume = Resume.new(resume_params)
 
     if @resume.save
@@ -19,6 +20,7 @@ class ResumesController < ApplicationController
     end
   end
 
+  # DESTROY profiles/:profile_id/resumes/:resume_id
   def destroy
     resume = Resume.find(params[:id])  
     resume.destroy
