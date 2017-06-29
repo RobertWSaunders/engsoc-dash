@@ -42,7 +42,7 @@
                     Application last updated: <%= app.updated_at.strftime('%A, %B %d, %l:%M %p, %Y') %>
                   </p>
                   <% if app.status == "draft" %>
-                    <%= button_to "Continue Application", select_resume_job_application_path(app), class: "btn btn-flat btn-info mv", method: :get %>
+                    <%= button_to "Continue Application", new_job_posting_job_application_path(:job_posting_id => app.job_posting.id, :id => app.id), class: "btn btn-flat btn-info mv", method: :get %>
                   <% end %>
                   <% if app.interview.present? %>
                     <p>

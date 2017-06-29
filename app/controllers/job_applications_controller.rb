@@ -19,17 +19,22 @@ class JobApplicationsController < ApplicationController
   # GET /job_postings/:job_posting_id/job_applications/new
   def new
     @job_posting = JobPosting.find(params[:job_posting_id])
-    @existing = JobApplication.where(user_id: current_user.id, job_posting_id: params[:job_posting_id]).first
-    if @existing
-      if @existing.status == "submitted"
-        flash[:notice] = "It seems like you have already applied for this job."
-        redirect_to job_posting_path(@job_posting)
-      else
-        # redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @existing.id)
-        redirect_to select_resume_job_application_path(@existing)
+    if @job_posting.status != "open"
+      flash[:warning] = "This job posting is currently not taking applications."
+      redirect_to :back
+    else
+      @existing = JobApplication.where(user_id: current_user.id, job_posting_id: params[:job_posting_id]).first
+      if @existing
+        if @existing.status == "submitted"
+          flash[:warning] = "It seems like you have already applied for this job."
+          redirect_to job_posting_path(@job_posting)
+        else
+          # redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @existing.id)
+          redirect_to select_resume_job_application_path(@existing)
+        end
       end
+      @job_application = JobApplication.new
     end
-    @job_application = JobApplication.new
   end
 
   # POST /job_postings/:job_posting_id/job_applications
