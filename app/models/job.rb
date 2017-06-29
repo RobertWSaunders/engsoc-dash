@@ -18,7 +18,7 @@ class Job < ApplicationRecord
   # validates :user_id, presence: true, :uniqueness => { :scope => :organization_id }
   #make sure the title is present
   validates :title, presence: true, :uniqueness => {:case_sensitive => false, :scope => :organization_id}
-  validates :description, presence: true, length: { minimum: 15, maximum: 2000 }
+  validates :description, presence: true, length: { minimum: 15, maximum: 4000 }
 
   # organizations model has the same status enum
   enum status: [:waiting_approval, :active, :archived]

@@ -1,26 +1,34 @@
 <% content_for :title, "Select Vacant Job" %>
 
 
-  <div class="container-fluid container-lg">
-
+<div class="container-fluid container-lg">
+  <div class="row">
     <div class="card">
-        <% if @vacant_jobs %>
-          <table class="table table-fixed va-middle">
-            <tbody>
-          <% @vacant_jobs.each do |job| %>
-              <tr class="msg-display">
-                <td class="text-ellipsis"><%= link_to job.title, job %></td>
-                <td class="text-ellipsis"><%= job.organization.name %></td>
-                <td class="text-ellipsis"><%= job.description %></td>
-                <td class="text-ellipsis">
-                  <%= link_to "Select", new_job_posting_path(:job_id => job.id), class: "align-center btn btn btn-primary" %>
-                </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+      <div class="card-heading">
+        <h4>Vacant Jobs without Job Postings</h4>
+      </div>
+      <div class="">
+        <% if @vacant_jobs.any? %>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <tbody>
+                <% @vacant_jobs.each do |job| %>
+                  <tr class="">
+                    <td class=""><%= link_to job.title, job %></td>
+                    <td class=""><%= link_to job.organization.name, job.organization %></td>
+                    <td class=""><%= job.description %></td>
+                    <td class="">
+                      <%= link_to "Create Job Posting", new_job_posting_path(:job_id => job.id), class: "align-center btn btn btn-primary" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         <% else %>
           <p class="text-center">No Vacant Jobs</p>
         <% end %>
+      </div>
     </div>
   </div>
+</div>
