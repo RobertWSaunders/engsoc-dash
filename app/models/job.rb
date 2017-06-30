@@ -26,6 +26,7 @@ class Job < ApplicationRecord
   enum role: [:regular, :management, :admin]
   enum job_type: [:volunteer, :part_time, :full_time]
 
-  accepts_nested_attributes_for :users, :organization
+  accepts_nested_attributes_for :users, :positions
+  # :organization
 
 end

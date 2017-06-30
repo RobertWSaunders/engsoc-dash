@@ -33,6 +33,8 @@ class JobPosting < ApplicationRecord
   # validate :deadline_cannot_be_in_the_past
   # validate :deadline_cannot_be_within_two_weeks
 
+  accepts_nested_attributes_for :positions
+
   private
 
     def deadline_cannot_be_in_the_past
