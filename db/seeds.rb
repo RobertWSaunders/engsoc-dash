@@ -135,7 +135,9 @@ job = Job.create!(
               description: Faker::Lorem.paragraph(4, true))
 Position.create!(
               job_id: job.id,
-              user_id: user.id)
+              user_id: user.id,
+              start_date: Time.now - 30.days,
+              end_date: Time.now + 30.days)
 user = User.create!(
              first_name:  "Peter",
              last_name:   "Ju",
@@ -151,7 +153,9 @@ job = Job.create!(
               description: Faker::Lorem.paragraph(4, true))
 Position.create!(
               job_id: job.id,
-              user_id: user.id)
+              user_id: user.id,
+              start_date: Time.now - 30.days,
+              end_date: Time.now + 30.days)
 user = User.create!(
              first_name:  "Farhaj",
              last_name:   "Khan",
@@ -167,7 +171,9 @@ job = Job.create!(
               description: Faker::Lorem.paragraph(4, true))
 Position.create!(
               job_id: job.id,
-              user_id: user.id)
+              user_id: user.id,
+              start_date: Time.now - 30.days,
+              end_date: Time.now + 30.days)
 user = User.create!(
              first_name:  "Graham",
              last_name:   "Girard",
@@ -183,7 +189,9 @@ job = Job.create!(
               description: Faker::Lorem.paragraph(4, true))
 Position.create!(
               job_id: job.id,
-              user_id: user.id)
+              user_id: user.id,
+              start_date: Time.now - 30.days,
+              end_date: Time.now + 30.days)
 Job.create!(
               title: "Head of Speakers",
               organization_id: org.id,
@@ -212,7 +220,9 @@ job = Job.create!(
               description: Faker::Lorem.paragraph(4, true))
 Position.create!(
               job_id: job.id,
-              user_id: user.id)
+              user_id: user.id,
+              start_date: Time.now - 30.days,
+              end_date: Time.now + 30.days)
 job = Job.create!(
               title: "Human Resources Manager",
               organization_id: org.id,
@@ -222,7 +232,9 @@ job = Job.create!(
               description: Faker::Lorem.paragraph(4, true))
 Position.create!(
               job_id: job.id,
-              user_id: superadmin.id)
+              user_id: superadmin.id,
+              start_date: Time.now - 30.days,
+              end_date: Time.now + 30.days)
 job = Job.create!(
               title: "Bot Programmer",
               organization_id: org.id,
