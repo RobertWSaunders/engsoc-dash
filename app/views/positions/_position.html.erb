@@ -1,0 +1,19 @@
+<tr>
+  <td>
+    <%= link_to position.user.first_name + " " + position.user.last_name, profile_path(position.user.id) %>
+  </td>
+  <td>
+    <%= position.user.email %>
+  </td>
+  <td>
+    <% if position.active? %>
+      Currently Holding Position
+    <% end %>
+  </td>
+  <td>
+    <%= position.start_date %>
+  </td>
+  <td>
+    <%= position.end_date %>
+  </td>
+</tr>

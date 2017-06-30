@@ -16,6 +16,8 @@ class JobPosting < ApplicationRecord
   has_many :job_applications, dependent: :destroy
   #delete job posting questions if the related job posting is deleted
   has_many :job_posting_questions, dependent: :destroy
+  
+  has_many :positions
 
   #different statuses for a job posting
   enum status: [:waiting_approval, :draft, :open, :interviewing, :closed, :extension_pending]
