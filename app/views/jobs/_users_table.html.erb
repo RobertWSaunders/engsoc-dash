@@ -1,22 +1,15 @@
-<% if @job.users.any? %>
-  <% @job.users.each do |user| %>
-    <div class="table-responsive ml mr">
-      <table class="table table-hover">
-        <tbody>
-          <%= render user %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
-<% else %>
-  <div class="alert alert-warning ml mr">
-    This position has no employment history and is currently vacant.
-  </div>
-<% end %>
-
 <% if @job.positions.any? %>
   <div class="table-responsive ml mr">
     <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="col-md-2">Name</th>
+          <th class="col-md-2">Email</th>
+          <th class="col-md-2">Status</th>
+          <th class="col-md-2">Start Date</th>
+          <th class="col-md-2">End Date</th>
+        </tr>
+      </thead>
       <tbody>
         <% @job.positions.each do |pos| %>
           <%= render pos %>
