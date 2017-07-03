@@ -223,6 +223,39 @@ Position.create!(
               user_id: user.id,
               start_date: Time.now - 30.days,
               end_date: Time.now + 30.days)
+user = User.create!(
+             first_name:  "Robert",
+             last_name:   "Sun",
+             email:       "Sun@queensu.ca",
+             password:    "password",
+             role:        "student")
+Position.create!(
+              job_id: job.id,
+              user_id: user.id,
+              start_date: Time.now - 30.days,
+              end_date: Time.now + 30.days)
+user = User.create!(
+             first_name:  "Mark",
+             last_name:   "Tamming",
+             email:       "tamming@queensu.ca",
+             password:    "password",
+             role:        "student")
+Position.create!(
+              job_id: job.id,
+              user_id: user.id,
+              start_date: Time.now - 300.days,
+              end_date: Time.now - 60.days)
+user = User.create!(
+             first_name:  "Jacob",
+             last_name:   "Markstrom",
+             email:       "jacob@queensu.ca",
+             password:    "password",
+             role:        "student")
+Position.create!(
+              job_id: job.id,
+              user_id: user.id,
+              start_date: Time.now - 600.days,
+              end_date: Time.now - 300.days)
 job = Job.create!(
               title: "Human Resources Manager",
               organization_id: org.id,
@@ -235,6 +268,24 @@ Position.create!(
               user_id: superadmin.id,
               start_date: Time.now - 30.days,
               end_date: Time.now + 30.days)
+job = Job.create!(
+              title: "Tournaments Researcher",
+              organization_id: org.id,
+              status: "active",
+              job_type: "volunteer",
+              role: "regular",
+              description: Faker::Lorem.paragraph(4, true))
+user = User.create!(
+             first_name:  "Mario",
+             last_name:   "Lemieux",
+             email:       "mario@queensu.ca",
+             password:    "password",
+             role:        "student")
+Position.create!(
+              job_id: job.id,
+              user_id: user.id,
+              start_date: Time.now - 600.days,
+              end_date: Time.now - 300.days)
 job = Job.create!(
               title: "Bot Programmer",
               organization_id: org.id,

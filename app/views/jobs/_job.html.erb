@@ -1,74 +1,46 @@
-<% if job.users.size == 1 %>
-
-  <tr>
-    <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
-    <td><%= job.users.first.first_name %> <%= job.users.first.last_name %></td>
-    <td><%= job.users.first.email %></td>
-    <td>
-      <% if job.role == "management" %>
-        Managerial Position
-      <% elsif job.role == "admin" %>
-        Administration Position
-      <% elsif job.role == "regular" %>
-        General Member Position
-      <% end %>
-    </td>
-    <td>
-      <%= job.job_type.titleize %>
-    </td>
-    <td>
-    <% if can? :manage, job %>
-      <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-warning" do %>
-        <em class="ion-edit"></em>
-      <% end %>
-      <%= link_to job, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" do %>
-        <em class="ion-trash-a"></em>
-      <% end %>
-      <%= link_to assign_job_path(job.id), class: "btn btn-sm btn-primary" do %>
-        <em class="ion-android-person-add"></em>
-      <% end %>
+<% if job.positions.any? %>
+  <% job.positions.each do |pos| %>
+    <% if pos.active? %>
+      <tr>
+        <td>
+          <%= link_to pos.job.title.titleize, job_path(:id => job.id) %>
+        </td>
+        <td>
+          <%= pos.user.first_name %> <%= pos.user.last_name %>
+        </td>
+        <td>
+          <%= pos.user.email %>
+        </td>
+        <td>
+          <% if pos.job.role == "management" %>
+            Managerial Position
+          <% elsif pos.job.role == "admin" %>
+            Administration Position
+          <% elsif pos.job.role == "regular" %>
+            General Member Position
+        <% end %>
+        </td>
+        <td>
+          <%= pos.job.job_type.titleize %>
+        </td>
+        <td>
+          <% if can? :manage, job %>
+            <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-warning" do %>
+              <em class="ion-edit"></em>
+            <% end %>
+            <%= link_to job, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" do %>
+              <em class="ion-trash-a"></em>
+            <% end %>
+            <%= link_to assign_job_path(job.id), class: "btn btn-sm btn-primary" do %>
+              <em class="ion-android-person-add"></em>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
-    </td>
-  </tr>
-
-<% elsif job.users.size > 1 %>
-
-  <% job.users.each do |usr, index| %>
-  <tr>
-    <td class="col-sm-2"><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
-    <td class="col-sm-2"><%= usr.first_name %> <%= usr.last_name %></td>
-    <td class="col-sm-3"><%= usr.email %></td>
-    <td class="col-sm-2">
-      <% if job.role == "management" %>
-        Managerial Position
-      <% elsif job.role == "admin" %>
-        Administration Position
-      <% elsif job.role == "regular" %>
-        General Member Position
-      <% end %>
-    </td>
-    <td class="col-sm-1">
-      <%= job.job_type.titleize %>
-    </td>
-    <td class="col-sm-2">
-    <% if can? :manage, job %>
-      <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-warning" do %>
-        <em class="ion-edit"></em>
-      <% end %>
-      <%= link_to job, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" do %>
-        <em class="ion-trash-a"></em>
-      <% end %>
-      <%= link_to assign_job_path(job.id), class: "btn btn-sm btn-primary" do %>
-        <em class="ion-android-person-add"></em>
-      <% end %>
-    <% end %>
-    </td>
-  </tr>
-
   <% end %>
+<% else #no positions at all associated to job %>
 
-<%# else %>
-<% elsif !job.users.any? %>
   <tr>
     <td>
       <%= link_to job.title.titleize, job_path(:id => job.id) %>
@@ -114,4 +86,4 @@
     </td>
   </tr>
 
-<% end %>
+<% end %> 
