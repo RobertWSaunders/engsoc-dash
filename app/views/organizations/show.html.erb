@@ -18,8 +18,8 @@
     <div class="card">
       <div class="card-body">
         <% if can? :manage, @organization %>
-          <%= link_to(new_organization_job_path(@organization.id), class: "btn btn-primary pull-right") do %>
-            <em class="ion-plus mr-sm"></em>Add Job
+          <%= link_to(new_job_posting_path, class: "btn btn-primary pull-right") do %>
+            <em class="ion-plus mr-sm"></em>Create Posting
           <% end %>
         <% end %>
         <p class="lead">Active Job Postings</p>
