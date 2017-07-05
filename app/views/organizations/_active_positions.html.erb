@@ -24,22 +24,13 @@
           <%= pos.job.job_type.titleize %>
         </td>
         <td>
-          <% if can? :manage, job %>
-            <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-warning" do %>
-              <em class="ion-edit"></em>
-            <% end %>
-            <%= link_to job, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" do %>
-              <em class="ion-trash-a"></em>
-            <% end %>
-            <%= link_to assign_job_path(job.id), class: "btn btn-sm btn-primary" do %>
-              <em class="ion-android-person-add"></em>
-            <% end %>
-          <% end %>
+          <%= pos.start_date.to_date %> - <%= pos.end_date.to_date %>
         </td>
       </tr>
     <% end %>
   <% end %>
 <% end %>
+
 <% if job.job_posting.present? %>
   <% if job.job_posting.status == "open" %>
     <tr>
@@ -64,19 +55,6 @@
       <td>
         <%= job.job_type.titleize %>
       </td>
-      <td>
-      <% if can? :manage, job %>
-        <%= link_to edit_job_path(job.id), class: "btn btn-sm btn-warning" do %>
-          <em class="ion-edit"></em>
-        <% end %>
-        <%= link_to job, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" do %>
-          <em class="ion-trash-a"></em>
-        <% end %>
-        <%= link_to assign_job_path(job.id), class: "btn btn-sm btn-primary" do %>
-          <em class="ion-android-person-add"></em>
-        <% end %>
-      <% end %>
-      </td>
     </tr>
   <% end %>
-<% end %> 
+<% end %>
