@@ -1,5 +1,5 @@
 <% if @job.positions.any? %>
-  <div class="table-responsive ml mr">
+  <div class="table-responsive mh">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -16,6 +16,9 @@
         <% end %>
       </tbody>
     </table>
+    <p class="mh">
+      Historical Total: <%= pluralize @job.positions.count, + @job.title %> worked for <%= @job.organization.name %>
+    </p>
   </div>
 
 <% else %>
