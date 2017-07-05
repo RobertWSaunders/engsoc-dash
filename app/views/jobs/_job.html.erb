@@ -1,10 +1,10 @@
 <tr>
   <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
   <td>
-    <% if job.positions.any? %>
-      <% if job.positions.first.active? %>
-        Currently Filled
-      <% end %>
+    <% if job.positions.any? && job.positions.first.active? %>
+      Currently Filled
+    <% elsif job.job_posting.present? && job.job_posting.status == "open" %>
+      <%= link_to "Taking Applications", job_posting_path(id: job.job_posting.id) %>  
     <% end %>
   </td>
   <td>
