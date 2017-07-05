@@ -12,7 +12,10 @@
         </tr>
       </thead>
       <tbody>
-        <%= render @jobs %>
+        <% @organization.jobs.each do |job| %>
+          <%# displays all active positions as well as jobs with job postings %>
+          <%= render "active_positions", :job => job %>
+        <% end %>
       </tbody>
     </table>
   </div>

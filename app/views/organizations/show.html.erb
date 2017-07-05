@@ -21,9 +21,23 @@
           <em class="ion-plus mr-sm"></em>Add Job
         <% end %>
       <% end %>
-      <p class="lead">Jobs</p>
+      <p class="lead">Active Positions</p>
       <div class="row" id="jobs">
-          <%= render "jobs_table" %>
+        <%= render "active_positions_table" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <% if can? :manage, @organization %>
+        <%= link_to(new_organization_job_path(@organization.id), class: "btn btn-primary pull-right") do %>
+          <em class="ion-plus mr-sm"></em>Add Job
+        <% end %>
+      <% end %>
+      <p class="lead">All Jobs</p>
+      <div class="row" id="jobs">
+        <%= render "jobs_table" %>
       </div>
     </div>
   </div>
