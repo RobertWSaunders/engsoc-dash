@@ -33,11 +33,6 @@
   <% if @jobs.any? && Position.where(:job_id => @jobs.ids).exists? %>
     <div class="card">
       <div class="card-body">
-        <% if can? :manage, @organization %>
-          <%= link_to(new_organization_job_path(@organization.id), class: "btn btn-primary pull-right") do %>
-            <em class="ion-plus mr-sm"></em>Add Job
-          <% end %>
-        <% end %>
         <p class="lead">Active Positions</p>
         <div class="row" id="jobs">
           <%= render "active_positions_table" %>

@@ -31,6 +31,11 @@ class JobPosting < ApplicationRecord
   validates :description, presence: true, length: { minimum: 15, maximum: 4000 }
   validates :deadline, presence: true
 
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+
+  validate :end_date_cannot_be_before_start_date
+
   # Remove to manual 'validations' as admins must approve postings, for greater flexibility
   # validate :deadline_cannot_be_in_the_past
   # validate :deadline_cannot_be_within_two_weeks
@@ -47,4 +52,12 @@ class JobPosting < ApplicationRecord
       two_weeks_later = Date.today + 2.weeks
       errors.add(:deadline, "cannot be within 2 weeks") if self.deadline < two_weeks_later
     end
+
+    def end_date_cannot_be_before_start_date
+      if end_date < start_date
+        errors.add(:end_date, "can't be before the start date")
+      end
+    end
+
+
 end

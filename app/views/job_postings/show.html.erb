@@ -19,6 +19,9 @@
         Organization: <%= link_to @organization.name, @organization %>
       </p>
       <p>
+        Term: <%= @jobposting.start_date.to_date %> to <%= @jobposting.end_date.to_date %>
+      </p>
+      <p class="mv-lg">
         <%= simple_format(@jobposting.description) %>
       </p>
     </div>

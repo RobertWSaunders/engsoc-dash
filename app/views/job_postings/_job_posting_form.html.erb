@@ -74,6 +74,22 @@
     </div>
 </fieldset>
 
+<!-- position duration -->
+<fieldset>
+  <div class="row">
+    <%= f.label :start_date, class: "col-sm-1 control-label" %>
+    <div class="col-sm-11 form-inline">
+      <%= f.date_select :start_date, {ampm: true, "data-provide" => 'datepicker'}, {class: "form-control"} %>
+    </div>
+  </div>
+  <div class="row mv">
+    <%= f.label :end_date, class: "col-sm-1 control-label" %>
+    <div class="col-sm-11 form-inline">
+      <%= f.date_select :end_date, {ampm: true, "data-provide" => 'datepicker'}, {class: "form-control"} %>
+    </div>
+  </div>
+</fieldset>
+
 <!-- status -->
 <fieldset>
   <div class="row">

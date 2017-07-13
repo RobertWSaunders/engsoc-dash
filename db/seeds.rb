@@ -298,7 +298,9 @@ posting = JobPosting.create!(
               deadline: Time.now + 30.days,
               status: "open",
               description: Faker::Lorem.paragraph(4, true),
-              job_id: job.id)
+              job_id: job.id,
+              start_date: Time.now + 40.days,
+              end_date: Time.now + 240.days)
 question1 = JobPostingQuestion.create!(
               job_posting_id: posting.id,
               content: "Do you have experience with java?")
@@ -452,7 +454,9 @@ posting = JobPosting.create!(
               deadline: Time.now + 30.days,
               status: "open",
               description: Faker::Lorem.paragraph(4, true),
-              job_id: job.id)
+              job_id: job.id,
+              start_date: Time.now + 40.days,
+              end_date: Time.now + 240.days)
 question1 = JobPostingQuestion.create!(
               job_posting_id: posting.id,
               content: "Do you have experience with R?")
