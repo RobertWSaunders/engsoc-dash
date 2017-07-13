@@ -35,7 +35,7 @@
           </ul>
         </li>
         <!-- jobs link -->
-        <li class="<%= 'active' if ( (controller.controller_name.eql?('job_postings')) || (controller.controller_name.eql?('job_applications') && (controller.action_name.eql?('user'))) || (controller.controller_name.eql?('job_posting_answers')) ) && ( (!controller.action_name.eql?('manage')) && (!controller.action_name.eql?('admin')) ) %>">
+        <li class="<%= 'active' if ( (controller.controller_name.eql?('job_postings')) || (controller.controller_name.eql?('job_applications') && (controller.action_name.eql?('user'))) || (controller.controller_name.eql?('job_posting_answers')) || controller.action_name.eql?('select_resume')) && ( (!controller.action_name.eql?('manage')) && (!controller.action_name.eql?('admin')) ) %>">
           <a href="#" class="ripple"><span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-ios-list icon-fw"></em></span><span>Job Postings</span></a>
           <ul class="sidebar-subnav">
             <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) && (controller.action_name.eql?('index')) %>">
