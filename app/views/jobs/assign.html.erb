@@ -1,5 +1,5 @@
 <!-- page title -->
-<% content_for :title, "Assign "+@job.title %>
+<% content_for :title, @job.title %>
 
 <!-- page content -->
 <div class="container-fluid container-lg">
@@ -7,7 +7,7 @@
 <div class="card">
   <div class="card-body">
     <p class="lead">
-      Assign Job To User:
+      Assign Job To User
     </p>
     <p>
     <% if @job.users.any? %>
@@ -19,61 +19,56 @@
     <% end %>
     </p>
     <br />
-    <%= form_for([@organization, @job], :html => {:class => 'form-horizontal'}) do |f| %>
+    <%= form_for(:position, :url => create_position_job_path, :html => {:class => 'form-horizontal'}) do |f| %>
 
+      <%= f.hidden_field :job_id, :value => @job.id %>
+
+      <fieldset>
       <%= f.label :User,class: "col-sm-1 control-label" %>
       <div class="col-sm-11">
-        <ul>
-          <%#= f.select :user_ids, User.all.collect { |user| [ user.email, user.id ] }, {},{class: "form-control"} %>
-          <%= f.collection_check_boxes :user_ids, User.all, :id, :email, unchecked: User.all.map(&:id) do |b| %>
-            <li>
-              <%= b.check_box %>
-              <%= b.label %>
-            </li>
-          <% end %>
+        <ul class="col-sm-11">
+          <%= f.text_field :user_id %>
         </ul>
       </div>
-      <br />
-      <br />
+      </fieldset>
 
-      <br />
-      <%= f.submit "Select User", class: "btn btn btn-primary" %>
+      <fieldset>
+        <div class="col-sm-11 col-sm-offset-1">
+          <span class="help-block">
+            Position Term Dates
+          </span>
+        </div>
+        <div class="row">
+          <%= f.label :start_date, class: "col-sm-1 control-label" %>
+          <div class="col-sm-11 form-inline">
+            <%= f.date_select :start_date, {ampm: true, "data-provide" => 'datepicker', :include_blank => true,:default => nil, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
+          </div>
+        </div>
+        <div class="row mv">
+          <%= f.label :end_date, class: "col-sm-1 control-label" %>
+          <div class="col-sm-11 form-inline">
+            <%= f.date_select :end_date, {ampm: true, "data-provide" => 'datepicker', :include_blank => true, :default => nil, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
+          </div>
+        </div>
+      </fieldset>
+
+      <%= f.submit "Assign to Position", class: "btn btn btn-primary" %>
     <% end %>
   </div>
 </div>
 
-<% if !@job.job_posting.present? %>
-  <div class="card">
-    <div class="card-body">
-      <p class="lead">
-        Create Job Posting:
-      </p>
-      <p>
-      <% if @job.users %>
-        <% @job.users.each do |usr| %>
-          This position is current held by <%= usr.first_name %> <%= usr.last_name %>, however you can create a new job posting to hire someone new for the position by creating a new job posting.
-        <% end %>
-      <% else %>
-        This position is currently vacant, however you can create a new job posting to hire someone for the position by creating a new job posting.
-      <% end %>
-      </p>
-      <br />
-      <%= link_to "Create Job Posting", new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn btn-primary" %>
-    </div>
-  </div>
-<% end %>
-<% if !@job.users.present? %>
-  <div class="card">
-    <div class="card-body">
-      <p class="lead">
-        Leave Job Vacant:
-      </p>
-      <p>
-        This job is currently vacant, if you wish to keep it vacant please choose the option below:
-      </p>
-      <br />
-      <%= link_to "Leave Vacant", organization_path(@job.organization), class: "btn btn btn-primary" %>
-    </div>
-  </div>
+  <% if !@job.job_posting.present? %>
+    <%= link_to new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn-flat btn-info" do %>
+      <em class="ion-plus-round icon-fw"></em> Create Job Posting
+    <% end %>
+  <% else %>
+    <%= link_to job_posting_path(@job.job_posting), class: "btn btn-flat btn-primary" do %>
+      <em class="ion-ios-list icon-fw"></em> View Job Posting
+    <% end %>
+  <% end %>
+
+  <%= link_to organization_path(@job.organization), class: "btn btn-flat btn-default pull-right" do %>
+    <em class="ion-ios-arrow-back icon-fw"></em> Back to <%= @job.organization.name %>
+  <% end %>
+
 </div>
-<% end %>

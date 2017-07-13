@@ -3,6 +3,8 @@ class Position < ApplicationRecord
   belongs_to :job
   belongs_to :user
 
+  validates :job_id, presence: true
+  validates :user_id, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
 
@@ -17,7 +19,7 @@ class Position < ApplicationRecord
   end
 
   private
-  
+
     def end_date_cannot_be_before_start_date
       if end_date && start_date
         if end_date <= start_date

@@ -30,7 +30,7 @@
     </div>
   <% end %>
 
-  <% if @jobs.any? && Position.where(:job_id => @jobs.ids).exists? %>
+  <% if @jobs.any? && position = Position.where(:job_id => @jobs.ids).exists? %>
     <div class="card">
       <div class="card-body">
         <p class="lead">Active Positions</p>
