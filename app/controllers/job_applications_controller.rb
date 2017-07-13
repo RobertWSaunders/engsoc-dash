@@ -108,22 +108,18 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/:id/hire
   def hire
-    # TODO: Add flash message
-    # TODO: improve code quality
     @job_application.status = "hired"
-
     job_posting = @job_application.job_posting
-    # job_posting.status = "closed"
 
     job = job_posting.job
     user = User.find(@job_application.user_id)
-    # when using << operator, builds the position model for me
-    user.jobs << job
-    # job.positions.user.id = @job_application.user_id
 
-    # job.save
-    # job_posting.save
+    position = Position.new(job_id: job.id, user_id: user.id, :start_date => job_posting.start_date, :end_date => job_posting.end_date)
+
     @job_application.save
+    position.save
+
+    flash[:success] = "Hired " + user.first_name + " " + user.last_name + " for " + job.title
     redirect_to :back
   end
 
