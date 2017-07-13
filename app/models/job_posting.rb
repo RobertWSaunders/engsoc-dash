@@ -34,7 +34,7 @@ class JobPosting < ApplicationRecord
   validates :start_date, presence: true
   validates :end_date, presence: true
 
-  validate :end_date_cannot_be_before_start_date
+  validate :end_date_cannot_be_before_start_date, :end_date_cannot_be_in_the_past
 
   # Remove to manual 'validations' as admins must approve postings, for greater flexibility
   # validate :deadline_cannot_be_in_the_past
@@ -51,6 +51,10 @@ class JobPosting < ApplicationRecord
     def deadline_cannot_be_within_two_weeks
       two_weeks_later = Date.today + 2.weeks
       errors.add(:deadline, "cannot be within 2 weeks") if self.deadline < two_weeks_later
+    end
+
+    def end_date_cannot_be_in_the_past
+      errors.add(:end_date, "cannot be in the past") if self.end_date < Date.today
     end
 
     def end_date_cannot_be_before_start_date
