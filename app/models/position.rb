@@ -17,10 +17,12 @@ class Position < ApplicationRecord
   end
 
   private
-
+  
     def end_date_cannot_be_before_start_date
-      if end_date < start_date
-        errors.add(:end_date, "can't be before the start date")
+      if end_date && start_date
+        if end_date <= start_date
+          errors.add(:end_date, "can't be before or the same day as the start date")
+        end
       end
     end
 

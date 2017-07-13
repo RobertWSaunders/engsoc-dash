@@ -182,7 +182,7 @@ class JobPostingsController < ApplicationController
   private
 
     def job_posting_params
-      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status)
+      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status, :start_date, :end_date)
     end
 
     def set_job_posting

@@ -53,39 +53,44 @@
 
 <!-- deadline -->
 <fieldset>
-    <div class="row">
-      <%= f.label :deadline, class: "col-sm-1 control-label" %>
-      <div class="col-sm-11 form-inline">
-        <%= f.datetime_select :deadline, {ampm: true, "data-provide" => 'datepicker'}, {class: "form-control"} %>
+  <div class="row">
+    <div class="col-sm-11 col-sm-offset-1">
+      <div class="alert alert-info mt">
+        <p>
+          Job Postings can begin to interview candidates only after the deadline.
+        </p>
+        <p>
+          It is recommended that you at set the deadline to be at least <em><strong class="lead"><%= (Date.today + 2.weeks).strftime("%B %d, %Y") %></strong></em> (2 weeks from now), as per EngSoc policy, for the job posting to be approved.
+        </p>
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col-sm-11 col-sm-offset-1">
-        <div class="alert alert-warning mt">
-          <p>
-            Job Postings can begin to interview candidates only after the deadline.
-          </p>
-          <p>
-            It is recommended that you at set the deadline to be at least <strong class="lead"><%= (Date.today + 2.weeks).strftime("%B %d, %Y") %></strong> (2 weeks from now), as per EngSoc policy, for the job posting to be approved.
-          </p>
-        </div>
-      </div>
+  <div class="row">
+    <%= f.label :deadline, class: "col-sm-1 control-label" %>
+    <div class="col-sm-11 form-inline">
+      <%= f.datetime_select :deadline, {ampm: true, "data-provide" => 'datepicker', start_year: Date.today.year, default: Date.today + 2.weeks, end_year: Date.today.year + 1}, {class: "form-control"} %>
     </div>
+  </div>
 </fieldset>
 
 <!-- position duration -->
 <fieldset>
+  <div class="col-sm-11 col-sm-offset-1">
+    <span class="help-block">
+      Position Term Dates
+    </span>
+  </div>
   <div class="row">
     <%= f.label :start_date, class: "col-sm-1 control-label" %>
     <div class="col-sm-11 form-inline">
-      <%= f.date_select :start_date, {ampm: true, "data-provide" => 'datepicker'}, {class: "form-control"} %>
+      <%= f.date_select :start_date, {ampm: true, "data-provide" => 'datepicker', :include_blank => true,:default => nil, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
     </div>
   </div>
   <div class="row mv">
     <%= f.label :end_date, class: "col-sm-1 control-label" %>
     <div class="col-sm-11 form-inline">
-      <%= f.date_select :end_date, {ampm: true, "data-provide" => 'datepicker'}, {class: "form-control"} %>
+      <%= f.date_select :end_date, {ampm: true, "data-provide" => 'datepicker', :include_blank => true, :default => nil, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
     </div>
   </div>
 </fieldset>
