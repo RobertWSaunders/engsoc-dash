@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <%= link_to job_posting.title.titleize, job_posting_path(:id => job_posting.id) %>
+    <%= link_to job_posting.title.titleize, job_path(:id => job_posting.job_id) %>
   </td>
   <td>
     <%= job_posting.deadline.to_date %>

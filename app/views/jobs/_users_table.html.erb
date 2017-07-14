@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @job.positions.each do |pos| %>
+        <% @job.positions.order(:start_date).reverse.each do |pos| %>
           <%= render pos %>
         <% end %>
       </tbody>

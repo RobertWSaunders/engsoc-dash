@@ -1,61 +1,73 @@
 <!-- page title -->
-<% content_for :title, @job.title %>
+<% content_for :title, "Assign to Job" %>
 
 <!-- page content -->
 <div class="container-fluid container-lg">
 
-<div class="card">
-  <div class="card-body">
-    <p class="lead">
-      Assign Job To User
-    </p>
-    <p>
-    <% if @job.users.any? %>
-      <% @job.users.each do |usr| %>
-        This position is current held by <%= usr.first_name %> <%= usr.last_name %>, however you can assign it to someone else, select the new user and press 'Assign':
-      <% end %>
-    <% else %>
-        This position is currently vacant, however you can assign it to someone, select the user and press 'Assign':
-    <% end %>
-    </p>
-    <br />
-    <%= form_for(:position, :url => create_position_job_path, :html => {:class => 'form-horizontal'}) do |f| %>
+  <div class="card">
+    <div class="card-body">
+      <h4>
+        <%= @job.title %><br>
+        <small><%= @job.organization.name %></small>
+      </h4>
 
-      <%= f.hidden_field :job_id, :value => @job.id %>
-
-      <fieldset>
-      <%= f.label :User,class: "col-sm-1 control-label" %>
-      <div class="col-sm-11">
-        <ul class="col-sm-11">
-          <%= f.text_field :user_id %>
-        </ul>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#history">Position History</a>
+            </h4>
+          </div>
+          <div id="history" class="panel-collapse collapse">
+            <%= render "users_table" %>
+          </div>
+        </div>
       </div>
-      </fieldset>
-
-      <fieldset>
-        <div class="col-sm-11 col-sm-offset-1">
-          <span class="help-block">
-            Position Term Dates
-          </span>
-        </div>
-        <div class="row">
-          <%= f.label :start_date, class: "col-sm-1 control-label" %>
-          <div class="col-sm-11 form-inline">
-            <%= f.date_select :start_date, {ampm: true, "data-provide" => 'datepicker', :include_blank => true,:default => nil, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
-          </div>
-        </div>
-        <div class="row mv">
-          <%= f.label :end_date, class: "col-sm-1 control-label" %>
-          <div class="col-sm-11 form-inline">
-            <%= f.date_select :end_date, {ampm: true, "data-provide" => 'datepicker', :include_blank => true, :default => nil, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
-          </div>
-        </div>
-      </fieldset>
-
-      <%= f.submit "Assign to Position", class: "btn btn btn-primary" %>
-    <% end %>
+    </div>
   </div>
-</div>
+
+  <div class="card">
+    <div class="card-body">
+      <p class="lead">
+        Assign someone as <%= @job.title %>
+      </p>
+      <%= form_for(:position, :url => create_position_job_path, :html => {:class => 'form-horizontal'}) do |f| %>
+
+        <%= f.hidden_field :job_id, :value => @job.id %>
+
+        <fieldset>
+        <%= f.label :User,class: "col-sm-1 control-label" %>
+        <div class="col-sm-11">
+          <ul class="col-sm-11">
+            <%= f.text_field :user_id %>
+          </ul>
+        </div>
+        </fieldset>
+
+        <fieldset>
+          <div class="col-sm-11 col-sm-offset-1">
+            <span class="help-block">
+              Position Term Dates
+            </span>
+          </div>
+          <div class="row">
+            <%= f.label :start_date, class: "col-sm-1 control-label" %>
+            <div class="col-sm-11 form-inline">
+              <%= f.date_select :start_date, {ampm: true, "data-provide" => 'datepicker', :include_blank => true,:default => nil, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
+            </div>
+          </div>
+          <div class="row mv">
+            <%= f.label :end_date, class: "col-sm-1 control-label" %>
+            <div class="col-sm-11 form-inline">
+              <%= f.date_select :end_date, {ampm: true, "data-provide" => 'datepicker', :include_blank => true, :default => nil, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
+            </div>
+          </div>
+        </fieldset>
+
+        <%= f.submit "Assign to Position", class: "btn btn-flat btn-block btn-primary" %>
+      <% end %>
+    </div>
+  </div>
 
   <% if !@job.job_posting.present? %>
     <%= link_to new_job_posting_path(:organization_id => @job.organization_id, :job_id => @job.id), class: "btn btn-flat btn-info" do %>

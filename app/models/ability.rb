@@ -21,11 +21,11 @@ class Ability
     if user.superadmin?
       can :manage, :all
     # for users that have a job where they are an admin
-    elsif user.jobs.any? { |job| job.user_id == user.id && job.role == "admin" }
+    elsif user.jobs.any? { |job| job.user_ids == user.id && job.role == "admin" }
       can :manage, :all
       #can manage pretty much everything except users
    # for users that have a job where they are an manager
-    elsif user.jobs.any? { |job| job.user_id == user.id && job.role == "management" }
+    elsif user.jobs.any? { |job| job.user_ids == user.id && job.role == "management" }
       # can manage organizations they have a job under
       can :manage, Organization, id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id)
       # can manage jobs that fall under the organizations they are managers for

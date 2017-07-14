@@ -26,13 +26,14 @@
   </div>
 </div>
 
-<div class="card">
+  <div class="card">
     <div class="card-body">
         <% if @job.job_posting.present? %>
-          <%= link_to 'View Job Posting', job_posting_path(id: @job.job_posting.id), class: "btn btn-primary pull-right" %>
+          <%= link_to 'View Job Posting', job_posting_path(id: @job.job_posting.id), class: "btn btn-flat btn-primary pull-right" %>
         <% else %>
           <% if can? :manage, @job %>
-            <%= link_to 'Create Job Posting', new_job_posting_path(job_id: @job.id), class: "btn btn-primary pull-right" %>
+            <%= link_to 'Create Job Posting', new_job_posting_path(job_id: @job.id), class: "btn btn-flat btn-primary pull-right mh" %>
+            <%= link_to 'Assign Users to Job', assign_job_path(id: @job.id), class: "btn btn-flat btn-info pull-right mh" %>
           <% end %>
       <% end %>
       <p class="lead">Position History</p>
@@ -41,4 +42,8 @@
       </div>
     </div>
   </div>
+
+  <%= link_to organization_path(@job.organization), class: "btn btn-flat btn-default pull-right" do %>
+    <em class="ion-ios-arrow-back icon-fw"></em> Back to <%= @job.organization.name %>
+  <% end %>
 </div>

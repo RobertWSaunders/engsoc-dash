@@ -8,6 +8,10 @@
   <td class="col-md-2">
     <% if position.active? %>
       Active
+    <% elsif position.future? %>
+      <small>Assuming position in <%= distance_of_time_in_words(Time.now, position.start_date) %></small>
+    <% else %>
+      <small>Completed</small>
     <% end %>
   </td>
   <td class="col-md-2">

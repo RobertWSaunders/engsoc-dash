@@ -18,6 +18,14 @@ class Position < ApplicationRecord
     end
   end
 
+  def future?
+    if start_date.nil? || end_date.nil?
+      return false
+    else
+      start_date > DateTime.current
+    end
+  end
+
   private
 
     def end_date_cannot_be_before_start_date
