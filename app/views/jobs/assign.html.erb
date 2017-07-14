@@ -7,8 +7,8 @@
   <div class="card">
     <div class="card-body">
       <h4>
-        <%= @job.title %><br>
-        <small><%= @job.organization.name %></small>
+        <%= link_to @job.title, @job %><br>
+        <small><%= link_to @job.organization.name, @job.organization %></small>
       </h4>
 
       <div class="panel-group">
@@ -28,20 +28,20 @@
 
   <div class="card">
     <div class="card-body">
-      <p class="lead">
-        Assign someone as <%= @job.title %>
+      <p class="lead mv mh">
+        Assign a User as <%= @job.title %>
       </p>
       <%= form_for(:position, :url => create_position_job_path, :html => {:class => 'form-horizontal'}) do |f| %>
 
         <%= f.hidden_field :job_id, :value => @job.id %>
-
+        <hr>
         <fieldset>
-        <%= f.label :User,class: "col-sm-1 control-label" %>
-        <div class="col-sm-11">
-          <ul class="col-sm-11">
-            <%= f.text_field :user_id %>
-          </ul>
-        </div>
+          <%= f.label :User,class: "col-sm-1 control-label" %>
+          <div class="col-sm-11">
+            <ul class="col-sm-11">
+              <%= f.text_field :user_id %>
+            </ul>
+          </div>
         </fieldset>
 
         <fieldset>
@@ -64,7 +64,7 @@
           </div>
         </fieldset>
 
-        <%= f.submit "Assign to Position", class: "btn btn-flat btn-block btn-primary" %>
+        <%= f.submit "Create Position", class: "btn btn-flat btn-block btn-primary" %>
       <% end %>
     </div>
   </div>

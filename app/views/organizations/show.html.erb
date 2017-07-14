@@ -1,12 +1,12 @@
 <!-- page title -->
-<% content_for :title, @organization.name %>
+<% content_for :title, "Organization Overview" %>
 
-<div class="container container-lg">
+<div class="container container-fluid">
   <div class="card">
     <div class="card-body">
       <!-- render the dropdown -->
       <%= render 'organization_list_item_dropdown', organization: @organization, status: true, role: true %>
-      <p class="lead">Organization Overview</p>
+      <p class="lead"><%= @organization.name %></p>
       <hr />
       <p>
         <%= simple_format(@organization.description) %>
