@@ -6,14 +6,14 @@
           <%= link_to pos.job.title.titleize, job_path(:id => job.id) %>
         </td>
         <td>
-          <%= pos.user.first_name %> <%= pos.user.last_name %>
+          <%= link_to pos.user.first_name + " " + pos.user.last_name, profile_path(pos.user.id) %>
         </td>
         <td>
           <%= pos.user.email %>
         </td>
         <td>
           <% if pos.job.role == "management" %>
-            Managerial Position
+            <span class="text-success">Managerial Position</span>
           <% elsif pos.job.role == "admin" %>
             Administration Position
           <% elsif pos.job.role == "regular" %>

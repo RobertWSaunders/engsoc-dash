@@ -6,7 +6,10 @@
     <div class="card-body">
       <!-- render the dropdown -->
       <%= render 'organization_list_item_dropdown', organization: @organization, status: true, role: true %>
-      <p class="lead"><%= @organization.name %></p>
+      <p class="lead">
+        <span class="text-lg"><%= @organization.name %></span>
+        <br><span class="text-muted"><small><%= @organization.email %></small></span>
+      </p>
       <hr />
       <p>
         <%= simple_format(@organization.description) %>

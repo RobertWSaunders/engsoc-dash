@@ -7,11 +7,11 @@
   </td>
   <td class="col-md-2">
     <% if position.active? %>
-      Active
+      <span class="text-info">Active</span>
     <% elsif position.future? %>
-      <small>Assuming position in <%= distance_of_time_in_words(Time.now, position.start_date) %></small>
+      <small class="text-muted">Assuming position in <%= distance_of_time_in_words(Time.now, position.start_date) %></small>
     <% else %>
-      <small>Completed</small>
+      <small class="text-muted">Completed</small>
     <% end %>
   </td>
   <td class="col-md-2">
