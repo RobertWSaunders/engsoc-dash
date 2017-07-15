@@ -3,7 +3,7 @@
   <td>
     <% if job.positions.any? && job.positions.first.active? %>
       Currently Filled
-    <% elsif job.job_posting.present? && job.job_posting.status == "open" %>
+    <% elsif job.job_posting.present? && job.job_posting.active? %>
       <%= link_to "Taking Applications", job_posting_path(id: job.job_posting.id) %>  
     <% end %>
   </td>

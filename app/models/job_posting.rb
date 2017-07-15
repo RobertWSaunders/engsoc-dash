@@ -42,6 +42,14 @@ class JobPosting < ApplicationRecord
 
   accepts_nested_attributes_for :positions
 
+  def active?
+    if status == "open"
+      return true
+    else
+      return false
+    end
+  end
+
   private
 
     def deadline_cannot_be_in_the_past
@@ -54,11 +62,17 @@ class JobPosting < ApplicationRecord
     end
 
     def end_date_cannot_be_in_the_past
-      errors.add(:end_date, "cannot be in the past") if self.end_date < Date.today
+      if end_date.nil?
+        return false
+      else
+        errors.add(:end_date, "cannot be in the past") if self.end_date < Date.today
+      end
     end
 
     def end_date_cannot_be_before_start_date
-      if end_date && start_date
+      if end_date.nil? || start_date.nil?
+        return false
+      else
         if end_date <= start_date
           errors.add(:end_date, "can't be before or the same day as the start date")
         end
