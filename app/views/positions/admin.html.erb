@@ -1,0 +1,14 @@
+<% content_for :title, "Admin Positions" %>
+
+<div class="container container-lg">
+
+  <div class="card">
+    <div class="card-body">
+      <% @positions.each do |pos| %>
+        <%= pos.user.first_name %> <%= pos.start_date %>
+        <br>
+      <% end %>
+    </div>
+  </div>
+
+</div>

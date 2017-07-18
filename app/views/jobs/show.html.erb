@@ -27,21 +27,21 @@
 
   <div class="card">
     <div class="card-body">
+      <% if can? :manage, @job %>
+        <%= link_to 'Assign Users to Job', assign_job_path(id: @job.id), class: "btn btn-flat btn-info pull-right mh" %>
+      <% end %>  
+      <% if @job.job_posting.present? %>
+        <% if (@job.job_posting.status == "open") || (can? :manage, @job) %>
+          <%= link_to 'View Job Posting', job_posting_path(id: @job.job_posting.id), class: "btn btn-flat btn-success pull-right mh" %>
+        <% end %>
+      <% else %>
         <% if can? :manage, @job %>
-          <%= link_to 'Assign Users to Job', assign_job_path(id: @job.id), class: "btn btn-flat btn-info pull-right mh" %>
-        <% end %>  
-        <% if @job.job_posting.present? %>
-          <% if (@job.job_posting.status == "open") || (can? :manage, @job) %>
-            <%= link_to 'View Job Posting', job_posting_path(id: @job.job_posting.id), class: "btn btn-flat btn-success pull-right mh" %>
-          <% end %>
-        <% else %>
-          <% if can? :manage, @job %>
-            <%= link_to 'Create Job Posting', new_job_posting_path(job_id: @job.id), class: "btn btn-flat btn-primary pull-right mh" %>
-          <% end %>
+          <%= link_to 'Create Job Posting', new_job_posting_path(job_id: @job.id), class: "btn btn-flat btn-primary pull-right mh" %>
+        <% end %>
       <% end %>
       <p class="lead">Position History</p>
       <div class="row" id="users">
-          <%= render "users_table" %>
+        <%= render "users_table" %>
       </div>
     </div>
   </div>

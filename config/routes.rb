@@ -93,5 +93,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :positions do
+    collection do
+      get 'admin'
+    end
+  end
+
 
 end
