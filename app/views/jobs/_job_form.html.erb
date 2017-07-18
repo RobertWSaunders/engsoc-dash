@@ -1,77 +1,147 @@
-<%= form_for([@organization, @job], :html => {:class => 'form-horizontal'}) do |f| %>
-  <!-- render any error messages -->
-  <%= render 'shared/job_error_messages' %>
+<% if action_name == 'new' %>
 
-  <!-- hidden field for the organization id -->
-  <% if defined? @job.organization.id %>
-    <%= f.hidden_field :organization_id, :value => @job.organization.id %>
-  <% else %>
-    <%= f.hidden_field :organization_id, :value => @organization.id %>
-  <% end %>
+  <%= form_for([@organization, @job], :html => {:class => 'form-horizontal'}) do |f| %>
+    <!-- render any error messages -->
+    <%= render 'shared/job_error_messages' %>
 
-  <!-- form fields -->
-  <!-- organization -->
-  <fieldset class="last-child">
-    <div class="form-group">
-      <label class="col-sm-1 control-label">Organization</label>
-      <div class="col-sm-11">
-        <% if action_name == 'edit' %>
-          <input type="text" placeholder="<%= @job.organization.name %>" disabled="" class="form-control">
-        <% else %>
+    <!-- hidden field for the organization id -->
+    <% if defined? @job.organization.id %>
+      <%= f.hidden_field :organization_id, :value => @job.organization.id %>
+    <% else %>
+      <%= f.hidden_field :organization_id, :value => @organization.id %>
+    <% end %>
+
+    <!-- form fields -->
+    <!-- organization -->
+    <fieldset class="last-child">
+      <div class="form-group">
+        <label class="col-sm-1 control-label">Organization</label>
+        <div class="col-sm-11">
           <input type="text" placeholder="<%= @organization.name %>" disabled="" class="form-control">
-        <% end %>
+        </div>
       </div>
-    </div>
-  </fieldset>
+    </fieldset>
 
-  <!-- title -->
-  <fieldset class="last-child">
-    <div class="form-group">
-      <%= f.label :title, "Job Title",class: "col-sm-1 control-label" %>
-      <div class="col-sm-11">
-        <%= f.text_field :title, class: "form-control" %>
+    <!-- title -->
+    <fieldset class="last-child">
+      <div class="form-group">
+        <%= f.label :title, "Job Title",class: "col-sm-1 control-label" %>
+        <div class="col-sm-11">
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
       </div>
-    </div>
-  </fieldset>
+    </fieldset>
 
-  <!-- description -->
-  <fieldset>
-    <div class="form-group">
-      <%= f.label :description, class: "col-sm-1 control-label" %>
-      <div class="col-sm-11">
-        <%= f.text_area :description, class: 'form-control', rows: "8", style: 'resize:none' %>
+    <!-- description -->
+    <fieldset>
+      <div class="form-group">
+        <%= f.label :description, class: "col-sm-1 control-label" %>
+        <div class="col-sm-11">
+          <%= f.text_area :description, class: 'form-control', rows: "8", style: 'resize:none' %>
+        </div>
       </div>
-    </div>
-  </fieldset>
+    </fieldset>
 
-  <!-- role -->
-  <fieldset>
-    <div class="row">
-    <%= f.label :role, "Job Role",class: "col-sm-1 control-label" %>
-      <!-- only admins are able to set the status -->
-      <div class="col-sm-11">
-          <%= f.select :role, Job.roles.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
-      </div>
-    </div>
-  </fieldset>
-
-  <!-- job type -->
-  <fieldset class="last-child">
-    <div class="row">
-      <%= f.label :job_type, "Job Type",class: "col-sm-1 control-label" %>
+    <!-- role -->
+    <fieldset>
+      <div class="row">
+      <%= f.label :role, "Job Role",class: "col-sm-1 control-label" %>
         <!-- only admins are able to set the status -->
         <div class="col-sm-11">
-          <%= f.select :job_type, Job.job_types.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+          <%= f.select :role, Job.roles.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
         </div>
-    </div>
-  </fieldset>
-  <hr>
-  
-  <!-- submit button -->
-  <% if action_name == 'edit' %>
-    <%= f.submit "Edit Job", class: "btn btn-primary btn-block" %>
-  <% else %>
+      </div>
+    </fieldset>
+
+    <!-- job type -->
+    <fieldset class="last-child">
+      <div class="row">
+        <%= f.label :job_type, "Job Type",class: "col-sm-1 control-label" %>
+          <!-- only admins are able to set the status -->
+          <div class="col-sm-11">
+            <%= f.select :job_type, Job.job_types.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+          </div>
+      </div>
+    </fieldset>
+    <hr>
+    
+    <!-- submit button -->
+
     <%= f.submit "Create Job", class: "btn btn-primary btn-block" %>
+    <%= link_to "Cancel",root_path, class: "btn btn-inverse btn-block" %>
   <% end %>
-  <%= link_to "Cancel",root_path, class: "btn btn-inverse btn-block" %>
+
+<% else %>
+
+  <%= form_for @job, :html => {:class => 'form-horizontal'} do |f| %>
+    <!-- render any error messages -->
+    <%= render 'shared/job_error_messages' %>
+
+    <!-- hidden field for the organization id -->
+    <% if defined? @job.organization.id %>
+      <%= f.hidden_field :organization_id, :value => @job.organization.id %>
+    <% else %>
+      <%= f.hidden_field :organization_id, :value => @organization.id %>
+    <% end %>
+
+    <!-- form fields -->
+    <!-- organization -->
+    <fieldset class="last-child">
+      <div class="form-group">
+        <label class="col-sm-1 control-label">Organization</label>
+        <div class="col-sm-11">
+          <input type="text" placeholder="<%= @job.organization.name %>" disabled="" class="form-control">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- title -->
+    <fieldset class="last-child">
+      <div class="form-group">
+        <%= f.label :title, "Job Title",class: "col-sm-1 control-label" %>
+        <div class="col-sm-11">
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- description -->
+    <fieldset>
+      <div class="form-group">
+        <%= f.label :description, class: "col-sm-1 control-label" %>
+        <div class="col-sm-11">
+          <%= f.text_area :description, class: 'form-control', rows: "8", style: 'resize:none' %>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- role -->
+    <fieldset>
+      <div class="row">
+      <%= f.label :role, "Job Role",class: "col-sm-1 control-label" %>
+        <!-- only admins are able to set the status -->
+        <div class="col-sm-11">
+            <%= f.select :role, Job.roles.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- job type -->
+    <fieldset class="last-child">
+      <div class="row">
+        <%= f.label :job_type, "Job Type",class: "col-sm-1 control-label" %>
+          <!-- only admins are able to set the status -->
+          <div class="col-sm-11">
+            <%= f.select :job_type, Job.job_types.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+          </div>
+      </div>
+    </fieldset>
+    <hr>
+    
+    <!-- submit button -->
+
+    <%= f.submit "Edit Job", class: "btn btn-primary btn-block" %>
+    <%= link_to "Cancel",root_path, class: "btn btn-inverse btn-block" %>
+  <% end %>
+
 <% end %>

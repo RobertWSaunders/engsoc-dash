@@ -10,6 +10,9 @@
 <p>
   Organization: <%= link_to posting.job.organization.name, posting.job.organization %>
 </p>
+<p class="text-gray-darker">
+  Term: <%= posting.start_date.to_date %> to <%= posting.end_date.to_date %><br />
+</p>
 <p>
   <%= simple_format(posting.description) %>
 </p>

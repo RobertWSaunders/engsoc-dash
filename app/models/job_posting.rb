@@ -16,6 +16,8 @@ class JobPosting < ApplicationRecord
   has_many :job_applications, dependent: :destroy
   #delete job posting questions if the related job posting is deleted
   has_many :job_posting_questions, dependent: :destroy
+  
+  has_many :positions
 
   #different statuses for a job posting
   enum status: [:waiting_approval, :draft, :open, :interviewing, :closed, :extension_pending]
@@ -29,9 +31,24 @@ class JobPosting < ApplicationRecord
   validates :description, presence: true, length: { minimum: 15, maximum: 4000 }
   validates :deadline, presence: true
 
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+
+  validate :end_date_cannot_be_before_start_date, :end_date_cannot_be_in_the_past
+
   # Remove to manual 'validations' as admins must approve postings, for greater flexibility
   # validate :deadline_cannot_be_in_the_past
   # validate :deadline_cannot_be_within_two_weeks
+
+  accepts_nested_attributes_for :positions
+
+  def active?
+    if status == "open"
+      return true
+    else
+      return false
+    end
+  end
 
   private
 
@@ -43,4 +60,24 @@ class JobPosting < ApplicationRecord
       two_weeks_later = Date.today + 2.weeks
       errors.add(:deadline, "cannot be within 2 weeks") if self.deadline < two_weeks_later
     end
+
+    def end_date_cannot_be_in_the_past
+      if end_date.nil?
+        return false
+      else
+        errors.add(:end_date, "cannot be in the past") if self.end_date < Date.today
+      end
+    end
+
+    def end_date_cannot_be_before_start_date
+      if end_date.nil? || start_date.nil?
+        return false
+      else
+        if end_date <= start_date
+          errors.add(:end_date, "can't be before or the same day as the start date")
+        end
+      end
+    end
+
+
 end

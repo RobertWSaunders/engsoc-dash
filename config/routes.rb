@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   resources :jobs, only: [:show, :edit, :update, :destroy] do
     member do
       get 'assign'
+      post 'create_position'
       put 'add_user'
     end
   end

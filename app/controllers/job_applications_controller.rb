@@ -19,17 +19,22 @@ class JobApplicationsController < ApplicationController
   # GET /job_postings/:job_posting_id/job_applications/new
   def new
     @job_posting = JobPosting.find(params[:job_posting_id])
-    @existing = JobApplication.where(user_id: current_user.id, job_posting_id: params[:job_posting_id]).first
-    if @existing
-      if @existing.status == "submitted"
-        flash[:notice] = "It seems like you have already applied for this job."
-        redirect_to job_posting_path(@job_posting)
-      else
-        # redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @existing.id)
-        redirect_to select_resume_job_application_path(@existing)
+    if @job_posting.status != "open"
+      flash[:warning] = "This job posting is currently not taking applications."
+      redirect_to :back
+    else
+      @existing = JobApplication.find_by(user_id: current_user.id, job_posting_id: params[:job_posting_id], archived: false)
+      if @existing
+        if @existing.status == "submitted"
+          flash[:warning] = "It seems like you have already applied for this job."
+          redirect_to job_posting_path(@job_posting)
+        elsif @existing.status == "draft"
+          # redirect_to new_job_posting_job_application_job_posting_answers_path(:job_application_id => @existing.id)
+          redirect_to select_resume_job_application_path(@existing)
+        end
       end
+      @job_application = JobApplication.new
     end
-    @job_application = JobApplication.new
   end
 
   # POST /job_postings/:job_posting_id/job_applications
@@ -103,22 +108,18 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/:id/hire
   def hire
-    # TODO: Add flash message
-    # TODO: improve code quality
     @job_application.status = "hired"
-
     job_posting = @job_application.job_posting
-    # job_posting.status = "closed"
 
     job = job_posting.job
     user = User.find(@job_application.user_id)
-    # when using << operator, builds the position model for me
-    user.jobs << job
-    # job.positions.user.id = @job_application.user_id
 
-    # job.save
-    # job_posting.save
+    position = Position.new(job_id: job.id, user_id: user.id, :start_date => job_posting.start_date, :end_date => job_posting.end_date)
+
     @job_application.save
+    position.save
+
+    flash[:success] = "Hired " + user.first_name + " " + user.last_name + " for " + job.title
     redirect_to :back
   end
 

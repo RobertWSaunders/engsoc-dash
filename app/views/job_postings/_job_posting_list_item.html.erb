@@ -20,6 +20,8 @@
 
   <p class="text-gray-darker">Organization: <%= link_to posting.job.organization.name, posting.job.organization %><br /></p>
 
+  <p class="text-gray-darker">Term: <%= posting.start_date.to_date %> to <%= posting.end_date.to_date %><br /></p>
+
   <!-- display the truncated job posting description -->
   <p><%= h truncate(posting.description, :length => 270) %></p>
 

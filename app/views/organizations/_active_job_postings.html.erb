@@ -1,0 +1,29 @@
+<tr>
+  <td>
+    <%= link_to job_posting.title.titleize, job_path(:id => job_posting.job_id) %>
+  </td>
+  <td>
+    <%= job_posting.deadline.to_date %>
+    <% if !job_posting.deadline.past? %>
+    (<em><%= distance_of_time_in_words(Time.now, job_posting.deadline) %> left</em>)
+    <% end %>
+  </td>
+  <td>
+    <% if job_posting.job.role == "management" %>
+      Managerial Position
+    <% elsif job_posting.job.role == "admin" %>
+      Administration Position
+    <% elsif job_posting.job.role == "regular" %>
+      General Member Position
+    <% end %>
+  </td>
+  <td>
+    <%= job_posting.job.job_type.titleize %>
+  </td>
+  <td>
+    <%= link_to "View Job Posting", job_posting_path(:id => job_posting.id) %>
+  </td>
+  <td>
+    <%= link_to "Apply Now", new_job_posting_job_application_path(job_posting.id) %>
+  </td>
+</tr>

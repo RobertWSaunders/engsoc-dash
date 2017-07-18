@@ -15,7 +15,7 @@ class ResumesController < ApplicationController
       flash[:success] = "Resume <em>#{@resume.name}</em> has been uploaded."
       redirect_to profile_resumes_path
     else
-      flash[:warning] = "Resume <em>#{@resume.name}</em> did not upload properly. Please make sure it is the right file format, and try again."
+      flash[:warning] = "Resume <em>#{@resume.name}</em> did not upload properly. Please make sure you have attached a file, and that it is the right format (PDF, DOC, DOCx), and try again."
       render "index"
     end
   end

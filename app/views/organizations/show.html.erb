@@ -1,18 +1,48 @@
 <!-- page title -->
-<% content_for :title, @organization.name %>
+<% content_for :title, "Organization Overview" %>
 
-<div class="container container-lg">
+<div class="container container-fluid">
   <div class="card">
     <div class="card-body">
       <!-- render the dropdown -->
       <%= render 'organization_list_item_dropdown', organization: @organization, status: true, role: true %>
-      <p class="lead">Organization Overview</p>
+      <p class="lead">
+        <span class="text-lg"><%= @organization.name %></span>
+        <br><span class="text-muted"><small><%= @organization.email %></small></span>
+      </p>
       <hr />
       <p>
         <%= simple_format(@organization.description) %>
       </p>
     </div>
   </div>
+
+  <% if @jobs.any? && JobPosting.where(:job_id => @jobs.ids, :status => "open").exists? %>
+    <div class="card">
+      <div class="card-body">
+        <% if can? :manage, @organization %>
+          <%= link_to(new_job_posting_path, class: "btn btn-primary pull-right") do %>
+            <em class="ion-plus mr-sm"></em>Create Posting
+          <% end %>
+        <% end %>
+        <p class="lead">Active Job Postings</p>
+        <div class="row" id="jobs">
+          <%= render "active_job_postings_table" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @jobs.any? && position = Position.where(:job_id => @jobs.ids).exists? %>
+    <div class="card">
+      <div class="card-body">
+        <p class="lead">Active Positions</p>
+        <div class="row" id="jobs">
+          <%= render "active_positions_table" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <div class="card">
     <div class="card-body">
@@ -21,9 +51,9 @@
           <em class="ion-plus mr-sm"></em>Add Job
         <% end %>
       <% end %>
-      <p class="lead">Jobs</p>
+      <p class="lead">All Jobs</p>
       <div class="row" id="jobs">
-          <%= render "jobs_table" %>
+        <%= render "jobs_table" %>
       </div>
     </div>
   </div>

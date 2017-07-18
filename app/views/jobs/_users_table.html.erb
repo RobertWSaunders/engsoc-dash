@@ -1,15 +1,30 @@
-<% if @job.users.any? %>
-  <% @job.users.each do |usr| %>
-    <div class="table-responsive ml mr">
-      <table class="table table-hover">
-        <tbody>
-          <%= render usr %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
+<% if @job.positions.any? %>
+  <div class="table-responsive mh">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @job.positions.order(:start_date).reverse.each do |pos| %>
+          <%= render pos %>
+        <% end %>
+      </tbody>
+    </table>
+    <p class="mh">
+      Historical Total: <%= pluralize @job.positions.count, + @job.title %> worked for <%= @job.organization.name %>
+    </p>
+  </div>
+
 <% else %>
-  <div class="alert alert-warning ml mr">
+
+  <div class="alert alert-warning mh mv">
     This position has no employment history and is currently vacant.
   </div>
+
 <% end %>

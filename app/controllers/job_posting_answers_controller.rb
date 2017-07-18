@@ -23,18 +23,19 @@ class JobPostingAnswersController < ApplicationController
 
   # POST /job_posting/:job_posting_id/job_application/:job_application_id/job_posting_answers
   def create
-    if params.has_key?("answer")
-      @answer = JobPostingAnswer.create(answer_params(params["answer"]))
-    else
-      params["answers"].each do |key, answer|
-        if !answer.present?
-          params["answers"] = "blnak"
+    if params.has_key?("answer") || params.has_key?("answers")
+      if params.has_key?("answer")
+        @answer = JobPostingAnswer.create(answer_params(params["answer"]))
+      else
+        params["answers"].each do |key, answer|
+          @answer = JobPostingAnswer.create(answer_params(answer))
         end
-        @answer = JobPostingAnswer.create(answer_params(answer))
       end
+      @job_application_id = @answer.job_application_id
+      redirect_to finalize_job_application_path(:id => @job_application_id)
+    else
+      redirect_to finalize_job_application_path(:id => params[:job_application_id])
     end
-    @job_application_id = @answer.job_application_id
-    redirect_to finalize_job_application_path(:id => @job_application_id)
   end
 
   # GET /job_applications/:job_application_id/job_posting_answers/edit

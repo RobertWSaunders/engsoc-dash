@@ -18,7 +18,7 @@ class Job < ApplicationRecord
   # validates :user_id, presence: true, :uniqueness => { :scope => :organization_id }
   #make sure the title is present
   validates :title, presence: true, :uniqueness => {:case_sensitive => false, :scope => :organization_id}
-  validates :description, presence: true, length: { minimum: 15, maximum: 2000 }
+  validates :description, presence: true, length: { minimum: 15, maximum: 4000 }
 
   # organizations model has the same status enum
   enum status: [:waiting_approval, :active, :archived]
@@ -26,6 +26,7 @@ class Job < ApplicationRecord
   enum role: [:regular, :management, :admin]
   enum job_type: [:volunteer, :part_time, :full_time]
 
-  accepts_nested_attributes_for :users, :organization
+  accepts_nested_attributes_for :users, :positions
+  # :organization
 
 end

@@ -34,6 +34,7 @@ class JobPostingsController < ApplicationController
       @jobs_without_postings = Job.includes(:job_posting).where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: current_user.id })).where(job_postings: { job_id: nil })
     end
     @vacant_jobs = @jobs_without_postings.includes(:positions).where(positions: { :user_id => nil})
+    # TODO: include closed job postings to be reopened
   end
 
   # POST /job_posting
@@ -74,6 +75,8 @@ class JobPostingsController < ApplicationController
         redirect_to job_posting_job_posting_questions_path(@jobposting.id)
       else
         flash[:danger] = "Could Not Update Job Posting!"
+        flash[:danger] << "<li>" + @jobposting.errors.full_messages.join('</li><li>')
+        flash[:danger] << "</ul>"
         redirect_to edit_job_posting_path(@jobposting)
       end
     end
@@ -181,7 +184,7 @@ class JobPostingsController < ApplicationController
   private
 
     def job_posting_params
-      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status)
+      params.require(:job_posting).permit(:creator_id, :title, :description, :job_id, :deadline, :status, :start_date, :end_date)
     end
 
     def set_job_posting
