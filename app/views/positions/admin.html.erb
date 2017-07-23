@@ -39,21 +39,19 @@
                     </h5>
                     <% job.positions.order(:end_date).reverse_order.each do |pos| %>
                       <div class="mh">
-                        <%= pos.user.first_name %> <%= pos.user.last_name %>
-                        <br>
-                        <%= pos.start_date.to_date %> - <%= pos.end_date.to_date %>
+                        <%= render "edit_position_form", pos: pos %>
                       </div>
                       <br>
                     <% end %>
                   <% else %>
-                    <em><%= job.title %> has no positions.</em>
+                    <em><%= link_to job.title, job %> has no positions.</em> <%= link_to "Create a new position?", assign_job_path(job) %>
                   <% end %>
                 <!-- /list-group-item -->
                 </div>
               <% end %>
-            <div class="text-right mt">
-              <a href="#&nbsp;">Back to Top</a>
-            </div>
+              <div class="text-right mt">
+                <a href="#&nbsp;">Back to Top</a>
+              </div>
             <!-- /list-group -->
             </div>
           <% end %>
