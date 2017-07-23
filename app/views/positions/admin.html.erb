@@ -1,13 +1,64 @@
 <% content_for :title, "Admin Positions" %>
 
-<div class="container container-lg">
+<div class="container container-lg" id="&nbsp;">
+  <p class="mh">
+    <em class="ion-ios-information icon-fw"></em> <em>Here, manage position information for jobs. Positions are organized by organizations. Use the menu on the right to jump to an organization.</em>
+  </p>
 
-  <div class="card">
-    <div class="card-body">
-      <% @positions.each do |pos| %>
-        <%= pos.user.first_name %> <%= pos.start_date %>
-        <br>
-      <% end %>
+  <!-- The push & pull are column ordering methods to make menu render first -->
+  <div class="col-sm-2 col-sm-push-10">
+    <div class="card" id="menu">
+      <div class="card-body">
+        <div class="list-group">
+          <% @organizations.each do |org| %>
+            <% if org.jobs.any? %>
+              <div class="list-group-item">
+                <a href="#<%= org.name %>"><%= org.name %></a>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-10 col-sm-pull-2">
+    <div class="card">
+      <div class="card-body">
+        <% @organizations.each do |org| %>
+          <% if org.jobs.any? %>
+            <h4 class="mh" id="<%= org.name %>">
+              <%= link_to org.name, org %>
+            </h4>
+            <div class="list-group mh-xl pb-xl">
+              <% org.jobs.each do |job| %>
+                <div class="list-group-item">
+                  <% if job.positions.any? %>
+                    <h5>
+                      <%= link_to job.title, job %>
+                    </h5>
+                    <% job.positions.order(:end_date).reverse_order.each do |pos| %>
+                      <div class="mh">
+                        <%= pos.user.first_name %> <%= pos.user.last_name %>
+                        <br>
+                        <%= pos.start_date.to_date %> - <%= pos.end_date.to_date %>
+                      </div>
+                      <br>
+                    <% end %>
+                  <% else %>
+                    <em><%= job.title %> has no positions.</em>
+                  <% end %>
+                <!-- /list-group-item -->
+                </div>
+              <% end %>
+            <div class="text-right mt">
+              <a href="#&nbsp;">Back to Top</a>
+            </div>
+            <!-- /list-group -->
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 
