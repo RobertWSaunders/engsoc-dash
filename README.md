@@ -1,5 +1,8 @@
 # Engineering Society Dashboard
 
+[![Build Status](https://travis-ci.org/RobertWSaunders/engsoc-dash.svg?branch=master)](https://travis-ci.org/RobertWSaunders/engsoc-dash) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
+
 Engineering Society Dashboard is a central place that engineering students at Queen's University can come to manage various different aspects of their life as a student. Engineering Society Dashboard is the vision of Robert Saunders, Director of Information Technology (2016-2017). The long term goal of Engineering Society Dashboard is to serve as a place for students to apply for jobs, find tutors, attend conferences, join design teams, view events and manage their course work.
 
 ## Built With

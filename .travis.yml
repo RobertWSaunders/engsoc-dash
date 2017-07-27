@@ -1,4 +1,3 @@
-# Set up notification options
 language: ruby
 notifications:
   email:
