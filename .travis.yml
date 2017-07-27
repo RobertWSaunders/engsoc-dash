@@ -13,4 +13,4 @@ services:
 script:
   - RAILS_ENV=test bundle exec rails db:schema:load --trace
 before_script:
-  - psql -c 'create database engsoc-dash_test;' -U postgres
+  - psql -c 'create database "engsoc-dash_test";' -U postgres
