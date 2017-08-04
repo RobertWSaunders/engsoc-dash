@@ -31,7 +31,7 @@ class OrganizationsController < ApplicationController
   def show
     if @organization.status != "active" && current_user.role != "superadmin"
       flash[:danger] = "This organization is either not approved or archived, and therefore cannot be viewed."
-      redirect_to :back
+      redirect_back(fallback_location: organizations_path)
     end
     @jobs = @organization.jobs.order(role: :desc, title: :asc)
   end

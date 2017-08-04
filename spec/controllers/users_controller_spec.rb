@@ -36,7 +36,7 @@ describe UsersController do
       it "should not renders the edit view" do
         user = create(:student)
         get :edit, params: { id: user.id }
-        expect(response).to render_template :edit
+        expect(response).not_to render_template :edit
       end
     end
 

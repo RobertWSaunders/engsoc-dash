@@ -48,6 +48,27 @@ FactoryGirl.define do
     end
   end
 
+  factory :position do
+    # provide job_id and user_id
+    # default dates are as "active"
+    start_date    { Time.now - 30.days }
+    end_date      { Time.now + 200.days }
+    
+    trait :active do
+      start_date    { Time.now - 30.days }
+      end_date      { Time.now + 200.days }
+    end
+    trait :archived do
+      start_date    { Time.now - 300.days }
+      end_date      { Time.now - 100.days }
+    end
+    trait :upcoming do
+      start_date    { Time.now + 30.days }
+      end_date      { Time.now + 230.days }
+    end
+
+  end
+
   factory :job_posting do
     description    { Faker::Lorem.paragraph(1, true) }
     deadline       { Time.now + 30.days }

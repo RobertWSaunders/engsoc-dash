@@ -66,7 +66,7 @@ describe OrganizationsController do
 
     context "Can change org statuses" do
       before(:all) do
-        @organization = create(:organization, :active)  
+        @organization = create(:organization, :active)
       end
 
       describe "GET #withdraw" do
@@ -157,10 +157,11 @@ describe OrganizationsController do
     end
 
     describe "GET #user" do
-      render_views  
+      render_views
       it "render the user view with a user's organization" do
         organization = create(:organization)
-        job = create(:job, organization: organization, user_id: subject.current_user.id)
+        job = create(:job, organization: organization)
+        position = create(:position, user: subject.current_user, job: job)
         get :user
         expect(response).to render_template :user
         expect(response.body).to have_content(organization.name)
@@ -177,7 +178,7 @@ describe OrganizationsController do
 
     context "Can't change org statuses" do
       before(:all) do
-        @organization = create(:organization, :active)  
+        @organization = create(:organization, :active)
       end
       describe "GET #withdraw" do
         it "does not withdraw permission for the organization" do

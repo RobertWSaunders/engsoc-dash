@@ -1,6 +1,6 @@
 # https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md
-# Each factory has a name and a set of attributes. 
-# The name is used to guess the class of the object 
+# Each factory has a name and a set of attributes.
+# The name is used to guess the class of the object
 # by default, but it's possible to explicitly specify it
 
 FactoryGirl.define do
@@ -15,7 +15,7 @@ FactoryGirl.define do
   factory :student, class: User do
     first_name "Regular"
     last_name  "User"
-    email      "regular@example.com"
+    email      { Faker::Internet.email }
     password   "password"
     role       "student"
   end

@@ -55,8 +55,18 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/:id
   def show
-    @job = Job.find_by! id: @jobposting.job_id
-    @organization = Organization.find_by! id: @job.organization_id
+    if @job_posting.job.organization.status != "active" && current_user.role != ( "superadmin" || "management" )
+      flash[:warning] = "The organization " + @job_posting.job.organization.name + " is not active, so its job postings cannot be viewed."
+      redirect_back(fallback_location: job_postings_path)
+    else
+      if @job_posting.status == "open" || current_user.role == ( "superadmin" || "management" )
+        @job = Job.find_by! id: @jobposting.job_id
+        @organization = Organization.find_by! id: @job.organization_id
+      else
+        flash[:warning] = "Job posting " + @job_posting.title + " is currently not open."
+        redirect_back(fallback_location: job_postings_path)
+      end
+    end
   end
 
   # GET /job_postings/:id/edit

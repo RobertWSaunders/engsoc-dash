@@ -58,7 +58,7 @@ describe JobsController do
 
     describe "GET #show for an active organization job" do
       it "renders the show view" do
-        organization = create(:organization)
+        organization = create(:organization, :active)
         job = create(:job, organization: organization)
         get :show, params: { id: job.id }
         expect(response).to render_template :show
