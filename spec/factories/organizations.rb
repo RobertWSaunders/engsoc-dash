@@ -21,7 +21,7 @@ FactoryGirl.define do
       status      "archived"
     end
 
-    # never used in the current set of cases - because not sure 
+    # never used in the current set of cases - because not sure
     # how to assign the after created job to a variable for access...
     # factory :organization_with_regular_job do
     #   after(:create) do |organization|
@@ -52,6 +52,8 @@ FactoryGirl.define do
     description    { Faker::Lorem.paragraph(1, true) }
     deadline       { Time.now + 30.days }
     title          { Faker::Job.title }
+    start_date     { Time.now + 20.days }
+    end_date       { Time.now + 220.days }
 
     # default
     trait :waiting_approval do

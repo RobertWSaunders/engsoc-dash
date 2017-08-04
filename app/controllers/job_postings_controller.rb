@@ -12,7 +12,8 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings
   def index
-    @open_job_postings = JobPosting.where(status: "open").filter(params.slice(:job_type, :job_department)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
+    @active_org_jobs = Job.joins(:organization).where(organizations: {status: "active"})
+    @open_job_postings = JobPosting.joins(:job).where(status: "open", jobs: { id: @active_org_jobs.ids}).filter(params.slice(:job_type, :job_department)).order(:deadline).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /job_postings/new?job_id=:id
