@@ -15,14 +15,14 @@ class ResumesController < ApplicationController
       flash[:success] = "Resume <em>#{@resume.name}</em> has been uploaded."
       redirect_to profile_resumes_path
     else
-      flash[:warning] = "Resume <em>#{@resume.name}</em> did not upload properly. Please make sure you have attached a file, and that it is the right format (PDF, DOC, DOCx), and try again."
+      flash[:warning] = "Resume <em>#{@resume.name}</em> did not upload properly. Please make sure you have attached a file of the right format (PDF, DOC, DOCx) of under 2MB, and that you have given it a name, and try again."
       render "index"
     end
   end
 
   # DESTROY profiles/:profile_id/resumes/:resume_id
   def destroy
-    resume = Resume.find(params[:id])  
+    resume = Resume.find(params[:id])
     resume.destroy
     flash[:success] = "Resume Successfully Deleted"
     redirect_to profile_resumes_path
@@ -37,5 +37,5 @@ class ResumesController < ApplicationController
     def set_resume
       @user = User.find(params[:profile_id])
       @resumes = @user.resumes.all
-    end 
+    end
 end
