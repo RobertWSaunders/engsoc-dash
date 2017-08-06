@@ -1,0 +1,12 @@
+<% if @resume.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      This resume upload attempt contains <%= pluralize(@resume.errors.count, "error") %>:
+    <ul>
+      <% @resume.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+    </div>
+  </div>
+<% end %>

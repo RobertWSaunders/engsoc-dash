@@ -30,7 +30,6 @@ RSpec.describe ResumesController, type: :controller do
       expect(page).to have_content('valid_resume')
     end
   end
-  # TODO: these aren't really a controller spec... should be moved to its own directory
   feature "uploading valid resumes" do
     render_views
     scenario "after logging in, uploads a valid resume" do
