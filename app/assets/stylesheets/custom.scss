@@ -1,6 +1,6 @@
 footer {
   a {
-    text-decoration: none !important; 
+    text-decoration: none !important;
     color: #ba68c8;
     &:hover {
       color: #7b1fa2;
@@ -22,4 +22,8 @@ abbr[title] {
 
 .bg-yellow-100 {
   background-color: #fff9c4;
+}
+
+.bg-pink-300 {
+    background-color: #f06292;
 }
