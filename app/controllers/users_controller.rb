@@ -4,7 +4,13 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :destroy, :edit, :update]
 
   def index
-    @users = User.paginate(:page => params[:page], :per_page => 30)
+    # TODO: turn the admin checks into a helper function
+    if current_user.role != ( "superadmin" || "management" )
+      flash[:warning] = "This page cannot be viewed."
+      redirect_back(fallback_location: root_path)
+    else
+      @users = User.paginate(:page => params[:page], :per_page => 30)
+    end
   end
 
   def show

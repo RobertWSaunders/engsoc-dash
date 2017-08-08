@@ -20,6 +20,13 @@ describe UsersController do
       end
     end
 
+    describe "GET #profiles index" do
+      it "renders the profiles view" do
+        get :index
+        expect(response).to render_template :index
+      end
+    end
+
   end
 
   context "When logged in as student" do
@@ -40,6 +47,12 @@ describe UsersController do
       end
     end
 
+    describe "GET #profiles index" do
+      it "should not render the profiles view" do
+        get :index
+        expect(response).not_to render_template :index
+      end
+    end
   end
 
 end
