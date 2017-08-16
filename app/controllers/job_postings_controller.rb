@@ -29,12 +29,12 @@ class JobPostingsController < ApplicationController
   # GET /job_postings/select
   def select
     #only show the job postings the user can manage
-    if current_user.superadmin? || current_user.jobs.any? { |job| job.user_id == current_user.id && job.role == "admin" }
+    if current_user.superadmin?
       @jobs_without_postings = Job.includes(:job_posting).where(job_postings: { job_id: nil })
-    else
+    elsif can? :select, JobPosting
       @jobs_without_postings = Job.includes(:job_posting).where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: current_user.id })).where(job_postings: { job_id: nil })
     end
-    @vacant_jobs = @jobs_without_postings.includes(:positions).where(positions: { :user_id => nil})
+    @vacant_jobs = @jobs_without_postings.includes(:positions).where(positions: { :user_id => nil })
     # TODO: include closed job postings to be reopened
   end
 

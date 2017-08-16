@@ -1,5 +1,7 @@
 class PositionsController < ApplicationController
 
+  load_and_authorize_resource
+
   # GET /positions/admin
   def admin
     @organizations = Organization.all
