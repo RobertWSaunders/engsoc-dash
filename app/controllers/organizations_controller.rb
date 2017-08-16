@@ -30,8 +30,8 @@ class OrganizationsController < ApplicationController
   # GET /organizations/:id
   def show
     if @organization.status != "active" && current_user.role != "superadmin"
-      flash[:danger] = "This organization is either not approved or archived, and therefore cannot be viewed."
-      redirect_to :back
+      flash[:danger] = "This organization is currently not open (has not been approved or has been archived), and therefore cannot be viewed. Please contact support if you feel this has been done in error."
+      redirect_back(fallback_location: organizations_path)
     end
     @jobs = @organization.jobs.order(role: :desc, title: :asc)
   end

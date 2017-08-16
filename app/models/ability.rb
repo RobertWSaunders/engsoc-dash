@@ -21,37 +21,62 @@ class Ability
     if user.superadmin?
       can :manage, :all
     # for users that have a job where they are an admin
-    elsif user.jobs.any? { |job| job.user_ids == user.id && job.role == "admin" }
-      can :manage, :all
-      #can manage pretty much everything except users
-   # for users that have a job where they are an manager
-    elsif user.jobs.any? { |job| job.user_ids == user.id && job.role == "management" }
-      # can manage organizations they have a job under
-      can :manage, Organization, id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id)
-      # can manage jobs that fall under the organizations they are managers for
-      can :manage, Job, id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)
-      # can manage job postings fall under the jobs they can manage
-      can :manage, JobPosting, id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)
-      # can manage any job posting questions that fall under any job posting they can manage
-      can :manage, JobPostingQuestion, id: JobPostingQuestion.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id) ).pluck(:id)
-      # can manage the job applications that fall under any job posting they can manage
-      can :manage, JobApplication, id: JobApplication.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)).pluck(:id)
-      # can manage the job interviews that fall under any job application they can manage
-      can :manage, Interview, id: Interview.where(job_application_id: JobApplication.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)).pluck(:id) ).pluck(:id)
-
-      # users can apply to jobs, hence can perform actions on job applications
-      can [:edit,:update, :create, :new, :user, :finalize], [Interview, JobPostingQuestion, JobPosting, JobApplication, JobPostingAnswer]
-
-      can [:edit, :update], User, id: user.id
-    # for normal users, they can only read things
-    else
-      # gneral users can see the organizations they are apart of
-      can [:user], Organization
-      # users can apply to jobs, hence can perform actions on job applications
-      can [:edit,:update, :create, :new, :user, :finalize], [JobApplication, JobPostingAnswer]
-      can :read, [Organization, JobPosting, JobPostingQuestion, Job, User, JobApplication]
-      can [:edit, :update], User, id: user.id
+    elsif user.jobs.any?
+      user.jobs.each do |job|
+        if job.role == "admin"
+          can :manage, :all
+        end
+        if job.role == "management"
+          # TODO: make this pretty
+          orgID = job.organization.id
+          can :manage, Organization, id: orgID
+          can :manage, Job, organization: Organization.find(orgID)
+          can :manage, JobPosting, job: { organization: Organization.find(orgID) }
+          can :select, JobPosting # TODO: do somethinga bout this view...
+          can :manage, JobPostingQuestion, job_posting: { job: { organization: Organization.find(orgID) } }
+          can :manage, JobApplication, job_posting: { job: { organization: Organization.find(orgID) } }
+          can :manage, Interview, job_application: { job_posting: { job: { organization: Organization.find(orgID) } } }
+        end
+      end
     end
+
+    # normal users
+    can :read, [Organization, JobPosting, JobPostingQuestion, Job, User, JobApplication]
+    can :user, Organization
+    can [:edit, :update], User, id: user.id
+    can [:new, :create, :select_resume, :update_resume, :edit, :update, :finalize, :user], [JobApplication, JobPostingAnswer]
+    can :manage, Resume, user: User.find(user.id)
+
+  #
+  #     #can manage pretty much everything except users
+  #  # for users that have a job where they are an manager
+  #  elsif user.jobs.any? # { |job| job.user_ids == user.id && job.role == "management" }
+  #     # can manage organizations they have a job under
+  #     # can :manage, Organization, id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id)
+  #     # can manage jobs that fall under the organizations they are managers for
+  #     # can :manage, Job, id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)
+  #     # # can manage job postings fall under the jobs they can manage
+  #     # can :manage, JobPosting, id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)
+  #     # # can manage any job posting questions that fall under any job posting they can manage
+  #     # can :manage, JobPostingQuestion, id: JobPostingQuestion.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id) ).pluck(:id)
+  #     # # can manage the job applications that fall under any job posting they can manage
+  #     # can :manage, JobApplication, id: JobApplication.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)).pluck(:id)
+  #     # # can manage the job interviews that fall under any job application they can manage
+  #     # can :manage, Interview, id: Interview.where(job_application_id: JobApplication.where(job_posting_id: JobPosting.where(job_id: Job.where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: user.id }).pluck(:id) ).pluck(:id)).pluck(:id)).pluck(:id) ).pluck(:id)
+  #
+  #     # users can apply to jobs, hence can perform actions on job applications
+  #     can [:edit,:update, :create, :new, :user, :finalize], [Interview, JobPostingQuestion, JobPosting, JobApplication, JobPostingAnswer]
+  #
+  #     can [:edit, :update], User, id: user.id
+  #   # for normal users, they can only read things
+  #   else
+  #     # general users can see the organizations they are apart of
+  #     can [:user], Organization
+  #     # users can apply to jobs, hence can perform actions on job applications
+  #     can [:edit,:update, :create, :new, :user, :finalize], [JobApplication, JobPostingAnswer]
+  #     can :read, [Organization, JobPosting, JobPostingQuestion, Job, User, JobApplication]
+  #     can [:edit, :update], User, id: user.id
+  #   end
   end
 
 end

@@ -21,7 +21,7 @@ FactoryGirl.define do
       status      "archived"
     end
 
-    # never used in the current set of cases - because not sure 
+    # never used in the current set of cases - because not sure
     # how to assign the after created job to a variable for access...
     # factory :organization_with_regular_job do
     #   after(:create) do |organization|
@@ -48,10 +48,33 @@ FactoryGirl.define do
     end
   end
 
+  factory :position do
+    # provide job_id and user_id
+    # default dates are as "active"
+    start_date    { Time.now - 30.days }
+    end_date      { Time.now + 200.days }
+
+    trait :active do
+      start_date    { Time.now - 30.days }
+      end_date      { Time.now + 200.days }
+    end
+    trait :archived do
+      start_date    { Time.now - 300.days }
+      end_date      { Time.now - 100.days }
+    end
+    trait :upcoming do
+      start_date    { Time.now + 30.days }
+      end_date      { Time.now + 230.days }
+    end
+
+  end
+
   factory :job_posting do
-    description    { Faker::Lorem.paragraph(1, true) }
+    description    { Faker::Lorem.paragraph(2, true) }
     deadline       { Time.now + 30.days }
     title          { Faker::Job.title }
+    start_date     { Time.now + 20.days }
+    end_date       { Time.now + 220.days }
 
     # default
     trait :waiting_approval do

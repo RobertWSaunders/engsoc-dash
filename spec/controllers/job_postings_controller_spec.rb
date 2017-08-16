@@ -196,15 +196,15 @@ describe JobPostingsController do
       end
     end
 
-    context "Can't change org statuses" do
+    context "Can't change posting statuses" do
       before(:all) do
-        @organization = create(:organization, :active)  
+        @posting = create(:job_posting, :open, job: @job_active_org)
       end
       describe "GET #withdraw" do
-        it "does not withdraw permission for the organization" do
-          get :withdraw, params: { :id => @organization }
-          @organization.reload
-          expect(@organization.status).not_to eql("waiting_approval")
+        it "does not withdraw permission for the job posting" do
+          get :withdraw, params: { :id => @posting }
+          @posting.reload
+          expect(@posting.status).not_to eql("waiting_approval")
         end
       end
     end

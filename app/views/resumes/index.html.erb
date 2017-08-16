@@ -70,7 +70,7 @@
           You can make resumes more generic and reuse the same resume for multiple positions, and differentiate your application with job posting answers.
         </em></p>
       </div>
-    <% else %> 
+    <% else %>
       <div class="card">
         <div class="card-heading">
           <h5>Upload New Resume</h5>
@@ -78,6 +78,8 @@
         </div>
         <div class="card-body">
           <%= form_for [@user, @resume], :url => profile_resumes_path(@user), html: { multipart: true, class: "form-horizontal" } do |f| %>
+
+            <%= render 'shared/resume_error_messages' %>
 
             <%= f.hidden_field :user_id, :value => current_user.id %>
 

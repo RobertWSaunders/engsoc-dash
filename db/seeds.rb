@@ -7,6 +7,12 @@ superadmin = User.create!(first_name:  "Robert",
              password:    "password",
              role:        "superadmin")
 
+User.create!(first_name:  "Student",
+             last_name:   "Test",
+             email:       "test@example.com",
+             password:    "password",
+             role:        "student")
+
 #hr example
 User.create!(first_name:  "Rachel",
              last_name:   "McConnell",

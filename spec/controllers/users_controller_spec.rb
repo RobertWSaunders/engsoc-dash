@@ -20,6 +20,13 @@ describe UsersController do
       end
     end
 
+    describe "GET #profiles index" do
+      it "renders the profiles view" do
+        get :index
+        expect(response).to render_template :index
+      end
+    end
+
   end
 
   context "When logged in as student" do
@@ -36,10 +43,16 @@ describe UsersController do
       it "should not renders the edit view" do
         user = create(:student)
         get :edit, params: { id: user.id }
-        expect(response).to render_template :edit
+        expect(response).not_to render_template :edit
       end
     end
 
+    describe "GET #profiles index" do
+      it "should not render the profiles view" do
+        get :index
+        expect(response).not_to render_template :index
+      end
+    end
   end
 
 end

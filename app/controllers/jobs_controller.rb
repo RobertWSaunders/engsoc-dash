@@ -29,6 +29,10 @@ class JobsController < ApplicationController
   # GET /jobs/:id
   def show
     @organization = @job.organization
+    if @organization.status != "active" && current_user.role != ( "superadmin" || "management" )
+      flash[:warning] = "The job " + @job.title + " cannot be viewed because its organization, " + @organization.name + " is not active."
+      redirect_back(fallback_location: organizations_path)
+    end
     # @users = @job.user
   end
 
