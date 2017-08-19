@@ -1,8 +1,11 @@
 class JobPostingsController < ApplicationController
 
+  include UserHelper
+
   load_and_authorize_resource
 
   skip_authorize_resource :only => [:filter_index, :filter, :filter_manage]
+  skip_authorize_resource :only => :new
 
   # before any action gets fired set the job posting
   before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview, :close, :reopen]
@@ -29,12 +32,20 @@ class JobPostingsController < ApplicationController
   # GET /job_postings/select
   def select
     #only show the job postings the user can manage
-    if current_user.superadmin?
-      @jobs_without_postings = Job.includes(:job_posting).where(job_postings: { job_id: nil })
+    if admin?(current_user)
+      @jobs = Job.all
     elsif can? :select, JobPosting
-      @jobs_without_postings = Job.includes(:job_posting).where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: current_user.id })).where(job_postings: { job_id: nil })
+      @orgs = managed_orgs(current_user)
+      @jobs = []
+      @orgs.each do |org|
+        org.jobs.each do |job|
+          @jobs.push(job)
+        end
+      end
+      # @jobs = @orgs.jobs
+      # @jobs_without_postings = Job.includes(:job_posting).where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: Position.where(user_id: current_user.id) }).where(job_postings: { job_id: nil }))
     end
-    @vacant_jobs = @jobs_without_postings.includes(:positions).where(positions: { :user_id => nil })
+    @vacant_jobs = @jobs
     # TODO: include closed job postings to be reopened
   end
 
