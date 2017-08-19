@@ -14,9 +14,6 @@ class StaticPagesController < ApplicationController
   def credits
   end
 
-  def changes
-  end
-
   def settings
   end
 end
