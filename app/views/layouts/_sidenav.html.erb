@@ -5,7 +5,7 @@
     <!-- side navigation header -->
     <div class="sidebar-toolbar text-center"><a href=""><%= image_tag "centric/user/01.jpg", class: "img-circle thumb64" %></a>
       <div class="mt">
-          <%= current_user.first_name %> <%= current_user.last_name %>
+          <%= current_user.first_name %> <%= current_user.last_name %> <% if admin?(current_user) %>(Admin)<% end %>
       </div>
     </div>
     <!-- side navigation -->

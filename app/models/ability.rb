@@ -32,7 +32,7 @@ class Ability
           can :manage, Organization, id: orgID
           can :manage, Job, organization: Organization.find(orgID)
           can :manage, JobPosting, job: { organization: Organization.find(orgID) }
-          can :select, JobPosting # TODO: do somethinga bout this view...
+          can [:select], JobPosting
           can :manage, JobPostingQuestion, job_posting: { job: { organization: Organization.find(orgID) } }
           can :manage, JobApplication, job_posting: { job: { organization: Organization.find(orgID) } }
           can :manage, Interview, job_application: { job_posting: { job: { organization: Organization.find(orgID) } } }

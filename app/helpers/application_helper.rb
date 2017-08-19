@@ -54,4 +54,5 @@ module ApplicationHelper
       content_tag(:div, 'member', class: 'label label-warning')
     end
   end
+
 end
