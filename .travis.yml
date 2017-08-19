@@ -1,19 +1,15 @@
-# Set up notification options
+language: ruby
 notifications:
   email:
     recipients:
-      - one@example.com
-      - other@example.com
-
-    # change is when the repo status goes from pass to fail or vice versa
+      - r.saunders@queensu.ca
     on_success: change
     on_failure: always
-
-language: ruby # specify your language
-
-rvm: # specify options for your language
+rvm:
   - 2.3.3
-
 services:
   - postgresql
-  
+script:
+  - RAILS_ENV=test bundle exec rails db:schema:load --trace
+before_script:
+  - psql -c 'create database "engsoc-dash_test";' -U postgres
