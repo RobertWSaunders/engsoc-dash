@@ -24,6 +24,7 @@ class JobPostingsController < ApplicationController
     @jobposting = JobPosting.new
     if params[:job_id]
       @job = Job.find(params[:job_id])
+      authorize! :manage, @job
     else
       redirect_to select_job_postings_path
     end
@@ -33,7 +34,7 @@ class JobPostingsController < ApplicationController
   def select
     #only show the job postings the user can manage
     if admin?(current_user)
-      @jobs = Job.all
+      @jobs = Job.joins(:organization).where(organizations: {status: "active"})
     elsif can? :select, JobPosting
       @orgs = managed_orgs(current_user)
       @jobs = []
@@ -45,7 +46,7 @@ class JobPostingsController < ApplicationController
       # @jobs = @orgs.jobs
       # @jobs_without_postings = Job.includes(:job_posting).where(organization_id: Organization.joins(:jobs).where(jobs: { user_id: Position.where(user_id: current_user.id) }).where(job_postings: { job_id: nil }))
     end
-    @vacant_jobs = @jobs
+    @jobs = @jobs
     # TODO: include closed job postings to be reopened
   end
 

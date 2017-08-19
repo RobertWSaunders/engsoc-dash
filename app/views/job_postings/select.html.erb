@@ -5,20 +5,35 @@
   <div class="row">
     <div class="card">
       <div class="card-heading">
-        <h4>Jobs</h4>
+        <h4>Jobs <br>
+        <small>Jobs for your active organizations</small></h4>
       </div>
       <div class="">
-        <% if @vacant_jobs.any? %>
+        <% if @jobs.any? %>
           <div class="table-responsive">
             <table class="table table-hover">
               <tbody>
-                <% @vacant_jobs.each do |job| %>
+                <% @jobs.each do |job| %>
                   <tr class="">
                     <td class=""><%= link_to job.title, job %></td>
                     <td class=""><%= link_to job.organization.name, job.organization %></td>
                     <td class=""><%= job.description %></td>
                     <td class="">
-                      <%= link_to "Create Job Posting", new_job_posting_path(:job_id => job.id), class: "align-center btn btn btn-primary" %>
+                      <% if JobPosting.where(:job_id => job.id).exists? %>
+                        <% jp = JobPosting.find_by(:job_id => job.id) %>
+                        <% case jp.status %>
+                        <% when "open" %>
+                          <%= link_to "View Job Posting", job_posting_path(:id => jp), class: "align-center btn btn-flat btn-success" %>
+                        <% when "waiting_approval" || "extension_pending" %>
+                          <%= link_to "View Job Posting", job_posting_path(:id => jp), class: "align-center btn btn-flat btn-warning" %>
+                        <% when "interviewing" %>
+                          <%= link_to "View Job Posting", job_posting_path(:id => jp), class: "align-center btn btn-flat btn-info" %>
+                        <% when "closed" %>
+                          <%= link_to "View Job Posting", job_posting_path(:id => jp), class: "align-center btn btn-flat btn-danger" %>
+                        <% end %>
+                      <% else %>
+                        <%= link_to "Create Job Posting", new_job_posting_path(:job_id => job.id), class: "align-center btn btn btn-primary" %>
+                      <% end %>
                     </td>
                   </tr>
                 <% end %>
@@ -27,7 +42,7 @@
           </div>
         <% else %>
           <p class="text-center">
-            Currently No Vacant Jobs without Job Postings!
+            Currently No Jobs to create posting for.
             <br>
             <%= link_to "View My Organizations", user_organizations_path, class: "align-center btn btn btn-primary mv" %>
           </p>
