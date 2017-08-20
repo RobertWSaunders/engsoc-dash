@@ -1,0 +1,32 @@
+
+  <% if pos.active? %>
+    <tr>
+      <td>
+        <%= link_to pos.job.title.titleize, job_path(:id => pos.job.id) %>
+      </td>
+      <td>
+        <%= link_to pos.user.first_name + " " + pos.user.last_name, profile_path(pos.user.id) %>
+      </td>
+      <td>
+        <%= pos.user.email %>
+      </td>
+      <td>
+        <% if pos.job.role == "management" %>
+          <span class="text-success">Managerial Position</span>
+        <% elsif pos.job.role == "admin" %>
+          Administration Position
+        <% elsif pos.job.role == "regular" %>
+          General Member Position
+      <% end %>
+      </td>
+      <td>
+        <%= pos.job.job_type.titleize %>
+      </td>
+      <td>
+        <%= pos.start_date.to_date %>
+      </td>
+      <td>
+        <%= pos.end_date.to_date %>
+      </td>
+    </tr>
+  <% end %>
