@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>
+      <p>
+        Hi <%= @user.first_name %> <%= @user.last_name %>,
+      </p>
+      <br>
+      <p>
+        Congratulations! You have been hired to the job <%= link_to @job_application.job_posting.job.title, @job_application.job_posting.job %>, for the <%= link_to @job_application.job_posting.job.organization.name, @job_application.job_posting.job.organization %> organization.
+      </p>
+      <br>
+      <p>
+        This is the job description for <%= @job_application.job_posting.job.title %>:
+        <code>
+          <%= simple_format(@job_application.job_posting.job.description) %>
+        </code>
+      </p>
+      <p>
+        You are set to be holding this position from <%= @job_application.job_posting.start_date.strftime("%B %d, %Y") %>, to <%= @job_application.job_posting.end_date.strftime("%B %d, %Y") %>.
+      </p>
+      <br>
+      <p>
+        Should you have any questions about the job, please send them to <%= mail_to @job_application.job_posting.job.organization.email %>.
+      </p>
+      <p>
+        Best of luck on your new job within EngSoc, and beyond!
+      </p>
+    </div>
+    <br>
+    <div>
+      <h3>Quick links</h3>
+      <ul>
+        <li><%= link_to "EngSoc Dash", root_url %></li>
+        <li><%= link_to "My Profile", profile_url(@user) %></li>
+        <li><%= link_to "My Organizations", user_organizations_url %></li>
+      </ul>
+    </div>
+    <%= render 'shared/mail/footer' %>
+  </body>
+</html>

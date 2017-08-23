@@ -65,7 +65,7 @@ class JobApplicationsController < ApplicationController
   def update
     if @job_application.update_attributes(job_application_params)
       flash[:success] = "Job Application Successfully Submitted!"
-      UserMailer.new_job_application(@job_application).deliver_now
+      UserMailer.submit_job_application(@job_application).deliver_now
       redirect_to user_job_applications_path
     else
       render 'finalize'
@@ -120,6 +120,7 @@ class JobApplicationsController < ApplicationController
     @job_application.save
     position.save
 
+    UserMailer.hire_job_application(@job_application).deliver_now
     flash[:success] = "Hired " + user.first_name + " " + user.last_name + " for " + job.title
     redirect_to :back
   end
@@ -128,6 +129,7 @@ class JobApplicationsController < ApplicationController
   def decline
     @job_application.status = "declined"
     @job_application.save
+    UserMailer.decline_job_application(@job_application).deliver_now
     redirect_to :back
   end
 

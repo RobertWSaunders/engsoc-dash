@@ -8,9 +8,19 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.welcome(user)
   end
 
-  def new_job_application
+  def submit_job_application
     job_application = JobApplication.first
-    UserMailer.new_job_application(job_application)
+    UserMailer.submit_job_application(job_application)
   end
-  
+
+  def hire_job_application
+    job_application = JobApplication.first
+    UserMailer.hire_job_application(job_application)
+  end
+
+  def decline_job_application
+    job_application = JobApplication.first
+    UserMailer.decline_job_application(job_application)
+  end
+
 end

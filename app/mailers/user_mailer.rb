@@ -6,10 +6,22 @@ class UserMailer < ApplicationMailer
     mail(:to => @user.email, :subject => "Welcome to Dash")
   end
 
-  def new_job_application(job_application)
+  def submit_job_application(job_application)
     @job_application = job_application
     @user = @job_application.user
-    mail(:to => @user.email, :subject => "Successfully Applied to " + @job_application.job_posting.title)
+    mail(:to => @user.email, :subject => "Job Application for " + @job_application.job_posting.title)
+  end
+
+  def hire_job_application(job_application)
+    @job_application = job_application
+    @user = @job_application.user
+    mail(:to => @user.email, :subject => "Congratulations! You're now a " + @job_application.job_posting.title)
+  end
+
+  def decline_job_application(job_application)
+    @job_application = job_application
+    @user = @job_application.user
+    mail(:to => @user.email, :subject => "Regarding your Job Application for " + @job_application.job_posting.title)
   end
 
 end

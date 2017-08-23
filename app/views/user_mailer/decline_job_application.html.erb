@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>
+      <p>
+        Hi <%= @user.first_name %> <%= @user.last_name %>,
+      </p>
+      <br>
+      <p>
+        We're very sorry to let you know that your application for <%= @job_application.job_posting.title %>, for the <%= @job_application.job_posting.job.organization.name %> organization, has been declined at this time.
+      </p>
+      <p>
+        Should you have any questions regarding the job application, interviewing, and candidate selection process, please email <%= mail_to @job_application.job_posting.job.organization.email %>.
+      </p>
+      <p>
+        Here is a random cat gif.
+      </p>
+      <img src="http://thecatapi.com/api/images/get?format=src&type=gif">
+      <p>
+        Please continue to apply for more positions within EngSoc, and beyond - we believe in you.
+      </p>
+    </div>
+    <br>
+    <div>
+      <h3>Quick links</h3>
+      <ul>
+        <li><%= link_to "EngSoc Dash", root_url %></li>
+        <li><%= link_to "Open Job Postings", job_postings_url %></li>
+        <li><%= link_to "My Job Applications", user_job_applications_url %></li>
+      </ul>
+    </div>
+    <%= render 'shared/mail/footer' %>
+  </body>
+</html>
