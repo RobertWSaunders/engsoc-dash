@@ -65,6 +65,7 @@ class JobApplicationsController < ApplicationController
   def update
     if @job_application.update_attributes(job_application_params)
       flash[:success] = "Job Application Successfully Submitted!"
+      UserMailer.new_job_application(@job_application).deliver_now
       redirect_to user_job_applications_path
     else
       render 'finalize'
