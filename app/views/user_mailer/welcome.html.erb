@@ -4,10 +4,23 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome, <%= @user.email %></h1>
     <p>
-      Access to app under following URL: <%= @url %>.
+      Hi <%= @user.first_name %> <%= @user.last_name %>,
     </p>
-  <p>Thanks for joining and have a great day!</p>
+    <p>
+      We're glad to have you on <%= link_to "EngSoc Dash", root_url %>, which can be accessed at the following URL: <%= @url %>.
+    </p>
+    <p>
+      Thanks for joining and have a great day!
+    </p>
+    <div>
+      <h3>Quick links</h3>
+      <ul>
+        <li><%= link_to "EngSoc Dash", root_url %></li>
+        <li><%= link_to "My Profile", profile_url(@user) %></li>
+        <li><%= link_to "Open Job Postings", job_postings_url %></li>
+      </ul>
+    </div>
+    <%= render 'shared/mail/footer' %>
   </body>
 </html>
