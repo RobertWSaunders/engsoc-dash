@@ -49,6 +49,8 @@ Rails.application.configure do
   config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
   host = 'localhost:3000'                     # Local server
   config.action_mailer.default_url_options = { host: host, protocol: 'http' }
+  config.serve_static_assets = true
+  
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.

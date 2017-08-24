@@ -20,7 +20,7 @@
 /config/application.yml
 
 # Ignore personal seeds file
-/db/seeds.rb
+# /db/seeds.rb
 
 # Ignore updated files
 /public/uploads
