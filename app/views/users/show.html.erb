@@ -17,29 +17,9 @@
 
 <div class="container-fluid container-lg">
   <div class="row">
-      <div class="card">
-        <% if @user.bio? %>
-          <h5 class="card-heading pb0">
-            <div class="pull-right dropdown">
-              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                <li>
-                  <%= link_to "Edit", edit_profile_path(@user.id) %>
-                </li>
-
-              </ul>
-            </div>
-            Biography
-          </h5>
-          <div class="card-body">
-            <p>
-              <%= simple_format(@user.bio) %>
-            </p>
-          </div>
-          <div class="card-divider"></div>
-        <% end %>
+    <div class="card">
+      <% if @user.bio? %>
         <h5 class="card-heading pb0">
-          <% if @user.bio? == false %>
           <div class="pull-right dropdown">
             <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
             <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
@@ -49,47 +29,75 @@
 
             </ul>
           </div>
-          <% end %>
-          About
+          Biography
         </h5>
-
         <div class="card-body">
-          <table class="table table-striped">
-            <tbody>
-              <tr>
-                <td><em class="ion-email icon-fw mr"></em>Email</td>
-                <td><span class="is-editable text-inherit"><a href="#"><%= @user.email %></a></span></td>
-              </tr>
-              <tr>
-                <td><em class="ion-document-text icon-fw mr"></em>Faculty</td>
-                <td><%= @user.faculty %></td>
-              </tr>
-              <tr>
-                <td><em class="ion-document-text icon-fw mr"></em>Specialization</td>
-                <td><%= @user.specialization %></td>
-              </tr>
-              <tr>
-                <td><em class="ion-ios-body icon-fw mr"></em>Member since</td>
-                <td>
-                  <%= @user.created_at.to_time.strftime('%B, %Y') %>
-                </td>
-              </tr>
-              <% if @user.gender != 'unspecified' %>
-              <tr>
-                <td>
-                  <% if @user.gender == 'male' %>
-                    <em class="ion-male icon-fw mr"></em>
-                  <% else %>
-                    <em class="ion-female icon-fw mr"></em>
-                  <% end %>
-                  Gender
-                </td>
-                <td><%= @user.gender.humanize %></td>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
+          <p>
+            <%= simple_format(@user.bio) %>
+          </p>
         </div>
+        <div class="card-divider"></div>
+      <% end %>
+      <h3 class="card-heading pb0">
+        <% if @user.bio? == false %>
+        <div class="pull-right dropdown">
+          <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+          <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+            <li>
+              <%= link_to "Edit", edit_profile_path(@user.id) %>
+            </li>
+
+          </ul>
+        </div>
+        <% end %>
+        About
+      </h3>
+
+      <div class="card-body">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td><em class="ion-email icon-fw mr"></em>Email</td>
+              <td><span class="is-editable text-inherit"><a href="#"><%= @user.email %></a></span></td>
+            </tr>
+            <tr>
+              <td><em class="ion-document-text icon-fw mr"></em>Faculty</td>
+              <td><%= @user.faculty %></td>
+            </tr>
+            <tr>
+              <td><em class="ion-document-text icon-fw mr"></em>Specialization</td>
+              <td><%= @user.specialization %></td>
+            </tr>
+            <tr>
+              <td><em class="ion-ios-body icon-fw mr"></em>Member since</td>
+              <td>
+                <%= @user.created_at.to_time.strftime('%B, %Y') %>
+              </td>
+            </tr>
+            <% if @user.gender != 'unspecified' %>
+            <tr>
+              <td>
+                <% if @user.gender == 'male' %>
+                  <em class="ion-male icon-fw mr"></em>
+                <% else %>
+                  <em class="ion-female icon-fw mr"></em>
+                <% end %>
+                Gender
+              </td>
+              <td><%= @user.gender.humanize %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <% if @user.jobs.any? %>
+        <div class="card-body">
+          <div class="row" id="jobs">
+            <%= render "positions_table" %>
+          </div>
+        </div>
+      <% end %>
     </div>
 
     </div>
