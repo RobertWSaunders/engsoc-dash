@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>
+      <p>
+        Hi <%= @user.first_name %> <%= @user.last_name %>,
+      </p>
+      <br>
+      <p>
+        You have successfully applied to the job <%= link_to @job_application.job_posting.title, @job_application.job_posting %>, for the <%= link_to @job_application.job_posting.job.organization.name, @job_application.job_posting.job.organization %> organization.
+      </p>
+      <p>
+        You should hear back from them soon after the interview process begins, which is currently set to begin at <%= @job_application.job_posting.deadline.strftime("%B %d, %Y") %>.
+      </p>
+      <p>
+        The follow-up contact email for this job is <%= mail_to @job_application.job_posting.job.organization.email %>.
+      </p>
+      <p>
+        Best of luck on your job search within EngSoc, and beyond!
+      </p>
+    </div>
+    <br>
+    <div>
+      <h3>Quick links</h3>
+      <ul>
+        <li><%= link_to "EngSoc Dash", root_url %></li>
+        <li><%= link_to "Open Job Postings", job_postings_url %></li>
+        <li><%= link_to "My Job Applications", user_job_applications_url %></li>
+      </ul>
+    </div>
+    <%= render 'shared/mail/footer' %>
+  </body>
+</html>

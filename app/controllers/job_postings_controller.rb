@@ -152,6 +152,11 @@ class JobPostingsController < ApplicationController
 
     # everyone else, decline
     not_hired = @jobposting.job_applications.where.not({ status: "hired"})
+    not_hired.each do |nh|
+      if nh.status == "submitted"
+        UserMailer.decline_job_application(nh).deliver_now
+      end
+    end
     not_hired.update_all status: "declined"
     # maybe set the previous job applications to be archived when the job_posting is reopened
     # @jobposting.job_applications.update_all archived: true

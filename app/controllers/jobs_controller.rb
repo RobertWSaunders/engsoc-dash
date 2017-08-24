@@ -62,17 +62,25 @@ class JobsController < ApplicationController
 
   # POST /jobs/:id/create_position
   def create_position
-    @position = Position.new(position_params)
-    if @position.save
-      user = User.find(@position.user_id)
-      job = Job.find(@position.job_id)
-      flash[:success] = user.first_name + " " + user.last_name + " assigned as " + job.title + " from " + @position.start_date.to_date.to_s + " to " + @position.end_date.to_date.to_s
-      redirect_to :back
+    pos_params = position_params
+    usr = User.find_by(email: pos_params[:user_id].downcase)
+    if usr.blank?
+      flash.keep[:warning] = "Could not find a user by that email, make sure you have spelt the email right, and that they have signed onto DASH at least once, and try again."
+      redirect_back(fallback_location: user_organizations_path)
     else
-      flash.keep[:danger] = "Could Not Save Position"
-      flash[:danger] << "<li>" + @position.errors.full_messages.join('</li><li>')
-      flash[:danger] << "</ul>"
-      redirect_to assign_job_path
+      pos_params[:user_id] = usr.id
+      @position = Position.new(pos_params)
+      if @position.save
+        user = User.find(@position.user_id)
+        job = Job.find(@position.job_id)
+        flash[:success] = user.first_name + " " + user.last_name + " assigned as " + job.title + " from " + @position.start_date.to_date.to_s + " to " + @position.end_date.to_date.to_s
+        redirect_to :back
+      else
+        flash.keep[:danger] = "Could Not Save Position"
+        flash[:danger] << "<li>" + @position.errors.full_messages.join('</li><li>')
+        flash[:danger] << "</ul>"
+        redirect_to assign_job_path
+      end
     end
   end
 

@@ -30,6 +30,7 @@ class Ability
           # TODO: make this pretty
           orgID = job.organization.id
           can :manage, Organization, id: orgID
+          cannot :new, Organization
           can :manage, Job, organization: Organization.find(orgID)
           can :manage, JobPosting, job: { organization: Organization.find(orgID) }
           can [:select], JobPosting
