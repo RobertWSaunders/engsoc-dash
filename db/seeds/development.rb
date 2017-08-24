@@ -14,18 +14,31 @@ User.create!(first_name:  "Student",
              role:        "student")
 
 #hr example
-User.create!(first_name:  "Rachel",
-             last_name:   "McConnell",
-             email:       "hr@engsoc.queensu.ca",
-             password:    "password",
-             role:        "student")
-
-#manager example
+hrUser = User.create!(first_name:  "Emily",
+            last_name:   "Weirsma",
+            email:       "emily@queensu.ca",
+            password:    "password",
+            role:        "student")
 User.create!(first_name:  "Carson",
-             last_name:   "Cook",
-             email:       "it.manager@engsoc.queensu.ca",
-             password:    "password",
-             role:        "student")
+            last_name:   "Cook",
+            email:       "carson@queensu.ca",
+            password:    "password",
+            role:        "student")
+User.create!(first_name:  "Jill",
+           last_name:   "Reid",
+           email:       "jill@queensu.ca",
+           password:    "password",
+           role:        "student")
+User.create!(first_name:  "Rob",
+           last_name:   "Saunders",
+           email:       "rob@queensu.ca",
+           password:    "password",
+           role:        "student")
+User.create!(first_name:  "Peter",
+           last_name:   "Ju",
+           email:       "peter@queensu.ca",
+           password:    "password",
+           role:        "student")
 
 #make some organizations
 Organization.create!(
