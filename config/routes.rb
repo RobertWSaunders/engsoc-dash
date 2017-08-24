@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root                     "static_pages#home"
   get   'about'        =>  "static_pages#about"
   get   'contact'      =>  "static_pages#contact"
-  get   'credits'      =>  "static_pages#credits"
+  get   'develop'      =>  "static_pages#develop"
   get   'settings'     =>  "static_pages#settings"
 
   ####################################################

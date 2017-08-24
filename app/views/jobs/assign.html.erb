@@ -36,10 +36,10 @@
         <%= f.hidden_field :job_id, :value => @job.id %>
         <hr>
         <fieldset>
-          <%= f.label :User,class: "col-sm-1 control-label" %>
+          <%= f.label :Email, class: "col-sm-1 control-label" %>
           <div class="col-sm-11">
             <ul class="col-sm-11">
-              <%= f.text_field :user_id %>
+              <%= f.email_field :user_id %>
             </ul>
           </div>
         </fieldset>

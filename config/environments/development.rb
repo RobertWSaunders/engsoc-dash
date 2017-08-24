@@ -43,6 +43,13 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+  # mailer
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
+  host = 'localhost:3000'                     # Local server
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
+
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
