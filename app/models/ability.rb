@@ -26,7 +26,7 @@ class Ability
         if job.role == "admin" && Position.where(job_id: job.id, user_id: user.id).first.active?
           can :manage, :all
         end
-        if job.role == "management"
+        if job.role == "management" && Position.where(job_id: job.id, user_id: user.id).first.active?
           # TODO: make this pretty
           orgID = job.organization.id
           can :manage, Organization, id: orgID
