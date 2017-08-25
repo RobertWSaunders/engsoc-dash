@@ -71,7 +71,7 @@ class JobPostingsController < ApplicationController
       flash[:warning] = "The organization " + @job_posting.job.organization.name + " is not active, so its job postings cannot be viewed."
       redirect_back(fallback_location: job_postings_path)
     else
-      if @job_posting.status == "open" || current_user.role == ( "superadmin" || "management" )
+      if ( @job_posting.status == "open" || current_user.role == ( "superadmin" || "management" ) || managed_orgs(current_user).include?(@job_posting.job.organization) )
         @job = Job.find_by! id: @jobposting.job_id
         @organization = Organization.find_by! id: @job.organization_id
       else
@@ -83,25 +83,25 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/:id/edit
   def edit
-    @jobposting = JobPosting.find(params[:id])
+    if @jobposting.status != "waiting_approval"
+      flash[:danger] = "The Job Posting is currently not 'waiting approval', so cannot be created, deleted, or editted. Approval must first be revoked for the posting to be editable. Please contact an administrator if you require assistance."
+      redirect_back(fallback_location: job_postings_path)
+    else
+      @jobposting = JobPosting.find(params[:id])
+    end
   end
 
   # PUT /job_postings/:id
   def update
     @jobposting = JobPosting.find(params[:id])
-    if @jobposting.status != "waiting_approval"
-      flash[:danger] = "The Job Posting is currently not 'waiting approval', so cannot be created, deleted, or editted. Please contact an administrator if you require assistance."
-      redirect_back(fallback_location: job_postings_path)
+    if @jobposting.update_attributes(job_posting_params)
+      flash[:success] = "Job Posting Successfully Updated!"
+      redirect_to job_posting_job_posting_questions_path(@jobposting.id)
     else
-      if @jobposting.update_attributes(job_posting_params)
-        flash[:success] = "Job Posting Successfully Updated!"
-        redirect_to job_posting_job_posting_questions_path(@jobposting.id)
-      else
-        flash[:danger] = "Could Not Update Job Posting!"
-        flash[:danger] << "<li>" + @jobposting.errors.full_messages.join('</li><li>')
-        flash[:danger] << "</ul>"
-        redirect_to edit_job_posting_path(@jobposting)
-      end
+      flash[:danger] = "Could Not Update Job Posting!"
+      flash[:danger] << "<li>" + @jobposting.errors.full_messages.join('</li><li>')
+      flash[:danger] << "</ul>"
+      redirect_to edit_job_posting_path(@jobposting)
     end
   end
 

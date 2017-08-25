@@ -23,7 +23,7 @@ class Ability
     # for users that have a job where they are an admin
     elsif user.jobs.any?
       user.jobs.each do |job|
-        if job.role == "admin"
+        if job.role == "admin" && Position.where(job_id: job.id, user_id: user.id).first.active?
           can :manage, :all
         end
         if job.role == "management"
