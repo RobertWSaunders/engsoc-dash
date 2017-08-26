@@ -69,7 +69,7 @@
   <div class="row">
     <%= f.label :deadline, class: "col-sm-1 control-label" %>
     <div class="col-sm-11 form-inline">
-      <%= f.datetime_select :deadline, {ampm: true, "data-provide" => 'datepicker', start_year: Date.today.year, default: Date.today + 2.weeks, end_year: Date.today.year + 1}, {class: "form-control"} %>
+      <%= f.date_select :deadline, {ampm: true, "data-provide" => 'datepicker', start_year: Date.today.year, default: Date.today + 2.weeks, end_year: Date.today.year + 1}, {class: "form-control"} %>
     </div>
   </div>
 </fieldset>
@@ -84,7 +84,7 @@
   <div class="row">
     <%= f.label :start_date, class: "col-sm-1 control-label" %>
     <div class="col-sm-11 form-inline">
-      <%= f.date_select :start_date, {ampm: true, "data-provide" => 'datepicker', :include_blank => true,:default => nil, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
+      <%= f.date_select :start_date, {ampm: true, "data-provide" => 'datepicker', :default => Date.today + 2.weeks, start_year: Date.today.year, end_year: Date.today.year + 2}, {class: "form-control"} %>
     </div>
   </div>
   <div class="row mv">

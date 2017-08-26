@@ -71,7 +71,7 @@ class JobPostingsController < ApplicationController
       flash[:warning] = "The organization " + @job_posting.job.organization.name + " is not active, so its job postings cannot be viewed."
       redirect_back(fallback_location: job_postings_path)
     else
-      if ( @job_posting.status == "open" || current_user.role == ( "superadmin" || "management" ) || managed_orgs(current_user).include?(@job_posting.job.organization) )
+      if ( @job_posting.status == "open" || current_user.role == "superadmin" || managed_orgs(current_user).include?(@job_posting.job.organization) )
         @job = Job.find_by! id: @jobposting.job_id
         @organization = Organization.find_by! id: @job.organization_id
       else

@@ -37,6 +37,7 @@ class Ability
           can :manage, JobPostingQuestion, job_posting: { job: { organization: Organization.find(orgID) } }
           can :manage, JobApplication, job_posting: { job: { organization: Organization.find(orgID) } }
           can :manage, Interview, job_application: { job_posting: { job: { organization: Organization.find(orgID) } } }
+          can :new, Interview
         end
       end
     end
