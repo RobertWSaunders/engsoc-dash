@@ -23,7 +23,7 @@ module UserHelper
       end
       # orgs = Organization.joins(:jobs, :).where(:jobs => { :role => "management" })
     else
-      return false
+      return []
     end
     return Organization.where(id: orgs.map(&:id))
   end

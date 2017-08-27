@@ -38,20 +38,6 @@
         </div>
         <div class="card-divider"></div>
       <% end %>
-      <h3 class="card-heading pb0">
-        <% if @user.bio? == false %>
-        <div class="pull-right dropdown">
-          <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-          <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-            <li>
-              <%= link_to "Edit", edit_profile_path(@user.id) %>
-            </li>
-
-          </ul>
-        </div>
-        <% end %>
-        About
-      </h3>
 
       <div class="card-body">
         <table class="table table-striped">
@@ -60,14 +46,18 @@
               <td><em class="ion-email icon-fw mr"></em>Email</td>
               <td><span class="is-editable text-inherit"><a href="#"><%= @user.email %></a></span></td>
             </tr>
-            <tr>
-              <td><em class="ion-document-text icon-fw mr"></em>Faculty</td>
-              <td><%= @user.faculty %></td>
-            </tr>
-            <tr>
-              <td><em class="ion-document-text icon-fw mr"></em>Specialization</td>
-              <td><%= @user.specialization %></td>
-            </tr>
+            <% if @user.specialization? %>
+              <tr>
+                <td><em class="ion-document-text icon-fw mr"></em>Specialization</td>
+                <td><%= @user.specialization %></td>
+              </tr>
+            <% end %>
+            <% if @user.faculty? %>
+              <tr>
+                <td><em class="ion-document-text icon-fw mr"></em>Faculty</td>
+                <td><%= @user.faculty %></td>
+              </tr>
+            <% end %>
             <tr>
               <td><em class="ion-ios-body icon-fw mr"></em>Member since</td>
               <td>

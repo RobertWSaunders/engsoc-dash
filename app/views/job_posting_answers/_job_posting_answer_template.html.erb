@@ -1,0 +1,17 @@
+<div class="container-fluid container-lg">
+  <div class="card">
+    <div class="card-body">
+      <p class="lead"> <%= link_to @job_application.job_posting.title, @job_application.job_posting %></p>
+      <hr />
+      <p>
+        Please answer all of the questions below, to the best of your ability.
+      </p>
+      <p>
+        Your answers will only be visible to the organization you are applying to.
+      </p>
+      <br />
+      <%= render 'job_posting_answer_form', job_posting_answer: @job_posting_answer %>
+
+    </div>
+  </div>
+</div>

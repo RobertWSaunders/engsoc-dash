@@ -26,7 +26,7 @@
                 <% qu = JobPostingQuestion.where(id: answer.job_posting_questions_id).last %>
                 <li>
                   <p><strong><%= qu.content %></strong></p>
-                  <p><%= answer.content %></p>
+                  <p><%= simple_format(answer.content) %></p>
                 </li>
               <% end %>
             </ol>
