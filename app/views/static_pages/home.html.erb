@@ -1,4 +1,4 @@
-<% content_for :title, "EngSoc Dash : Home" %>
+<% content_for :title, "EngSoc Dash" %>
 
 <div class="content-heading bg-white">
   <div class="row">
@@ -90,7 +90,7 @@
         <div class="col-lg-12">
           <div class="card p">
             <div class="card-heading">
-              <div class="card-title">Open Job Postings</div>
+              <div class="card-title">Newest Job Postings</div>
               <small>Get involved, gain experience</small>
               <div class="pull-right">
                 <%= link_to "View All", job_postings_path %>
@@ -100,23 +100,27 @@
               <table class="table table-hover table-fixed va-middle">
                 <tbody>
                   <% @job_postings.each do |posting| %>
-                  <tr class="msg-display clickable">
-                    <td class="wd-xxs">
-                      <div class="initial32 bg-indigo-500"><%= posting.title[0,1] %></div>
+                  <tr class="msg-display">
+                    <td class="wd-xs">
+                      <%= status_label(posting) %>
                     </td>
                     <td>
-                      <%= link_to root_path, class: "ripple" do %>
-                        <%= posting.title %>
-                      <% end %>
+                      <strong><%= link_to posting.title, posting %></strong>
+                      <br>
+                      <small><%= link_to posting.job.organization.name, posting.job.organization %></small>
                     </td>
                     <td>
-                      <%= posting.job.organization.name %>
+                      <small>Deadline:</small>
+                      <br><%= posting.deadline.strftime("%A, %b %d, %Y") %><% if posting.deadline.future? %> | <%= distance_of_time_in_words(Time.now, posting.deadline) %><% end %>
+                    </td>
+                    <td>
+                      <small>Last Updated:</small>
+                      <br><%= posting.updated_at.strftime("%A, %b %d, %Y, %l:%M %p") %>
                     </td>
                   </tr>
                   <% end %>
                 </tbody>
               </table>
-
             </div>
           </div>
         </div>
