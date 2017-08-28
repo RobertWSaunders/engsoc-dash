@@ -4,8 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :destroy, :edit, :update]
 
   def index
-    # TODO: turn the admin checks into a helper function
-    if current_user.role != ( "superadmin" || "management" )
+    if cannot? :manage, :all
       flash[:warning] = "This page cannot be viewed."
       redirect_back(fallback_location: root_path)
     else

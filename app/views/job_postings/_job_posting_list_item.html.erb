@@ -10,12 +10,8 @@
   </h5>
 
   <!-- display the application deadline -->
-  <p class="text-gray-darker">Application Deadline: 
-    <% if posting.deadline.past? %>
-      <%= posting.deadline.to_date %>
-    <% else %>
-      <%= distance_of_time_in_words(Time.now, posting.deadline) %><br />
-    <% end %>
+  <p class="text-gray-darker">Application Deadline:
+    <%= posting.deadline.strftime("%A, %b %d, %Y") %><% if posting.deadline.future? %> | <%= distance_of_time_in_words(Time.now, posting.deadline) %><% end %>
   </p>
 
   <p class="text-gray-darker">Organization: <%= link_to posting.job.organization.name, posting.job.organization %><br /></p>

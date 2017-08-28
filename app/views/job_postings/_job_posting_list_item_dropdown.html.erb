@@ -7,24 +7,38 @@
       <li>
         <%= link_to "View Applicants", job_posting_job_applications_path(posting.id) %>
       </li>
-      <% if posting.status != "open" %>
-        <li>
-          <%= link_to "Approve Posting", approve_job_posting_path(posting) %>
-        </li>
+      <% if admin?(current_user) %>
+        <% if posting.status != "open" %>
+          <li>
+            <%= link_to "Approve Posting", approve_job_posting_path(posting) %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to "Withdraw Approval", withdraw_job_posting_path(posting) %>
+          </li>
+          <li>
+            <%= link_to "Begin Interviewing", interview_job_posting_path(posting) %>
+          </li>
+        <% end %>
       <% else %>
-        <li>
-          <%= link_to "Withdraw Approval", withdraw_job_posting_path(posting) %>
-        </li>
-        <li>
-          <%= link_to "Begin Interviewing", interview_job_posting_path(posting) %>
-        </li>
+        <% if posting.status == "open" %>
+          <li>
+            <%= link_to "Begin Interviewing", interview_job_posting_path(posting) %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to "Reopen Posting", approve_job_posting_path(posting) %>
+          </li>
+        <% end %>
       <% end %>
       <li>
         <%= link_to "Edit Posting", edit_job_posting_path(posting.id) %>
       </li>
-      <li>
-        <%= link_to "Delete Posting", posting, method: :delete, data: { confirm: "Are you sure?" } %>
-      </li>
+      <% if admin?(current_user) %>
+        <li>
+          <%= link_to "Delete Posting", posting, method: :delete, data: { confirm: "Are you sure?" } %>
+        </li>
+      <% end %>
     </ul>
     <% end %>
   </div>

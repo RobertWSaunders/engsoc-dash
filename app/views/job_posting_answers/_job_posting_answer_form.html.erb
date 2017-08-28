@@ -2,8 +2,8 @@
 
   <% if controller.action_name.eql?('new') %>
     <%= form_tag job_posting_job_application_job_posting_answers_path do %>
-    
-      <%= token_tag %> 
+
+      <%= token_tag %>
 
       <% @page_answers.each do |answer| %>
         <%= fields_for 'answers[]', answer, include_id: false do |a| %>
@@ -18,14 +18,14 @@
       <% end %>
       <hr>
       <div class="actions">
-        <%= submit_tag "Save Answers", class: "btn btn-primary btn-block ripple" %>
+        <%= submit_tag "Save Answers", class: "btn btn-primary btn-flat btn-block ripple" %>
       </div>
     <% end %>
 
   <% elsif controller.action_name.eql?('edit') %>
     <%= form_tag job_application_job_posting_answers_path, :method => :put do %>
 
-      <%= token_tag %> 
+      <%= token_tag %>
 
       <% @job_posting_answers.each do |answer| %>
         <%= fields_for 'answers[]', answer do |a| %>
@@ -38,7 +38,7 @@
       <% end %>
       <hr>
       <div class="actions">
-        <%= submit_tag "Save Answers", class: "btn btn-primary btn-block ripple" %>
+        <%= submit_tag "Save Answers", class: "btn btn-primary btn-flat btn-block ripple" %>
       </div>
     <% end %>
 

@@ -23,10 +23,10 @@ class Ability
     # for users that have a job where they are an admin
     elsif user.jobs.any?
       user.jobs.each do |job|
-        if job.role == "admin"
+        if job.role == "admin" && Position.where(job_id: job.id, user_id: user.id).first.active?
           can :manage, :all
         end
-        if job.role == "management"
+        if job.role == "management" && Position.where(job_id: job.id, user_id: user.id).first.active?
           # TODO: make this pretty
           orgID = job.organization.id
           can :manage, Organization, id: orgID
@@ -37,6 +37,7 @@ class Ability
           can :manage, JobPostingQuestion, job_posting: { job: { organization: Organization.find(orgID) } }
           can :manage, JobApplication, job_posting: { job: { organization: Organization.find(orgID) } }
           can :manage, Interview, job_application: { job_posting: { job: { organization: Organization.find(orgID) } } }
+          can :new, Interview
         end
       end
     end

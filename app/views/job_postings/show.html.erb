@@ -8,7 +8,7 @@
       <p class="lead"><%= link_to @job.title, job_path(:id => @job.id) %></p>
       <hr />
       <p>
-        Application Deadline: 
+        Application Deadline:
         <% if @jobposting.deadline.past? %>
           <%= @jobposting.deadline.to_date %>
         <% else %>
@@ -21,9 +21,15 @@
       <p>
         Term: <%= @jobposting.start_date.to_date %> to <%= @jobposting.end_date.to_date %>
       </p>
-      <p class="mv-lg">
-        <%= simple_format(@jobposting.description) %>
+      <p>
+        <small>Last Updated: <%= @jobposting.updated_at.strftime("%A, %b %d, %Y, %l:%M %p") %>
+        </small>
       </p>
+      <div class="container container-sm reader-block">
+        <p class="mv-lg">
+          <%= simple_format(@jobposting.description) %>
+        </p>
+      </div>
     </div>
 
     <div class="card-footer">

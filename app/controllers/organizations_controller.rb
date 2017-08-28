@@ -8,7 +8,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations
   def index
-    @organizations = Organization.where(status: "active").filter(params.slice(:department)).paginate(:page => params[:page], :per_page => 10)
+    @organizations = Organization.where(status: "active").filter(params.slice(:department)).paginate(:page => params[:page], :per_page => 20)
   end
 
   # GET /organizations/new

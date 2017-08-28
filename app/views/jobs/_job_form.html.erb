@@ -48,7 +48,11 @@
       <%= f.label :role, "Job Role",class: "col-sm-1 control-label" %>
         <!-- only admins are able to set the status -->
         <div class="col-sm-11">
-          <%= f.select :role, Job.roles.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+          <% if current_user.superadmin? %>
+            <%= f.select :role, Job.roles.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+          <% else %>
+            <%= f.select :role, [["Regular", "regular"],["Management", "management"]], {}, {class: "form-control"} %>
+          <% end %>
         </div>
       </div>
     </fieldset>
@@ -64,7 +68,7 @@
       </div>
     </fieldset>
     <hr>
-    
+
     <!-- submit button -->
 
     <%= f.submit "Create Job", class: "btn btn-primary btn-block" %>
@@ -121,7 +125,11 @@
       <%= f.label :role, "Job Role",class: "col-sm-1 control-label" %>
         <!-- only admins are able to set the status -->
         <div class="col-sm-11">
+          <% if can? :manage, :all %>
             <%= f.select :role, Job.roles.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
+          <% else %>
+            <%= f.select :role, [["Regular", "regular"],["Management", "management"]], {}, {class: "form-control"} %>
+          <% end %>
         </div>
       </div>
     </fieldset>
@@ -130,14 +138,13 @@
     <fieldset class="last-child">
       <div class="row">
         <%= f.label :job_type, "Job Type",class: "col-sm-1 control-label" %>
-          <!-- only admins are able to set the status -->
           <div class="col-sm-11">
             <%= f.select :job_type, Job.job_types.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
           </div>
       </div>
     </fieldset>
     <hr>
-    
+
     <!-- submit button -->
 
     <%= f.submit "Edit Job", class: "btn btn-primary btn-block" %>
