@@ -5,7 +5,12 @@ class ResumesController < ApplicationController
 
   # GET profiles/:profile_id/resumes
   def index
-    @resume = Resume.new
+    if @user.id == current_user.id
+      @resume = Resume.new
+    else
+      flash[:danger] = "You don't have access to that."
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   # POST profiles/:profile_id/resumes
