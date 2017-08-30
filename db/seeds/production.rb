@@ -1,8 +1,8 @@
 
 #create some users
 #super admin
-superadmin = User.create!(first_name:  "Super",
-             last_name:   "Admin",
+superadmin = User.create!(first_name:  "Robert",
+             last_name:   "Saunders",
              email:       "superadmin@example.com",
              password:    "password",
              role:        "superadmin")
@@ -15,30 +15,31 @@ User.create!(first_name:  "Student",
 
 #hr example
 hrUser = User.create!(first_name:  "Emily",
-             last_name:   "Weirsma",
-             email:       "emily@queensu.ca",
-             password:    "password",
-             role:        "student")
+            last_name:   "Weirsma",
+            email:       "emily@queensu.ca",
+            password:    "password",
+            role:        "student")
 User.create!(first_name:  "Carson",
-             last_name:   "Cook",
-             email:       "carson@queensu.ca",
-             password:    "password",
-             role:        "student")
+            last_name:   "Cook",
+            email:       "carson@queensu.ca",
+            password:    "password",
+            role:        "student")
 User.create!(first_name:  "Jill",
-            last_name:   "Reid",
-            email:       "jill@queensu.ca",
-            password:    "password",
-            role:        "student")
+           last_name:   "Reid",
+           email:       "jill@queensu.ca",
+           password:    "password",
+           role:        "student")
 User.create!(first_name:  "Rob",
-            last_name:   "Saunders",
-            email:       "rob@queensu.ca",
-            password:    "password",
-            role:        "student")
+           last_name:   "Saunders",
+           email:       "rob@queensu.ca",
+           password:    "password",
+           role:        "student")
 User.create!(first_name:  "Peter",
-            last_name:   "Ju",
-            email:       "peter@queensu.ca",
-            password:    "password",
-            role:        "student")
+           last_name:   "Ju",
+           email:       "peter@queensu.ca",
+           password:    "password",
+           role:        "student")
+
 #create some users
 20.times do |n|
   email: "test" + n + "@test.com",
@@ -146,6 +147,22 @@ Organization.create!(
                role:          0)
 end
 
+#create some orgs
+20.times do |n|
+  email = Faker::Internet.email
+  status = "active"
+  description = Faker::Lorem.paragraph(3, true)
+  department = "clubs"
+  name = Faker::Team.name
+  Organization.create!(
+    email: email,
+    status: status,
+    description: description,
+    name: name,
+    department: department
+  )
+end
+
 #####################
 # Org & Position Seeds
 org = Organization.create!(
@@ -203,6 +220,29 @@ job = Job.create!(
               job_type: "volunteer",
               role: "regular",
               description: Faker::Lorem.paragraph(4, true))
+posting = JobPosting.create!(
+              title: job.title,
+              deadline: Time.now + 30.days,
+              status: "open",
+              description: Faker::Lorem.paragraph(4, true),
+              job_id: job.id,
+              start_date: Time.now + 40.days,
+              end_date: Time.now + 240.days)
+              question1 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "Are you good at calculations and finances?")
+              question2 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What department are you in?")
+              question3 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "How do you plan to raise money for QGEC?")
+              question4 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What books have you read in the last month?")
+              question5 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What time and date can you interview?")
 Position.create!(
               job_id: job.id,
               user_id: user.id,
@@ -226,13 +266,59 @@ Position.create!(
               user_id: user.id,
               start_date: Time.now - 30.days,
               end_date: Time.now + 30.days)
-Job.create!(
+posting = JobPosting.create!(
+              title: job.title,
+              deadline: Time.now + 30.days,
+              status: "open",
+              description: Faker::Lorem.paragraph(4, true),
+              job_id: job.id,
+              start_date: Time.now + 40.days,
+              end_date: Time.now + 240.days)
+              question1 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "Are you comfortable talking to strangers?")
+              question2 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What are your favorite companies?")
+              question3 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What are some other positions you're interested in within QGEC? They include head of IT, head of sponsorship, events coordinator, lead marketer, and more")
+              question4 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What books have you read in the last month?")
+              question5 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What time and date can you interview?")
+job = Job.create!(
               title: "Head of Speakers",
               organization_id: org.id,
               status: "active",
               job_type: "volunteer",
               role: "regular",
               description: Faker::Lorem.paragraph(4, true))
+posting = JobPosting.create!(
+              title: job.title,
+              deadline: Time.now + 30.days,
+              status: "open",
+              description: Faker::Lorem.paragraph(4, true),
+              job_id: job.id,
+              start_date: Time.now + 40.days,
+              end_date: Time.now + 240.days)
+              question1 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "Are you comfortable speaking in front of strangers?")
+              question2 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "Who's your fav public speaker?")
+              question3 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What are some other positions you're interested in within QGEC? They include head of IT, head of sponsorship, events coordinator, lead marketer, and more")
+              question4 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What books have you read in the last month?")
+              question5 = JobPostingQuestion.create!(
+                            job_posting_id: posting.id,
+                            content: "What time and date can you interview?")
 org = Organization.create!(
               name: "Automated Poker Team",
               email: "qapt@engsoc.queensu.ca",
