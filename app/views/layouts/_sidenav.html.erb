@@ -40,7 +40,7 @@
           <ul class="sidebar-subnav">
             <li class="<%= 'active' if (controller.controller_name.eql?('job_postings')) && (controller.action_name.eql?('index')) %>">
               <%= link_to job_postings_path, class: "ripple" do %>
-                <span class="pull-right nav-label"></span><span>View Open Jobs</span>
+                <span class="pull-right nav-label"></span><span>View All</span>
               <% end %>
             </li>
             <li class="<%= 'active' if (controller.controller_name.eql?('job_applications')) && (controller.action_name.eql?('user')) %>">

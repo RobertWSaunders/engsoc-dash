@@ -47,7 +47,7 @@ class Ability
     can :user, Organization
     can [:edit, :update], User, id: user.id
     can [:new, :create, :select_resume, :update_resume, :edit, :update, :finalize, :user], [JobApplication, JobPostingAnswer]
-    can :manage, Resume, user: User.find(user.id)
+    can [:index, :create, :destroy], Resume, user_id: User.find(user.id).id
 
   #
   #     #can manage pretty much everything except users
