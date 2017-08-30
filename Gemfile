@@ -50,6 +50,8 @@ gem 'simple_calendar', '~> 2.0'
 # for uploading resumes & validating their size
 gem 'carrierwave'
 gem 'file_validators'
+# Generate fake users & posts - this should be in dev test env...
+gem 'faker',          '~> 1.7.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -59,8 +61,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'launchy'
   gem 'rails-controller-testing'
-    # Generate fake users & posts
-  gem 'faker',          '~> 1.7.3'
 end
 
 # gems only for development enviroment
