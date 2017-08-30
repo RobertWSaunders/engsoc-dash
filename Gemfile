@@ -50,6 +50,8 @@ gem 'simple_calendar', '~> 2.0'
 # for uploading resumes & validating their size
 gem 'carrierwave'
 gem 'file_validators'
+# Generate fake users & posts - this should be in dev test env...
+gem 'faker',          '~> 1.7.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -59,14 +61,12 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'launchy'
   gem 'rails-controller-testing'
-    # Generate fake users & posts
-  gem 'faker',          '~> 1.7.3'
 end
 
 # gems only for development enviroment
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
+  # gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
