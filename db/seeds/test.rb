@@ -39,21 +39,21 @@ User.create!(first_name:  "Peter",
             email:       "peter@queensu.ca",
             password:    "password",
             role:        "student")
-#create some users
-20.times do |n|
-  email: "test" + n + "@test.com",
-  first_name:  "Tester",
-  last_name:   n,
-  password:    "password",
-  role:        "student"
-  User.create!(
-    email: email,
-    first_name: first_name,
-    last_name: last_name,
-    password: password,
-    role: role
-  )
-end
+            #create some users
+            20.times do |n|
+              email = "test" + n.to_s + "@test.com"
+              first_name = "Tester"
+              last_name = n.to_s
+              password = "password"
+              role = "student"
+              User.create!(
+                email: email,
+                first_name: first_name,
+                last_name: last_name,
+                password: password,
+                role: role
+              )
+            end
 
 #make some organizations
 Organization.create!(

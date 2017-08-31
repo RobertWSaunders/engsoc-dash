@@ -42,11 +42,11 @@ User.create!(first_name:  "Peter",
 
 #create some users
 20.times do |n|
-  email: "test" + n + "@test.com",
-  first_name:  "Tester",
-  last_name:   n,
-  password:    "password",
-  role:        "student"
+  email = "test" + n.to_s + "@test.com"
+  first_name = "Tester"
+  last_name = n.to_s
+  password = "password"
+  role = "student"
   User.create!(
     email: email,
     first_name: first_name,
