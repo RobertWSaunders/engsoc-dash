@@ -22,16 +22,27 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to controller: 'users', action: 'show', id: @user.id
+      flash[:success] = "Your changes have been saved."
+      # redirect_to controller: 'users', action: 'show', id: @user.id
+      redirect_back(fallback_location: profile_path)
     else
+      flash[:warning] = "Your changes could not be saved."
       render 'edit'
+    end
+  end
+
+  def settings
+    @user = User.find(params[:profile_id])
+    if @user.id != current_user.id
+      flash[:warning] = "Page not accessible."
+      redirect_back(fallback_location: root_path)
     end
   end
 
   private
 
     def user_params
-      params.require(:user).permit(:preferred_name, :tagline, :bio, :faculty, :specialization, :gender)
+      params.require(:user).permit(:preferred_name, :tagline, :bio, :faculty, :specialization, :gender, :emailNotifications)
     end
 
     def set_user

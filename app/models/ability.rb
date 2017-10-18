@@ -45,7 +45,7 @@ class Ability
     # normal users
     can :read, [Organization, JobPosting, JobPostingQuestion, Job, User, JobApplication]
     can :user, Organization
-    can [:edit, :update], User, id: user.id
+    can [:edit, :update, :settings], User, id: user.id
     can [:new, :create, :select_resume, :update_resume, :edit, :update, :finalize, :user], [JobApplication, JobPostingAnswer]
     can [:index, :create, :destroy], Resume, user_id: User.find(user.id).id
 

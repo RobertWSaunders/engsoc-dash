@@ -13,8 +13,4 @@ class StaticPagesController < ApplicationController
 
   def credits
   end
-
-  def settings
-    @user = current_user
-  end
 end

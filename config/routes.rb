@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get   'about'        =>  "static_pages#about"
   get   'contact'      =>  "static_pages#contact"
   get   'develop'      =>  "static_pages#develop"
-  get   'settings'     =>  "static_pages#settings"
 
   ####################################################
   # Profiles
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :profiles, :controller => 'users' do
     resources :resumes, only: [:index, :create, :destroy]
+    get 'settings'
   end
 
   ####################################################

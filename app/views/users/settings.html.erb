@@ -9,15 +9,17 @@
             Email Notifications</h4>
         </div>
         <div class="card-body">
-          <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
+          <%= form_for @user, url: profile_path(@user), :html => {:class => 'form-horizontal'} do |f| %>
             <fieldset class="last-child">
               <div class="form-group">
-                <%= f.label "Enable", class: "col-sm-1 control-label" %>
-                <div class="col-sm-11">
-                  <%= f.check_box :emailNotifications %>
+                <%= f.label "Enable", class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <%= f.check_box :emailNotifications, class:"checkbox-inline c-checkbox" %>
                 </div>
               </div>
             </fieldset>
+
+            <%= f.submit "Save", class: "btn btn-primary btn-block" %>
           <% end %>
         </div>
       </div>
