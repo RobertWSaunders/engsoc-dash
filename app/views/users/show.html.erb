@@ -20,15 +20,6 @@
     <div class="card">
       <% if @user.bio? %>
         <h5 class="card-heading pb0">
-          <div class="pull-right dropdown">
-            <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-            <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-              <li>
-                <%= link_to "Edit", edit_profile_path(@user.id) %>
-              </li>
-
-            </ul>
-          </div>
           Biography
         </h5>
         <div class="card-body">
@@ -42,6 +33,16 @@
       <div class="card-body">
         <table class="table table-striped">
           <tbody>
+            <% if @user.id === current_user.id %>
+            <div class="pull-right dropdown">
+              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                <li>
+                  <%= link_to "Edit", edit_profile_path(@user.id) %>
+                </li>
+              </ul>
+            </div>
+            <% end %>
             <tr>
               <td><em class="ion-email icon-fw mr"></em>Email</td>
               <td><span class="is-editable text-inherit"><a href="#"><%= @user.email %></a></span></td>

@@ -15,5 +15,6 @@ class StaticPagesController < ApplicationController
   end
 
   def settings
+    @user = current_user
   end
 end

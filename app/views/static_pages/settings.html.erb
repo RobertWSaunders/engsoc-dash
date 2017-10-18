@@ -1,1 +1,26 @@
 <% content_for :title, "Settings" %>
+
+<div class="container container-lg">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="card">
+        <div class="card-heading">
+          <h4 class="text-bold">
+            Email Notifications</h4>
+        </div>
+        <div class="card-body">
+          <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
+            <fieldset class="last-child">
+              <div class="form-group">
+                <%= f.label "Enable", class: "col-sm-1 control-label" %>
+                <div class="col-sm-11">
+                  <%= f.check_box :emailNotifications %>
+                </div>
+              </div>
+            </fieldset>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
