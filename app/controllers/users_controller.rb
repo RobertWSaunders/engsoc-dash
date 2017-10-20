@@ -21,10 +21,18 @@ class UsersController < ApplicationController
   end
 
   def update
+    p @user.update_attributes(user_params)
+    p user_params
+    p user_params.has_key?(:email_notifications)
     if @user.update_attributes(user_params)
       flash[:success] = "Your changes have been saved."
-      # redirect_to controller: 'users', action: 'show', id: @user.id
-      redirect_back(fallback_location: profile_path)
+      if user_params.has_key?(:email_notifications)
+        # redirect_to controller: 'users', action: 'settings', user_id: @user.id
+        redirect_back(fallback_location: profile_path)
+      else
+        redirect_to controller: 'users', action: 'show', id: @user.id
+      end
+      # redirect_back(fallback_location: profile_path)
     else
       flash[:warning] = "Your changes could not be saved."
       render 'edit'
@@ -42,7 +50,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:preferred_name, :tagline, :bio, :faculty, :specialization, :gender, :emailNotifications)
+      params.require(:user).permit(:preferred_name, :tagline, :bio, :faculty, :specialization, :gender, :email_notifications)
     end
 
     def set_user

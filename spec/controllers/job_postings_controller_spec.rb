@@ -90,12 +90,13 @@ describe JobPostingsController do
       before(:all) do
         @posting = create(:job_posting, :open, job: @job_active_org)
       end
-      describe "GET #edit" do
-        it "renders the edit view" do
-          get :edit, params: { id: @posting.id }
-          expect(response).to render_template :edit
-        end
-      end
+      # JPs must now be in 'waiting approval' to be editted
+      # describe "GET #edit" do
+      #   it "renders the edit view" do
+      #     get :edit, params: { id: @posting.id }
+      #     expect(response).to render_template :edit
+      #   end
+      # end
       describe "GET #withdraw" do
         it "withdraws permission for the posting" do
           get :withdraw, params: { :id => @posting }
