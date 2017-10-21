@@ -48,6 +48,7 @@ class InterviewsController < ApplicationController
       @job_application = JobApplication.find(@interview.job_application_id)
       @job_application.status = "interview_scheduled"
       @job_application.save
+      UserMailer.interview_scheduled(job_application)
       redirect_to manage_interviews_path
     else
       render :new

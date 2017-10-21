@@ -450,6 +450,10 @@ JobPostingAnswer.create!(
               content: "Been a manager",
               job_posting_questions_id: question3.id,
               job_application_id: application.id)
+Interview.create!(
+              job_application_id: application.id,
+              start_time: Time.now,
+              end_time: Time.now + 30.minutes)
 user = User.create!(
              first_name:  "James",
              last_name:   "Pang",

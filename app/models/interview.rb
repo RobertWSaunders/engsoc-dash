@@ -4,6 +4,9 @@ class Interview < ApplicationRecord
   validate :start_time_is_earlier
   validate :less_than_2_hours
 
+  validates :start_time, :presence => true
+  validates :end_time, :presence => true
+
   private
 
     def start_time_is_earlier

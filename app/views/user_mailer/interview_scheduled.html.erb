@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>
+      <p>
+        Hi <%= @user.first_name %> <%= @user.last_name %>,
+      </p>
+      <br>
+      <p>
+        You have been scheduled for an interview for the position <%= link_to @job_application.job_posting.job.title, @job_application.job_posting.job %>, for the <%= link_to @job_application.job_posting.job.organization.name, @job_application.job_posting.job.organization %> organization.
+      </p>
+      <p>
+        The interview is to be conducted at the following time:
+        <br>
+        <em>
+          <%= @job_application.interview.start_time.strftime("%A, %d %b at %l:%M %p") %> to <%= @job_application.interview.end_time.strftime("%I:%M %p") %>.
+        </em>
+      </p>
+      <br>
+      <p>
+        Should you have any questions about the interview, or would like to reschedule, please email <%= mail_to @job_application.job_posting.job.organization.email %>.
+      </p>
+      <p>
+        Otherwise, no further action is needed from you to confirm the interview.
+      </p>
+      <p>
+        Best of luck on your interview!
+      </p>
+    </div>
+    <br>
+    <div>
+      <h3>Quick links</h3>
+      <ul>
+        <li><%= link_to "EngSoc Dash", root_url %></li>
+        <li><%= link_to "My Job Applications", user_job_applications_url %></li>
+      </ul>
+    </div>
+    <%= render 'shared/mail/footer' %>
+  </body>
+</html>
