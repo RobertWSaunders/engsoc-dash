@@ -10,10 +10,10 @@
       </p>
       <br>
       <p>
-        You have been scheduled for an interview for the position <%= link_to @job_application.job_posting.job.title, @job_application.job_posting.job %>, for <%= link_to @job_application.job_posting.job.organization.name, @job_application.job_posting.job.organization %> organization.
+        Your interview for the position <%= link_to @job_application.job_posting.job.title, @job_application.job_posting.job %>, for <%= link_to @job_application.job_posting.job.organization.name, @job_application.job_posting.job.organization %> organization, has been rescheduled.
       </p>
       <p>
-        The interview is to be conducted at the following time:
+        The new interview time is:
         <br>
         <em>
           <%= @job_application.interview.start_time.strftime("%A, %d %b at %l:%M %p") %> to <%= @job_application.interview.end_time.strftime("%I:%M %p") %>.

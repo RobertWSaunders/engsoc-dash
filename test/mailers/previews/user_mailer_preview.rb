@@ -28,4 +28,9 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.interview_scheduled(job_application)
   end
 
+  def interview_rescheduled
+    job_application = JobApplication.first
+    UserMailer.interview_rescheduled(job_application)
+  end
+
 end
