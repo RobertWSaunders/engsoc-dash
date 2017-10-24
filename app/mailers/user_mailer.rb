@@ -39,7 +39,6 @@ class UserMailer < ApplicationMailer
     send_mail(@user,subject)
   end
 
-  # interview rescheduled
   # interview reminder (1hr before)
   # interview cancelling
   # job posting deadline has passed
