@@ -12,12 +12,14 @@ Warden::Strategies.add(:interpret_headers) do
     user_surname = request.headers["surname"]
 
     if user = User.where(:email => user_email).first
+      sign_in user
       success!(user)
     else
       new_user = User.new(:email => user_email,
                      :first_name => user_givenName,
                       :last_name => user_surname)
       if new_user.save
+        sign_in user
         success!(new_user)
       else
         message = "Could not initialize your account at this time, please contact 12sj16@queensu.ca"
