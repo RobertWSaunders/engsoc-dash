@@ -7,7 +7,6 @@ Warden::Strategies.add(:interpret_headers) do
   end
 
   def authenticate!
-    byebug
     user_email = request.headers["HTTP_EMAIL"]
     user_givenName = request.headers["givenName"]
     user_surname = request.headers["surname"]
