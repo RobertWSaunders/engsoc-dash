@@ -10,7 +10,10 @@ Warden::Strategies.add(:interpret_headers) do
     user_email = request.headers["HTTP_EMAIL"]
     user_givenName = request.headers["givenName"]
     user_surname = request.headers["surname"]
-
+    p "AUTHENTICATING NOW"
+    p user_email
+    p user_givenName
+    p user_surname
     if user = User.where(:email => user_email).first
       sign_in(:user,user)
       success!(user)
