@@ -52,10 +52,10 @@ gem 'carrierwave'
 gem 'file_validators'
 # Generate fake users & posts - this should be in dev test env...
 gem 'faker',          '~> 1.7.3'
+gem 'byebug', platform: :mri
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.6'
   gem 'capybara'
   gem 'factory_girl_rails'
