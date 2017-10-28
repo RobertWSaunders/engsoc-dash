@@ -16,7 +16,7 @@ Warden::Strategies.add(:interpret_headers) do
     else
       new_user = User.new(:email => user_email,
                      :first_name => user_givenName,
-                      :last_name => user.surname)
+                      :last_name => user_surname)
       if new_user.save
         success!(new_user)
       else
