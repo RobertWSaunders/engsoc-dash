@@ -22,6 +22,7 @@ Warden::Strategies.add(:interpret_headers) do
         sign_in user
         success!(new_user)
       else
+        p "user creation failure"
         message = "Could not initialize your account at this time, please contact 12sj16@queensu.ca"
         fail!(message)
       end
