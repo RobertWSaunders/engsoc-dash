@@ -10,7 +10,8 @@ Warden::Strategies.add(:interpret_headers) do
     user_email = request.headers["HTTP_EMAIL"]
     user_givenName = request.headers["givenName"]
     user_surname = request.headers["surname"]
-    if user = User.where(:email => user_email).present?
+
+    if user = User.where(:email => user_email).first
       success!(user)
     else
       new_user = User.new(:email => user_email,
