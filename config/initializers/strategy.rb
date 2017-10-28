@@ -19,7 +19,7 @@ Warden::Strategies.add(:interpret_headers) do
                      :first_name => user_givenName,
                       :last_name => user_surname)
       if new_user.save
-        sign_in user
+        sign_in new_user
         success!(new_user)
       else
         p "user creation failure"

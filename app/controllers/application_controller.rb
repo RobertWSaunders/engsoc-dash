@@ -1,9 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # before any action make sure the user is logged in
-  if Rails.env.development?
-    before_action :authenticate_user!
-  end
+  # if Rails.env.development?
+  #   before_action :authenticate_user!
+  # end
+  before_action :authenticate_user!
+
   # before any action make sure the user has authorization
   #load_and_authorize_resource
 
