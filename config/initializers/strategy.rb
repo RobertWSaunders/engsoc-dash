@@ -1,9 +1,10 @@
 Warden::Strategies.add(:interpret_headers) do
   def valid?
-    if Rails.env.production?
-      # code here to check whether to try and authenticate using this strategy;
-      return true
-    end
+    # if Rails.env.production?
+    #   # code here to check whether to try and authenticate using this strategy;
+    #   return true
+    # end
+    return false
   end
 
   def authenticate!

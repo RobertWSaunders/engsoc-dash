@@ -14,4 +14,14 @@ class ApplicationController < ActionController::Base
     flash[:warning] = "You don't have the permission to do that."
     redirect_to root_path
   end
+
+  private
+
+    def after_sign_out_path_for(user)
+      if Rails.env.production?
+        redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
+      else
+        super
+      end
+    end
 end
