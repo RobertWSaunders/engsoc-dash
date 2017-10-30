@@ -14,23 +14,27 @@ class Users::SessionsController < Devise::SessionsController
         p "User found"
         sign_in(:user, user)
         flash[:success] = "Welcome to Dash"
+        flash.delete(:notice)
         session[:return_to] ||= request.referer
       else
         p "Creating user"
         new_user = User.new(:email => user_email,
                        :first_name => user_givenName,
                         :last_name => user_surname)
-        if new_user.save!
+        if new_user.save
           p "User saved"
           sign_in(:user, new_user)
-          session[:return_to] ||= request.referer
+          flash[:success] = "Welcome to Dash!"
+          flash.delete(:notice)
+          redirect_to root_path
+          # session[:return_to] ||= request.referer
         else
           p "User Creation Failure"
           redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
         end
       end
 
-    # debug block for dev env
+    # # debug block for dev env
     # elsif Rails.env.development?
     #   @msg = "custom new session route"
     #   user_email = 'asdasdvasvasdv@hotmail.com'
@@ -41,7 +45,8 @@ class Users::SessionsController < Devise::SessionsController
     #     sign_in(:user, user)
     #     flash[:success] = "Welcome back."
     #     flash.delete(:notice)
-    #     session[:return_to] ||= request.referer
+    #     redirect_to root_path
+    #     # session[:return_to] ||= request.referer
     #   else
     #     new_user = User.new(:email => user_email,
     #                    :first_name => user_givenName,

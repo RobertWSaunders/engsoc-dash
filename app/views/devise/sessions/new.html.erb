@@ -1,4 +1,4 @@
-<% if Rails.env.development? %>
+<% if Rails.env.prod? %>
 
 
 <h2>Log in</h2>
@@ -32,4 +32,7 @@ Env: <%= Rails.env %>
 <br>
 Email: <%= request.headers["HTTP_EMAIL"] %>
 
+<% end %>
+<% if Rails.env.production? %>
+  In prod env.
 <% end %>

@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
     def after_sign_out_path_for(user)
       if Rails.env.production?
-        redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
+        "https://idptest.queensu.ca/idp/profile/Logout"
       else
         super
       end
