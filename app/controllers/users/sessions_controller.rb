@@ -5,6 +5,7 @@ class Users::SessionsController < Devise::SessionsController
   def new
     # SSO login
     if Rails.env.production?
+      @msg = "custom new session route"
       user_email = request.headers["HTTP_EMAIL"]
       user_givenName = request.headers["givenName"]
       user_surname = request.headers["surname"]
@@ -25,6 +26,34 @@ class Users::SessionsController < Devise::SessionsController
           redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
         end
       end
+
+    # debug block for dev env
+    # elsif Rails.env.development?
+    #   @msg = "custom new session route"
+    #   user_email = 'asdasdvasvasdv@hotmail.com'
+    #   user_givenName = '4th'
+    #   user_surname = 'emai :) l'
+    #
+    #   if user = User.where(:email => user_email).first
+    #     sign_in(:user, user)
+    #     flash[:success] = "Welcome back."
+    #     flash.delete(:notice)
+    #     session[:return_to] ||= request.referer
+    #   else
+    #     new_user = User.new(:email => user_email,
+    #                    :first_name => user_givenName,
+    #                     :last_name => user_surname)
+    #     if new_user.save!
+    #       sign_in(:user, new_user)
+    #       flash[:success] = "Welcome to Dash!"
+    #       flash.delete(:notice)
+    #       redirect_to root_path
+    #     else
+    #       p "User Creation Failure"
+    #       redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
+    #     end
+    #   end
+
     else
       super
     end
