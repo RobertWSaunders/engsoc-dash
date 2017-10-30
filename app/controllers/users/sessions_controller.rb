@@ -5,7 +5,6 @@ class Users::SessionsController < Devise::SessionsController
   def new
     # SSO login
     if Rails.env.production?
-      @msg = "custom new session route"
       user_email = request.headers["HTTP_EMAIL"]
       user_givenName = request.headers["givenName"]
       user_surname = request.headers["surname"]
@@ -18,7 +17,7 @@ class Users::SessionsController < Devise::SessionsController
         new_user = User.new(:email => user_email,
                        :first_name => user_givenName,
                         :last_name => user_surname)
-        if new_user.save
+        if new_user.save!
           sign_in(:user, new_user)
           session[:return_to] ||= request.referer
         else
