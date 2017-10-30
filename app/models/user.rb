@@ -24,7 +24,7 @@ class User < ApplicationRecord
 
   #devise authentication system
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable
 
   accepts_nested_attributes_for :jobs
 

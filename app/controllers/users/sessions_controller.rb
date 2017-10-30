@@ -5,7 +5,6 @@ class Users::SessionsController < Devise::SessionsController
   def new
     # SSO login
     if Rails.env.production?
-      @msg = "custom new session route"
       user_email = request.headers["HTTP_EMAIL"]
       user_givenName = request.headers["givenName"]
       user_surname = request.headers["surname"]
@@ -26,7 +25,6 @@ class Users::SessionsController < Devise::SessionsController
           redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
         end
       end
-
     else
       super
     end
