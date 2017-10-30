@@ -5,31 +5,31 @@ class Users::SessionsController < Devise::SessionsController
   def new
     # SSO login
     if Rails.env.production?
-      p "Custom new session path"
+      Rails.logger.debug "Custom new session path"
       user_email = request.headers["HTTP_EMAIL"]
       user_givenName = request.headers["givenName"]
       user_surname = request.headers["surname"]
 
       if user = User.where(:email => user_email).first
-        p "User found"
+        Rails.logger.debug "User found"
         sign_in(:user, user)
         flash[:success] = "Welcome to Dash"
         flash.delete(:notice)
         session[:return_to] ||= request.referer
       else
-        p "Creating user"
+        Rails.logger.debug "Creating user"
         new_user = User.new(:email => user_email,
                        :first_name => user_givenName,
                         :last_name => user_surname)
         if new_user.save
-          p "User saved"
+          Rails.logger.debug "User saved"
           sign_in(:user, new_user)
           flash[:success] = "Welcome to Dash!"
           flash.delete(:notice)
           redirect_to root_path
           # session[:return_to] ||= request.referer
         else
-          p "User Creation Failure"
+          Rails.logger.debug "User Creation Failure"
           redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
         end
       end
@@ -63,7 +63,7 @@ class Users::SessionsController < Devise::SessionsController
     #   end
 
     else
-      p "default session path"
+      Rails.logger.debug "default session path"
       super
     end
 
