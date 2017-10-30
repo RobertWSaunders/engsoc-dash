@@ -4,7 +4,7 @@ class Users::SessionsController < Devise::SessionsController
   # GET /resource/sign_in
   def new
     # SSO login
-    if Rails.env.production?
+    # if Rails.env.production?
       Rails.logger.debug "Custom new session path"
       user_email = request.headers["HTTP_EMAIL"]
       user_givenName = request.headers["givenName"]
@@ -32,7 +32,7 @@ class Users::SessionsController < Devise::SessionsController
           Rails.logger.debug "User Creation Failure"
           redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
         end
-      end
+      # end
 
     # # debug block for dev env
     # elsif Rails.env.development?
@@ -62,10 +62,10 @@ class Users::SessionsController < Devise::SessionsController
     #     end
     #   end
 
-    else
-      Rails.logger.debug "default session path"
-      super
-    end
+    # else
+    #   Rails.logger.debug "default session path"
+    #   super
+    # end
 
     # user = User.where(:email => 'test@example.com').first
     # sign_in(:user,user)
