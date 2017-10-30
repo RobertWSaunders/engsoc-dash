@@ -5,19 +5,23 @@ class Users::SessionsController < Devise::SessionsController
   def new
     # SSO login
     if Rails.env.production?
+      p "Custom new session path"
       user_email = request.headers["HTTP_EMAIL"]
       user_givenName = request.headers["givenName"]
       user_surname = request.headers["surname"]
 
       if user = User.where(:email => user_email).first
+        p "User found"
         sign_in(:user, user)
         flash[:success] = "Welcome to Dash"
         session[:return_to] ||= request.referer
       else
+        p "Creating user"
         new_user = User.new(:email => user_email,
                        :first_name => user_givenName,
                         :last_name => user_surname)
         if new_user.save!
+          p "User saved"
           sign_in(:user, new_user)
           session[:return_to] ||= request.referer
         else
@@ -54,6 +58,7 @@ class Users::SessionsController < Devise::SessionsController
     #   end
 
     else
+      p "default session path"
       super
     end
 
