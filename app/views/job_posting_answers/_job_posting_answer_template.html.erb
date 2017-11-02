@@ -1,7 +1,9 @@
 <div class="container-fluid container-lg">
   <div class="card">
     <div class="card-body">
-      <p class="lead"> <%= link_to @job_application.job_posting.title, @job_application.job_posting %></p>
+
+      <%= render 'job_applications/job_posting_header' %>
+
       <hr />
       <p>
         Please answer all of the questions below, to the best of your ability.

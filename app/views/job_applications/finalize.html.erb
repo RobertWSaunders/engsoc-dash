@@ -1,43 +1,62 @@
 <% content_for :title, "Complete Job Application" %>
 
   <div class="container-fluid container-lg">
-
     <div class="card">
       <div class="card-body">
-        <p class="lead"> <%= link_to @job_application.job_posting.title, @job_application.job_posting %></p>
-        <hr />
-        <p>
-          Please finalize your job application below:
-        </p>
-        <p>
-          Once this form is submitted, it cannot be re-editted. You may continue this application at any time if you do not choose to submit, but your application will not be considered until it is submitted. To view any application drafts you can navigate to "My Applications" in the side menu bar.
-        </p>
-        <hr>
-        <% if !@job_application.resumes_id.nil? %>
-          <p class="mv mh">
-            Resume: <%= Resume.find(@job_application.resumes_id).name %> <%= link_to "Download", Resume.find(@job_application.resumes_id).attachment_url %>
-          </p>
-        <% end %>
-        <% if @job_posting_answers.any? %>
-          <div class="mv mh">
-            <p>Job Posting Answers:</p>
-            <ol>
-              <% @job_posting_answers.each do |answer| %>
-                <% qu = JobPostingQuestion.where(id: answer.job_posting_questions_id).last %>
-                <li>
-                  <p><strong><%= qu.content %></strong></p>
-                  <p><%= simple_format(answer.content) %></p>
-                </li>
-              <% end %>
-            </ol>
-          </div>
-        <% else %>
-          <p class="mv mh">
-            No Job Posting Answers.
-          </p>
-        <% end %>
 
-        <%= render 'job_application_form' %>
+        <div class="container container-md">
+          <div class="job_posting_header mb-xl">
+            <p class="lead">
+              <%= link_to @job_application.job_posting.title, @job_application.job_posting %>
+            </p>
+            <p>
+              Application Deadline: <%= distance_of_time_in_words(Time.now, @job_application.job_posting.deadline) %> (<%= @job_application.job_posting.deadline.to_date %>)
+            </p>
+            <p>
+              Organization: <%= link_to @job_application.job_posting.job.organization.name, @job_application.job_posting.job.organization %>
+            </p>
+          </div>
+
+          <p>
+            Please finalize your job application below:
+          </p>
+          <p>
+            Once this form is submitted, it cannot be re-editted. You may continue this application at any time if you do not choose to submit, but your application will not be considered until it is submitted. To view any application drafts you can navigate to "My Applications" in the side menu bar.
+          </p>
+
+          <div class="finalize-panel mv-xl">
+            <% if !@job_application.resumes_id.nil? %>
+              <p class="mv mh">
+                Resume: <%= Resume.find(@job_application.resumes_id).name %> <%= link_to "Download", Resume.find(@job_application.resumes_id).attachment_url %>
+              </p>
+            <% else %>
+              <p class="mv mh">
+                There is no resume associated with this application.
+              </p>
+            <% end %>
+            <% if @job_posting_answers.any? %>
+              <div class="mv mh">
+                <p>Your Answers</p>
+                <ol>
+                  <% @job_posting_answers.each do |answer| %>
+                    <% qu = JobPostingQuestion.where(id: answer.job_posting_questions_id).last %>
+                    <li>
+                      <p><strong><%= qu.content %></strong></p>
+                      <p><%= simple_format(answer.content) %></p>
+                    </li>
+                  <% end %>
+                </ol>
+              </div>
+            <% else %>
+              <p class="mv mh">
+                No Job Posting Answers.
+              </p>
+            <% end %>
+
+            <%= render 'job_application_form' %>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

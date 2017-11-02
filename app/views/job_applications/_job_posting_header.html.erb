@@ -1,0 +1,11 @@
+<div class="job_posting_header mb-xl">
+  <p class="lead">
+    <%= link_to @job_posting.title, @job_posting %>
+  </p>
+  <p>
+    Application Deadline: <%= distance_of_time_in_words(Time.now, @job_posting.deadline) %> (<%= @job_posting.deadline.to_date %>)
+  </p>
+  <p>
+    Organization: <%= link_to @job_posting.job.organization.name, @job_posting.job.organization %>
+  </p>
+</div>

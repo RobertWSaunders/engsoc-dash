@@ -8,11 +8,14 @@
       <% @page_answers.each do |answer| %>
         <%= fields_for 'answers[]', answer, include_id: false do |a| %>
           <% qu = @all_questions[@page_answers.index(answer)] %>
-          <div class="field">
-            <%= a.label :content, qu.content %>
-            <%= a.text_area :content, class: 'form-control', style: 'resize:none', name: 'answers[' + (qu.id - 1).to_s + '][content]' %>
-            <%= a.hidden_field :job_posting_questions_id, :value => qu.id, name: 'answers[' + (qu.id - 1).to_s + '][job_posting_questions_id]' %>
-            <%= a.hidden_field :job_application_id, :value => params[:job_application_id], name: 'answers[' + (qu.id - 1).to_s + '][job_application_id]' %>
+          <div class="mda-form-group p">
+            <div class="mda-form-control">
+              <%= a.label :content, qu.content %>
+              <%= a.text_area :content, class: 'form-control', style: 'resize:none', name: 'answers[' + (qu.id - 1).to_s + '][content]', rows: 4 %>
+              <%= a.hidden_field :job_posting_questions_id, :value => qu.id, name: 'answers[' + (qu.id - 1).to_s + '][job_posting_questions_id]' %>
+              <%= a.hidden_field :job_application_id, :value => params[:job_application_id], name: 'answers[' + (qu.id - 1).to_s + '][job_application_id]' %>
+              <div class="mda-form-control-line"></div>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -29,16 +32,19 @@
 
       <% @job_posting_answers.each do |answer| %>
         <%= fields_for 'answers[]', answer do |a| %>
-          <div class="field">
-            <%= a.label :content, JobPostingQuestion.where(id: answer.job_posting_questions_id).first.content %>
-            <%= a.text_area :content, class: 'form-control', style: 'resize:none', name: 'answers[' + (answer.id - 1).to_s + '][content]', value: answer.content %>
-            <%= a.hidden_field :id, :value => answer.id, name: 'answers[' + (answer.id - 1).to_s + '][id]' %>
-          </div>
+            <div class="mda-form-group p">
+              <div class="mda-form-control">
+                <%= a.text_area :content, class: 'form-control mt-lg', style: 'resize:none', name: 'answers[' + (answer.id - 1).to_s + '][content]', value: answer.content, rows: 4 %>
+                <%= a.hidden_field :id, :value => answer.id, name: 'answers[' + (answer.id - 1).to_s + '][id]' %>
+                <div class="mda-form-control-line"></div>
+                <%= a.label :content, JobPostingQuestion.where(id: answer.job_posting_questions_id).first.content, class: '' %>
+              </div>
+            </div>
         <% end %>
       <% end %>
-      <hr>
+
       <div class="actions">
-        <%= submit_tag "Save Answers", class: "btn btn-primary btn-flat btn-block ripple" %>
+        <%= submit_tag "Save Answers", class: "btn btn-flat btn-primary btn-block ripple" %>
       </div>
     <% end %>
 

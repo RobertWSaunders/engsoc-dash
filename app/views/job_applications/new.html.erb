@@ -5,19 +5,16 @@
 
   <div class="card">
     <div class="card-body">
-      <p class="lead"><%= link_to @job_posting.title, @job_posting %></p>
-      <p>
-        Application Deadline: <%= distance_of_time_in_words(Time.now, @job_posting.deadline) %> (<%= @job_posting.deadline.to_date %>)
-      </p>
-      <p>
-        Organization: <%= link_to @job_posting.job.organization.name, @job_posting.job.organization %>
-      </p>
+      <%= render 'job_posting_header' %>
+
       <hr />
       <p>
         <%= @job_posting.description %>
       </p>
-        <hr />
-      <p>Before you begin your application please acknowledge the following:<br />
+
+      <hr />
+
+      <p>Before you begin your application please acknowledge the following:
         <ul>
           <li>
             The Engineering Society is an Equal Opportunity Hiring Organization
@@ -32,9 +29,15 @@
             Please feel free to contact the Engineering Review Board at <a href="mailto:erb@engsoc.queensu.ca">erb@engsoc.queensu.ca</a> for any concerns regarding the interview process.
           </li>
         </ul>
-        <br />
-By submitting any application on the Engineering Society Dashboard you hereby declare that the information included is true and complete to the best of my knowledge. In addition, I authorize the hiring committee to verify the information presented here and my eligibility for this position, both at the time of hiring and during my employment. I affirm that any references listed in any of my application have been informed of their usage. I understand that a false statement may disqualify me from employment or cause my dismissal.
       </p>
+      <br />
+      <p>
+        By submitting any application on the Engineering Society Dashboard you hereby declare that the information included is true and complete to the best of my knowledge. In addition, I authorize the hiring committee to verify the information presented here and my eligibility for this position, both at the time of hiring and during my employment. I affirm that any references listed in any of my application have been informed of their usage. I understand that a false statement may disqualify me from employment or cause my dismissal.
+      </p>
+      <p>
+        Interview times will be sent directly to your e-mail. Interviews may start 24 hours after times are posted. Applicants are responsible for being aware of their scheduled interview time. It is the applicant's responsibility to e-mail the listed contact prior to their interview should they need to reschedule.
+      </p>
+
     <%= render 'job_application_form' %>
     </div>
   </div>

@@ -41,8 +41,9 @@ class JobPostingAnswersController < ApplicationController
   # GET /job_applications/:job_application_id/job_posting_answers/edit
   def edit
     @job_application = JobApplication.find(params[:job_application_id])
+    @job_posting = @job_application.job_posting
     if !@job_application.job_posting_answers.exists?
-    @job_posting = JobPosting.find(@job_application.job_posting_id)
+      @job_posting = JobPosting.find(@job_application.job_posting_id)
       redirect_to new_job_posting_job_application_job_posting_answers_path(:job_posting_id => @job_posting.id)
     end
     @job_posting_answers = JobPostingAnswer.where(:job_application_id => @job_application.id).all

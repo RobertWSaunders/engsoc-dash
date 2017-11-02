@@ -86,6 +86,7 @@ class JobApplicationsController < ApplicationController
   # GET /job_applications/:id/select_resume
   def select_resume
     @resumes = Resume.where(user_id: current_user.id).all
+    @job_posting = @job_application.job_posting
   end
 
   # PATCH /job_applications/:id/select_resume

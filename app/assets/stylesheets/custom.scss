@@ -25,5 +25,11 @@ abbr[title] {
 }
 
 .bg-pink-300 {
-    background-color: #f06292;
+  background-color: #f06292;
+}
+
+.mda-form-control > input ~ label, .mda-form-control > textarea ~ label, .mda-form-control > select ~ label {
+  font-size: 1.1em;
+  opacity: 0.7;
+  font-weight: 400;
 }
