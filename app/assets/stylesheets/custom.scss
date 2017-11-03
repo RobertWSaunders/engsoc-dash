@@ -1,9 +1,15 @@
+$engsoc-purple: #9575CD;
+$engsoc-purple-s1: #9F82D2;
+$engsoc-purple-lighter: #D4C7EB;
+$engsoc-purple-light: #BFACE1;
+$engsoc-purple-darker: #7A4ACD;
+
 footer {
   a {
     text-decoration: none !important;
-    color: #ba68c8;
+    color: $engsoc-purple;
     &:hover {
-      color: #7b1fa2;
+      color: $engsoc-purple-s1;
     }
   }
   ul {
@@ -13,6 +19,19 @@ footer {
       float: left;
       margin-left: 30px;
     }
+  }
+}
+
+a {
+  color: $engsoc-purple;
+  &:hover {
+    color: $engsoc-purple-s1;
+  }
+  &:active {
+    color: $engsoc-purple-s1;
+  }
+  &:focus {
+    color: $engsoc-purple-s1;
   }
 }
 
@@ -32,4 +51,75 @@ abbr[title] {
   font-size: 1.1em;
   opacity: 0.7;
   font-weight: 400;
+}
+
+// used as backgrounds
+.engsoc-purple {
+  background-color: $engsoc-purple;
+}
+.engsoc-purple-light{
+  background-color: $engsoc-purple-light;
+}
+.engsoc-purple-lighter{
+  background-color: $engsoc-purple-lighter;
+}
+
+// overwrite primary buttons
+.btn-primary {
+  background-color: $engsoc-purple;
+  border-color: $engsoc-purple;
+  &:hover {
+    background-color: $engsoc-purple-s1;
+    border-color: $engsoc-purple-s1;
+  }
+  &:active {
+    background-color: $engsoc-purple;
+    border-color: $engsoc-purple;
+  }
+  &:focus {
+    background-color: $engsoc-purple;
+    border-color: $engsoc-purple;
+  }
+  &:active:focus {
+    background-color: $engsoc-purple;
+    border-color: $engsoc-purple;
+  }
+}
+.btn-flat.btn-primary {
+  background-color: white;
+  color: $engsoc-purple;
+  &:hover {
+    background-color: $engsoc-purple;
+    color: white;
+  }
+  &:active {
+    color: white;
+  }
+  &:focus {
+    color: white;
+  }
+  &:disabled {
+    color: $engsoc-purple;
+  }
+}
+.contact-link:hover {
+  text-decoration: none;
+}
+
+.theme-6 .layout-container > header {
+  background-color: $engsoc-purple-s1;
+}
+
+
+// jobpostinganswer styles
+textarea.jpa-textarea {
+  font-size: 14px;
+  line-height: 3em;
+  font-weight: 300;
+}
+label.jpa-label {
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 1.4;
+  margin-bottom: 20px;
 }

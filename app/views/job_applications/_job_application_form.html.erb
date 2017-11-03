@@ -20,6 +20,8 @@
       <hr>
       <div class="actions">
         <%= f.submit "Complete Application", class: "btn btn-flat btn-success btn-block ripple" %>
+        <div class="m-lg"></div>
+        <%= link_to "Edit Answers", edit_job_application_job_posting_answers_path(:job_application_id => @job_application), class: "btn btn-flat btn-default btn-block ripple" %>
       </div>
     <% end %>
 <% end %>

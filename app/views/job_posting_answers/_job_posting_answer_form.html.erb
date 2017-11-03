@@ -10,11 +10,11 @@
           <% qu = @all_questions[@page_answers.index(answer)] %>
           <div class="mda-form-group p">
             <div class="mda-form-control">
-              <%= a.label :content, qu.content %>
-              <%= a.text_area :content, class: 'form-control', style: 'resize:none', name: 'answers[' + (qu.id - 1).to_s + '][content]', rows: 4 %>
+              <%= a.text_area :content, class: 'form-control mt-lg', style: 'resize:none', name: 'answers[' + (qu.id - 1).to_s + '][content]', rows: 4 %>
               <%= a.hidden_field :job_posting_questions_id, :value => qu.id, name: 'answers[' + (qu.id - 1).to_s + '][job_posting_questions_id]' %>
               <%= a.hidden_field :job_application_id, :value => params[:job_application_id], name: 'answers[' + (qu.id - 1).to_s + '][job_application_id]' %>
               <div class="mda-form-control-line"></div>
+              <%= a.label :content, qu.content, class: '' %>
             </div>
           </div>
         <% end %>

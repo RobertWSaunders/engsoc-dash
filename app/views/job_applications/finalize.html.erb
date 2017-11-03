@@ -18,45 +18,45 @@
           </div>
 
           <p>
-            Please finalize your job application below:
+            Please finalize your job application below.
           </p>
           <p>
             Once this form is submitted, it cannot be re-editted. You may continue this application at any time if you do not choose to submit, but your application will not be considered until it is submitted. To view any application drafts you can navigate to "My Applications" in the side menu bar.
           </p>
-
-          <div class="finalize-panel mv-xl">
-            <% if !@job_application.resumes_id.nil? %>
-              <p class="mv mh">
-                Resume: <%= Resume.find(@job_application.resumes_id).name %> <%= link_to "Download", Resume.find(@job_application.resumes_id).attachment_url %>
-              </p>
-            <% else %>
-              <p class="mv mh">
-                There is no resume associated with this application.
-              </p>
-            <% end %>
-            <% if @job_posting_answers.any? %>
-              <div class="mv mh">
-                <p>Your Answers</p>
-                <ol>
-                  <% @job_posting_answers.each do |answer| %>
-                    <% qu = JobPostingQuestion.where(id: answer.job_posting_questions_id).last %>
-                    <li>
-                      <p><strong><%= qu.content %></strong></p>
-                      <p><%= simple_format(answer.content) %></p>
-                    </li>
-                  <% end %>
-                </ol>
-              </div>
-            <% else %>
-              <p class="mv mh">
-                No Job Posting Answers.
-              </p>
-            <% end %>
-
-            <%= render 'job_application_form' %>
+        </div>
+      </div>
+    </div>
+    <div class="finalize-panel mt-xl">
+      <% if !@job_application.resumes_id.nil? %>
+        <p class="mv mh lead text-center">
+          <%= link_to Resume.find(@job_application.resumes_id).name, Resume.find(@job_application.resumes_id).attachment_url, :style => "text-decoration: underline;" %>
+        </p>
+      <% else %>
+        <p class="mv mh lead text-center">
+          There is no resume associated with this application. <%= link_to "Add one?", select_resume_job_application_path %>
+        </p>
+      <% end %>
+      <% if @job_posting_answers.any? %>
+        <div class="container container-xs reader-block">
+          <div class="">
+            <p>Your Answers</p>
+            <ul>
+              <% @job_posting_answers.each do |answer| %>
+                <% qu = JobPostingQuestion.where(id: answer.job_posting_questions_id).last %>
+                <li>
+                  <p><%= qu.content %></p>
+                  <p><%= simple_format(answer.content) %></p>
+                </li>
+              <% end %>
+            </ul>
           </div>
         </div>
+      <% else %>
+        <p class="mv mh">
+          No Job Posting Answers.
+        </p>
+      <% end %>
 
-      </div>
+      <%= render 'job_application_form' %>
     </div>
   </div>

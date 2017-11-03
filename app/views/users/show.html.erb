@@ -1,21 +1,20 @@
 <% content_for :title, "User Profile" %>
 
-<div class="container-overlap bg-blue-500">
+<div class="container-overlap engsoc-purple-light">
   <div class="container-fluid container-lg">
-      <h4 class="media-heading">
-        <%= @user.first_name %> <%= @user.last_name %>
-        <% if @user.preferred_name? %>
-          (<%= @user.preferred_name %>)
-        <% end %>
-      </h4>
-      <span class="text-muted">
-        <%= @user.tagline %>
-      </span>
-
+    <h4 class="media-heading">
+      <%= @user.first_name %> <%= @user.last_name %>
+      <% if @user.preferred_name? %>
+        (<%= @user.preferred_name %>)
+      <% end %>
+    </h4>
+    <span class="text-muted">
+      <%= @user.tagline %>
+    </span>
   </div>
 </div>
 
-<div class="container-fluid container-lg">
+<div class="container-fluid container-lg engsoc-purple-lighter">
   <div class="row">
     <div class="card">
       <% if @user.bio? %>
