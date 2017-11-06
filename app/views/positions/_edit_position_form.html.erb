@@ -25,7 +25,7 @@
             <%= f.date_select :end_date, value: pos.start_date, placeholder: pos.start_date, class: 'form-control' %>
           </div>
           <div class="col-md-2 mb text-right">
-            <%= button_tag class: "btn btn-sm btn-success", :"data-toggle" => "popover", :"data-content" => "Save", :"data-trigger" => "hover", :"data-placement" => "bottom" do %>
+            <%= button_tag class: "btn btn-sm btn-success", :"data-toggle" => "popover", :"data-content" => "Save", :"data-trigger" => "hover", :"data-placement" => "top" do %>
               <em class="ion-checkmark icon-fw"></em>
             <% end %>
             <%= link_to position_path(pos), method: :delete, data: { confirm: "Are you sure? This really, really cannot be undone. Positions rarely need to be deleted, if ever." }, class: "btn btn-sm btn-danger", :"data-toggle" => "popover", :"data-content" => "Delete", :"data-trigger" => "hover", :"data-placement" => "bottom" do %>
