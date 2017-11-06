@@ -19,8 +19,11 @@
 # Ignore application configuration
 /config/application.yml
 
+# Ignore environmental variables
+config/environment_variables.yml
+
 # Ignore personal seeds file
 # /db/seeds.rb
 
-# Ignore updated files
+# Ignore uploaded files
 /public/uploads

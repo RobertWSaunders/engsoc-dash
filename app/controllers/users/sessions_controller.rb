@@ -15,7 +15,8 @@ class Users::SessionsController < Devise::SessionsController
         sign_in(:user, user)
         flash[:success] = "Welcome to Dash"
         flash.delete(:notice)
-        session[:return_to] ||= request.referer
+        redirect_to root_path
+        # session[:return_to] ||= request.referer
       else
         Rails.logger.debug "Creating user"
         new_user = User.new(:email => user_email,
