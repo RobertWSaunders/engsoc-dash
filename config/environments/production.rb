@@ -93,6 +93,9 @@ Rails.application.configure do
    :authentication       => "plain",
   :enable_starttls_auto => true
   }
+  config.action_mailer.default_url_options = {
+    host: 'dash.engsoc.queensu.ca', protocol: 'https://'
+  }
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
