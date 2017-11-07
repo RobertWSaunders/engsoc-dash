@@ -27,3 +27,7 @@ config/environment_variables.yml
 
 # Ignore uploaded files
 /public/uploads
+
+# Ignore compiled assets
+public/assets/
+vendor/bundle/
