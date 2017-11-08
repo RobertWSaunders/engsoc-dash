@@ -21,9 +21,14 @@
 
 # Ignore environmental variables
 config/environment_variables.yml
+config/secrets.yml
 
 # Ignore personal seeds file
 # /db/seeds.rb
 
 # Ignore uploaded files
 /public/uploads
+
+# Ignore compiled assets
+public/assets/
+vendor/bundle/

@@ -4,7 +4,7 @@ class Users::SessionsController < Devise::SessionsController
   # GET /resource/sign_in
   def new
     # SSO login
-    if Rails.env.production?
+    if 1==2
       Rails.logger.debug "Custom new session path"
       user_email = request.headers["HTTP_EMAIL"]
       user_givenName = request.headers["givenName"]

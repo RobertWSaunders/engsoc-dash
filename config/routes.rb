@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   ####################################################
   # Profiles
   # devise routes for authentication
-  devise_for :users, controllers: { sessions: "users/sessions" }
+  devise_for :users, controllers: { sessions: "users/sessions", registrations: 'registrations' }
   resources :profiles, :controller => 'users' do
     resources :resumes, only: [:index, :create, :destroy]
     get 'settings'
