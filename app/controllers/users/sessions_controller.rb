@@ -4,11 +4,25 @@ class Users::SessionsController < Devise::SessionsController
   # GET /resource/sign_in
   def new
     # SSO login
-    if 1==2
-      Rails.logger.debug "Custom new session path"
+    if Rails.env.production?
       user_email = request.headers["HTTP_EMAIL"]
       user_givenName = request.headers["givenName"]
       user_surname = request.headers["surname"]
+
+      if user_email.blank?
+        Rails.logger.debug "Could not find email, logging user back out"
+        redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
+      end
+
+      if user_givenName.blank?
+        Rails.logger.debu "Could not get first name, but continue trying to login in any way with default name"
+        user_givenName = "Firstname"
+      end
+
+      if user_surname.blank?
+        Rails.logger.debu "Could not get last name, but continue trying to login in any way with default name"
+        user_givenName = "Lastname"
+      end
 
       if user = User.where(:email => user_email).first
         Rails.logger.debug "User found"
@@ -16,7 +30,6 @@ class Users::SessionsController < Devise::SessionsController
         flash[:success] = "Welcome to Dash"
         flash.delete(:notice)
         redirect_to root_path
-        # session[:return_to] ||= request.referer
       else
         Rails.logger.debug "Creating user"
         new_user = User.new(:email => user_email,
@@ -28,7 +41,6 @@ class Users::SessionsController < Devise::SessionsController
           flash[:success] = "Welcome to Dash!"
           flash.delete(:notice)
           redirect_to root_path
-          # session[:return_to] ||= request.referer
         else
           Rails.logger.debug "User Creation Failure"
           redirect_to "https://idptest.queensu.ca/idp/profile/Logout"

@@ -10,6 +10,6 @@ rvm:
 services:
   - postgresql
 script:
-  - RAILS_ENV=development bundle exec rails db:schema:load --trace
+  - RAILS_ENV=test bundle exec rails db:schema:load --trace
 before_script:
-  - psql -c 'create database "engsoc-dash_development";' -U postgres
+  - psql -c 'create database "engsoc-dash_test";' -U postgres

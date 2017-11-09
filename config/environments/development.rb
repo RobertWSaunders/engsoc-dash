@@ -45,30 +45,10 @@ Rails.application.configure do
 
   # mailer
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.perform_deliveries = true
-  # config.action_mailer.delivery_method = :test
-  # config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
-  # host = 'localhost:3000'                     # Local server
-  # config.action_mailer.default_url_options = { host: host, protocol: 'http' }
-  config.serve_static_assets = true
-  # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.action_mailer.delivery_method = :smtp
-  # change to true to allow email to be sent during development
-  config.action_mailer.perform_deliveries = false
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default :charset => "utf-8"
-
-  config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "dash.com",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
-  }
-
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
+  host = 'localhost:3000'                     # Local server
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
