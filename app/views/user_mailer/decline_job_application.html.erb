@@ -2,13 +2,17 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style type="text/css" media="screen">
+      body { width: 600px; }
+      .quick-links { margin-top: 50px; }
+      .salutation { margin-bottom: 50px; }
+    </style>
   </head>
   <body>
     <div>
-      <p>
+      <p class="salutation">
         Hi <%= @user.first_name %> <%= @user.last_name %>,
       </p>
-      <br>
       <p>
         We're very sorry to let you know that your application for <%= @job_application.job_posting.title %>, for the <%= @job_application.job_posting.job.organization.name %> organization, has been declined at this time.
       </p>
@@ -16,15 +20,10 @@
         Should you have any questions regarding the job application, interviewing, and candidate selection process, please email <%= mail_to @job_application.job_posting.job.organization.email %>.
       </p>
       <p>
-        Here is a random cat gif.
-      </p>
-      <img src="http://thecatapi.com/api/images/get?format=src&type=gif">
-      <p>
-        Please continue to apply for more positions within EngSoc, and beyond! We believe in you.
+        We hope you will continue applying to more positions within EngSoc, and beyond.
       </p>
     </div>
-    <br>
-    <div>
+    <div class="quick-links">
       <h3>Quick links</h3>
       <ul>
         <li><%= link_to "EngSoc Dash", root_url %></li>

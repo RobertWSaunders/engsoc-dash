@@ -2,13 +2,17 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style type="text/css" media="screen">
+      body { width: 600px; }
+      .quick-links { margin-top: 50px; }
+      .salutation { margin-bottom: 50px; }
+    </style>
   </head>
   <body>
     <div>
-      <p>
+      <p class="salutation">
         Hi <%= @user.first_name %> <%= @user.last_name %>,
       </p>
-      <br>
       <p>
         You have successfully applied to the job <%= link_to @job_application.job_posting.title, @job_application.job_posting %>, for the <%= link_to @job_application.job_posting.job.organization.name, @job_application.job_posting.job.organization %> organization.
       </p>
@@ -22,8 +26,7 @@
         Best of luck on your job search within EngSoc, and beyond!
       </p>
     </div>
-    <br>
-    <div>
+    <div class="quick-links">
       <h3>Quick links</h3>
       <ul>
         <li><%= link_to "EngSoc Dash", root_url %></li>

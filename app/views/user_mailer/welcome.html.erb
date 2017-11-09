@@ -2,18 +2,29 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style type="text/css" media="screen">
+      body { width: 600px; }
+      .quick-links { margin-top: 50px; }
+      .salutation { margin-bottom: 50px; }
+    </style>
   </head>
   <body>
-    <p>
+    <p class="salutation">
       Hi <%= @user.first_name %> <%= @user.last_name %>,
     </p>
     <p>
       We're glad to have you on <%= link_to "EngSoc Dash", root_url %>, which can be accessed at <%= link_to root_url, root_url %>.
     </p>
     <p>
-      Thanks for joining and have a great day!
+      The Dash is the replacement system for Engsoc Apply. On Dash, browse all the organizations within EngSoc, and apply to job positions. If you're a team lead or chair, you can maintain your organization's details and create job postings.
     </p>
-    <div>
+    <p>
+      Any interviews you land will also be scheduled through the system, which you will receive email notifications for.
+    </p>
+    <p>
+      We hope you enjoy using the system.
+    </p>
+    <div class="quick-links">
       <h3>Quick links</h3>
       <ul>
         <li><%= link_to "EngSoc Dash", root_url %></li>
