@@ -2,10 +2,9 @@ class JobPostingsController < ApplicationController
 
   include UserHelper
 
-  load_and_authorize_resource
+  skip_authorize_resource :only => [:new, :filter_index, :filter, :filter_manage]
 
-  skip_authorize_resource :only => [:filter_index, :filter, :filter_manage]
-  skip_authorize_resource :only => :new
+  load_and_authorize_resource
 
   # before any action gets fired set the job posting
   before_action :set_job_posting, only: [:show, :destroy, :edit, :update, :approve, :withdraw, :interview, :close, :reopen]
