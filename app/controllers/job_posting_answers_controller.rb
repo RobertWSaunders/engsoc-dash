@@ -14,6 +14,9 @@ class JobPostingAnswersController < ApplicationController
     if @job_application.user_id != current_user.id
       flash[:warning] = "You don't have the permission to do that."
       redirect_back(fallback_location: root_path)
+    elsif @job_application.status != "draft"
+      flash[:warning] = "Cannot edit non-draft job posting answers."
+      redirect_back(fallback_location: root_path)
     elsif @job_application.job_posting_answers.exists?
       redirect_to edit_job_application_job_posting_answers_path
     end
@@ -47,6 +50,9 @@ class JobPostingAnswersController < ApplicationController
     @job_posting = @job_application.job_posting
     if @job_application.user_id != current_user.id
       flash[:warning] = "You don't have the permission to do that."
+      redirect_back(fallback_location: root_path)
+    elsif @job_application.status != "draft"
+      flash[:warning] = "Cannot edit non-draft job posting answers."
       redirect_back(fallback_location: root_path)
     elsif !@job_application.job_posting_answers.exists?
       @job_posting = JobPosting.find(@job_application.job_posting_id)
