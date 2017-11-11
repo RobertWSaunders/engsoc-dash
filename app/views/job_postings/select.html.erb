@@ -49,5 +49,8 @@
         <% end %>
       </div>
     </div>
+    <div class="text-center">
+      <%= link_to "Create New Job", new_organization_job_path(:organization_id => @jobs.first.organization.id) %>
+    </div>
   </div>
 </div>

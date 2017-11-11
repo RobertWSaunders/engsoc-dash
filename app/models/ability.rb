@@ -43,10 +43,13 @@ class Ability
     end
 
     # normal users
-    can :read, [Organization, JobPosting, JobPostingQuestion, Job, User, JobApplication]
+    can :read, [Organization, JobPosting, JobPostingQuestion, Job, User]
     can :user, Organization
     can [:edit, :update, :settings], User, id: user.id
-    can [:new, :create, :select_resume, :update_resume, :edit, :update, :finalize, :user], [JobApplication, JobPostingAnswer]
+    can [:new, :create, :select_resume, :update_resume, :edit, :update, :finalize, :user], JobApplication, user_id: User.find(user.id).id
+    # handle authorizing JPAs manually inside controller
+    # can [:new, :create, :edit, :update], JobPostingAnswer, job_application_id: JobApplication.joins(:user).where(users: { id: user.id }).ids
+    # can [:new, :create, :select_resume, :update_resume, :edit, :update, :finalize, :user], [JobApplication, JobPostingAnswer], job_application_id: user.id
     can [:index, :create, :destroy], Resume, user_id: User.find(user.id).id
 
   #

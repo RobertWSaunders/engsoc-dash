@@ -2,7 +2,7 @@ class JobPostingAnswersController < ApplicationController
 
   # TODO: write a check to for no params created - in case there are no job questions associated with the job posting!
 
-  load_and_authorize_resource
+  # load_and_authorize_resource
 
   before_action :set_job_application, only: [:edit, :destroy]
   before_action :clear_cache, only: [:new]
@@ -11,7 +11,10 @@ class JobPostingAnswersController < ApplicationController
   def new
     @job_posting = JobPosting.find(params[:job_posting_id])
     @job_application = JobApplication.find(params[:job_application_id])
-    if @job_application.job_posting_answers.exists?
+    if @job_application.user_id != current_user.id
+      flash[:warning] = "You don't have the permission to do that."
+      redirect_back(fallback_location: root_path)
+    elsif @job_application.job_posting_answers.exists?
       redirect_to edit_job_application_job_posting_answers_path
     end
     @all_questions = @job_posting.job_posting_questions.all
@@ -42,7 +45,10 @@ class JobPostingAnswersController < ApplicationController
   def edit
     @job_application = JobApplication.find(params[:job_application_id])
     @job_posting = @job_application.job_posting
-    if !@job_application.job_posting_answers.exists?
+    if @job_application.user_id != current_user.id
+      flash[:warning] = "You don't have the permission to do that."
+      redirect_back(fallback_location: root_path)
+    elsif !@job_application.job_posting_answers.exists?
       @job_posting = JobPosting.find(@job_application.job_posting_id)
       redirect_to new_job_posting_job_application_job_posting_answers_path(:job_posting_id => @job_posting.id)
     end
@@ -73,5 +79,6 @@ class JobPostingAnswersController < ApplicationController
       response.headers["Pragma"] = "no-cache"
       response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
     end
+
 
 end
