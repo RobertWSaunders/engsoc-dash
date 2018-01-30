@@ -23,7 +23,8 @@
         </h5>
         <div class="card-body">
           <p>
-            <%= simple_format(@user.bio) %>
+            <%= simple_format(h(@user.bio)) %>
+            <!-- <%= @user.bio %> -->
           </p>
         </div>
         <div class="card-divider"></div>

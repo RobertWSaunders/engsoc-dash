@@ -19,8 +19,14 @@ class User < ApplicationRecord
 
   enum gender: [:unspecified, :male, :female]
 
-  validates :tagline, length: { maximum: 95 }
+  validates :tagline, length: { maximum: 50 }
   validates :bio, length: { maximum: 2000 }
+  validates :faculty, length: { maximum: 50 }
+  validates :specialization, length: { maximum: 50 }
+  validates :bio, length: { maximum: 2000 }
+
+
+
 
   #devise authentication system
   devise :database_authenticatable, :registerable,
