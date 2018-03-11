@@ -15,7 +15,7 @@ class Users::SessionsController < Devise::SessionsController
       end
 
       if user_givenName.blank?
-        Rails.logger.debu "Could not get first name, but continue trying to login in any way with default name"
+        Rails.logger.debug "Could not get first name, but continue trying to login in any way with default name"
         user_givenName = "Firstname"
       end
 
