@@ -123,3 +123,13 @@ label.jpa-label {
   line-height: 1.4;
   margin-bottom: 20px;
 }
+
+.yellow-bg {
+  // bg-yellow-500 = #ffeb3b
+  background-color: #fff59d;
+}
+
+.fit-50 {
+  height: 50%;
+  line-height: 0.7; // half of normal button line-height
+}

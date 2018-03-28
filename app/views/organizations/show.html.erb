@@ -1,5 +1,5 @@
 <!-- page title -->
-<% content_for :title, "Organization Overview" %>
+<% content_for :title, "Organization Overview: " + @organization.name %>
 
 <div class="container container-fluid">
   <div class="card">
@@ -56,6 +56,10 @@
         <%= render "jobs_table" %>
       </div>
     </div>
+  </div>
+
+  <div class="ml button">
+    <%= link_to raw("<em class='ion-arrow-left-a'></em> Back to Organizations"), organizations_path, class: "btn btn-primary" %>
   </div>
 
 </div>

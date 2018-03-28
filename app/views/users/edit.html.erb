@@ -13,6 +13,18 @@
         <%= form_for(@user, url: profile_path(@user)) do |f| %>
 
           <fieldset>
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, class: 'form-control' %>
+            <span class="help-block"></span>
+          </fieldset>
+
+          <fieldset>
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, class: 'form-control' %>
+            <span class="help-block"></span>
+          </fieldset>
+
+          <fieldset>
             <%= f.label :preferred_name %>
             <%= f.text_field :preferred_name, class: 'form-control' %>
             <span class="help-block"></span>
