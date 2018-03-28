@@ -1,11 +1,15 @@
 <% if !controller.action_name.eql?("edit") && !controller.controller_name.eql?("users")  %>
   <% if !current_user.first_name? || !current_user.last_name? %>
-    <div class="container-md sign-in">
-      <div class="list-group yellow-bg">
-        <div class="list-group-item">
-          <em><%= link_to "Fill out your name", edit_profile_path(:id => current_user.id) %></em> so people can recognize you.
-          <div class="pull-right">
-            <p><%= link_to "Complete Profile", edit_profile_path(:id => current_user.id), class:"btn btn-primary fit-50" %></p>
+    <div class="container container-md sign-in">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="list-group yellow-bg">
+            <div class="list-group-item">
+              <em><%= link_to "Fill out your name", edit_profile_path(:id => current_user.id) %></em> so people can recognize you.
+              <div class="pull-right">
+                <p><%= link_to "Complete Profile", edit_profile_path(:id => current_user.id), class:"btn btn-primary fit-50" %></p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
