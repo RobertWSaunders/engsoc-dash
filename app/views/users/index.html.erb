@@ -8,7 +8,11 @@
         <% @users.each do |user| %>
         <tr class="msg-display clickable">
           <td class="wd-xxs">
-            <div class="initial32 bg-indigo-500"><%= user.first_name[0,1] %></div>
+            <% if user.first_name %>
+              <div class="initial32 bg-indigo-500"><%= user.first_name[0,1] %></div>
+            <% else %>
+              <div class="initial32 bg-indigo-500">?</div>
+            <% end %>
           </td>
           <td>
             <%= link_to profile_path(user), class: "ripple" do %>
