@@ -1,6 +1,9 @@
 class Users::SessionsController < Devise::SessionsController
 # before_action :configure_sign_in_params, only: [:create]
 
+  # sso logout url: https://idptest.queensu.ca/idp/profile/Logout
+  logout_url = "http://login.queensu.ca/idp/profile/Logout"
+
   # GET /resource/sign_in
   def new
     # SSO login
@@ -11,7 +14,7 @@ class Users::SessionsController < Devise::SessionsController
 
       if user_email.blank?
         Rails.logger.debug "Could not find email, logging user back out"
-        redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
+        redirect_to logout_url
       end
 
       if user_givenName.blank?
@@ -43,7 +46,7 @@ class Users::SessionsController < Devise::SessionsController
           redirect_to root_path
         else
           Rails.logger.debug "User Creation Failure"
-          redirect_to "https://idptest.queensu.ca/idp/profile/Logout"
+          redirect_to logout_url
         end
       end
 

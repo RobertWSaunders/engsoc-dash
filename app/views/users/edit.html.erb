@@ -52,11 +52,6 @@
             <%= f.text_field :specialization, class: 'form-control', style: 'resize:none' %>
           </fieldset>
 
-          <fieldset>
-            <%= f.label :gender %>
-            <%= f.select(:gender, User.genders.keys.map {|key| [key.humanize, key]}) %>
-          </fieldset>
-
           <hr>
           <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
 
