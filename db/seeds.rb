@@ -1,3 +1,6 @@
+case Rails.env
+
+when "development"
 #create some users
 #super admin
 superadmin = User.create(first_name:  "Robert",
@@ -671,3 +674,5 @@ JobPostingAnswer.create(
               content: Faker::Lorem.paragraph(4, true),
               job_posting_questions_id: question3.id,
               job_application_id: application.id)
+
+end
