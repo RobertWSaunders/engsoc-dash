@@ -7,7 +7,7 @@ class JobApplication < ApplicationRecord
   belongs_to :job_posting
   #a job application belongs to a user
   belongs_to :user
-  has_one :resume, dependent: :nullify
+  has_one :resume
   #a job application has many job applications answers
   has_many :job_posting_answers, dependent: :destroy
 
