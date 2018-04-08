@@ -49,6 +49,7 @@ gem 'figaro'
 gem 'simple_calendar', '~> 2.0'
 # for uploading resumes & validating their size
 gem 'carrierwave'
+gem 'carrierwave-i18n'
 gem 'file_validators'
 # Generate fake users & posts - this should be in dev test env...
 gem 'faker',          '~> 1.7.3'

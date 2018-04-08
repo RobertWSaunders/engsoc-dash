@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to job.title.titleize, job_path(:id => job.id) %></td>
+  <td><%= link_to job.title, job_path(:id => job.id) %></td>
   <td>
     <% if job.positions.any? && job.positions.first.active? %>
       Currently Filled
