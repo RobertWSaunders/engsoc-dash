@@ -101,7 +101,7 @@
     <%= f.label :status, class: "col-sm-1 control-label" %>
     <!-- only admins are able to set the status -->
     <div class="col-sm-11">
-      <% if !current_user.superadmin? %>
+      <% if !current_user.superadmin? || can?(:manage, :all) %>
         <%= f.select :status, [["Waiting approval", "waiting_approval"]], {}, {class: "form-control"} %>
       <% else %>
         <%= f.select :status, JobPosting.statuses.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"}  %>

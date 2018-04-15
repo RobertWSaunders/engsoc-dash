@@ -26,8 +26,6 @@ class User < ApplicationRecord
   validates :bio, length: { maximum: 2000 }
 
 
-
-
   #devise authentication system
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable

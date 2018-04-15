@@ -29,7 +29,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/:id
   def show
-    if @organization.status != "active" && current_user.role != "superadmin"
+    if @organization.status != "active" && !superadmin(current_user)
       flash[:danger] = "This organization is currently not open (has not been approved or has been archived), and therefore cannot be viewed. Please contact support if you feel this has been done in error."
       redirect_back(fallback_location: organizations_path)
     end

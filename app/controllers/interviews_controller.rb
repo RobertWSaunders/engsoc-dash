@@ -8,7 +8,7 @@ class InterviewsController < ApplicationController
   # GET /job_applications/:job_application_id/interviews/new
   def new
     @job_application = JobApplication.find(params[:job_application_id])
-    if ( current_user.role == "superadmin" || managed_orgs(current_user).include?(@job_application.job_posting.job.organization) )
+    if ( superadmin?(current_user) || managed_orgs(current_user).include?(@job_application.job_posting.job.organization) )
       if @job_application.job_posting.status != "interviewing"
         flash[:danger] = "Job Posting has not been set to begin interviewing, which can only be done after the posting deadline.
                           <br>You can only begin scheduling interviews after the posting is set to begin interviewing."

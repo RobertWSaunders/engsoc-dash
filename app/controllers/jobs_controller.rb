@@ -12,7 +12,7 @@ class JobsController < ApplicationController
   def new
     @job = Job.new
     @organization = Organization.find(params[:organization_id])
-    unless ( current_user.role == "superadmin" || managed_orgs(current_user).include?(@organization) )
+    unless ( superadmin?(current_user) || managed_orgs(current_user).include?(@organization) )
       flash[:warning] = "Can't create a new job for an organization you don't manage."
       redirect_back(fallback_location: organizations_path)
     end
@@ -35,7 +35,7 @@ class JobsController < ApplicationController
   # GET /jobs/:id
   def show
     @organization = @job.organization
-    if @organization.status != "active" && current_user.role != ( "superadmin" || "management" )
+    if @organization.status != "active" && !superadmin?(current_user)
       flash[:warning] = "The job " + @job.title + " cannot be viewed because its organization, " + @organization.name + " is not active."
       redirect_back(fallback_location: organizations_path)
     end

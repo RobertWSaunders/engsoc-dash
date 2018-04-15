@@ -1,6 +1,6 @@
 module UserHelper
 
-  def admin?(user)
+  def superadmin?(user)
     if user.role == "superadmin"
       return true
     elsif user.jobs.any?

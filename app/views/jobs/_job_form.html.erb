@@ -48,7 +48,7 @@
       <%= f.label :role, "Job Role",class: "col-sm-1 control-label" %>
         <!-- only admins are able to set the status -->
         <div class="col-sm-11">
-          <% if current_user.superadmin? %>
+          <% if superadmin?(current_user) %>
             <%= f.select :role, Job.roles.keys.map { |w| [w.titleize, w] }, {}, {class: "form-control"} %>
           <% else %>
             <%= f.select :role, [["Regular", "regular"],["Management", "management"]], {}, {class: "form-control"} %>

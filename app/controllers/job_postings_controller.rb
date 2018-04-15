@@ -32,7 +32,7 @@ class JobPostingsController < ApplicationController
   # GET /job_postings/select
   def select
     #only show the job postings the user can manage
-    if admin?(current_user)
+    if superadmin?(current_user)
       @jobs = Job.joins(:organization).where(organizations: {status: "active"})
     elsif can? :select, JobPosting
       @orgs = managed_orgs(current_user)
@@ -66,11 +66,11 @@ class JobPostingsController < ApplicationController
 
   # GET /job_postings/:id
   def show
-    if @job_posting.job.organization.status != "active" && current_user.role != ( "superadmin" || "management" )
+    if @job_posting.job.organization.status != "active" && (current_user.role != "management" || !superadmin?(current_user))
       flash[:warning] = "The organization " + @job_posting.job.organization.name + " is not active, so its job postings cannot be viewed."
       redirect_back(fallback_location: job_postings_path)
     else
-      if ( @job_posting.status == "open" || @job_posting.status == "interviewing" || current_user.role == "superadmin" || managed_orgs(current_user).include?(@job_posting.job.organization) )
+      if ( @job_posting.status == "open" || @job_posting.status == "interviewing" || superadmin?(current_user) || managed_orgs(current_user).include?(@job_posting.job.organization) )
         @job = Job.find_by! id: @jobposting.job_id
         @organization = Organization.find_by! id: @job.organization_id
       else
