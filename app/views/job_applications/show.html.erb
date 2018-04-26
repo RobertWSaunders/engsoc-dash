@@ -61,8 +61,14 @@
                     </h3>
                     <hr>
                     <h3>
-                      <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
-                        <em class="ion-checkmark icon-fw"></em> Hire
+                      <% if @job_application.interview.present? %>
+                        <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate?" } do %>
+                          <em class="ion-checkmark icon-fw"></em> Hire
+                        <% end %>
+                      <% else %>
+                        <%= link_to hire_job_application_path(@job_application), data: { :confirm => "Are you sure you want to HIRE this candidate? It looks that you have not interviewed this candidate yet." } do %>
+                          <em class="ion-checkmark icon-fw"></em> Hire
+                        <% end %>
                       <% end %>
                     </h3>
                     <hr>
@@ -188,4 +194,3 @@
     </div>
   </div>
 </div>
-
