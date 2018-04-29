@@ -36,7 +36,11 @@
                     <small>, for</small> <%= link_to app.job_posting.job.organization.name, organization_path(app.job_posting.job.organization) %>
                     </h4>
                   <% else %>
-                    <h4><%= app.job_posting.title %><small>, for</small> <%= link_to app.job_posting.job.organization.name, organization_path(app.job_posting.job.organization) %></h4>
+                    <h4>
+                      <%= link_to job_path(app.job_posting.job), class: "ripple" do %>
+                        <%= app.job_posting.title %>
+                      <% end %>
+                      <small> for</small> <%= link_to app.job_posting.job.organization.name, organization_path(app.job_posting.job.organization) %></h4>
                   <% end %>
                   <p>
                     Application last updated: <%= app.updated_at.strftime('%A, %B %d, %l:%M %p, %Y') %>
