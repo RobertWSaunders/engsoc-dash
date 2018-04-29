@@ -74,10 +74,15 @@ class InterviewsController < ApplicationController
   # GET /interviews/manage
   def manage
     @managed_orgs = managed_orgs(current_user)
-    @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
-    @interviewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "interviewing").order("deadline").paginate(:page => params[:page], :per_page => 10)
-    @applications = JobApplication.where(:job_posting_id => @interviewing_postings.ids, :status =>"interview_scheduled")
-    @interviews = Interview.where(:job_application_id => @applications.ids).order(end_time: :asc)
+    if (@managed_orgs.present?)
+      @managed_jobs = Job.where(:organization_id => @managed_orgs.ids)
+      @interviewing_postings = JobPosting.where(:job_id => @managed_jobs.ids, :status => "interviewing").order("deadline").paginate(:page => params[:page], :per_page => 10)
+      @applications = JobApplication.where(:job_posting_id => @interviewing_postings.ids, :status =>"interview_scheduled")
+      @interviews = Interview.where(:job_application_id => @applications.ids).order(end_time: :asc)
+    # else
+    #   flash[:warning] = "There are no interviews to view, because you are not managing any organizations."
+    #   redirect_back(fallback_location: root_path)
+    end
   end
 
   def admin

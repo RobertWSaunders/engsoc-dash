@@ -13,7 +13,11 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <%= render 'calendar', interviews: @interviews %>
+          <% if @interviewing_postings %>
+            <%= render 'calendar', interviews: @interviews %>
+          <% else %>
+            <p class="m-xl lead text-center">Cannot find any interviews.</p>
+          <% end %>
         </div>
       </div>
     </div>
@@ -26,23 +30,29 @@
           <h4>Manage Applications / Schedule Interviews</h4>
           <!-- list of job postings -->
           <div class="card">
-            <div class="">
-              <ul class="list-group">
-                <% if @interviewing_postings.any? %>
-                  <% @interviewing_postings.each do |posting| %>
-                    <%= render 'job_postings/job_posting_interview_select_list_item', posting: posting %>
-                  <% end %>
-                <% else %>
-                  <br /><br />
-                  <p class="lead text-center">No Job Postings that are Interviewing</p>
-                <% end %>
-              </ul>
-            </div>
+            <% if @interviewing_postings %>
 
-            <% if @interviewing_postings.count > 9 %>
-              <!-- show the paginator for the will_paginate gem -->
-              <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
-            <% end %>
+              <div class="">
+                <ul class="list-group">
+                  <% if @interviewing_postings && @interviewing_postings.any? %>
+                    <% @interviewing_postings.each do |posting| %>
+                      <%= render 'job_postings/job_posting_interview_select_list_item', posting: posting %>
+                    <% end %>
+                  <% else %>
+                    <br /><br />
+                    <p class="lead text-center">No Job Postings that are Interviewing</p>
+                  <% end %>
+                </ul>
+              </div>
+
+              <% if @interviewing_postings.count > 9 %>
+                <!-- show the paginator for the will_paginate gem -->
+                <center><%= will_paginate @open_job_postings, renderer: BootstrapPagination::Rails, page_links: false %><br /></center>
+              <% end %>
+
+            <% else %>
+              <p class="m-xl lead text-center">Cannot find any interviews.</p>
+            <% end #@interviewing_postings %>
           </div>
         </div>
       </div>
