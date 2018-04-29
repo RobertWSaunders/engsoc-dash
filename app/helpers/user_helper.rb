@@ -17,7 +17,7 @@ module UserHelper
     if user.jobs.any?
       orgs = []
       user.jobs.each do |jb|
-        if jb.role == "management"
+        if jb.role == "management" || jb.role == "admin"
           orgs.push(jb.organization)
         end
       end
