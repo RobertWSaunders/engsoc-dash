@@ -35,6 +35,12 @@
             <% end %>
           </div>
         </div>
+
+        <% if @interviews.any? %>
+          <div class="card">
+            <%= render 'calendar', interviews: @interviews %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
