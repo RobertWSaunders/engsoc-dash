@@ -16,7 +16,7 @@ class JobPosting < ApplicationRecord
   has_many :job_applications, dependent: :destroy
   #delete job posting questions if the related job posting is deleted
   has_many :job_posting_questions, dependent: :destroy
-  
+
   has_many :positions
 
   #different statuses for a job posting
@@ -26,7 +26,7 @@ class JobPosting < ApplicationRecord
   #make sure a job_id is present
   validates :job_id, presence: true
   #title must be minimum length of five characters
-  validates :title, presence: true, length: { minimum: 5, maximum: 100 }
+  validates :title, presence: true, length: { maximum: 100 }
   #description must be at least fifteen characters
   validates :description, presence: true, length: { minimum: 15, maximum: 4000 }
   validates :deadline, presence: true
