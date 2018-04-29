@@ -15,7 +15,13 @@
           <div class="card-heading">
             <div class="card-title">
               <h3>
-                <%= link_to @job_application.user.first_name + " " + @job_application.user.last_name, profile_path(@job_application.user.id) %>
+                <% if @job_application.user.first_name && @job_application.user.last_name %>
+                  <%= link_to @job_application.user.first_name + " " + @job_application.user.last_name, profile_path(@job_application.user.id) %>
+                <% elsif @job_application.user.last_name %>
+                  <%= link_to @job_application.user.last_name, profile_path(@job_application.user.id) %>
+                <% else %>
+                  <%= link_to "Applicant", profile_path(@job_application.user.id) %>
+                <% end %>
                 <br>
                 <small><%= @job_application.user.email %></small>
               </h3>
