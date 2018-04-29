@@ -50,7 +50,7 @@ class InterviewsController < ApplicationController
       @job_application = JobApplication.find(@interview.job_application_id)
       @job_application.status = "interview_scheduled"
       @job_application.save
-      UserMailer.interview_scheduled(@job_application)
+      UserMailer.interview_scheduled(@job_application).deliver_now
       redirect_to manage_interviews_path
     else
       render :new
@@ -61,8 +61,9 @@ class InterviewsController < ApplicationController
   def update
     if @interview.update_attributes(interview_params)
       @job_application = JobApplication.find(@interview.job_application_id)
-      UserMailer.interview_rescheduled(@job_application)
-      redirect_to manage_interviews_path, success: 'Interview was successfully updated.'
+      UserMailer.interview_rescheduled(@job_application).deliver_now
+      flash[:success] = "Interview rescheduled successfully."
+      redirect_to manage_interviews_path
     else
       render :edit
     end
