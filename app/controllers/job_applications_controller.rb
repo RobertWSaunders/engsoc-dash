@@ -121,7 +121,9 @@ class JobApplicationsController < ApplicationController
     @job_application.save
     position.save
 
-    UserMailer.hire_job_application(@job_application).deliver_now
+    # May 27th 2018, preferring manual email notifications for hired or declined
+    # uncomment the line below when wishing to automatically send notification emails
+    # UserMailer.hire_job_application(@job_application).deliver_now
     flash[:success] = "Hired " + user.first_name + " " + user.last_name + " for " + job.title
     redirect_to :back
   end
@@ -130,7 +132,8 @@ class JobApplicationsController < ApplicationController
   def decline
     @job_application.status = "declined"
     @job_application.save
-    UserMailer.decline_job_application(@job_application).deliver_now
+    # May 27th 2018, preferring manual email notifications for hired or declined
+    # UserMailer.decline_job_application(@job_application).deliver_now
     redirect_to :back
   end
 
