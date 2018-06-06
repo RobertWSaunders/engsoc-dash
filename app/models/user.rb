@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   enum gender: [:unspecified, :male, :female]
 
+  validates :phone_number, length: { maximum: 15 }, format: { with: /\A[0-9]([0-9]|[- ](?!-))+\z/ }
   validates :tagline, length: { maximum: 50 }
   validates :bio, length: { maximum: 2000 }
   validates :faculty, length: { maximum: 50 }

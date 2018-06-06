@@ -1,12 +1,12 @@
 <% if @user.errors.any? %>
   <div id="error_explanation">
-    <div class="alert alert-danger">
-      This creation attempt contains <%= pluralize(@user.errors.count, "error") %>.
+    <div class="alert alert-warning">
+      This profile edit attempt contains <%= pluralize(@user.errors.count, "error") %>.
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
     </div>
-    <ul>
-    <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
   </div>
 <% end %>

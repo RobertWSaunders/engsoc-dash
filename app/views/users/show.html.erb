@@ -50,6 +50,12 @@
               <td><em class="ion-email icon-fw mr"></em>Email</td>
               <td><span class="is-editable text-inherit"><a href="#"><%= @user.email %></a></span></td>
             </tr>
+            <% if @user.phone_number? %>
+              <tr>
+                <td><em class="ion-ios-telephone icon-fw mr"></em>Phone Number</td>
+                <td><%= @user.phone_number %></td>
+              </tr>
+            <% end %>
             <% if @user.specialization? %>
               <tr>
                 <td><em class="ion-document-text icon-fw mr"></em>Specialization</td>

@@ -1,8 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 # before_action :configure_sign_in_params, only: [:create]
 
-  # sso logout url: https://idptest.queensu.ca/idp/profile/Logout
-  logout_url = "http://login.queensu.ca/idp/profile/Logout"
+  logout_url = "https://login.queensu.ca/idp/profile/Logout"
 
   # GET /resource/sign_in
   def new
