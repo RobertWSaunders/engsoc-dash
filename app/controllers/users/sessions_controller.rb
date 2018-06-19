@@ -1,10 +1,10 @@
 class Users::SessionsController < Devise::SessionsController
 # before_action :configure_sign_in_params, only: [:create]
 
-  logout_url = "https://login.queensu.ca/idp/profile/Logout"
-
   # GET /resource/sign_in
   def new
+    logout_url = "https://login.queensu.ca/idp/profile/Logout"
+
     # SSO login
     if Rails.env.production?
       user_email = request.headers["HTTP_EMAIL"]
@@ -37,7 +37,7 @@ class Users::SessionsController < Devise::SessionsController
         new_user = User.new(:email => user_email,
                        :first_name => user_givenName,
                         :last_name => user_surname)
-        if new_user.save
+        if new_user.save!
           Rails.logger.debug "User saved"
           sign_in(:user, new_user)
           flash[:success] = "Welcome to Dash!"
