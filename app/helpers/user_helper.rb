@@ -1,23 +1,23 @@
-module UserHelper
+# frozen_string_literal: true
 
+module UserHelper
   def superadmin?(user)
-    if user.role == "superadmin"
+    if user.role == 'superadmin'
       return true
     elsif user.jobs.any?
       user.jobs.each do |jb|
-        if jb.role == "admin"
-          return true
-        end
+        return true if jb.role == 'admin'
       end
     end
-    return false
+
+    false
   end
 
   def managed_orgs(user)
     if user.jobs.any?
       orgs = []
       user.jobs.each do |jb|
-        if jb.role == "management" || jb.role == "admin"
+        if jb.role == 'management' || jb.role == 'admin'
           orgs.push(jb.organization)
         end
       end
@@ -25,7 +25,6 @@ module UserHelper
     else
       return []
     end
-    return Organization.where(id: orgs.map(&:id))
+    Organization.where(id: orgs.map(&:id))
   end
-
 end
