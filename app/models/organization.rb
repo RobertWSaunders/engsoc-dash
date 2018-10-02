@@ -18,7 +18,26 @@ class Organization < ApplicationRecord
   default_scope -> { order(name: :asc) }
 
   # type of organizations with the engineering society
-  enum department: %i[conferences design_teams services clubs events communications internal_affairs academics community_outreach science_formal first_year orientation_week human_resources professional_development finance information_technology engineering_review_board directors]
+  enum department: %i[
+    conferences
+    design_teams
+    services
+    clubs
+    events
+    communications
+    internal_affairs
+    academics
+    community_outreach
+    science_formal
+    first_year
+    orientation_week
+    human_resources
+    professional_development
+    finance
+    information_technology
+    engineering_review_board
+    directors
+  ]
 
   # db declaration defaults to 0
   enum status: %i[waiting_approval active archived]

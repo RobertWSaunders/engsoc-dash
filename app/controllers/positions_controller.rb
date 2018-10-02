@@ -14,13 +14,12 @@ class PositionsController < ApplicationController
     position = Position.find(position_params[:id])
     if position.update_attributes(position_params)
       flash[:success] = 'Position ' + position.job.title + ' held by ' + position.user.first_name + ' ' + position.user.last_name + ' has been updated.'
-      redirect_to admin_positions_path
     else
       flash.keep[:danger] = 'Could not update position ' + position.job.title + ' held by ' + position.user.first_name + ' ' + position.user.last_name + '.'
       flash[:danger] << '<li>' + position.errors.full_messages.join('</li><li>')
       flash[:danger] << '</ul>'
-      redirect_to admin_positions_path
     end
+    redirect_to admin_positions_path
   end
 
   # DESTROY /positions/:id

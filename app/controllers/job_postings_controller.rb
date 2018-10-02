@@ -16,7 +16,13 @@ class JobPostingsController < ApplicationController
   # GET /job_postings
   def index
     @active_org_jobs = Job.joins(:organization).where(organizations: { status: 'active' })
-    @open_job_postings = JobPosting.joins(:job).where(status: 'open', jobs: { id: @active_org_jobs.ids }).filter(params.slice(:job_type, :job_department)).order(:deadline).paginate(page: params[:page], per_page: 10)
+    @open_job_postings =
+      JobPosting
+      .joins(:job)
+      .where(status: 'open', jobs: { id: @active_org_jobs.ids })
+      .filter(params.slice(:job_type, :job_department))
+      .order(:deadline)
+      .paginate(page: params[:page], per_page: 10)
   end
 
   # GET /job_postings/new?job_id=:id
@@ -30,7 +36,6 @@ class JobPostingsController < ApplicationController
     end
   end
 
-  # Redirected from /job_postings/new if job_id unspecified
   # GET /job_postings/select
   def select
     # only show the job postings the user can manage
@@ -137,21 +142,17 @@ class JobPostingsController < ApplicationController
     if @jobposting.deadline.past?
       @jobposting.status = 'interviewing'
       @jobposting.save
-      redirect_back(fallback_location: job_postings_path)
     else
       flash[:danger] = 'Cannot begin interviewing process, job posting deadline has not passed.'
-      redirect_back(fallback_location: job_postings_path)
     end
+    redirect_back(fallback_location: job_postings_path)
   end
 
   # GET /job_postings/:id/close
   def close
     flash[:success] = 'Job Posting Successfully Closed'
     @jobposting.status = 'closed'
-    # hired = @jobposting.job_applications.where({ status: "hired"})
-    # job_application get #hire sets all hired job_application user_ids to job already
 
-    # everyone else, decline
     not_hired = @jobposting.job_applications.where.not(status: 'hired')
     not_hired.each do |nh|
       if nh.status == 'submitted'
@@ -159,8 +160,6 @@ class JobPostingsController < ApplicationController
       end
     end
     not_hired.update_all status: 'declined'
-    # maybe set the previous job applications to be archived when the job_posting is reopened
-    # @jobposting.job_applications.update_all archived: true
     @jobposting.save
     redirect_to job_posting_job_applications_path(job_posting_id: @job_posting.id)
   end

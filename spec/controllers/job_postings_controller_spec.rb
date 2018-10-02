@@ -53,7 +53,7 @@ describe JobPostingsController do
       end
 
       it 'shows open postings for inactive organizations' do
-        open_jp_inactive_org = create(:job_posting, :open, job: @job_inactive_org)
+        create(:job_posting, :open, job: @job_inactive_org)
         get :admin
         expect(response.body).to have_content(@inactive_org.name)
       end
@@ -63,7 +63,7 @@ describe JobPostingsController do
       before(:all) do
         @posting = create(:job_posting, :open, job: @job_active_org)
       end
-      
+
       describe 'GET #withdraw' do
         it 'withdraws permission for the posting' do
           get :withdraw, params: { id: @posting }
@@ -111,7 +111,7 @@ describe JobPostingsController do
       end
 
       it "shouldn't show open postings for inactive organizations" do
-        open_jp_inactive_org = create(:job_posting, :open, job: @job_inactive_org)
+        create(:job_posting, :open, job: @job_inactive_org)
         get :index
         # expect(response.body).not_to have_content(open_jp_inactive_org.title)
         expect(response.body).not_to have_content(@inactive_org.name)
@@ -164,7 +164,7 @@ describe JobPostingsController do
       before(:all) do
         @posting = create(:job_posting, :open, job: @job_active_org)
       end
-      
+
       describe 'GET #withdraw' do
         it 'does not withdraw permission for the job posting' do
           get :withdraw, params: { id: @posting }

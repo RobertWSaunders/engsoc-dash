@@ -44,7 +44,7 @@ describe JobsController do
     describe 'GET #show for a waiting_approval organization job' do
       it 'should render the show view' do
         organization = create(:organization, :waiting_approval)
-        job = create(:job, organization: organization)
+        create(:job, organization: organization)
         get :show, params: { id: organization.jobs.first }
         expect(response).to render_template :show
       end
@@ -57,7 +57,7 @@ describe JobsController do
     describe 'GET #show for an active organization job' do
       it 'renders the show view' do
         organization = create(:organization, :active)
-        job = create(:job, organization: organization)
+        create(:job, organization: organization)
         get :show, params: { id: job.id }
         expect(response).to render_template :show
       end
@@ -66,7 +66,7 @@ describe JobsController do
     describe 'GET #show for a waiting_approval organization job' do
       it "shouldn't render the show view" do
         organization = create(:organization, :waiting_approval)
-        job = create(:job, organization: organization)
+        create(:job, organization: organization)
         get :show, params: { id: organization.jobs.first }
         expect(response).not_to render_template :show
       end

@@ -35,11 +35,10 @@ class JobPostingQuestionsController < ApplicationController
       question = JobPostingQuestion.find(job_posting_question_params[:id])
       if question.update_attributes(job_posting_question_params)
         flash[:success] = 'Job Posting Question Successfully Updated'
-        redirect_to job_posting_job_posting_questions_path(job_posting_id: @questions.first.job_posting.id)
       else
         flash[:danger] = 'Job Posting Question not updated (question too short, must be at least 5 characters)'
-        redirect_to job_posting_job_posting_questions_path(job_posting_id: @questions.first.job_posting.id)
       end
+      redirect_to job_posting_job_posting_questions_path(job_posting_id: @questions.first.job_posting.id)
     end
   end
 

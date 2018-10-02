@@ -17,11 +17,8 @@ module UserHelper
     if user.jobs.any?
       orgs = []
       user.jobs.each do |jb|
-        if jb.role == 'management' || jb.role == 'admin'
-          orgs.push(jb.organization)
-        end
+        orgs.push(jb.organization) if jb.role == 'management' || jb.role == 'admin'
       end
-      # orgs = Organization.joins(:jobs, :).where(:jobs => { :role => "management" })
     else
       return []
     end

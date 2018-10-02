@@ -16,6 +16,7 @@ RSpec.describe ResumesController, type: :controller do
 
   feature 'uploading valid resumes' do
     render_views
+
     scenario 'after logging in, uploads a valid resume' do
       user = create(:regular)
       visit '/users/sign_in'
@@ -29,9 +30,10 @@ RSpec.describe ResumesController, type: :controller do
       expect(page).to have_content('valid_resume')
     end
   end
-  
+
   feature 'uploading valid resumes' do
     render_views
+
     scenario 'after logging in, uploads a valid resume' do
       user = create(:regular)
       visit '/users/sign_in'
@@ -48,6 +50,7 @@ RSpec.describe ResumesController, type: :controller do
 
   feature 'uploading invalid resumes' do
     render_views
+
     scenario 'after logging in, uploads a valid resume' do
       user = create(:regular)
       visit '/users/sign_in'
